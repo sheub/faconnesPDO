@@ -69,7 +69,7 @@ class MapComponent extends Component {
     if (!this.props.needMapUpdate) return;
 
     // This is where we update the layers and map bbox
-    if (this.props.userLocation && this.props.userLocation.geometry) {
+    if (this.props.userLocation && this.props.userLocation.geometry && typeof(this.map.getSource('geolocation')) !== 'undefined' ) {
       this.map.getSource('geolocation').setData(this.props.userLocation.geometry);
     }
 
@@ -156,7 +156,13 @@ class MapComponent extends Component {
       this.props.setStateValue('needMapRepan', false);
     }
 
+    if (this.props.needMapToggleLayer) {
+      this.toggleLayerVisibility(this.props.toggleLayerVisibility);
+    }
+
     this.props.setStateValue('needMapRestyle', false);
+    this.props.setStateValue('needMapToggleLayer', false);
+
   }
 
   moveTo(location, zoom) {
@@ -338,7 +344,8 @@ class MapComponent extends Component {
     if (this.props.userLocation) {
       this.map.getSource('geolocation').setData(this.props.userLocation.geometry);
       if (this.props.moveOnLoad) this.moveTo(this.props.userLocation, 13);
-    } else if (navigator.geolocation) {
+    } 
+    else if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(setGeolocation);
     }
 
@@ -403,23 +410,43 @@ class MapComponent extends Component {
       });
     }
 
-    if (styleString.indexOf('satellite') > -1) {
-      this.map.setLayoutProperty('satellite', 'visibility', 'visible');
-      // TODO add labels and stuff?
-      // timeout to have a smooth transition, no flash
-      setTimeout(() => {
-        this.map.getStyle().layers.forEach(layer => {
-          if (layer.source === 'composite') this.map.setLayoutProperty(layer.id, 'visibility', 'none');
-        });
-      }, 300);
-    } else {
-      // this.map.getStyle().layers.forEach(layer => {
-      //   if (layer.source === 'composite') this.map.setLayoutProperty(layer.id, 'visibility', 'visible');
-      // });
-      this.map.setLayoutProperty('satellite', 'visibility', 'none');
-    }
+    // if (styleString.indexOf('satellite') > -1) 
+    // {
+    //   this.map.setLayoutProperty('satellite', 'visibility', 'visible');
+    //   // TODO add labels and stuff?
+    //   // timeout to have a smooth transition, no flash
+    //   setTimeout(() => {
+    //     this.map.getStyle().layers.forEach(layer => {
+    //       if (layer.source === 'composite')
+    //         this.map.setLayoutProperty(layer.id, 'visibility', 'none');
+    //     });
+    //   }, 300);
+    // }
+    // else 
+    // {
+    //   // this.map.getStyle().layers.forEach(layer => {
+    //   //   if (layer.source === 'composite') 
+    //   //     this.map.setLayoutProperty(layer.id, 'visibility', 'visible');
+    //   // });
+    //   this.map.setLayoutProperty('satellite', 'visibility', 'none');
+    // }
 
     return styleString;
+  }
+
+  toggleLayerVisibility(toggleLayerVisibility) {
+    
+    // this.map.getStyle().layers.forEach(layer => {
+    //   if (layer.source === 'composite' && toggleLayerVisibility[layer.id])
+    //     this.map.setLayoutProperty(layer.id, 'visibility', 'visible');
+    // });
+
+    var visibility = this.map.getLayoutProperty(toggleLayerVisibility, 'visibility');
+    if (visibility === 'visible') {
+      this.map.setLayoutProperty(toggleLayerVisibility, 'visibility', 'none');
+    } else {
+      this.map.setLayoutProperty(toggleLayerVisibility, 'visibility', 'visible');
+    }
   }
 
   layerToKey(layer) {
@@ -466,11 +493,13 @@ MapComponent.propTypes = {
   getRoute: PropTypes.func,
   map: PropTypes.object,
   mapStyle: PropTypes.string,
+  toggleLayerVisibility: PropTypes.string,
   modality: PropTypes.string,
   mode: PropTypes.string,
   moveOnLoad: PropTypes.bool,
   needMapRepan: PropTypes.bool,
   needMapRestyle: PropTypes.bool,
+  needMapToggleLayer: PropTypes.bool,
   needMapUpdate: PropTypes.bool,
   pushHistory: PropTypes.func,
   resetContextMenu: PropTypes.func,
@@ -494,10 +523,12 @@ const mapStateToProps = (state) => {
     directionsFrom: state.app.directionsFrom,
     directionsTo: state.app.directionsTo,
     mapStyle: state.app.mapStyle,
+    toggleLayerVisibility: state.app.toggleLayerVisibility,
     modality: state.app.modality,
     mode: state.app.mode,
     needMapRepan: state.app.needMapRepan,
     needMapRestyle: state.app.needMapRestyle,
+    needMapToggleLayer: state.app.needMapToggleLayer,
     needMapUpdate: state.app.needMapUpdate,
     route: state.app.route,
     routeStatus: state.app.routeStatus,

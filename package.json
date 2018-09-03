@@ -2,7 +2,7 @@
   "name": "marvelous",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://sheub.github.io/mapbox-maps",
+  "homepage": "https://sheub.github.io/marvelous-map",
   "devDependencies": {
     "@mapbox/spritezero-cli": "^2.0.0",
     "enzyme": "^2.8.2",
@@ -13,7 +13,7 @@
     "eslint-plugin-react": "^6.10.0",
     "gh-pages": "^0.12.0",
     "react-scripts": "1.1.4",
-    "react-test-renderer": "^15.6.2"
+    "react-test-renderer": "16.4.2"
   },
   "dependencies": {
     "@mapbox/polyline": "^0.2.0",
@@ -46,6 +46,7 @@
     "dev": "react-scripts start",
     "start": "serve ./build",
     "build": "npm run build-sprites && react-scripts build",
+    "clean": "rm -rf node_modules/gh-pages/.cache",
     "test": "react-scripts test --env=jsdom",
     "lint": "eslint src/**/*.js",
     "fix": "eslint --fix src/**/*.js",
@@ -54,11 +55,11 @@
     "deploy": "gh-pages -d build",
     "build-sprites": "spritezero public/sprite src/styles/icons && spritezero public/sprite@2x src/styles/icons --retina"
   },
-  "description": "A Google-like interface to Mapbox maps.",
+  "description": "L'information touristique et locale en France metropolitaine.",
   "main": "src/index.js",
   "repository": {
     "type": "git",
-    "url": "http://sheub.github.io/mapbox-maps"
+    "url": "https://sheub.github.io/marvelous-map"
   },
   "author": "sheub",
   "license": "MIT"

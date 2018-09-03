@@ -46,6 +46,7 @@ store.subscribe(() => {
   });
   localStorage.setItem('persistedState', JSON.stringify(persistedState));
 });
+
 const theme = createMuiTheme({
   palette:
   {
@@ -58,8 +59,8 @@ const theme = createMuiTheme({
   },
 
 });
+
 ReactDOM.render(
-  
   <Provider store={store}>
     <ConnectedRouter history={history}>
     <MuiThemeProvider theme={theme}>

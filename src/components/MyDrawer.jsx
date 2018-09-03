@@ -211,6 +211,13 @@ class MyDrawer extends Component {
 
     _updateMapStyle({ visibility }) {
 
+      // this.props.setStateValues({
+      //   toggleLayerVisibility: visibility,
+      //   // needMapRestyle: true,
+      //   needMapToggleLayer: true
+      // });
+      // this.props.triggerMapUpdate();
+
       //   const layers = this._defaultLayers.filter(
       //       layer => {
       //           const id = layer.get("id");
@@ -250,16 +257,22 @@ class MyDrawer extends Component {
 
     _onVisibilityChange(name, event) {
 
-        const visibility = { ...this.state.visibility, [name]: event.target.checked };
-        this.setState({ visibility });
+      const visibility = { ...this.state.visibility, [name]: event.target.checked };
+      this.setState({ visibility });
 
-       
-        this._updateMapStyle({...this.state, visibility});
-        
+      this.props.setStateValues({
+        toggleLayerVisibility: layerSelector[name].source,
+        // needMapRestyle: true,
+        needMapToggleLayer: true
+      });
+      this.props.triggerMapUpdate();
+
+      this._updateMapStyle({ ...this.state, visibility });
+
     }
 
     componentDidMount() {
-        this._updateMapStyle(this.state);
+       // this._updateMapStyle(this.state);
     }
 
     handleDrawerOpen = () => {
@@ -525,7 +538,38 @@ class MyDrawer extends Component {
           </React.Fragment>;
     }
 }
+
+
 MyDrawer.propTypes = {
-    classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  setStateValues: PropTypes.func,
+  toggleLayerVisibility: PropTypes.string,
+  triggerMapUpdate: PropTypes.func,
 };
-export default withStyles(styles)(MyDrawer);
+
+const mapStateToProps = (state) => {
+  return {
+    toggleLayerVisibility: state.app.toggleLayerVisibility,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setStateValues: (obj) => dispatch(setStateValues(obj)),
+    triggerMapUpdate: (v) => dispatch(triggerMapUpdate(v))
+  };
+};
+export {MyDrawer};
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(MyDrawer);
+
+// export default withStyles(styles)(MyDrawer);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(MyDrawer));
+
+// export {TrafficSwitch};
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(TrafficSwitch);

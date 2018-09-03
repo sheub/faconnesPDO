@@ -10,6 +10,8 @@ const defaultAppState = {
   needMapUpdate: false,
   needMapRepan: false,
   needMapRestyle: false,
+  needMapToggleLayer: false,
+
   // Mode
   mode: 'search',
   modality: 'car',
@@ -31,7 +33,8 @@ const defaultAppState = {
   contextMenuActive: false,
   contextMenuCoordinates: null,
   contextMenuPosition: null,
-  contextMenuPlace: null
+  contextMenuPlace: null,
+  toggleLayerVisibility: ''
 };
 
 const appReducer = (state = defaultAppState, action) => {
