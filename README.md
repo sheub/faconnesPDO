@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/benjamintd/mapbox-maps.svg?branch=master)](https://travis-ci.org/benjamintd/mapbox-maps)
-
 # Mapbox Maps
 
 [A user-friendly interface for Mapbox maps](https://maps.benjamintd.com)
