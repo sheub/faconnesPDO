@@ -38,8 +38,6 @@ import JardinsIcon from "./mbstyle/icons/Jardins_Remarquables_15.svg";
 import "./css/App.css";
 import "./css/mdIcons.css";
 
-// var defaultMapStyle = fromJS(MAP_STYLE);
-
 function HomeIcon(props) {
     return (
         <SvgIcon {...props}>
@@ -130,28 +128,9 @@ const styles = (theme) => ({
   }
 });
 
-const categories = ["Museum", 
-                    "Villages", 
-                    "Unesco",
-                    "AOP",
-                    "Jardins",
-                    "GSF",
-                    "MN",
-                    "ParcsJardins",
-                    "Restaurants",
-                    "LocalProdShop",
-                    "CraftmanShop",
-                    "Exposition",
-                    "Musique",
-                    "Children",
-                    "Marches",
-                    "VidesGreniers"];
-
-
-
 // Layer id patterns by category
 const layerSelector = {
-            Museum: /listeetlocalisationdesmuseesdefrance/,
+            Museum: /liste-et-localisation-des-mus-5iczl9/,
             Villages: /villages-frenchcorrected-3gqhy6/,
             Unesco: /whs-frenchcorrected-dq63pv/, // This is the Layer id
             AOP: /n-inao-aop-fr-16md1w/,
@@ -164,7 +143,7 @@ const layerSelector = {
             CraftmanShop: /craftmanshop/,
             Exposition: /exposition/,
             Musique: /musique/,
-            Children: /children/,
+            Children: /enfant/,
             Marches: /marches/,
             VidesGreniers: /videsgreniers/
 };
@@ -350,7 +329,7 @@ class MyDrawer extends Component {
         return <React.Fragment>
             <div className={classes.root}>
               <MyAppBar open={this.state.open} handleDrawerOpen={this.handleDrawerOpen}/>
-              <Drawer ref={elem => (this.Drawer = elem)} variant="permanent" classes={{ paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose) }} open={this.state.open}>
+              <Drawer ref={elem => (this.Drawer = elem)} variant="temporary" classes={{ paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose) }} open={this.state.open}>
                 <div className={classes.toolbarIcon}>
                   <IconButton onClick={this.handleDrawerClose} aria-label="Close drawer">
                     <ChevronLeftIcon />
@@ -358,7 +337,7 @@ class MyDrawer extends Component {
                 </div>
                 <Divider />
 
-                <ListItem button onClick={this.handleClick} aria-label="Open Culture et Patrimoine" id="ButtonCultureHeritage">
+               <ListItem button onClick={this.handleClick} aria-label="Open Culture et Patrimoine" id="ButtonCultureHeritage">
                   <ListSubheader>Culture et Patrimoine</ListSubheader>
                   {this.state.list1Open ? <ExpandLess /> : <ExpandMore />}
                 </ListItem>
@@ -560,16 +539,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 export {MyDrawer};
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(MyDrawer);
 
-// export default withStyles(styles)(MyDrawer);
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(MyDrawer));
 
-// export {TrafficSwitch};
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(TrafficSwitch);

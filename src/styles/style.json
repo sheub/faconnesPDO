@@ -20,7 +20,7 @@
     "pitch": 0,
     "sources": {
         "composite": {
-			"url": "mapbox://mapbox.mapbox-streets-v7,sheub.623zkazi,sheub.5wb1wtbj,sheub.0q76nwnl,sheub.4w8m41y7,sheub.4wjhcapt,sheub.byxxjcbp,sheub.9e12f1eo,sheub.72t5vtea,sheub.localProductShop,sheub.craftmanShop,sheub.ParcsJardins,sheub.restaurants",
+			"url": "mapbox://mapbox.mapbox-streets-v7,sheub.623zkazi,sheub.5wb1wtbj,sheub.0q76nwnl,sheub.4w8m41y7,sheub.4wjhcapt,sheub.byxxjcbp,sheub.9e12f1eo,sheub.72t5vtea,sheub.localProductShop,sheub.craftmanShop,sheub.ParcsJardins",
             "type": "vector"
             },
         "traffic": {
@@ -47,6 +47,30 @@
         "fromMarker": {
             "type": "geojson",
             "data": {"type": "FeatureCollection", "features": []}
+        },        
+        "restaurants": {
+            "type": "vector",
+            "url": "mapbox://sheub.restaurants"
+        },
+        "videsgreniers": {
+            "type": "geojson",
+            "data": {"type": "FeatureCollection", "features": []}
+        },
+        "marches": {
+            "type": "geojson",
+            "data": {"type": "FeatureCollection", "features": []}
+        },
+        "exposition": {
+            "type": "geojson",
+            "data": {"type": "FeatureCollection", "features": []}
+        },
+        "musique": {
+            "type": "vector",
+            "url": "mapbox://sheub.musique"
+        },
+        "enfant": {
+            "type": "vector",
+            "url": "mapbox://sheub.enfant"
         }
     },
     "sprite": "mapbox://sprites/sheub/cjk8ejp92h7e62smuojkqrgnx",
@@ -2704,10 +2728,10 @@
             }
         },
         {
-            "id": "listeetlocalisationdesmuseesdefrance",
+            "id": "liste-et-localisation-des-mus-5iczl9",
             "type": "symbol",
             "source": "composite",
-            "source-layer": "listeetlocalisationdesmuseesdefrance",
+            "source-layer": "liste-et-localisation-des-mus-5iczl9",
             "filter": [
                 "==",
                 "$type",
@@ -2936,14 +2960,73 @@
         {
             "id": "restaurants",
             "type": "circle",
-            "source": "composite",
+            "source": "restaurants",
             "source-layer": "restaurants",
             "layout": {
                 "visibility": "none"
             },
             "paint": {
-                "circle-color": "#a22020",
-                "circle-radius": 3
+                "circle-radius": 4,
+                "circle-color": "hsl(0, 88%, 47%)"
+            }
+        },{
+            "id": "exposition",
+            "type": "circle",
+            "source": "exposition",
+            "layout": {
+                "visibility": "none"
+            },
+            "paint": {
+                "circle-radius": 4,
+                "circle-color": "hsl(0, 88%, 47%)"
+            }
+        },
+        {
+            "id": "musique",
+            "type": "circle",
+            "source": "musique",
+            "source-layer": "musique",
+            "layout": {
+                "visibility": "none"
+            },
+            "paint": {
+                "circle-radius": 4,
+                "circle-color": "#a52c56"
+            }
+        },{
+            "id": "enfant",
+            "type": "circle",
+            "source": "enfant",
+            "source-layer": "enfant",
+            "layout": {
+                "visibility": "none"
+            },
+            "paint": {
+                "circle-radius": 4,
+                "circle-color": "#15178a"
+            }
+        },
+        {
+            "id": "marches",
+            "type": "circle",
+            "source": "marches",
+            "layout": {
+                "visibility": "none"
+            },
+            "paint": {
+                "circle-radius": 4,
+                "circle-color": "#007cbf"
+            }
+        },{
+            "id": "videsgreniers",
+            "type": "circle",
+            "source": "videsgreniers",
+            "layout": {
+                "visibility": "none"
+            },
+            "paint": {
+                "circle-radius": 4,
+                "circle-color": "#15178a"
             }
         },
         {

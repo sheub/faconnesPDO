@@ -260,7 +260,9 @@ class MapComponent extends Component {
   }
 
   onClick(e) {
-    var features = this.map.queryRenderedFeatures(e.point, {layers: this.selectableLayers});
+
+    var bbox = [[e.point.x - 5, e.point.y - 5], [e.point.x + 5, e.point.y + 5]];
+    var features = this.map.queryRenderedFeatures(bbox, {layers: this.selectableLayers});
 
     if (!features.length) {
       // No feature is selected, reset the search location on click on the map
@@ -474,7 +476,22 @@ class MapComponent extends Component {
       'poi-parks-scalerank3',
       'poi-scalerank4',
       'poi-parks-scalerank4',
-      'edifice-geres-par-les-monumen-3inr6v',
+      "liste-et-localisation-des-mus-5iczl9",
+      "villages-frenchcorrected-3gqhy6",
+      "whs-frenchcorrected-dq63pv",
+      "n-inao-aop-fr-16md1w",
+      "jardinfr-8nabpa",
+      "gsf-frenchcorrected",
+      "edifice-geres-par-les-monumen-3inr6v",
+      "parcsjardins",
+      "restaurants",
+      "localproductshop",
+      "craftmanshop",
+      "exposition",
+      "musique",
+      "enfant",
+      "marches",
+      "videsgreniers"
     ];
   }
 
