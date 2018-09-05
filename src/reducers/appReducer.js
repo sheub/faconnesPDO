@@ -34,7 +34,8 @@ const defaultAppState = {
   contextMenuCoordinates: null,
   contextMenuPosition: null,
   contextMenuPlace: null,
-  toggleLayerVisibility: ''
+  toggleLayerVisibility: '',
+  dateFrom:0
 };
 
 const appReducer = (state = defaultAppState, action) => {

@@ -22,13 +22,15 @@ class App extends Component {
     return (
       <div className='root'>
         <MyDrawer />
+        <div className='mapCont'>
         <Map moveOnLoad={moveOnLoad} />
-        <div className='relative m12 m24-mm w420-mm flex-parent flex-parent--column'>
-          {
-            (this.props.mode === 'directions')
-              ? <Directions />
-              : <Search />
-          }
+          <div className='relative m12 m24-mm w420-mm flex-parent flex-parent--column'>
+            {
+              (this.props.mode === 'directions')
+                ? <Directions />
+                : <Search />
+            }
+          </div>
         </div>
       </div>
     );

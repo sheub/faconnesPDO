@@ -7,12 +7,32 @@ body {
 .root {
   touch-action: none;
 }
-
 #map {
   position: absolute;
-  top: 0;
+  top:0;
   bottom: 0;
   width: 100%;
+  left: 0;
+}
+
+.mapCont {
+  position: absolute;
+  top: 64px;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+}
+
+@media screen and (max-width: 600px) {
+  .mapCont {
+    top: 56px;
+  }
+}
+
+@media only screen and (orientation: landscape) {
+  .mapCont {
+    top: 48px;
+  }
 }
 
 .directions-input::-webkit-input-placeholder { /* Chrome/Opera/Safari */

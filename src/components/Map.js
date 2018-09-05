@@ -42,6 +42,7 @@ class MapComponent extends Component {
   render() {
     return (
       <div id='map' className='viewport-full'>
+      {/* <div id='map'> */}
       </div>
     );
   }
@@ -160,8 +161,13 @@ class MapComponent extends Component {
       this.toggleLayerVisibility(this.props.toggleLayerVisibility);
     }
 
+    if (this.props.needMapFilterByDate) {
+      this.filterByDate(this.props.dateFrom);
+    }
+
     this.props.setStateValue('needMapRestyle', false);
     this.props.setStateValue('needMapToggleLayer', false);
+    this.props.setStateValue('needMapFilterByDate', false);
 
   }
 
@@ -264,15 +270,16 @@ class MapComponent extends Component {
     var bbox = [[e.point.x - 5, e.point.y - 5], [e.point.x + 5, e.point.y + 5]];
     var features = this.map.queryRenderedFeatures(bbox, {layers: this.selectableLayers});
 
-    if (!features.length) {
-      // No feature is selected, reset the search location on click on the map
-      if (this.props.mode === 'search' && !this.props.contextMenuActive) {
-        this.props.resetStateKeys(['placeInfo', 'searchString', 'searchLocation']);
-        this.props.triggerMapUpdate();
-      }
-      return;
-    }
+    // if (!features.length) {
+    //   // No feature is selected, reset the search location on click on the map
+    //   if (this.props.mode === 'search' && !this.props.contextMenuActive) {
+    //     this.props.resetStateKeys(['placeInfo', 'searchString', 'searchLocation']);
+    //     this.props.triggerMapUpdate();
+    //   }
+    //   return;
+    // }
 
+    if (features.length) {
     // We have a selected feature
     var feature = features[0];
 
@@ -287,7 +294,7 @@ class MapComponent extends Component {
       key = 'directionsTo';
     }
 
-    if (key) {
+    
       let place_name = null; 
       if(feature.properties.name)
       {
@@ -296,6 +303,7 @@ class MapComponent extends Component {
       else
         place_name = feature.properties.label;
 
+    if (key && place_name) {
       this.props.setStateValue(key, {
         'type': 'Feature',
         'place_name': place_name,
@@ -305,6 +313,23 @@ class MapComponent extends Component {
       this.props.triggerMapUpdate();
     }
   }
+  else{
+    var clustersFeatures = this.map.queryRenderedFeatures(e.point, { layers: ['clusters'] });
+    if(clustersFeatures && clustersFeatures.length > 0){
+      var clusterId = clustersFeatures[0].properties.cluster_id;
+      this.map.getSource('musique').getClusterExpansionZoom(clusterId, function (err, zoom) {
+        if (err)
+          return;
+
+        this.map.easeTo({
+          center: clustersFeatures[0].geometry.coordinates,
+          zoom: zoom
+        });
+      });
+    }
+  }
+}
+
 
   onContextMenu(e) {
     let coordinates = [e.lngLat.lng, e.lngLat.lat];
@@ -363,7 +388,6 @@ class MapComponent extends Component {
     }, 10000);
 
     // Set event listeners
-
     this.map.on('click', (e) => this.onClick(e));
 
     this.map.on('contextmenu', (e) => this.onContextMenu(e));
@@ -437,18 +461,58 @@ class MapComponent extends Component {
   }
 
   toggleLayerVisibility(toggleLayerVisibility) {
-    
-    // this.map.getStyle().layers.forEach(layer => {
-    //   if (layer.source === 'composite' && toggleLayerVisibility[layer.id])
-    //     this.map.setLayoutProperty(layer.id, 'visibility', 'visible');
-    // });
+    if( ["marches", "exposition", "musique", "children", "videsgreniers"].includes(toggleLayerVisibility)){
+      this.loadJsonData(toggleLayerVisibility);
+    }
 
     var visibility = this.map.getLayoutProperty(toggleLayerVisibility, 'visibility');
-    if (visibility === 'visible') {
-      this.map.setLayoutProperty(toggleLayerVisibility, 'visibility', 'none');
-    } else {
-      this.map.setLayoutProperty(toggleLayerVisibility, 'visibility', 'visible');
+    if (["musique"].includes(toggleLayerVisibility)) {
+        
+        if (visibility === 'visible') {
+          this.map.setLayoutProperty(toggleLayerVisibility, 'visibility', 'none');
+          this.map.setLayoutProperty("clusters", 'visibility', 'none');
+          this.map.setLayoutProperty("cluster-count", 'visibility', 'none');
+        } else {
+          this.map.setLayoutProperty(toggleLayerVisibility, 'visibility', 'visible');
+          this.map.setLayoutProperty("clusters", 'visibility', 'visible');
+          this.map.setLayoutProperty("cluster-count", 'visibility', 'visible');
+        }
+      } else {
+      if (visibility === 'visible') {
+        this.map.setLayoutProperty(toggleLayerVisibility, 'visibility', 'none');
+      } else {
+        this.map.setLayoutProperty(toggleLayerVisibility, 'visibility', 'visible');
+      }
     }
+  }
+
+  loadJsonData(dataStr) {
+
+    // data are loaded via require, may be better to use the data url
+    const AllData = {
+      marches: require("./data/marches.json"),
+      exposition: require("./data/exposition.json"),
+      musique: require("./data/musique.json"),
+      children: require("./data/children.json"),
+      videsgreniers: require("./data/videsGreniers.json")
+    };
+
+    const marchesData = AllData[dataStr];
+
+    this.map.getSource(dataStr).setData(marchesData);
+
+  }
+
+  filterByDate(dateFrom){    
+    this.map.setFilter('musique', ['<=', dateFrom, ['number', ['get', 'valid_from']]]);
+    this.map.setFilter('clusters', ['<=', dateFrom, ['number', ['get', 'valid_from']]]);
+    this.map.setFilter('cluster-count', ['<=', dateFrom, ['number', ['get', 'valid_from']]]);
+
+    this.map.setFilter('exposition', ['<=', dateFrom, ['number', ['get', 'valid_from']]]);
+    this.map.setFilter('children', ['<=', dateFrom, ['number', ['get', 'valid_from']]]);
+    this.map.setFilter('videsgreniers', ['<=', dateFrom, ['number', ['get', 'valid_from']]]);
+    this.map.setFilter('marches', ['<=', dateFrom, ['number', ['get', 'valid_from']]]);
+    
   }
 
   layerToKey(layer) {
@@ -489,7 +553,7 @@ class MapComponent extends Component {
       "craftmanshop",
       "exposition",
       "musique",
-      "enfant",
+      "children",
       "marches",
       "videsgreniers"
     ];
@@ -511,12 +575,14 @@ MapComponent.propTypes = {
   map: PropTypes.object,
   mapStyle: PropTypes.string,
   toggleLayerVisibility: PropTypes.string,
+  dateFrom: PropTypes.number,
   modality: PropTypes.string,
   mode: PropTypes.string,
   moveOnLoad: PropTypes.bool,
   needMapRepan: PropTypes.bool,
   needMapRestyle: PropTypes.bool,
   needMapToggleLayer: PropTypes.bool,
+  needMapFilterByDate: PropTypes.bool,
   needMapUpdate: PropTypes.bool,
   pushHistory: PropTypes.func,
   resetContextMenu: PropTypes.func,
@@ -541,11 +607,13 @@ const mapStateToProps = (state) => {
     directionsTo: state.app.directionsTo,
     mapStyle: state.app.mapStyle,
     toggleLayerVisibility: state.app.toggleLayerVisibility,
+    dateFrom: state.app.dateFrom,
     modality: state.app.modality,
     mode: state.app.mode,
     needMapRepan: state.app.needMapRepan,
     needMapRestyle: state.app.needMapRestyle,
     needMapToggleLayer: state.app.needMapToggleLayer,
+    needMapFilterByDate: state.app.needMapFilterByDate,    
     needMapUpdate: state.app.needMapUpdate,
     route: state.app.route,
     routeStatus: state.app.routeStatus,

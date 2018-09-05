@@ -65,12 +65,15 @@
             "data": {"type": "FeatureCollection", "features": []}
         },
         "musique": {
-            "type": "vector",
-            "url": "mapbox://sheub.musique"
+            "type": "geojson",
+            "data": {"type": "FeatureCollection", "features": []},
+            "cluster": true,
+            "clusterMaxZoom": 14,
+            "clusterRadius": 50
         },
-        "enfant": {
-            "type": "vector",
-            "url": "mapbox://sheub.enfant"
+        "children": {
+            "type": "geojson",
+            "data": {"type": "FeatureCollection", "features": []}
         }
     },
     "sprite": "mapbox://sprites/sheub/cjk8ejp92h7e62smuojkqrgnx",
@@ -2861,16 +2864,17 @@
             "type": "circle",
             "source": "composite",
             "source-layer": "GSF_FrenchCorrected",
-            "filter": [
-                "==",
-                "$type",
-                "Point"
-            ],
             "layout": {
                 "visibility": "none"
             },
             "paint": {
-                "circle-color": "hsl(115, 65%, 28%)"
+                "circle-color": "hsl(115, 65%, 28%)",
+                "circle-radius": [
+                    "interpolate", ["linear"], ["zoom"],
+                    5, 3,
+                    10, 6
+                ]
+                
             }
         },
         {
@@ -2982,22 +2986,63 @@
             }
         },
         {
-            "id": "musique",
+            "id": "clusters",
             "type": "circle",
             "source": "musique",
-            "source-layer": "musique",
             "layout": {
                 "visibility": "none"
             },
-            "paint": {
-                "circle-radius": 4,
-                "circle-color": "#a52c56"
+            "filter": ["has", "point_count"],
+            "paint": {                
+                "circle-color": [
+                    "step",
+                    ["get", "point_count"],
+                    "#a52c56",
+                    100,
+                    "#a52c56",
+                    750,
+                    "#a52c56"
+                ],
+                "circle-radius": [
+                    "step",
+                    ["get", "point_count"],
+                    20,
+                    100,
+                    30,
+                    750,
+                    40
+                ]
             }
         },{
-            "id": "enfant",
+            "id": "cluster-count",
+            "type": "symbol",
+            "source": "musique",
+            "filter": ["has", "point_count"],
+            "layout": {
+                "visibility": "none",
+                "text-field": "{point_count_abbreviated}",
+                "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
+                "text-size": 12
+            }
+        },
+        {
+        "id": "musique",
+        "type": "circle",
+        "source": "musique",
+        "layout": {
+            "visibility": "none"
+        },
+        "filter": ["!", ["has", "point_count"]],
+        "paint": {
+            "circle-color": "#a52c56",
+            "circle-radius": 4,
+            "circle-stroke-width": 1,
+            "circle-stroke-color": "#fff"
+        }
+    },{
+            "id": "children",
             "type": "circle",
-            "source": "enfant",
-            "source-layer": "enfant",
+            "source": "children",
             "layout": {
                 "visibility": "none"
             },

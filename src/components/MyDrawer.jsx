@@ -143,7 +143,7 @@ const layerSelector = {
             CraftmanShop: /craftmanshop/,
             Exposition: /exposition/,
             Musique: /musique/,
-            Children: /enfant/,
+            Children: /children/,
             Marches: /marches/,
             VidesGreniers: /videsgreniers/
 };
@@ -180,78 +180,11 @@ class MyDrawer extends Component {
             dateTo: new Date()
 
         };
-        // this._defaultLayers = defaultMapStyle.get("layers");
 
         if (window.innerWidth < 600) {
             // Close Drawer per default for small screens
             this.state.open = false;
         }
-    }
-
-    _updateMapStyle({ visibility }) {
-
-      // this.props.setStateValues({
-      //   toggleLayerVisibility: visibility,
-      //   // needMapRestyle: true,
-      //   needMapToggleLayer: true
-      // });
-      // this.props.triggerMapUpdate();
-
-      //   const layers = this._defaultLayers.filter(
-      //       layer => {
-      //           const id = layer.get("id");
-      //           return categories.every(name => visibility[name] || !layerSelector[name].test(id));
-      //       }
-      //   );
-
-      //   let mapStyle = defaultMapStyle.set("layers", layers);
-
-      //   // Add source layers
-      //   if (visibility["Marches"]) {
-      //       mapStyle = this._loadJsonData(mapStyle, "marches");
-      //   }
-
-      //   // Add source layers
-      //   if (visibility["VidesGreniers"]) {
-      //       mapStyle = this._loadJsonData(mapStyle, "videsgreniers");
-      //   }        
-
-      //   // Add source layers
-      //   if (visibility["Exposition"]) {
-      //       mapStyle = this._loadJsonData(mapStyle, "exposition");
-      //   }
-
-      //   // Add source layers
-      //   if (visibility["Musique"]) {
-      //       mapStyle = this._loadJsonData(mapStyle, "musique");
-      //   }
-      // // Add source layers
-      // if (visibility["Children"]) {
-      //   mapStyle = this._loadJsonData(mapStyle, "children");
-      // }
-
-      //   this.props.onChange(mapStyle);
-
-    }
-
-    _onVisibilityChange(name, event) {
-
-      const visibility = { ...this.state.visibility, [name]: event.target.checked };
-      this.setState({ visibility });
-
-      this.props.setStateValues({
-        toggleLayerVisibility: layerSelector[name].source,
-        // needMapRestyle: true,
-        needMapToggleLayer: true
-      });
-      this.props.triggerMapUpdate();
-
-      this._updateMapStyle({ ...this.state, visibility });
-
-    }
-
-    componentDidMount() {
-       // this._updateMapStyle(this.state);
     }
 
     handleDrawerOpen = () => {
@@ -274,50 +207,35 @@ class MyDrawer extends Component {
     };
 
     handleDateChange = (date) => {
-
         // const { visibility } = this.state;
         this.setState({ dateFrom: date });
-        this._updateMapStyle(this.state);
-    }
-
-    _loadJsonData(mapStyle, dataStr) {
-
-        // // Get data from json file
-        // let { dateFrom, dateTo } = this.state;
-        // dateFrom = Date.parse(dateFrom);
-        // dateTo = Date.parse(dateTo);
-
-
-        // const AllData = {
-        //     marches: fromJS(require("./data/marches.json")),
-        //     exposition: fromJS(require("./data/exposition.json")),
-        //     musique: fromJS(require("./data/musique.json")),
-        //     children: fromJS(require("./data/children.json")),
-        //     videsgreniers: fromJS(require("./data/videsGreniers.json"))
-        //   };
-
-        // const marchesData = AllData[dataStr];
- 
-        // // Filter by date
-        // const FilteredData = marchesData.set("features", marchesData.get("features")
-        //     .filter((marcheEvent) => marcheEvent.getIn(["properties", "valid_from"]) >= dateFrom 
-        //             && marcheEvent.getIn(["properties", "valid_through"]) >= dateTo ));
-
-        // // Add geojson source to map
-        // mapStyle = mapStyle.setIn(["sources", dataStr], fromJS({ type: "geojson" }));
-
-        // // mapStyle = mapStyle.setIn(["sources", dataStr], fromJS({ cluster: true }));
-        // // // Max zoom to cluster points on
-        // // mapStyle = mapStyle.setIn(["sources", dataStr], fromJS({ clusterMaxZoom: 14 }));
-        // // // Radius of each cluster when clustering points (defaults to 50)
-        // // mapStyle = mapStyle.setIn(["sources", dataStr], fromJS({ clusterRadius: 50  }));
+        // this._updateMapStyle(this.state);
         
-
-        // // Update data source
-        // mapStyle = mapStyle.setIn(["sources", dataStr, "data"], FilteredData);
-
-        // return mapStyle;
+        this.props.setStateValues({
+          dateFrom: Date.parse(date),
+          // needMapRestyle: true,
+          needMapFilterByDate: true
+        });
+        this.props.triggerMapUpdate();
     }
+
+    _onVisibilityChange(name, event) {
+
+      const visibility = { ...this.state.visibility, [name]: event.target.checked };
+      this.setState({ visibility });
+
+      this.props.setStateValues({
+        toggleLayerVisibility: layerSelector[name].source,
+        // needMapRestyle: true,
+        needMapToggleLayer: true
+      });
+      this.props.triggerMapUpdate();
+    }
+
+    componentDidMount() {
+      //this.handleDateChange(Date());
+    }
+
 
     render() {
         const { classes } = this.props;
@@ -522,13 +440,15 @@ class MyDrawer extends Component {
 MyDrawer.propTypes = {
   classes: PropTypes.object.isRequired,
   setStateValues: PropTypes.func,
-  toggleLayerVisibility: PropTypes.string,
+  dateFrom: PropTypes.number,
+  toggleLayerVisibility: PropTypes.string,  
   triggerMapUpdate: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
   return {
-    toggleLayerVisibility: state.app.toggleLayerVisibility,
+    dateFrom: state.app.dateFrom,
+    toggleLayerVisibility: state.app.toggleLayerVisibility
   };
 };
 
