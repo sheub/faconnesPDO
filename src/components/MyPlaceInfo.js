@@ -1,16 +1,20 @@
 import PropTypes from 'prop-types';
-import React, {Component} from 'react';
-import directionsIcon from '../assets/directions.svg';
+import React, { Component } from 'react';
+import CloseButton from './CloseButton';
+import {triggerMapUpdate, resetStateKeys} from '../actions/index';
+import {connect} from 'react-redux';
+
+
+
 import Truncate from "react-truncate";
-import md5 from 'blueimp-md5';
 import "./PopupInfo.css";
 
 import SvgIcon from "@material-ui/core/SvgIcon";
 function HomeIcon(props) {
   return (
-      <SvgIcon {...props}>
-          <circle cx="10" cy="10" r="9" />
-      </SvgIcon>
+    <SvgIcon {...props}>
+      <circle cx="10" cy="10" r="9" />
+    </SvgIcon>
   );
 }
 
@@ -83,100 +87,120 @@ function RenderDateTime(props) {
 class MyPlaceInfo extends Component {
   render() {
     let info = this.props.info.properties;
-    let layerId = this.props.info.layerId;
+    const layerId = this.props.info.layerId;
+    const paintColor = this.props.info.paintColor;
+    const styles = {
+      width: "12",
+      verticalAlign: "middle",
+      marginRight: "3pt",
+      color: paintColor
+      };
     if (window.innerHeight < 500) return null;
-    
-    if ([ "liste-et-localisation-des-mus-5iczl9",
-    "villages-frenchcorrected-3gqhy6",
-    "whs-frenchcorrected-dq63pv",
-    "n-inao-aop-fr-16md1w",
-    "jardinfr-8nabpa",
-    "gsf-frenchcorrected",
-    "edifice-geres-par-les-monumen-3inr6v"].includes(layerId)){
-    
-    return (
-      <div className="mapboxgl-popupup popPupStyle">
-        <div className="titleText">
-          <a target="_new" href={info.link} className="titleText" rel="noopener">{info.label}</a><br />
-        </div>
-        <div className="hvrbox">
-          <img src={info.thumbnail} className="picturePoppup hvrbox-layer_bottom" alt={info.label} title={info.label} />
-          <div className="hvrbox-layer_top hvrbox-layer_slideup">
-            <div className="hvrbox-text">&copy;  &nbsp;
+
+    if (["villages-frenchcorrected-3gqhy6",
+      "whs-frenchcorrected-dq63pv",
+      "n-inao-aop-fr-16md1w",
+      "jardinfr-8nabpa",
+      "gsf-frenchcorrected",
+      "edifice-geres-par-les-monumen-3inr6v"].includes(layerId)) {
+
+      return (
+        <div className="mapboxgl-popupup popPupStyle">
+          <div className="titleText">
+            <a target="_new" href={info.link} className="titleText" rel="noopener">{info.label}</a><br />
+          </div>
+          <div className="hvrbox">
+            <img src={info.thumbnail} className="picturePoppup hvrbox-layer_bottom" alt={info.label} title={info.label} />
+            <div className="hvrbox-layer_top hvrbox-layer_slideup">
+              <div className="hvrbox-text">&copy;  &nbsp;
                 <a target="_new" href={info.thumbnail} rel="noopener">Wikipedia contributors</a>&thinsp; &#8209; &thinsp;
                 <a target="_new" href="https://creativecommons.org/licenses/by-sa/3.0/" rel="noopener">CC BY</a>
+              </div>
             </div>
           </div>
+          <div className="baseText">
+            <Truncate lines={9} ellipsis={<span>... <a href={info.link} rel="noopener">Suite</a></span>}>
+              {info.abstract}
+            </Truncate>
+          </div>
         </div>
-        <div className="baseText">
-          <Truncate lines={9} ellipsis={<span>... <a href={info.link} rel="noopener">Suite</a></span>}>
-            {info.abstract}
-          </Truncate>
-        </div>
-      </div>
-    );}
-    if ([ 
-    "parcsjardins",
+      );
+    }
+    if ([
+      "parcsjardins",
       "restaurants",
       "localproductshop",
-      "craftmanshop"].includes(layerId)){
-        // const styles = {
-        //   width: "12",
-        //   verticalAlign: "middle",
-        //   marginRight: "3pt",
-        //   color: paintColor
-        //   };
-          return (
-          <div className="mapboxgl-popupup  popPupStyle">
-            <div className="baseText">
-              <div className="titleText">
-              {/* <HomeIcon style={styles} alt={layerId} title={layerId} /> */}
-                {info.label}
+      "craftmanshop"].includes(layerId)) {
+      return (
+        <div className="mapboxgl-popupup  popPupStyle">
+          <div className="baseText">
+            <div className="titleText">
+              <HomeIcon style={styles} alt={layerId} title={layerId} />
+              {info.label}
+            </div>
+            <span class="btn-close dzt-16 dzt-close-16"></span>
+            <div className="introtext">
+              <div className="abstractPopup">
+                {info.abstract}
               </div>
-              <div className="introtext">
-                <div className="abstractPopup">
-                  {info.abstract}
-                </div>
-                <RenderUrl url={info.url} />
-                <RenderAddress info={info} />
-              </div>
+              <RenderUrl url={info.url} />
+              <RenderAddress info={info} />
             </div>
           </div>
-        );
+        </div>
+      );
 
-      }
-      if (["exposition",
+    }
+    if (["exposition",
       "musique",
       "children",
       "marches",
-      "videsgreniers"].includes(layerId)){
-        // const styles = {
-        //   width: "12",
-        //   verticalAlign: "middle",
-        //   marginRight: "3pt",
-        //   color: paintColor
-        //   };
-          
-        return (
-          <div className="mapboxgl-popupup popPupStyle">
-            <div className="baseText">
-              <div className="titleText">
-              {/* <HomeIcon style={styles} alt={layerId} title={layerId} /> */}
-                {info.label}
+      "videsgreniers"].includes(layerId)) {
+      return (
+        <div className="mapboxgl-popupup popPupStyle">
+          <div className="baseText">
+            <div className="titleText">
+              <HomeIcon style={styles} alt={layerId} title={layerId} />
+              {info.label}
+            </div>
+            <span class="btn-close dzt-16 dzt-close-16"></span>
+            <div className="introtext">
+              <div className="abstractPopup">
+                {info.abstract}
               </div>
-              <div className="introtext">
-                <div className="abstractPopup">
-                  {info.abstract}
-                </div>
-                <RenderDateTime info={info}/>
-                <RenderUrl url={info.url} />
-                <RenderAddress info={info} />
-              </div>
+              <RenderDateTime info={info} />
+              <RenderUrl url={info.url} />
+              <RenderAddress info={info} />
             </div>
           </div>
-        );
+        </div>
+      );
 
+    }
+    if("liste-et-localisation-des-mus-5iczl9".includes(layerId)){
+      var link = null;
+      if (info.sitweb) {
+        link = info.sitweb.includes("http://") ? info.sitweb : "http://" + info.sitweb;
       }
+      return (
+        <div className="mapboxgl-popupup popPupStyle">
+          <div>
+            <div className="baseText">
+              <div className="titleText">
+                {info.label}<br />
+              </div>
+              <div className="introtext">
+                {info.adr}<br />
+                {info.cp}{" "}{info.ville}<br />
+                {"Ouverture:"}<br />
+                {info.periode_ouverture}
+              </div>
+            </div>
+            <a target="_new" href={link} rel="noopener">Site internet</a>
+          </div>
+        </div>
+      );
+    }
   }
 
   get styles() {
@@ -188,12 +212,29 @@ class MyPlaceInfo extends Component {
       placeInfo: 'place-info absolute top bg-white w-full w420-mm shadow-darken25 flex-parent flex-parent--column',
     };
   }
-  
+
+  closeSearch() {
+    this.props.resetStateKeys(['searchString', 'searchLocation', 'placeInfo']);
+    this.props.triggerMapUpdate();
+  }
+
 }
 
 MyPlaceInfo.propTypes = {
   clickDirections: PropTypes.func,
+  resetStateKeys: PropTypes.func,
   info: PropTypes.object,
+  triggerMapUpdate: PropTypes.func,
 };
 
-export default MyPlaceInfo;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    resetStateKeys: (keys) => dispatch(resetStateKeys(keys)),
+    triggerMapUpdate: (repan) => dispatch(triggerMapUpdate(repan)),
+  };
+};
+
+export { MyPlaceInfo };
+export default connect(
+  mapDispatchToProps
+)(MyPlaceInfo);

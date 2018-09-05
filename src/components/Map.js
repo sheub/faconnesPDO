@@ -41,8 +41,8 @@ class MapComponent extends Component {
 
   render() {
     return (
-      <div id='map' className='viewport-full'>
-      {/* <div id='map'> */}
+      // <div id='map' className='viewport-full'>
+      <div id='map'>
       </div>
     );
   }
@@ -54,7 +54,7 @@ class MapComponent extends Component {
       container: 'map',
       style: style,
       center: [2, 46.5], //this.props.center,
-      zoom: this.props.zoom,
+      zoom: 5,
       minZoom: 2,
       maxZoom: 21
     });
@@ -70,9 +70,9 @@ class MapComponent extends Component {
     if (!this.props.needMapUpdate) return;
 
     // This is where we update the layers and map bbox
-    if (this.props.userLocation && this.props.userLocation.geometry && typeof(this.map.getSource('geolocation')) !== 'undefined' ) {
-      this.map.getSource('geolocation').setData(this.props.userLocation.geometry);
-    }
+    // if (this.props.userLocation && this.props.userLocation.geometry && typeof(this.map.getSource('geolocation')) !== 'undefined' ) {
+    //   this.map.getSource('geolocation').setData(this.props.userLocation.geometry);
+    // }
 
     // Search mode
     if (this.props.mode === 'search') {
@@ -268,7 +268,7 @@ class MapComponent extends Component {
   onClick(e) {
 
     var bbox = [[e.point.x - 5, e.point.y - 5], [e.point.x + 5, e.point.y + 5]];
-    var features = this.map.queryRenderedFeatures(bbox, {layers: this.selectableLayers});
+    var features = this.map.queryRenderedFeatures(bbox, { layers: this.selectableLayers });
 
     // if (!features.length) {
     //   // No feature is selected, reset the search location on click on the map
@@ -280,57 +280,62 @@ class MapComponent extends Component {
     // }
 
     if (features.length) {
-    // We have a selected feature
-    var feature = features[0];
+      // We have a selected feature
+      var feature = features[0];
 
-    let key;
-    if (this.props.mode === 'search') {
-      this.props.resetStateKeys(['placeInfo']);
-      key = 'searchLocation';
-    } else if (!this.props.directionsFrom) {
-      key = 'directionsFrom';
-    } else {
-      this.props.resetStateKeys(['route', 'searchLocation']);
-      key = 'directionsTo';
-    }
+      let key;
+      if (this.props.mode === 'search') {
+        this.props.resetStateKeys(['placeInfo']);
+        key = 'searchLocation';
+      } else if (!this.props.directionsFrom) {
+        key = 'directionsFrom';
+      } else {
+        this.props.resetStateKeys(['route', 'searchLocation']);
+        key = 'directionsTo';
+      }
 
-    
-      let place_name = null; 
-      if(feature.properties.name)
-      {
+
+      let place_name = null;
+      if (feature.properties.name) {
         place_name = feature.properties.name
       }
       else
         place_name = feature.properties.label;
 
-    if (key && place_name) {
-      this.props.setStateValue(key, {
-        'type': 'Feature',
-        'place_name': place_name,
-        'properties': feature.properties,
-        'geometry': feature.geometry,
-        'layerId': feature.layer.id
+      var paintColor = null;
+      if ("paint" in feature.layer) {
+        paintColor = feature.layer.paint["circle-color"];
+      }
 
-      });
-      this.props.triggerMapUpdate();
-    }
-  }
-  else{
-    var clustersFeatures = this.map.queryRenderedFeatures(e.point, { layers: ['clusters'] });
-    if(clustersFeatures && clustersFeatures.length > 0){
-      var clusterId = clustersFeatures[0].properties.cluster_id;
-      this.map.getSource('musique').getClusterExpansionZoom(clusterId, function (err, zoom) {
-        if (err)
-          return;
+      if (key && place_name) {
+        this.props.setStateValue(key, {
+          'type': 'Feature',
+          'place_name': place_name,
+          'properties': feature.properties,
+          'geometry': feature.geometry,
+          'layerId': feature.layer.id,
+          "paintColor": paintColor
 
-        this.map.easeTo({
-          center: clustersFeatures[0].geometry.coordinates,
-          zoom: zoom
         });
-      });
+        this.props.triggerMapUpdate();
+      }
+    }
+    else {
+      var clustersFeatures = this.map.queryRenderedFeatures(e.point, { layers: ['clusters'] });
+      if (clustersFeatures && clustersFeatures.length > 0) {
+        var clusterId = clustersFeatures[0].properties.cluster_id;
+        this.map.getSource('musique').getClusterExpansionZoom(clusterId, function (err, zoom) {
+          if (err)
+            return;
+
+          this.map.easeTo({
+            center: clustersFeatures[0].geometry.coordinates,
+            zoom: zoom
+          });
+        });
+      }
     }
   }
-}
 
 
   onContextMenu(e) {

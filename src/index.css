@@ -13,6 +13,7 @@ body {
   bottom: 0;
   width: 100%;
   left: 0;
+  height: 100%;
 }
 
 .mapCont {
@@ -21,6 +22,7 @@ body {
   bottom: 0;
   width: 100%;
   left: 0;
+  height: auto;
 }
 
 @media screen and (max-width: 600px) {

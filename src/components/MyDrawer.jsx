@@ -50,61 +50,70 @@ const drawerWidth = 270;
 
 const styles = (theme) => ({
 
-    root: {
-        display: "flex"
+  root: {
+    display: "flex"
+  },
+  toolbarIcon: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    padding: "0 8px",
+    ...theme.mixins.toolbar
+  },
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(["width", "margin"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen
+    })
+  },
+  menuButton: {
+    marginLeft: 12,
+    marginRight: 36
+  },
+  menuButtonHidden: {
+    display: "none"
+  },
+  title: {
+    flexGrow: 0
+  },
+  drawerPaper: {
+    position: "relative",
+    whiteSpace: "nowrap",
+    width: drawerWidth,
+    transition: theme.transitions.create("width", {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen
+    }),
+    overflowX: "hidden",
+    overflowY: "auto",
+    "&:hover": {
+      overflowY: "auto",
     },
-    toolbarIcon: {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "flex-end",
-        padding: "0 8px",
-        ...theme.mixins.toolbar
+    "&::-webkit-scrollbar": {
+      display: "none",
     },
-    appBar: {
-        zIndex: theme.zIndex.drawer + 1,
-        transition: theme.transitions.create(["width", "margin"], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen
-        })
-    },
-    menuButton: {
-        marginLeft: 12,
-        marginRight: 36
-    },
-    menuButtonHidden: {
-        display: "none"
-    },
-    title: {
-        flexGrow: 0
-    },
-    drawerPaper: {
-        position: "relative",
-        whiteSpace: "nowrap",
-        width: drawerWidth,
-        transition: theme.transitions.create("width", {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen
-        }),
-        overflowX: "hidden",
-        overflowY: "hidden",
-        "&:hover": {
-            overflowY: "auto",
-        },
-        "&::-webkit-scrollbar": {
-            display: "none",
-        },
-    },
-    drawerPaperClose: {
-        overflowX: "hidden",
-        transition: theme.transitions.create("width", {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen
-        }),
-        width: 0,//theme.spacing.unit * 7,
-        // [theme.breakpoints.up("sm")]: {
-        //     width: theme.spacing.unit * 9
-        // }
-    },
+  },
+  drawerPaperClose: {
+    overflowX: "hidden",
+    transition: theme.transitions.create("width", {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen
+    }),
+    width: 0,//theme.spacing.unit * 7,
+    // [theme.breakpoints.up("sm")]: {
+    //     width: theme.spacing.unit * 9
+    // }
+  },
+  collapses: {
+    overflowY: "auto",
+    //     "&:hover": {
+    //   overflowY: "auto",
+    // },
+    // "&::-webkit-scrollbar": {
+    //   display: "none",
+    // },
+  },
   appBarSpacer: theme.mixins.toolbar,
   content: {
     flexGrow: 0,
@@ -125,6 +134,9 @@ const styles = (theme) => ({
   pickers: {
     display: "flex",
     justifyContent: "space-around",
+  },
+  expandIcons:{
+    position: "absolute", right: "6px"    
   }
 });
 
@@ -257,9 +269,9 @@ class MyDrawer extends Component {
 
                <ListItem button onClick={this.handleClick} aria-label="Open Culture et Patrimoine" id="ButtonCultureHeritage">
                   <ListSubheader>Culture et Patrimoine</ListSubheader>
-                  {this.state.list1Open ? <ExpandLess /> : <ExpandMore />}
+                  {this.state.list1Open ? <ExpandLess className={classes.expandIcons}/> : <ExpandMore className={classes.expandIcons}/>}
                 </ListItem>
-                <Collapse in={this.state.list1Open} timeout="auto" unmountOnExit>
+                <Collapse in={this.state.list1Open} timeout="auto" unmountOnExit className={classes.collapses}>
                   <List>
                     <ListItem key={"Villages"} dense button className={classes.listItem}>
                       <Checkbox tabIndex={-1} checked={visibility["Villages"]} onChange={this._onVisibilityChange.bind(this, "Villages")} value="true" color="default" aria-label="VillagesCheckbox" htmlFor="VillagesListItemText" id="VillagesCheckbox" disableRipple />
@@ -370,11 +382,11 @@ class MyDrawer extends Component {
                   </List>
                   <Divider />
                 </Collapse>
-                <ListItem button onClick={this.handleClickListAgendaOpen} aria-label="Open Agenda" id="ButtonAgenda" style={{ backgroundColor: "red" }}>
+                <ListItem button onClick={this.handleClickListAgendaOpen} aria-label="Open Agenda" id="ButtonAgenda" style={{ backgroundColor: "white" }}>
                   <ListSubheader>Agenda</ListSubheader>
-                  {this.state.listAgendaOpen ? <ExpandLess style={{ flex: 1, float: "right" }} /> : <ExpandMore style={{ flex: 1, float: "right" }} />}
+                  {this.state.listAgendaOpen ? <ExpandLess className={classes.expandIcons} /> : <ExpandMore className={classes.expandIcons} />}
                 </ListItem>
-                <Collapse in={this.state.listAgendaOpen} timeout="auto" unmountOnExit>
+                <Collapse in={this.state.listAgendaOpen} timeout="auto" unmountOnExit className={classes.collapses}>
                   <List>
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                       <DatePicker style={{ marginLeft: 24 }} value={dateFrom} minDate={dateFrom} onChange={this.handleDateChange} />
