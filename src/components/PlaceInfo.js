@@ -101,6 +101,7 @@ class PlaceInfo extends Component {
       placeInfo: 'place-info absolute top bg-white w-full w420-mm shadow-darken25 flex-parent flex-parent--column',
     };
   }
+  
 }
 
 PlaceInfo.propTypes = {

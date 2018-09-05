@@ -5,6 +5,7 @@ import Geocoder from './Geocoder';
 import PlaceName from './PlaceName';
 import CloseButton from './CloseButton';
 import PlaceInfo from './PlaceInfo';
+import MyPlaceInfo from './MyPlaceInfo';
 import directionsIcon from '../assets/directions.svg';
 import {triggerMapUpdate, setDirectionsLocation, getPlaceInfo, resetStateKeys, setStateValue} from '../actions/index';
 
@@ -38,6 +39,11 @@ class Search extends Component {
                 this.props.resetStateKeys(['searchLocation', 'placeInfo']);
               }}
             />
+                    {
+          (this.props.searchLocation && this.props.searchLocation.properties)
+          ? <MyPlaceInfo info={this.props.searchLocation} clickDirections={() => this.clickDirections()}/>
+          : null
+        }
           </div>
           <div
             id='search-directions'

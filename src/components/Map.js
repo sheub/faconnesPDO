@@ -308,7 +308,9 @@ class MapComponent extends Component {
         'type': 'Feature',
         'place_name': place_name,
         'properties': feature.properties,
-        'geometry': feature.geometry
+        'geometry': feature.geometry,
+        'layerId': feature.layer.id
+
       });
       this.props.triggerMapUpdate();
     }

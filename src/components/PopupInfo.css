@@ -1,0 +1,168 @@
+@font-face {
+    font-family: "Caslon";
+    font-style: normal;
+    font-weight: 400;
+    src: local("ACaslonPro-Regular"), url(./fonts/Caslon/ACaslonPro-Regular.otf) format("otf");
+}
+
+@font-face {
+    font-family: "Caslon";
+    font-style: normal;
+    font-weight: 700;
+    src: local("ACaslonPro-Bold"), url(./fonts/Caslon/ACaslonPro-Bold.otf) format("otf");
+}
+
+.baseText {
+    white-space: normal;
+    font-family: "Caslon";
+    font-weight: 400;
+    width: 228px;
+    margin-left: 6px;
+    margin-bottom: 6px;
+    margin-top: 6px;
+    cursor: default;
+}
+
+.titleText {
+    white-space: normal;
+    font-family: "Caslon";
+    font-weight: 700;
+    font-size: 20px;
+    text-decoration: none;
+    color: black;
+    margin-bottom: 10px;
+    margin-top: 4px;
+    margin-left: 2px;
+}
+
+.introtext {
+    white-space: normal;
+    max-height: 26vh;
+    overflow-y: auto;
+    cursor: default;
+}
+
+.abstractPopup {
+    margin-bottom: 12px;
+    white-space: normal;
+    cursor: default;
+}
+
+.addressPopup {
+    font-size: 14px;
+    white-space: normal;
+    color: grey;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Lucida Grande";
+    letter-spacing: -1px;
+}
+
+.datePopup {
+    font-size: 14px;
+    color: #68635C;
+    text-transform: capitalize;
+    /*letter-spacing: .0675em;*/
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Lucida Grande";
+    padding-bottom: 6px;
+}
+
+.picturePoppup {
+    width: 240px;
+    padding-top: 3px;
+    cursor: default;
+}
+
+.hvrbox .hvrbox-layer_slideup {
+    -moz-transform: translateY(10px);
+    -webkit-transform: translateY(10px);
+    -ms-transform: translateY(10px);
+    transform: translateY(10px);
+}
+
+.hvrbox:hover .hvrbox-layer_slideup,
+.hvrbox.active .hvrbox-layer_slideup {
+    -moz-transform: translateY(0);
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+}
+
+.hvrbox,
+.hvrbox * {
+    box-sizing: border-box;
+}
+
+.hvrbox {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    max-width: 100%;
+    height: auto;
+}
+
+.hvrbox img {
+    max-width: 100%;
+}
+
+.hvrbox .hvrbox-layer_bottom {
+    display: block;
+}
+
+.hvrbox .hvrbox-layer_top {
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 26px;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    padding: 4px;
+    -moz-transition: all 0.4s ease-in-out 0s;
+    -webkit-transition: all 0.4s ease-in-out 0s;
+    -ms-transition: all 0.4s ease-in-out 0s;
+    transition: all 0.4s ease-in-out 0s;
+}
+
+.hvrbox:hover .hvrbox-layer_top,
+.hvrbox.active .hvrbox-layer_top {
+    opacity: 1;
+}
+
+.hvrbox .hvrbox-text a {
+    font-size: 12px;
+    text-decoration: none;
+    color: silver;
+}
+
+.hvrbox.active .hvrbox-text_mobile {
+    display: block;
+}
+
+.urlPopup {
+    width: 240px;
+    margin-bottom: 6px;
+    text-decoration: none;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Lucida Grande";
+    letter-spacing: -1px;
+    color: rgb(75, 71, 66);
+}
+
+.popPupStyle {
+    padding: 0;
+}
+
+.mapboxgl-popupup {
+    position: absolute !important;
+    top: 120px !important;
+    left: 20px !important;
+    background-color: #FFF;
+    width: 240px;
+    height: auto;
+    line-height: normal;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 8px -3px #000;
+    transition-duration: 1s;
+    cursor: default;
+}
