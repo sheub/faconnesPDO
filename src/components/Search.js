@@ -41,7 +41,7 @@ class Search extends Component {
             />
                     {
           (this.props.searchLocation && this.props.searchLocation.properties)
-          ? <MyPlaceInfo info={this.props.searchLocation} clickDirections={() => this.clickDirections()}/>
+          ? <MyPlaceInfo info={this.props.searchLocation} isActive={true} clickDirections={() => this.clickDirections()}/>
           : null
         }
           </div>

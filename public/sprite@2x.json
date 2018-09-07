@@ -27,13 +27,6 @@
     "x": 1099,
     "y": 300
   },
-  "World_Heritage_Logo_global_small_Old": {
-    "height": 29,
-    "pixelRatio": 2,
-    "width": 29,
-    "x": 1128,
-    "y": 300
-  },
   "airfield-11": {
     "height": 34,
     "pixelRatio": 2,
@@ -122,28 +115,28 @@
     "height": 28,
     "pixelRatio": 2,
     "width": 40,
-    "x": 1157,
+    "x": 1128,
     "y": 300
   },
   "at-expressway-3": {
     "height": 28,
     "pixelRatio": 2,
     "width": 52,
-    "x": 1197,
+    "x": 1168,
     "y": 300
   },
   "at-motorway-2": {
     "height": 28,
     "pixelRatio": 2,
     "width": 40,
-    "x": 1249,
+    "x": 1220,
     "y": 300
   },
   "at-motorway-3": {
     "height": 28,
     "pixelRatio": 2,
     "width": 52,
-    "x": 1289,
+    "x": 1260,
     "y": 300
   },
   "at-state-b-2": {
@@ -717,8 +710,8 @@
     "height": 20,
     "pixelRatio": 2,
     "width": 20,
-    "x": 1320,
-    "y": 164
+    "x": 1316,
+    "y": 342
   },
   "dot-11": {
     "height": 22,
@@ -731,8 +724,8 @@
     "height": 18,
     "pixelRatio": 2,
     "width": 18,
-    "x": 988,
-    "y": 84
+    "x": 1320,
+    "y": 164
   },
   "drinking-water-11": {
     "height": 34,
@@ -1613,7 +1606,7 @@
     "height": 16,
     "pixelRatio": 2,
     "width": 26,
-    "x": 1006,
+    "x": 988,
     "y": 84
   },
   "osaka-subway": {
@@ -2628,8 +2621,8 @@
     "height": 22,
     "pixelRatio": 2,
     "width": 22,
-    "x": 1316,
-    "y": 342
+    "x": 1312,
+    "y": 300
   },
   "village-15": {
     "height": 30,

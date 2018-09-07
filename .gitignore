@@ -13,3 +13,13 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+/src/components/data/musique.jsonld
+/src/components/data/ParcsJardins.jsonld
+/src/components/data/restaurants.jsonld
+/src/components/data/sculpture.jsonld
+/src/components/data/videsGreniers.jsonld
+/src/components/data/craftmanShop.jsonld
+/src/components/data/enfant.jsonld
+/src/components/data/exposition.jsonld
+/src/components/data/localProductShop.jsonld
+/src/components/data/marches.jsonld

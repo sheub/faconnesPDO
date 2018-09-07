@@ -1,15 +1,10 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import CloseButton from './CloseButton';
-import {triggerMapUpdate, resetStateKeys} from '../actions/index';
-import {connect} from 'react-redux';
-
-
-
 import Truncate from "react-truncate";
-import "./PopupInfo.css";
-
 import SvgIcon from "@material-ui/core/SvgIcon";
+import "./css/PopupInfo.css";
+
+
 function HomeIcon(props) {
   return (
     <SvgIcon {...props}>
@@ -18,19 +13,18 @@ function HomeIcon(props) {
   );
 }
 
-
-function ShowOpeningHours(props) {
-  if (!props.info.startTime) {
-    return null;
-  }
-  return (
-    <div>
-      Horaires: <br />
-      StartTime {props.info.startTime}<br />
-      EndTime: {props.info.endTime}<br />
-    </div>
-  );
-}
+// function ShowOpeningHours(props) {
+//   if (!props.info.startTime) {
+//     return null;
+//   }
+//   return (
+//     <div>
+//       Horaires: <br />
+//       StartTime {props.info.startTime}<br />
+//       EndTime: {props.info.endTime}<br />
+//     </div>
+//   );
+// }
 
 function RenderUrl(props) {
   if (props.url) {
@@ -85,10 +79,25 @@ function RenderDateTime(props) {
 }
 
 class MyPlaceInfo extends Component {
+
+  
+  hidePopup() {
+    this.props.info.popupActive = false;
+    this.forceUpdate();
+    // this.setState({
+    //   popupActive: false,
+    // });
+  }
+
+
+ 
   render() {
+
+    let popupActive = this.props.info.popupActive;
     let info = this.props.info.properties;
     const layerId = this.props.info.layerId;
     const paintColor = this.props.info.paintColor;
+    
     const styles = {
       width: "12",
       verticalAlign: "middle",
@@ -105,24 +114,32 @@ class MyPlaceInfo extends Component {
       "edifice-geres-par-les-monumen-3inr6v"].includes(layerId)) {
 
       return (
-        <div className="mapboxgl-popupup popPupStyle">
-          <div className="titleText">
-            <a target="_new" href={info.link} className="titleText" rel="noopener">{info.label}</a><br />
-          </div>
-          <div className="hvrbox">
-            <img src={info.thumbnail} className="picturePoppup hvrbox-layer_bottom" alt={info.label} title={info.label} />
-            <div className="hvrbox-layer_top hvrbox-layer_slideup">
-              <div className="hvrbox-text">&copy;  &nbsp;
+        <div>
+          {popupActive &&
+            <div className="mapboxgl-popupup popPupStyle">
+              <div className="titleText">
+
+                <a target="_new" href={info.link} className="titleText" rel="noopener">{info.label}</a><br />
+
+              </div>
+              <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.hidePopup()}><span aria-hidden="true">&times;</span></button>
+              <div className="hvrbox">
+                <img src={info.thumbnail} className="picturePoppup hvrbox-layer_bottom" alt={info.label} title={info.label} />
+                <div className="hvrbox-layer_top hvrbox-layer_slideup">
+                  <div className="hvrbox-text">&copy;  &nbsp;
                 <a target="_new" href={info.thumbnail} rel="noopener">Wikipedia contributors</a>&thinsp; &#8209; &thinsp;
                 <a target="_new" href="https://creativecommons.org/licenses/by-sa/3.0/" rel="noopener">CC BY</a>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <div className="baseText">
-            <Truncate lines={9} ellipsis={<span>... <a href={info.link} rel="noopener">Suite</a></span>}>
-              {info.abstract}
-            </Truncate>
-          </div>
+              <div className="baseInfo">
+                <div className="baseText">
+                  <Truncate lines={9} ellipsis={<span>... <a href={info.link} rel="noopener">Suite</a></span>}>
+                    {info.abstract}
+                  </Truncate>
+                </div>
+              </div>
+            </div>}
         </div>
       );
     }
@@ -132,13 +149,16 @@ class MyPlaceInfo extends Component {
       "localproductshop",
       "craftmanshop"].includes(layerId)) {
       return (
+               <div>
+          {popupActive &&
         <div className="mapboxgl-popupup  popPupStyle">
-          <div className="baseText">
+        <div className="baseText">
+          <div className="baseInfo">
             <div className="titleText">
               <HomeIcon style={styles} alt={layerId} title={layerId} />
               {info.label}
             </div>
-            <span class="btn-close dzt-16 dzt-close-16"></span>
+            <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.hidePopup()}><span aria-hidden="true">&times;</span></button>
             <div className="introtext">
               <div className="abstractPopup">
                 {info.abstract}
@@ -147,6 +167,8 @@ class MyPlaceInfo extends Component {
               <RenderAddress info={info} />
             </div>
           </div>
+          </div>
+        </div>}
         </div>
       );
 
@@ -156,14 +178,16 @@ class MyPlaceInfo extends Component {
       "children",
       "marches",
       "videsgreniers"].includes(layerId)) {
-      return (
+      return (               <div>
+          {popupActive &&
         <div className="mapboxgl-popupup popPupStyle">
+        <div className="baseInfo">
           <div className="baseText">
             <div className="titleText">
               <HomeIcon style={styles} alt={layerId} title={layerId} />
               {info.label}
             </div>
-            <span class="btn-close dzt-16 dzt-close-16"></span>
+           <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.hidePopup()}><span aria-hidden="true">&times;</span></button>
             <div className="introtext">
               <div className="abstractPopup">
                 {info.abstract}
@@ -173,6 +197,8 @@ class MyPlaceInfo extends Component {
               <RenderAddress info={info} />
             </div>
           </div>
+          </div>
+        </div>}
         </div>
       );
 
@@ -183,12 +209,15 @@ class MyPlaceInfo extends Component {
         link = info.sitweb.includes("http://") ? info.sitweb : "http://" + info.sitweb;
       }
       return (
+                       <div>
+          {popupActive &&
         <div className="mapboxgl-popupup popPupStyle">
-          <div>
+          <div className="baseInfo">
             <div className="baseText">
               <div className="titleText">
                 {info.label}<br />
               </div>
+              <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={() => this.hidePopup()}><span aria-hidden="true">&times;</span></button>
               <div className="introtext">
                 {info.adr}<br />
                 {info.cp}{" "}{info.ville}<br />
@@ -198,6 +227,7 @@ class MyPlaceInfo extends Component {
             </div>
             <a target="_new" href={link} rel="noopener">Site internet</a>
           </div>
+        </div>}
         </div>
       );
     }
@@ -213,28 +243,12 @@ class MyPlaceInfo extends Component {
     };
   }
 
-  closeSearch() {
-    this.props.resetStateKeys(['searchString', 'searchLocation', 'placeInfo']);
-    this.props.triggerMapUpdate();
-  }
-
 }
 
 MyPlaceInfo.propTypes = {
   clickDirections: PropTypes.func,
-  resetStateKeys: PropTypes.func,
   info: PropTypes.object,
-  triggerMapUpdate: PropTypes.func,
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    resetStateKeys: (keys) => dispatch(resetStateKeys(keys)),
-    triggerMapUpdate: (repan) => dispatch(triggerMapUpdate(repan)),
-  };
-};
 
-export { MyPlaceInfo };
-export default connect(
-  mapDispatchToProps
-)(MyPlaceInfo);
+export default MyPlaceInfo;

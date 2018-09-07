@@ -2,50 +2,50 @@
     font-family: "Caslon";
     font-style: normal;
     font-weight: 400;
-    src: local("ACaslonPro-Regular"), url(./fonts/Caslon/ACaslonPro-Regular.otf) format("otf");
+    src: local("ACaslonPro-Regular"), url(./../fonts/Caslon/ACaslonPro-Regular.otf) format("otf");
 }
 
 @font-face {
     font-family: "Caslon";
     font-style: normal;
     font-weight: 700;
-    src: local("ACaslonPro-Bold"), url(./fonts/Caslon/ACaslonPro-Bold.otf) format("otf");
+    src: local("ACaslonPro-Bold"), url(./../fonts/Caslon/ACaslonPro-Bold.otf) format("otf");
 }
 
 .baseText {
-    white-space: normal;
     font-family: "Caslon";
     font-weight: 400;
-    width: 228px;
     margin-left: 6px;
     margin-bottom: 6px;
     margin-top: 6px;
-    cursor: default;
+    /* text-align: justify; // Does not work with Truncate
+    text-justify: inter-word; */
 }
 
 .titleText {
     white-space: normal;
     font-family: "Caslon";
     font-weight: 700;
+    /* font-size: 5vw; */
     font-size: 20px;
     text-decoration: none;
     color: black;
     margin-bottom: 10px;
     margin-top: 4px;
     margin-left: 2px;
+    margin-right: 18px;
+
 }
 
 .introtext {
     white-space: normal;
     max-height: 26vh;
     overflow-y: auto;
-    cursor: default;
 }
 
 .abstractPopup {
     margin-bottom: 12px;
     white-space: normal;
-    cursor: default;
 }
 
 .addressPopup {
@@ -66,9 +66,8 @@
 }
 
 .picturePoppup {
-    width: 240px;
+    width: 100%;
     padding-top: 3px;
-    cursor: default;
 }
 
 .hvrbox .hvrbox-layer_slideup {
@@ -140,7 +139,6 @@
 }
 
 .urlPopup {
-    width: 240px;
     margin-bottom: 6px;
     text-decoration: none;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Lucida Grande";
@@ -155,7 +153,7 @@
 .mapboxgl-popupup {
     position: absolute;
     top: 60px;
-    left: 20px;
+    left: 0;
     background-color: #FFF;
     width: 240px;
     height: auto;
@@ -169,12 +167,54 @@
 
 .btn-close {
     position: absolute;
-    top: 4px;
-    right: 4px;
-    cursor: pointer;
-    font-size: 11px;
-    border-radius: 50%;
-    background-color: #707172;
-    padding: 4px;
-    color: white;
+    top: 0px;
+    right: 6px;
+    cursor: pointer;    
+    background-color: #fff;
+    padding-left: 4px;
+    /* font-size: 11px; */
+    /* color: white; */
 }
+/* 
+.btn-close:hover {
+   
+    border: 1px solid;
+	border-radius: 50%;
+
+} */
+
+.baseInfo{
+    padding-left: 3px;
+    padding-right: 3px;
+    width:100%;
+}
+
+
+@media screen and (max-width: 600px) {
+    .mapboxgl-popupup {
+        top: 52px;
+    }
+}
+
+@media only screen and (orientation: landscape) {
+    .mapboxgl-popupup {
+        top: 44px;
+    }
+}
+
+@media only screen and (max-width : 320px) {
+    .mapboxgl-popupup {
+        position: absolute;
+        top: 52px;
+        width: 100%;
+    }
+    .baseText {
+        width: 100%;
+        margin-left: 0;
+    }
+}
+
+/* Extra Small Devices, Phones 
+@media only screen and (max-width : 480px) {
+
+} */

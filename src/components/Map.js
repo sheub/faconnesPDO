@@ -314,7 +314,8 @@ class MapComponent extends Component {
           'properties': feature.properties,
           'geometry': feature.geometry,
           'layerId': feature.layer.id,
-          "paintColor": paintColor
+          "paintColor": paintColor,
+          "popupActive": true
 
         });
         this.props.triggerMapUpdate();
@@ -359,7 +360,7 @@ class MapComponent extends Component {
       const geometry = {type: 'Point', coordinates: [data.coords.longitude, data.coords.latitude]};
       this.map.getSource('geolocation').setData(geometry);
       this.props.setUserLocation(geometry.coordinates);
-      if (this.props.moveOnLoad) this.moveTo(geometry, 13);
+      if (this.props.moveOnLoad) this.moveTo(geometry, 6);
     };
 
     // Create scale control
@@ -374,25 +375,25 @@ class MapComponent extends Component {
     geolocateControl.on('geolocate', setGeolocation);
     this.map.addControl(geolocateControl, 'bottom-right');
 
-    // Initial ask for location and display on the map
-    if (this.props.userLocation) {
-      this.map.getSource('geolocation').setData(this.props.userLocation.geometry);
-      if (this.props.moveOnLoad) this.moveTo(this.props.userLocation, 13);
-    } 
-    else if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(setGeolocation);
-    }
+    // // Initial ask for location and display on the map
+    // if (this.props.userLocation) {
+    //   this.map.getSource('geolocation').setData(this.props.userLocation.geometry);
+    //   if (this.props.moveOnLoad) this.moveTo(this.props.userLocation, 6);
+    // } 
+    // else if (navigator.geolocation) {
+    //   navigator.geolocation.getCurrentPosition(setGeolocation);
+    // }
 
-    // Regularly poll the user location and update the map
-    window.setInterval(() => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((data) => {
-          const geometry = {type: 'Point', coordinates: [data.coords.longitude, data.coords.latitude]};
-          this.map.getSource('geolocation').setData(geometry);
-          this.props.setUserLocation(geometry.coordinates);
-        });
-      }
-    }, 10000);
+    // // Regularly poll the user location and update the map
+    // window.setInterval(() => {
+    //   if (navigator.geolocation) {
+    //     navigator.geolocation.getCurrentPosition((data) => {
+    //       const geometry = {type: 'Point', coordinates: [data.coords.longitude, data.coords.latitude]};
+    //       this.map.getSource('geolocation').setData(geometry);
+    //       this.props.setUserLocation(geometry.coordinates);
+    //     });
+    //   }
+    // }, 10000);
 
     // Set event listeners
     this.map.on('click', (e) => this.onClick(e));
