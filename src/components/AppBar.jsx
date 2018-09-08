@@ -60,7 +60,8 @@ class MyAppBar extends Component{
         const { open, classes } = this.props;
         return <div className={classes.root}>
             <CssBaseline />
-            <AppBar ref={elem => (this.AppBar = elem)} position="absolute" className={classNames(classes.appBar, open && classes.appBarShift)}>
+            {/* ref={elem => (this.AppBar = elem)} */}
+            <AppBar position="absolute" className={classNames(classes.appBar, open && classes.appBarShift)}> 
                 <Toolbar disableGutters={!open} className={classes.toolbar}>
                     <IconButton color="inherit" aria-label="Open drawer" onClick={this.handleDrawerOpen} className={classNames(classes.menuButton, open && classes.menuButtonHidden)}>
                         <MenuIcon />

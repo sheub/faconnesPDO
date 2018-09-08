@@ -32,6 +32,7 @@ import VillagesIcon from "./mbstyle/icons/village-11.svg";
 import MuseumIcon from "./mbstyle/icons/museum-11.svg";
 import UnescoIcon from "./mbstyle/icons/World_Heritage_Logo_global_small.svg";
 import JardinsIcon from "./mbstyle/icons/Jardins_Remarquables_15.svg";
+import Footer from "./Footer.js"
 //import AOPIcon from "./mbstyle/icons/AOP.svg";
 
 
@@ -80,6 +81,8 @@ const styles = (theme) => ({
   drawerPaper: {
     position: "relative",
     whiteSpace: "nowrap",
+    display:"flex",
+    paddingBottom: "100px",
     width: drawerWidth,
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
@@ -280,7 +283,8 @@ class MyDrawer extends Component {
         return <React.Fragment>
             <div className={classes.root}>
               <MyAppBar open={this.state.open} handleDrawerOpen={this.handleDrawerOpen}/>
-              <Drawer ref={elem => (this.Drawer = elem)} variant="temporary" classes={{ paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose) }} open={this.state.open}>
+              {/* ref={elem => (this.Drawer = elem)} */}
+              <Drawer variant="temporary" classes={{ paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose) }} open={this.state.open}>
                 <div className={classes.toolbarIcon}>
                   <IconButton onClick={this.handleDrawerClose} aria-label="Close drawer">
                     <ChevronLeftIcon />
@@ -475,6 +479,7 @@ class MyDrawer extends Component {
 
                   <Divider />
                 </Collapse>
+                <Footer />
               </Drawer>
             </div>
           </React.Fragment>;
