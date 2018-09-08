@@ -426,7 +426,7 @@ class MapComponent extends Component {
     // Update the style if needed
     this.updateStyle(this.props.mapStyle);
 
-    this.filterByDate(Date());
+    this.filterByDate(new Date().getTime());
 
     // Final update if the original state has some data
     this.props.triggerMapUpdate();
@@ -548,14 +548,14 @@ class MapComponent extends Component {
     else
     {
 
-      this.map.setFilter("musique", ["==", dateFrom, ["number", ["get", "valid_from"]]]);
-      this.map.setFilter("clusters", ["==", dateFrom, ["number", ["get", "valid_from"]]]);
-      this.map.setFilter("cluster-count", ["==", dateFrom, ["number", ["get", "valid_from"]]]);
+      this.map.setFilter("musique", ["<=", dateFrom, ["number", ["get", "valid_from"]]]);
+      this.map.setFilter("clusters", ["<=", dateFrom, ["number", ["get", "valid_from"]]]);
+      this.map.setFilter("cluster-count", ["<=", dateFrom, ["number", ["get", "valid_from"]]]);
 
-      this.map.setFilter("exposition", ["==", dateFrom, ["number", ["get", "valid_from"]]]);
-      this.map.setFilter("children", ["==", dateFrom, ["number", ["get", "valid_from"]]]);
-      this.map.setFilter("videsgreniers", ["==", dateFrom, ["number", ["get", "valid_from"]]]);
-      this.map.setFilter("marches", ["==", dateFrom, ["number", ["get", "valid_from"]]]);
+      this.map.setFilter("exposition", ["<=", dateFrom, ["number", ["get", "valid_from"]]]);
+      this.map.setFilter("children", ["<=", dateFrom, ["number", ["get", "valid_from"]]]);
+      this.map.setFilter("videsgreniers", ["<=", dateFrom, ["number", ["get", "valid_from"]]]);
+      this.map.setFilter("marches", ["<=", dateFrom, ["number", ["get", "valid_from"]]]);
     }
 
   }

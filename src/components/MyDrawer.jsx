@@ -246,6 +246,7 @@ class MyDrawer extends Component {
       this.setState({ dateTo: date });
 
       this.props.setStateValues({
+        dateFrom: Date.parse(this.state.dateFrom),
         dateTo: Date.parse(date),
         needMapFilterByDate: true
       });
