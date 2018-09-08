@@ -162,7 +162,7 @@ class MapComponent extends Component {
     }
 
     if (this.props.needMapFilterByDate) {
-      this.filterByDate(this.props.dateFrom);
+      this.filterByDate(this.props.dateFrom, this.props.dateTo);
     }
 
     this.props.setStateValue('needMapRestyle', false);
@@ -338,7 +338,6 @@ class MapComponent extends Component {
     }
   }
 
-
   onContextMenu(e) {
     let coordinates = [e.lngLat.lng, e.lngLat.lat];
     let location = [e.point.x, e.point.y];
@@ -427,6 +426,8 @@ class MapComponent extends Component {
     // Update the style if needed
     this.updateStyle(this.props.mapStyle);
 
+    this.filterByDate(Date());
+
     // Final update if the original state has some data
     this.props.triggerMapUpdate();
   }
@@ -497,30 +498,66 @@ class MapComponent extends Component {
   loadJsonData(dataStr) {
 
     // data are loaded via require, may be better to use the data url
+    // const AllData = {
+    //   marches: require("./data/marches.json"),
+    //   exposition: require("./data/exposition.json"),
+    //   musique: require("./data/musique.json"),
+    //   children: require("./data/children.json"),
+    //   videsgreniers: require("./data/videsGreniers.json")
+    // };
+
+    let baseDataUrl;
+    if (process.env.NODE_ENV === 'production') {
+      baseDataUrl = process.env.PUBLIC_URL + '/data/';
+    } else { // Dev server runs on port 3000
+      baseDataUrl = 'http://localhost:3000/data/';
+    }
+
+
     const AllData = {
-      marches: require("./data/marches.json"),
-      exposition: require("./data/exposition.json"),
-      musique: require("./data/musique.json"),
-      children: require("./data/children.json"),
-      videsgreniers: require("./data/videsGreniers.json")
+      marches: "marches.json",
+      exposition: "exposition.json",
+      musique: "musique.json",
+      children: "children.json",
+      videsgreniers: "videsGreniers.json"
     };
 
-    const marchesData = AllData[dataStr];
+    const marchesData = baseDataUrl + AllData[dataStr];
 
     this.map.getSource(dataStr).setData(marchesData);
 
   }
 
-  filterByDate(dateFrom){    
-    this.map.setFilter('musique', ['<=', dateFrom, ['number', ['get', 'valid_from']]]);
-    this.map.setFilter('clusters', ['<=', dateFrom, ['number', ['get', 'valid_from']]]);
-    this.map.setFilter('cluster-count', ['<=', dateFrom, ['number', ['get', 'valid_from']]]);
+  filterByDate(dateFrom, dateTo){    
 
-    this.map.setFilter('exposition', ['<=', dateFrom, ['number', ['get', 'valid_from']]]);
-    this.map.setFilter('children', ['<=', dateFrom, ['number', ['get', 'valid_from']]]);
-    this.map.setFilter('videsgreniers', ['<=', dateFrom, ['number', ['get', 'valid_from']]]);
-    this.map.setFilter('marches', ['<=', dateFrom, ['number', ['get', 'valid_from']]]);
-    
+
+    if(dateTo)
+    {
+  
+      let filterTo = ['>=', dateTo, ['number', ['get', 'valid_from']]];
+      let filterFrom = ["<=", dateFrom, ["number", ["get", "valid_from"]]];
+
+
+      this.map.setFilter('musique', ['all', filterFrom, filterTo]);
+      this.map.setFilter('exposition', ['all', filterFrom, filterTo]);
+      this.map.setFilter('children', ['all', filterFrom, filterTo]);
+      this.map.setFilter('videsgreniers', ['all', filterFrom, filterTo]);
+      this.map.setFilter('marches', ['all', filterFrom, filterTo]);
+
+    }
+    else
+    {
+
+      this.map.setFilter("musique", ["==", dateFrom, ["number", ["get", "valid_from"]]]);
+      this.map.setFilter("clusters", ["==", dateFrom, ["number", ["get", "valid_from"]]]);
+      this.map.setFilter("cluster-count", ["==", dateFrom, ["number", ["get", "valid_from"]]]);
+
+      this.map.setFilter("exposition", ["==", dateFrom, ["number", ["get", "valid_from"]]]);
+      this.map.setFilter("children", ["==", dateFrom, ["number", ["get", "valid_from"]]]);
+      this.map.setFilter("videsgreniers", ["==", dateFrom, ["number", ["get", "valid_from"]]]);
+      this.map.setFilter("marches", ["==", dateFrom, ["number", ["get", "valid_from"]]]);
+    }
+
   }
 
   layerToKey(layer) {
@@ -584,6 +621,7 @@ MapComponent.propTypes = {
   mapStyle: PropTypes.string,
   toggleLayerVisibility: PropTypes.string,
   dateFrom: PropTypes.number,
+  dateTo: PropTypes.number,
   modality: PropTypes.string,
   mode: PropTypes.string,
   moveOnLoad: PropTypes.bool,
@@ -616,6 +654,7 @@ const mapStateToProps = (state) => {
     mapStyle: state.app.mapStyle,
     toggleLayerVisibility: state.app.toggleLayerVisibility,
     dateFrom: state.app.dateFrom,
+    dateTo: state.app.dateTo,
     modality: state.app.modality,
     mode: state.app.mode,
     needMapRepan: state.app.needMapRepan,

@@ -188,8 +188,8 @@ class MyDrawer extends Component {
             open: false,
             list1Open: false,
             listAgendaOpen: true,
-            dateFrom: new Date(),
-            dateTo: new Date()
+            dateFrom: new Date(), //Today
+            dateTo: new Date() // Today plus one day
 
         };
 
@@ -219,16 +219,37 @@ class MyDrawer extends Component {
     };
 
     handleDateChange = (date) => {
-        // const { visibility } = this.state;
-        this.setState({ dateFrom: date });
-        // this._updateMapStyle(this.state);
-        
-        this.props.setStateValues({
-          dateFrom: Date.parse(date),
-          // needMapRestyle: true,
-          needMapFilterByDate: true
+
+      if (this.state.dateTo < date) {
+        var tomorrow = date;
+        tomorrow.setDate(tomorrow.getDate() + 1);
+
+        this.setState({
+          dateFrom: date,
+          dateTo: tomorrow
         });
-        this.props.triggerMapUpdate();
+      }
+      else {
+        this.setState({ dateFrom: date });
+      }
+
+      this.props.setStateValues({
+        dateFrom: Date.parse(date),
+        dateTo:  Date.parse(this.state.dateTo),
+        needMapFilterByDate: true
+      });
+
+      this.props.triggerMapUpdate();
+    }
+
+    handleDateToChange = (date) => {
+      this.setState({ dateTo: date });
+
+      this.props.setStateValues({
+        dateTo: Date.parse(date),
+        needMapFilterByDate: true
+      });
+      this.props.triggerMapUpdate();
     }
 
     _onVisibilityChange(name, event) {
@@ -245,16 +266,15 @@ class MyDrawer extends Component {
     }
 
     componentDidMount() {
+      //this.dateTo = this.dateTo.getDate() + 1;
       //this.handleDateChange(Date());
     }
 
 
     render() {
         const { classes } = this.props;
-        const {visibility, dateFrom } = this.state;
-        // var pointColor = null;
-        //  if("paint" in defaultMapStyle.layers["name"])
-        //    {pointColor = defaultMapStyle.layers["name"].paint["circle-color"];}
+        const {visibility, dateFrom, dateTo } = this.state;
+
 
         return <React.Fragment>
             <div className={classes.root}>
@@ -268,7 +288,7 @@ class MyDrawer extends Component {
                 <Divider />
 
                <ListItem button onClick={this.handleClick} aria-label="Open Culture et Patrimoine" id="ButtonCultureHeritage">
-                  <ListSubheader>Culture et Patrimoine</ListSubheader>
+                  <ListSubheader style={{color:"black", fontSize:"16px" }}>Culture et Patrimoine</ListSubheader>
                   {this.state.list1Open ? <ExpandLess className={classes.expandIcons}/> : <ExpandMore className={classes.expandIcons}/>}
                 </ListItem>
                 <Collapse in={this.state.list1Open} timeout="auto" unmountOnExit className={classes.collapses}>
@@ -382,15 +402,27 @@ class MyDrawer extends Component {
                   </List>
                   <Divider />
                 </Collapse>
-                <ListItem button onClick={this.handleClickListAgendaOpen} aria-label="Open Agenda" id="ButtonAgenda" style={{ backgroundColor: "white" }}>
-                  <ListSubheader>Agenda</ListSubheader>
+                <ListItem button onClick={this.handleClickListAgendaOpen} aria-label="Open Agenda" id="ButtonAgenda" style={{backgroundColor: "white" }}>
+                  <ListSubheader style={{color:"black", fontSize:"16px" }}>Agenda</ListSubheader>
                   {this.state.listAgendaOpen ? <ExpandLess className={classes.expandIcons} /> : <ExpandMore className={classes.expandIcons} />}
                 </ListItem>
                 <Collapse in={this.state.listAgendaOpen} timeout="auto" unmountOnExit className={classes.collapses}>
+                
+
+
                   <List>
-                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                      <DatePicker style={{ marginLeft: 24 }} value={dateFrom} minDate={dateFrom} onChange={this.handleDateChange} />
-                    </MuiPickersUtilsProvider>
+                  <ListItem style={{backgroundColor: "grey" }}>
+                {/* DateTime Pickers */}
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <DatePicker style={{ float: "right", marginRight: 24, marginBottom:"12px" }} value={dateFrom} minDate={Date()} onChange={this.handleDateChange.bind(this)} />
+                </MuiPickersUtilsProvider>
+                {/* <Divider style={{height:0}}/> */}
+                </ListItem>
+                <ListItem style={{backgroundColor: "grey" }}>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <DatePicker style={{ float: "right", marginRight: 24, marginBottom:"12px" }} value={dateTo} minDate={dateFrom} onChange={this.handleDateToChange} />
+                </MuiPickersUtilsProvider>
+                </ListItem>
 
                     <ListItem key={"Exposition"} dense button className={classes.listItem}>
                       <Checkbox tabIndex={-1} checked={this.state.visibility["Exposition"]} onChange={this._onVisibilityChange.bind(this, "Exposition")} value="true" color="default" aria-label="ExpositionCheckbox" htmlFor="ExpositionListItemText" id="ExpositionCheckbox" disableRipple />
@@ -453,13 +485,15 @@ MyDrawer.propTypes = {
   classes: PropTypes.object.isRequired,
   setStateValues: PropTypes.func,
   dateFrom: PropTypes.number,
-  toggleLayerVisibility: PropTypes.string,  
+  dateTo: PropTypes.number,
+  toggleLayerVisibility: PropTypes.string,
   triggerMapUpdate: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
   return {
     dateFrom: state.app.dateFrom,
+    dateTo: state.app.dateTo,
     toggleLayerVisibility: state.app.toggleLayerVisibility
   };
 };

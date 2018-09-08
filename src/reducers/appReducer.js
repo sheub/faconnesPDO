@@ -36,6 +36,7 @@ const defaultAppState = {
   contextMenuPlace: null,
   toggleLayerVisibility: '',
   dateFrom:0,
+  dateTo:0,
   popupActive: false
 };
 

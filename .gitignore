@@ -23,3 +23,9 @@ yarn-error.log*
 /src/components/data/exposition.jsonld
 /src/components/data/localProductShop.jsonld
 /src/components/data/marches.jsonld
+src/components/data/enfant.json
+src/components/data/ParcsJardins.json
+src/components/data/craftmanShop.json
+src/components/data/localProductShop.json
+src/components/data/restaurants.json
+src/components/data/sculpture.json

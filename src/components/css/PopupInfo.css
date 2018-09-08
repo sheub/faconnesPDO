@@ -34,7 +34,6 @@
     margin-top: 4px;
     margin-left: 2px;
     margin-right: 18px;
-
 }
 
 .introtext {
@@ -169,12 +168,13 @@
     position: absolute;
     top: 0px;
     right: 6px;
-    cursor: pointer;    
+    cursor: pointer;
     background-color: #fff;
     padding-left: 4px;
     /* font-size: 11px; */
     /* color: white; */
 }
+
 /* 
 .btn-close:hover {
    
@@ -182,13 +182,11 @@
 	border-radius: 50%;
 
 } */
-
-.baseInfo{
+.baseInfo {
     padding-left: 3px;
     padding-right: 3px;
-    width:100%;
+    width: 100%;
 }
-
 
 @media screen and (max-width: 600px) {
     .mapboxgl-popupup {
@@ -208,6 +206,7 @@
         top: 52px;
         width: 100%;
     }
+
     .baseText {
         width: 100%;
         margin-left: 0;

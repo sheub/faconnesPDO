@@ -8,8 +8,6 @@ import MenuIcon from "@material-ui/icons/Menu";
 import { withStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
-// import Search from './Search';
-
 import "./css/App.css";
 import "./css/mdIcons.css";
 
@@ -67,9 +65,6 @@ class MyAppBar extends Component{
                     <IconButton color="inherit" aria-label="Open drawer" onClick={this.handleDrawerOpen} className={classNames(classes.menuButton, open && classes.menuButtonHidden)}>
                         <MenuIcon />
                     </IconButton>
-                    {/* <div className='relative m12 m24-mm w420-mm flex-parent flex-parent--column'>
-                        <Search />
-                    </div> */}
                     <Typography variant="title" align="right" color="inherit" noWrap className={classes.title}>
                         France découverte
                 </Typography>

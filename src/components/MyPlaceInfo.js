@@ -84,9 +84,6 @@ class MyPlaceInfo extends Component {
   hidePopup() {
     this.props.info.popupActive = false;
     this.forceUpdate();
-    // this.setState({
-    //   popupActive: false,
-    // });
   }
 
 
