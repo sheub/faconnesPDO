@@ -2,7 +2,7 @@
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import PlaceName from './PlaceName';
+import MyPlaceName from './MyPlaceName';
 import xhr from 'xhr';
 
 /**
@@ -136,15 +136,17 @@ class Geocoder extends Component {
           <ul className={this.props.resultsClass}>
             {this.state.results.map((result, i) => (
               <li
-                key={result.id}
+                // key={result.id}
+                key={result.properties.id}
                 className={(i === this.state.focus ? 'bg-blue-faint' : 'bg-gray-faint-on-hover') + ' h36 flex-parent flex-parent--center-cross pr12 cursor-pointer w-full w420-mm'}
                 onClick={this.clickOption.bind(this, result, i)}
               >
                 <div className='absolute flex-parent flex-parent--center-cross flex-parent--center-main w42 h42'>
                   <svg className='icon color-darken25'><use xlinkHref='#icon-marker'></use></svg>
                 </div>
-                <div className='pl42 pr12 txt-truncate' key={result.id}>
-                  <PlaceName location={result}/>
+                {/* <div className='pl42 pr12 txt-truncate' key={result.id}> */}
+                <div className='pl42 pr12 txt-truncate' key={result.properties.id}>
+                  <MyPlaceName location={result}/>
                 </div>
               </li>
             ))}
@@ -175,8 +177,8 @@ Geocoder.propTypes = {
 };
 // https://api-adresse.data.gouv.fr/search/?q=
 Geocoder.defaultProps = {
-  endpoint: 'https://api.tiles.mapbox.com',
-  // endpoint: 'https://api-adresse.data.gouv.fr',
+  //endpoint: 'https://api.tiles.mapbox.com',
+  endpoint: 'https://api-adresse.data.gouv.fr',
   inputPosition: 'top',
   inputPlaceholder: 'Search',
   source: 'mapbox.places',
@@ -190,14 +192,14 @@ function search(endpoint, source, accessToken, proximity, bbox, types, query, ca
   // Usually asynchronous calls would happen in the API caller,
   // but the results here are independent from the apps' state
   var searchTime = new Date();
-  var uri = endpoint + '/geocoding/v5/'
-  // var uri = endpoint + '/search/?q='
-    + source + '/' + encodeURIComponent(query) + '.json'
-    // + encodeURIComponent(query)
-    + '?access_token=' + accessToken
-    + (proximity ? '&proximity=' + proximity : '')
-    + (bbox ? '&bbox=' + bbox : '')
-    + (types ? '&types=' + encodeURIComponent(types) : '');
+  // var uri = endpoint + '/geocoding/v5/'
+  var uri = endpoint + '/search/?q='
+  //  + source + '/' + encodeURIComponent(query) + '.json'
+    + encodeURIComponent(query);
+    // + '?access_token=' + accessToken
+    // + (proximity ? '&proximity=' + proximity : '')
+    // + (bbox ? '&bbox=' + bbox : '')
+    // + (types ? '&types=' + encodeURIComponent(types) : '');
   xhr({
     uri: uri,
     json: true

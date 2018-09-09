@@ -106,7 +106,9 @@ function getActionPayload(key, value) {
   } else if (key === 'searchLocation') {
     actionPayload = {
       searchCoords: value.geometry.coordinates,
-      searchPlace: value.place_name.split(',')[0]
+      // searchPlace: value.place_name.split(',')[0]
+      //searchPlace: value.label.split(',')[0]
+      searchPlace: value.properties.label.split(',')[0]
     };
   }
   return actionPayload;

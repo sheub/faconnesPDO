@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Geocoder from './Geocoder';
-import PlaceName from './PlaceName';
+import MyPlaceName from './MyPlaceName';
 import CloseButton from './CloseButton';
 import PlaceInfo from './PlaceInfo';
 import MyPlaceInfo from './MyPlaceInfo';
@@ -32,17 +32,16 @@ class Search extends Component {
       SearchBar = (
         <div className={this.styles.input + ' flex-parent flex-parent--center-cross flex-parent--center-main'}>
           <div className='w-full w420-mm pr42 txt-truncate'>
-            <PlaceName
+            <MyPlaceName
               location={this.props.searchLocation}
               onClick={() => {
                 this.props.writeSearch(this.props.searchLocation.place_name);
                 this.props.resetStateKeys(['searchLocation', 'placeInfo']);
               }}
             />
-                    {
-          (this.props.searchLocation && this.props.searchLocation.properties)
-          ? <MyPlaceInfo info={this.props.searchLocation} isActive={true} clickDirections={() => this.clickDirections()}/>
-          : null
+            { (this.props.searchLocation && this.props.searchLocation.properties) ? 
+            <MyPlaceInfo info={this.props.searchLocation} isActive={true} clickDirections={() => this.clickDirections()}/>
+            : null
         }
           </div>
           <div

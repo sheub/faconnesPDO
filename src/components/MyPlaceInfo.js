@@ -83,6 +83,8 @@ class MyPlaceInfo extends Component {
   
   hidePopup() {
     this.props.info.popupActive = false;
+    // this.props.isActive = false;
+
     this.forceUpdate();
   }
 
@@ -92,6 +94,7 @@ class MyPlaceInfo extends Component {
 
     let popupActive = this.props.info.popupActive;
     let info = this.props.info.properties;
+
     const layerId = this.props.info.layerId;
     const paintColor = this.props.info.paintColor;
     
@@ -207,7 +210,7 @@ class MyPlaceInfo extends Component {
       }
       return (
                        <div>
-          {popupActive &&
+       {popupActive &&
         <div className="mapboxgl-popupup popPupStyle">
           <div className="baseInfo">
             <div className="baseText">
@@ -228,6 +231,34 @@ class MyPlaceInfo extends Component {
         </div>
       );
     }
+
+    // Case: geocoder result
+    if(info && this.props.info.geometry)
+    {
+      popupActive = this.props.isActive;
+      return (
+        <div>
+          {popupActive &&
+            <div className="mapboxgl-popupup  popPupStyle">
+              <div className="baseText">
+                <div className="baseInfo">
+                  <div className="titleText">
+                    {info.label}
+                  </div>
+                  <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.hidePopup()}><span aria-hidden="true">&times;</span></button>
+                  <div className="introtext">
+                    <div className="abstractPopup">
+                      {info.context}
+                    </div>
+                    postcode : {info.postcode}<br/>
+                  </div>
+                </div>
+              </div>
+            </div>}
+        </div>
+      );
+    }
+    return null;
   }
 
   get styles() {

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Geocoder from './Geocoder';
-import PlaceName from './PlaceName';
+import MyPlaceName from './MyPlaceName';
 import CloseButton from './CloseButton';
 import RoutePanel from './RoutePanel';
 import ModalityButtons from './ModalityButtons';
@@ -45,7 +45,7 @@ class Directions extends Component {
                 {
                   this.props.directionsFrom
                   ? <div className={this.styles.placeName}>
-                    <PlaceName
+                    <MyPlaceName
                       location={this.props.directionsFrom}
                       colors='light'
                       onClick={() => {
@@ -75,7 +75,7 @@ class Directions extends Component {
                 {
                   this.props.directionsTo
                   ? <div className={this.styles.placeName}>
-                    <PlaceName
+                    <MyPlaceName
                       location={this.props.directionsTo}
                       colors='light'
                       onClick={() => {
