@@ -321,21 +321,6 @@ class MapComponent extends Component {
         this.props.triggerMapUpdate();
       }
     }
-    else {
-      var clustersFeatures = this.map.queryRenderedFeatures(e.point, { layers: ['clusters'] });
-      if (clustersFeatures && clustersFeatures.length > 0) {
-        var clusterId = clustersFeatures[0].properties.cluster_id;
-        this.map.getSource('musique').getClusterExpansionZoom(clusterId, function (err, zoom) {
-          if (err)
-            return;
-
-          this.map.easeTo({
-            center: clustersFeatures[0].geometry.coordinates,
-            zoom: zoom
-          });
-        });
-      }
-    }
   }
 
   onContextMenu(e) {
@@ -475,23 +460,10 @@ class MapComponent extends Component {
     }
 
     var visibility = this.map.getLayoutProperty(toggleLayerVisibility, 'visibility');
-    if (["musique"].includes(toggleLayerVisibility)) {
-        
-        if (visibility === 'visible') {
-          this.map.setLayoutProperty(toggleLayerVisibility, 'visibility', 'none');
-          this.map.setLayoutProperty("clusters", 'visibility', 'none');
-          this.map.setLayoutProperty("cluster-count", 'visibility', 'none');
-        } else {
-          this.map.setLayoutProperty(toggleLayerVisibility, 'visibility', 'visible');
-          this.map.setLayoutProperty("clusters", 'visibility', 'visible');
-          this.map.setLayoutProperty("cluster-count", 'visibility', 'visible');
-        }
-      } else {
-      if (visibility === 'visible') {
-        this.map.setLayoutProperty(toggleLayerVisibility, 'visibility', 'none');
-      } else {
-        this.map.setLayoutProperty(toggleLayerVisibility, 'visibility', 'visible');
-      }
+    if (visibility === 'visible') {
+      this.map.setLayoutProperty(toggleLayerVisibility, 'visibility', 'none');
+    } else {
+      this.map.setLayoutProperty(toggleLayerVisibility, 'visibility', 'visible');
     }
   }
 
@@ -549,9 +521,6 @@ class MapComponent extends Component {
     {
 
       this.map.setFilter("musique", ["<=", dateFrom, ["number", ["get", "valid_from"]]]);
-      this.map.setFilter("clusters", ["<=", dateFrom, ["number", ["get", "valid_from"]]]);
-      this.map.setFilter("cluster-count", ["<=", dateFrom, ["number", ["get", "valid_from"]]]);
-
       this.map.setFilter("exposition", ["<=", dateFrom, ["number", ["get", "valid_from"]]]);
       this.map.setFilter("children", ["<=", dateFrom, ["number", ["get", "valid_from"]]]);
       this.map.setFilter("videsgreniers", ["<=", dateFrom, ["number", ["get", "valid_from"]]]);

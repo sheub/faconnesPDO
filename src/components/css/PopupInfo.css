@@ -12,12 +12,23 @@
     src: local("ACaslonPro-Bold"), url(./../fonts/Caslon/ACaslonPro-Bold.otf) format("otf");
 }
 
+@font-face {
+    font-family: 'MuseoSans';
+    src: local("MuseoSans_500-webfont"), url("./../fonts/MuseoSans_500-webfont.woff") format("woff");
+    /* src: url('./../fonts/MuseoSans_500-webfont.woff2') format('woff2'),
+         url('./../fonts/MuseoSans_500-webfont.woff') format('woff'); */
+    font-weight: 500;
+    font-style: normal;
+
+}
+
 .baseText {
-    font-family: "Caslon";
-    font-weight: 400;
+    /* font-family: "Source Sans Pro"; */
+    /* font-weight: 400; */
     margin-left: 6px;
     margin-bottom: 6px;
     margin-top: 6px;
+    color: black;
     /* text-align: justify; // Does not work with Truncate
     text-justify: inter-word; */
 }
@@ -51,7 +62,7 @@
     font-size: 14px;
     white-space: normal;
     color: grey;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Lucida Grande";
+    /* font-family: system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Lucida Grande"; */
     letter-spacing: -1px;
 }
 
@@ -60,7 +71,7 @@
     color: #68635C;
     text-transform: capitalize;
     /*letter-spacing: .0675em;*/
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Lucida Grande";
+    /* font-family: system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Lucida Grande"; */
     padding-bottom: 6px;
 }
 
@@ -140,7 +151,8 @@
 .urlPopup {
     margin-bottom: 6px;
     text-decoration: none;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Lucida Grande";
+    /* font-family: "Source Sans Pro"; */
+    /* system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Lucida Grande"; */
     letter-spacing: -1px;
     color: rgb(75, 71, 66);
 }
@@ -161,7 +173,7 @@
     border-radius: 5px;
     box-shadow: 0px 0px 8px -3px #000;
     transition-duration: 1s;
-    cursor: default;
+    /* cursor: default; */
 }
 
 .btn-close {

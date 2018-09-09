@@ -57,8 +57,23 @@ const theme = createMuiTheme({
           main: "#9CB2C0",
       }
   },
-
-});
+  
+    typography: {
+      // Use the system font instead of the default Roboto font.
+      fontFamily: [
+        '-apple-system',
+        'BlinkMacSystemFont',
+        '"Segoe UI"',
+        'Roboto',
+        '"Helvetica Neue"',
+        'Arial',
+        'sans-serif',
+        '"Apple Color Emoji"',
+        '"Segoe UI Emoji"',
+        '"Segoe UI Symbol"',
+      ].join(','),
+    },
+  });
 
 ReactDOM.render(
   <Provider store={store}>
