@@ -27,10 +27,6 @@
   to { transform: rotate(360deg); }
 }
 
-/* .mapboxgl-popup-content{
-  padding:0;
-} */
-
 @media only screen and (max-width: 480px) {
   .mapboxgl-popup-content {
       max-width: 250px;

@@ -12,16 +12,6 @@
     src: local("ACaslonPro-Bold"), url(./../fonts/Caslon/ACaslonPro-Bold.otf) format("otf");
 }
 
-@font-face {
-    font-family: 'MuseoSans';
-    src: local("MuseoSans_500-webfont"), url("./../fonts/MuseoSans_500-webfont.woff") format("woff");
-    /* src: url('./../fonts/MuseoSans_500-webfont.woff2') format('woff2'),
-         url('./../fonts/MuseoSans_500-webfont.woff') format('woff'); */
-    font-weight: 500;
-    font-style: normal;
-
-}
-
 .baseText {
     /* font-family: "Source Sans Pro"; */
     /* font-weight: 400; */

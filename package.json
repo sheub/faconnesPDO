@@ -2,7 +2,7 @@
   "name": "marvelous",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://sheub.github.io/marvelous-map",
+  "homepage": "https://sheub.github.io/marvelous-map/",
   "devDependencies": {
     "@mapbox/spritezero-cli": "^2.0.0",
     "enzyme": "^2.8.2",
@@ -11,7 +11,7 @@
     "eslint-config-mourner": "^2.0.1",
     "eslint-plugin-jest": "^20.0.3",
     "eslint-plugin-react": "^6.10.0",
-    "gh-pages": "^0.12.0",
+    "gh-pages": "1.2.0",
     "react-scripts": "1.1.4",
     "react-test-renderer": "16.4.2"
   },
@@ -60,7 +60,7 @@
   "main": "src/index.js",
   "repository": {
     "type": "git",
-    "url": "https://sheub.github.io/marvelous-map"
+    "url": "https://sheub.github.io/marvelous-map/"
   },
   "author": "sheub",
   "license": "MIT"

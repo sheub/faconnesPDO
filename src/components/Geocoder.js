@@ -127,6 +127,7 @@ class Geocoder extends Component {
       onChange={this.onInput}
       placeholder={this.props.inputPlaceholder}
       type='text'
+      aria-label="SearchInput"
     />;
 
     return (
