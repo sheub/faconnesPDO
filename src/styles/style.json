@@ -20,7 +20,8 @@
     "pitch": 0,
     "sources": {
         "composite": {
-			"url": "mapbox://mapbox.mapbox-streets-v7,sheub.623zkazi,sheub.5wb1wtbj,sheub.0q76nwnl,sheub.4w8m41y7,sheub.4wjhcapt,sheub.byxxjcbp,sheub.9e12f1eo,sheub.72t5vtea,sheub.localProductShop,sheub.craftmanShop,sheub.ParcsJardins",
+            "url": "mapbox://mapbox.mapbox-streets-v7,sheub.623zkazi,sheub.5wb1wtbj,sheub.9e12f1eo,sheub.0q76nwnl,sheub.4w8m41y7,sheub.4wjhcapt,sheub.Grand_Site_de_France,sheub.72t5vtea,sheub.localProductShop,sheub.craftmanShop,sheub.ParcsJardins",
+            "url": "mapbox://mapbox.mapbox-streets-v7,sheub.623zkazi,sheub.Plus_Beaux_Villages_de_France,sheub.craftmanShop,sheub.Monuments_nationaux,sheub.Patrimoine_mondial_en_France,sheub.ParcsJardins,sheub.Grand_Site_de_France,sheub.5wb1wtbj,sheub.Jardin_remarquable,sheub.localProductShop,sheub.restaurants,sheub.9e12f1eo",
             "type": "vector"
             },
         "traffic": {
@@ -2795,10 +2796,10 @@
             }
 		},
         {
-            "id": "whs-frenchcorrected-dq63pv",
+            "id": "patrimoine-mondial-en-france",
             "type": "symbol",
             "source": "composite",
-            "source-layer": "WHS_FrenchCorrected-dq63pv",
+            "source-layer": "Patrimoine_mondial_en_France",
             "filter": [
                 "==",
                 "$type",
@@ -2813,10 +2814,10 @@
             "paint": {}
         },
         {
-            "id": "villages-frenchcorrected-3gqhy6",
+            "id": "plus-beaux-villages-de-france",
             "type": "symbol",
             "source": "composite",
-            "source-layer": "Villages_FrenchCorrected-3gqhy6",
+            "source-layer": "Plus_Beaux_Villages_de_France",
             "filter": [
                 "==",
                 "$type",
@@ -2839,10 +2840,10 @@
             "paint": {}
         },
         {
-            "id": "jardinfr-8nabpa",
+            "id": "jardin-remarquable",
             "type": "symbol",
             "source": "composite",
-            "source-layer": "JardinFr-8nabpa",
+            "source-layer": "Jardin_remarquable",
             "filter": [
                 "==",
                 "$type",
@@ -2857,10 +2858,10 @@
             "paint": {}
         },
         {
-            "id": "gsf-frenchcorrected",
+            "id": "grand-site-de-france",
             "type": "circle",
             "source": "composite",
-            "source-layer": "GSF_FrenchCorrected",
+            "source-layer": "Grand_Site_de_France",
             "layout": {
                 "visibility": "none"
             },
@@ -2904,10 +2905,10 @@
             }
 		},
         {
-            "id": "edifice-geres-par-les-monumen-3inr6v",
+            "id": "monuments-nationaux",
             "type": "circle",
             "source": "composite",
-            "source-layer": "Edifice_geres_par_Les_Monumen-3inr6v",
+            "source-layer": "Monuments_nationaux",
             "filter": [
                 "==",
                 "$type",

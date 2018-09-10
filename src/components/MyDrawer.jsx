@@ -28,12 +28,12 @@ import DatePicker from "material-ui-pickers/DatePicker";
 import DateFnsUtils from "material-ui-pickers/utils/date-fns-utils";
 
 import ListSubheader from "@material-ui/core/ListSubheader";
-import VillagesIcon from "./mbstyle/icons/village-11.svg";
-import MuseumIcon from "./mbstyle/icons/museum-11.svg";
-import UnescoIcon from "./mbstyle/icons/World_Heritage_Logo_global_small.svg";
-import JardinsIcon from "./mbstyle/icons/Jardins_Remarquables_15.svg";
+import VillagesIcon from "./../styles/icons/village-11.svg";
+import MuseumIcon from "./../styles/icons/museum-11.svg";
+import UnescoIcon from "./../styles/icons/World_Heritage_Logo_global_small.svg";
+import JardinsIcon from "./../styles/icons/Jardins_Remarquables_15.svg";
 import Footer from "./Footer.js"
-//import AOPIcon from "./mbstyle/icons/AOP.svg";
+//import AOPIcon from "./../styles/icons/AOP.svg";
 
 
 import "./css/App.css";
@@ -146,12 +146,12 @@ const styles = (theme) => ({
 // Layer id patterns by category
 const layerSelector = {
             Museum: /liste-et-localisation-des-mus-5iczl9/,
-            Villages: /villages-frenchcorrected-3gqhy6/,
-            Unesco: /whs-frenchcorrected-dq63pv/, // This is the Layer id
+            Villages: /plus-beaux-villages-de-france/,
+            Unesco: /patrimoine-mondial-en-france/, // This is the Layer id
             AOP: /n-inao-aop-fr-16md1w/,
-            Jardins: /jardinfr-8nabpa/,
-            GSF: /gsf-frenchcorrected/,
-            MN: /edifice-geres-par-les-monumen-3inr6v/,
+            Jardins: /jardin-remarquable/,
+            GSF: /grand-site-de-france/,
+            MN: /monuments-nationaux/,
             ParcsJardins: /parcsjardins/,
             Restaurants: /restaurants/,
             LocalProdShop: /localproductshop/,

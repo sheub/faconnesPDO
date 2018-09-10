@@ -106,12 +106,12 @@ class MyPlaceInfo extends Component {
       };
     if (window.innerHeight < 500) return null;
 
-    if (["villages-frenchcorrected-3gqhy6",
-      "whs-frenchcorrected-dq63pv",
+    if (["plus-beaux-villages-de-france",
+      "patrimoine-mondial-en-france",
       "n-inao-aop-fr-16md1w",
-      "jardinfr-8nabpa",
-      "gsf-frenchcorrected",
-      "edifice-geres-par-les-monumen-3inr6v"].includes(layerId)) {
+      "jardin-remarquable",
+      "grand-site-de-france",
+      "monuments-nationaux"].includes(layerId)) {
 
       return (
         <div>
