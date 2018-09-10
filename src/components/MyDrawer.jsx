@@ -26,6 +26,7 @@ import Collapse from "@material-ui/core/Collapse";
 import MuiPickersUtilsProvider from "material-ui-pickers/utils/MuiPickersUtilsProvider";
 import DatePicker from "material-ui-pickers/DatePicker";
 import DateFnsUtils from "material-ui-pickers/utils/date-fns-utils";
+import frLocale from 'date-fns/locale/fr';
 
 import ListSubheader from "@material-ui/core/ListSubheader";
 import VillagesIcon from "./../styles/icons/village-11.svg";
@@ -47,7 +48,7 @@ function HomeIcon(props) {
     );
 }
 
-const drawerWidth = 270;
+const drawerWidth = 340;
 
 const styles = (theme) => ({
 
@@ -72,9 +73,9 @@ const styles = (theme) => ({
     marginLeft: 12,
     marginRight: 36
   },
-  menuButtonHidden: {
-    display: "none"
-  },
+  // menuButtonHidden: {
+  //   display: "none"
+  // },
   title: {
     flexGrow: 0
   },
@@ -117,7 +118,7 @@ const styles = (theme) => ({
     //   display: "none",
     // },
   },
-  appBarSpacer: theme.mixins.toolbar,
+  // appBarSpacer: theme.mixins.toolbar,
   content: {
     flexGrow: 0,
     padding: theme.spacing.unit * 0
@@ -125,21 +126,21 @@ const styles = (theme) => ({
   icon: {
     width: 25
   },
-  container: {
-    display: "flex",
-    flexWrap: "wrap",
-  },
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    width: 200,
-  },
+  // container: {
+  //   display: "flex",
+  //   flexWrap: "wrap",
+  // },
+  // textField: {
+  //   marginLeft: theme.spacing.unit,
+  //   marginRight: theme.spacing.unit,
+  //   width: 200,
+  // },
   pickers: {
     display: "flex",
     justifyContent: "space-around",
   },
   expandIcons:{
-    position: "absolute", right: "6px"    
+    position: "absolute", right: "12px"    
   }
 });
 
@@ -190,6 +191,7 @@ class MyDrawer extends Component {
             mapStyle: "",
             open: false,
             list1Open: false,
+            listLoisirOpen: false,
             listAgendaOpen: true,
             dateFrom: new Date(), //Today
             dateTo: new Date() // Today plus one day
@@ -217,20 +219,26 @@ class MyDrawer extends Component {
     handleClick = () => {
         this.setState(state => ({ list1Open: !state.list1Open }));
     };
+    handleClickLoisirOpen = () => {
+      this.setState(state => ({ listLoisirOpen: !state.listLoisirOpen }));
+  };
+    
     handleClickListAgendaOpen = () => {
         this.setState((state) => ({ listAgendaOpen: !state.listAgendaOpen }));
     };
 
     handleDateChange = (date) => {
 
+      let tempDate = this.state.dateTo;
       if (this.state.dateTo < date) {
-        var tomorrow = date;
-        tomorrow.setDate(tomorrow.getDate() + 1);
+        // var tomorrow = date;
+        // tomorrow.setDate(tomorrow.getDate() + 1);
 
         this.setState({
           dateFrom: date,
-          dateTo: tomorrow
+          dateTo: date
         });
+        tempDate = date;
       }
       else {
         this.setState({ dateFrom: date });
@@ -238,7 +246,7 @@ class MyDrawer extends Component {
 
       this.props.setStateValues({
         dateFrom: Date.parse(date),
-        dateTo:  Date.parse(this.state.dateTo),
+        dateTo:  Date.parse(tempDate),
         needMapFilterByDate: true
       });
 
@@ -293,7 +301,7 @@ class MyDrawer extends Component {
                 <Divider />
 
                <ListItem button onClick={this.handleClick} aria-label="Open Culture et Patrimoine" id="ButtonCultureHeritage">
-                  <ListSubheader style={{color:"black", fontSize:"16px" }}>Culture et Patrimoine</ListSubheader>
+                  <ListSubheader style={{color:"black", fontSize:"16px" }} title="Richesses architecturales et Naturelles Culturelles">Culture &amp; Patrimoine</ListSubheader>
                   {this.state.list1Open ? <ExpandLess className={classes.expandIcons}/> : <ExpandMore className={classes.expandIcons}/>}
                 </ListItem>
                 <Collapse in={this.state.list1Open} timeout="auto" unmountOnExit className={classes.collapses}>
@@ -309,21 +317,21 @@ class MyDrawer extends Component {
                     </ListItem>
                     <ListItem key={"Unesco"} dense button className={classes.listItem}>
                       <Checkbox tabIndex={-1} checked={visibility["Unesco"]} onChange={this._onVisibilityChange.bind(this, "Unesco")} value="true" color="default" id="UnescoCheckbox" disableRipple />
-                      <InputLabel htmlFor="UnescoCheckbox" primary={"Unesco"} title="Unesco World Heritage">
+                      <InputLabel htmlFor="UnescoCheckbox" primary={"Unesco"} title="Patrimoine mondial de l'UNESCO">
                         Unesco
                       </InputLabel>
                       <ListItemSecondaryAction>
-                        <img className={classes.icon} alt="Unesco World Heritage" title="Unesco World Heritage" src={UnescoIcon} />
+                        <img className={classes.icon} alt="Patrimoine mondial de l'UNESCO" title="Patrimoine mondial de l'UNESCO" src={UnescoIcon} />
                       </ListItemSecondaryAction>
                     </ListItem>
 
                     <ListItem key={"Museum"} dense button className={classes.listItem}>
                       <Checkbox tabIndex={-1} checked={this.state.visibility["Museum"]} onChange={this._onVisibilityChange.bind(this, "Museum")} value="true" color="default" id="MuseumCheckbox" disableRipple />
-                      <InputLabel htmlFor="MuseumCheckbox" primary={"Museum"} title="Museum">
+                      <InputLabel htmlFor="MuseumCheckbox" primary={"Museum"} title="Musées">
                         Musées
                       </InputLabel>
                       <ListItemSecondaryAction>
-                        <img className={classes.icon} alt="Museum" title="Museum" src={MuseumIcon} />
+                        <img className={classes.icon} alt="Musées" title="Musées" src={MuseumIcon} />
                       </ListItemSecondaryAction>
                     </ListItem>
 
@@ -339,22 +347,22 @@ class MyDrawer extends Component {
 
                     <ListItem key={"GSF"} dense button className={classes.listItem}>
                       <Checkbox tabIndex={-1} checked={this.state.visibility["GSF"]} onChange={this._onVisibilityChange.bind(this, "GSF")} value="true" color="default" id="GSFCheckbox" disableRipple />
-                      <InputLabel htmlFor="GSFCheckbox" primary={"Grands Sites"} title="Grand Site de France">
+                      <InputLabel htmlFor="GSFCheckbox" primary={"Grands Sites"} title="Grands Sites de France">
                         Grands Sites
                       </InputLabel>
                       <ListItemSecondaryAction>
-                      <HomeIcon className={classes.icon} style={{ color: "#217619" }} alt="Grand Site de France" title="Grand Site de France" />
+                      <HomeIcon className={classes.icon} style={{ color: "#217619" }} alt="Grands Sites de France" title="Grands Sites de France" />
                         {/* <img className={classes.icon} alt="Grand Site de France" title="Grand Site de France" src={GSFIcon} /> */}
                       </ListItemSecondaryAction>
                     </ListItem>
 
                     <ListItem key={"MN"} dense button className={classes.listItem}>
                       <Checkbox tabIndex={-1} checked={this.state.visibility["MN"]} onChange={this._onVisibilityChange.bind(this, "MN")} value="true" color="default" id="MNCheckbox" disableRipple />
-                      <InputLabel htmlFor="MNCheckbox" primary={"Monuments"} title="Monuments Nationaux">
+                      <InputLabel htmlFor="MNCheckbox" primary={"Monuments"} title="Édifices gérés par le centre des monuments nationaux">
                         Monuments
                       </InputLabel>
                       <ListItemSecondaryAction>
-                        <HomeIcon className={classes.icon} style={{ color: "#1f08a6" }} alt="Monuments Nationaux" title="Monuments Nationaux" />
+                        <HomeIcon className={classes.icon} style={{ color: "#1f08a6" }} alt="Monuments Nationaux" title="Édifices gérés par le centre des monuments nationaux" />
                       </ListItemSecondaryAction>
                     </ListItem>
 
@@ -367,7 +375,18 @@ class MyDrawer extends Component {
                         <img className={classes.icon} alt="Apellations d'origine controllée" title="Apellations d'origine controllée" src={AOPIcon} />
                       </ListItemSecondaryAction>
                     </ListItem> */}
+                    
+                    </List>
+                    </Collapse>
+                    <Divider light/>
 
+                  <ListItem button onClick={this.handleClickLoisirOpen} aria-label="Open Loisirs et Artisanat" id="ButtonLoisir">
+                  <ListSubheader style={{color:"black", fontSize:"16px" }}>Loisirs &amp; Artisanat</ListSubheader>
+                  {this.state.listLoisirOpen ? <ExpandLess className={classes.expandIcons}/> : <ExpandMore className={classes.expandIcons}/>}
+                </ListItem>
+
+                <Collapse in={this.state.listLoisirOpen} timeout="auto" unmountOnExit className={classes.collapses}>
+                  <List>
                     <ListItem key={"ParcsJardins"} dense button className={classes.listItem}>
                       <Checkbox tabIndex={-1} checked={this.state.visibility["ParcsJardins"]} onChange={this._onVisibilityChange.bind(this, "ParcsJardins")} value="true" color="default" aria-label="ParcsJardinsCheckbox" htmlFor="ParcsJardinsListItemText" id="ParcsJardinsCheckbox" disableRipple />
                       <InputLabel htmlFor="ParcsJardinsCheckbox" id="ParcsJardinsListItemText" primary={"ParcsJardins"} title="Parcs et jardins">
@@ -388,25 +407,25 @@ class MyDrawer extends Component {
                     </ListItem>
                     <ListItem key={"LocalProdShop"} dense button className={classes.listItem}>
                       <Checkbox tabIndex={-1} checked={this.state.visibility["LocalProdShop"]} onChange={this._onVisibilityChange.bind(this, "LocalProdShop")} value="true" color="default" aria-label="LocalProdShopCheckbox" htmlFor="LocalProdShopListItemText" id="LocalProdShopCheckbox" disableRipple />
-                      <InputLabel htmlFor="LocalProdShopCheckbox" id="LocalProdShopListItemText" primary={"LocalProdShop"} title="LocalProdShop">
+                      <InputLabel htmlFor="LocalProdShopCheckbox" id="LocalProdShopListItemText" primary={"LocalProdShop"} title="Commerce local">
                         Commerce local
                       </InputLabel>
                       <ListItemSecondaryAction>
-                        <HomeIcon className={classes.icon} style={{ color: "#E8EF1F" }} alt="LocalProdShop" title="LocalProdShop" />
+                        <HomeIcon className={classes.icon} style={{ color: "#E8EF1F" }} alt="Commerce local" title="Commerce local" />
                       </ListItemSecondaryAction>
                     </ListItem>
                     <ListItem key={"CraftmanShop"} dense button className={classes.listItem}>
                       <Checkbox tabIndex={-1} checked={this.state.visibility["CraftmanShop"]} onChange={this._onVisibilityChange.bind(this, "CraftmanShop")} value="true" color="default" aria-label="CraftmanShopCheckbox" htmlFor="CraftmanShopListItemText" id="CraftmanShopCheckbox" disableRipple />
-                      <InputLabel htmlFor="CraftmanShopCheckbox" id="CraftmanShopListItemText" primary={"CraftmanShop"} title="CraftmanShop">
+                      <InputLabel htmlFor="CraftmanShopCheckbox" id="CraftmanShopListItemText" primary={"CraftmanShop"} title="Atelier artisanal">
                         Atelier artisanal
                       </InputLabel>
                       <ListItemSecondaryAction>
-                        <HomeIcon className={classes.icon} style={{ color: "#ee8568" }} alt="CraftmanShop" title="CraftmanShop" />
+                        <HomeIcon className={classes.icon} style={{ color: "#ee8568" }} alt="Atelier artisanal" title="Atelier artisanal" />
                       </ListItemSecondaryAction>
                     </ListItem>
-                  </List>
-                  <Divider />
+                  </List>                  
                 </Collapse>
+                <Divider light/>
                 <ListItem button onClick={this.handleClickListAgendaOpen} aria-label="Open Agenda" id="ButtonAgenda" style={{backgroundColor: "white" }}>
                   <ListSubheader style={{color:"black", fontSize:"16px" }}>Agenda</ListSubheader>
                   {this.state.listAgendaOpen ? <ExpandLess className={classes.expandIcons} /> : <ExpandMore className={classes.expandIcons} />}
@@ -415,19 +434,21 @@ class MyDrawer extends Component {
                 
 
 
-                  <List>
-                  <ListItem style={{backgroundColor: "grey" }}>
-                {/* DateTime Pickers */}
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                  <DatePicker style={{ float: "right", marginRight: 24, marginBottom:"12px" }} value={dateFrom} minDate={Date()} onChange={this.handleDateChange.bind(this)} />
-                </MuiPickersUtilsProvider>
-                {/* <Divider style={{height:0}}/> */}
-                </ListItem>
-                <ListItem style={{backgroundColor: "grey" }}>
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                  <DatePicker style={{ float: "right", marginRight: 24, marginBottom:"12px" }} value={dateTo} minDate={dateFrom} onChange={this.handleDateToChange} />
-                </MuiPickersUtilsProvider>
-                </ListItem>
+                <List>
+                  <ListItem style={{ backgroundColor: "#eceded", paddingLeft: "17px", paddingRight: "17px"}}>
+
+                    <div style={{ backgroundColor: "#eceded", width: "50%", padding: "6px", float: "left" }} >
+                      <MuiPickersUtilsProvider utils={DateFnsUtils} locale={frLocale}>
+                        <DatePicker style={{ maxWidth: "100%" }} value={dateFrom} minDate={Date()} onChange={this.handleDateChange.bind(this)} />
+                      </MuiPickersUtilsProvider>
+                    </div>
+
+                    <div style={{ backgroundColor: "#eceded", width: "50%", padding: "6px", float: "right" }}>
+                      <MuiPickersUtilsProvider utils={DateFnsUtils} locale={frLocale}>
+                        <DatePicker style={{ maxWidth: "100%" }} value={dateTo} minDate={dateFrom} onChange={this.handleDateToChange} />
+                      </MuiPickersUtilsProvider>
+                    </div>
+                  </ListItem>
 
                     <ListItem key={"Exposition"} dense button className={classes.listItem}>
                       <Checkbox tabIndex={-1} checked={this.state.visibility["Exposition"]} onChange={this._onVisibilityChange.bind(this, "Exposition")} value="true" color="default" aria-label="ExpositionCheckbox" htmlFor="ExpositionListItemText" id="ExpositionCheckbox" disableRipple />
@@ -441,11 +462,11 @@ class MyDrawer extends Component {
 
                     <ListItem key={"Musique"} dense button className={classes.listItem}>
                       <Checkbox tabIndex={-1} checked={this.state.visibility["Musique"]} onChange={this._onVisibilityChange.bind(this, "Musique")} value="true" color="default" aria-label="MusiqueCheckbox" htmlFor="MusiqueListItemText" id="MusiqueCheckbox" disableRipple />
-                      <InputLabel htmlFor="MusiqueCheckbox" id="MusiqueListItemText" primary={"Musique"} title="Musique">
-                        Musique
+                      <InputLabel htmlFor="MusiqueCheckbox" id="MusiqueListItemText" primary={"Musique"} title="Musique et spectacles">
+                        Musique et spectacles
                       </InputLabel>
                       <ListItemSecondaryAction>
-                        <HomeIcon className={classes.icon} style={{ color: "#a52c56" }} alt="Musique" title="Musique" />
+                        <HomeIcon className={classes.icon} style={{ color: "#a52c56" }} alt="Musique et spectacles" title="Musique et spectacles" />
                       </ListItemSecondaryAction>
                     </ListItem>
                     <ListItem key={"Children"} dense button className={classes.listItem}>
@@ -475,10 +496,9 @@ class MyDrawer extends Component {
                         <HomeIcon className={classes.icon} style={{ color: "#15178a" }} alt="Vide-greniers" title="Vide-greniers" />
                       </ListItemSecondaryAction>
                     </ListItem>
-                  </List>
-
-                  <Divider />
+                  </List>                  
                 </Collapse>
+                <Divider />
                 <Footer />
               </Drawer>
             </div>

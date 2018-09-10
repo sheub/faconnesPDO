@@ -104,7 +104,7 @@ class MyPlaceInfo extends Component {
       marginRight: "3pt",
       color: paintColor
       };
-    if (window.innerHeight < 500) return null;
+    // if (window.innerHeight < 500) return null;
 
     if (["plus-beaux-villages-de-france",
       "patrimoine-mondial-en-france",
