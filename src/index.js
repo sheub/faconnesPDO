@@ -75,14 +75,6 @@ const theme = createMuiTheme({
       '"Segoe UI Symbol"',
     ].join(','),
   },
-
-  props: {
-    // Name of the component ⚛️
-    MuiListItemSecondaryAction: {
-      // The properties to apply
-      right: "10px", 
-  },
-},
 });
 
 ReactDOM.render(

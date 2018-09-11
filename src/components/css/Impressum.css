@@ -1,0 +1,50 @@
+.impressumContainer {
+    position: absolute;
+    top: 87px;
+    left: 444px;
+    background-color: #FFF;
+    width: 1385px;
+    height: auto;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 8px -3px #000;
+    transition-Duration: 1s;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: left;
+    /* z-index: 1000; */
+    padding: 12px;
+}
+
+
+@media screen and (max-width: 600px) {
+    .mapboxgl-popupup {
+        top: 52px;
+    }
+}
+
+@media screen and (min-width: "1200px") {
+    .container {
+        max-width: "1140px";
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .container {
+        max-width: 960px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .container {
+        max-width: 720px;
+    }
+}
+
+@media (min-width: 576px) {
+    .container {
+        max-width: 540px;
+    }
+}

@@ -42,7 +42,7 @@ class MapComponent extends Component {
   render() {
     return (
       // <div id='map' className='viewport-full'>
-      <div id='map'>
+      <div id="map">
       </div>
     );
   }

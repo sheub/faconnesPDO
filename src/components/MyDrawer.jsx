@@ -126,22 +126,48 @@ const styles = (theme) => ({
   icon: {
     width: 25
   },
-  // container: {
-  //   display: "flex",
-  //   flexWrap: "wrap",
-  // },
-  // textField: {
-  //   marginLeft: theme.spacing.unit,
-  //   marginRight: theme.spacing.unit,
-  //   width: 200,
-  // },
+
   pickers: {
     display: "flex",
     justifyContent: "space-around",
   },
   expandIcons:{
     position: "absolute", right: "12px"    
-  }
+  },
+  MuiInputInput:{
+    textAlign:"center"
+  },
+
+    // container: {
+  //   display: "flex",
+  //   flexWrap: "wrap",
+  // },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200,
+  },
+
+  // Name of the component ⚛️
+  MuiListItemSecondaryAction: {
+    // The properties to apply
+    right: "10px",
+  },
+  MuiInput: {
+    textAlign: "inherit"
+  },
+  overrides: {
+
+    // Name of the component ⚛️
+    MuiListItemSecondaryAction: {
+      // The properties to apply
+      right: "10px",
+    },
+    MuiInput: {
+      textAlign: "inherit"
+    }
+  },
+
 });
 
 // Layer id patterns by category
@@ -301,7 +327,7 @@ class MyDrawer extends Component {
                 <Divider />
 
                <ListItem button onClick={this.handleClick} aria-label="Open Culture et Patrimoine" id="ButtonCultureHeritage">
-                  <ListSubheader style={{color:"black", fontSize:"16px" }} title="Richesses architecturales et Naturelles Culturelles">Culture &amp; Patrimoine</ListSubheader>
+                  <ListSubheader style={{color:"black", fontSize:"16px" }} title="Richesses architecturales, naturelles et culturelles">Culture &amp; Patrimoine</ListSubheader>
                   {this.state.list1Open ? <ExpandLess className={classes.expandIcons}/> : <ExpandMore className={classes.expandIcons}/>}
                 </ListItem>
                 <Collapse in={this.state.list1Open} timeout="auto" unmountOnExit className={classes.collapses}>
@@ -340,7 +366,7 @@ class MyDrawer extends Component {
                       <InputLabel htmlFor="JardinsCheckbox" primary={"Jardins"} title="Jardins remarquables">
                         Jardins
                       </InputLabel>
-                      <ListItemSecondaryAction>
+                      <ListItemSecondaryAction style={{ right: "10px" }}>
                         <img className={classes.icon} alt="Jardins remarquables" title="Jardins remarquables" src={JardinsIcon} />
                       </ListItemSecondaryAction>
                     </ListItem>
@@ -350,7 +376,7 @@ class MyDrawer extends Component {
                       <InputLabel htmlFor="GSFCheckbox" primary={"Grands Sites"} title="Grands Sites de France">
                         Grands Sites
                       </InputLabel>
-                      <ListItemSecondaryAction>
+                      <ListItemSecondaryAction style={{ right: "10px" }}>
                       <HomeIcon className={classes.icon} style={{ color: "#217619" }} alt="Grands Sites de France" title="Grands Sites de France" />
                         {/* <img className={classes.icon} alt="Grand Site de France" title="Grand Site de France" src={GSFIcon} /> */}
                       </ListItemSecondaryAction>
@@ -439,13 +465,13 @@ class MyDrawer extends Component {
 
                     <div style={{ backgroundColor: "#eceded", width: "50%", padding: "6px", float: "left" }} >
                       <MuiPickersUtilsProvider utils={DateFnsUtils} locale={frLocale}>
-                        <DatePicker style={{ maxWidth: "100%" }} value={dateFrom} minDate={Date()} onChange={this.handleDateChange.bind(this)} />
+                        <DatePicker style={{ maxWidth: "100%", textAlign: "center" }} value={dateFrom} minDate={Date()} disablePast={true} onChange={this.handleDateChange.bind(this)} />
                       </MuiPickersUtilsProvider>
                     </div>
 
                     <div style={{ backgroundColor: "#eceded", width: "50%", padding: "6px", float: "right" }}>
                       <MuiPickersUtilsProvider utils={DateFnsUtils} locale={frLocale}>
-                        <DatePicker style={{ maxWidth: "100%" }} value={dateTo} minDate={dateFrom} onChange={this.handleDateToChange} />
+                        <DatePicker style={{ maxWidth: "100%", textAlign: "center" }} value={dateTo} minDate={dateFrom} onChange={this.handleDateToChange} />
                       </MuiPickersUtilsProvider>
                     </div>
                   </ListItem>
