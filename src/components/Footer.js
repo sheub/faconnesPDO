@@ -5,38 +5,38 @@ import Typography from "@material-ui/core/Typography";
 import Impressum from "./Impressum.js"
 
 const styles = (theme) => ({
-    footerStyle: {
-        textAlign: "center",
-        color: "white",
-        position: "absolute",
-        bottom: 0,
-        display: "flex",
-        width: "100%",
-        height: "100px",
-        paddingLeft: "30px",
-        paddingRight: "30px",
-        paddingTop:"30px",
-        boxSizing: "border-box"
-    },
+  footerStyle: {
+    textAlign: "center",
+    color: "white",
+    position: "absolute",
+    bottom: 0,
+    display: "flex",
+    width: "100%",
+    height: "100px",
+    paddingLeft: "30px",
+    paddingRight: "30px",
+    paddingTop: "30px",
+    boxSizing: "border-box"
+  },
 
-    fontStyle: {
-        color: "#808080",
-        marginBottom: "18px",
-        border: 0,
-        fontSize: "12px",
-        fontStyle: "normal",
-        fontWeight: 500,
-        margin: 0,
-        outline: 0,
-        padding: 0,
-        verticalAlign: "baseline",
-        lineHeight: "30px",
-        cursor: "default",
+  fontStyle: {
+    color: "#808080",
+    marginBottom: "18px",
+    border: 0,
+    fontSize: "12px",
+    fontStyle: "normal",
+    fontWeight: 500,
+    margin: 0,
+    outline: 0,
+    paddingLeft: "4px",
+    verticalAlign: "baseline",
+    lineHeight: "30px",
+    cursor: "pointer",
 
-    }
+
+  }
 })
 
-// const mapEl = document.getElementById('map');
 
 class Footer extends Component {
   constructor(props) {
@@ -45,15 +45,19 @@ class Footer extends Component {
       showImpressum: false,
     };
     this._onClick = this._onClick.bind(this);
-  }
-  
-  _onClick() {
-    this.setState({
-      showImpressum: true,
-    });
+    this.handleClose = this.handleClose.bind(this);
   }
 
-  handleClick = () => {
+  _onClick() {
+    if (!this.state.showImpressum) {
+      this.setState({ showImpressum: true });
+    }
+    else {
+      this.setState({ showImpressum: false });
+    }
+  }
+
+  handleClose = () => {
     this.setState({
       showImpressum: false,
     });
@@ -64,11 +68,13 @@ class Footer extends Component {
     return (
       <div>
         <div className={classes.footerStyle}>
-          <Typography variant="title" className={classes.fontStyle} onClick={() => this._onClick()}>Zoestha UG</Typography>
+          <Typography variant="title" className={classes.fontStyle} onClick={() => this._onClick()}>Zoestha UG |</Typography >
+          <Typography variant="title" className={classes.fontStyle} onClick={() => this._onClick()}> Impressum</Typography>
+
         </div>
+
         {this.state.showImpressum ?
-          <Impressum onClose={this.handleClose}/> :
-          null
+          <Impressum handleClose={this.handleClose} /> : null
         }
       </div>
 

@@ -48,7 +48,7 @@ function HomeIcon(props) {
     );
 }
 
-const drawerWidth = 340;
+const drawerWidth = 270;
 
 const styles = (theme) => ({
 

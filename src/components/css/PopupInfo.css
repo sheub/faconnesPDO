@@ -13,8 +13,6 @@
 }
 
 .baseText {
-    /* font-family: "Source Sans Pro"; */
-    /* font-weight: 400; */
     margin-left: 6px;
     margin-bottom: 6px;
     margin-top: 6px;
@@ -141,8 +139,6 @@
 .urlPopup {
     margin-bottom: 6px;
     text-decoration: none;
-    /* font-family: "Source Sans Pro"; */
-    /* system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Lucida Grande"; */
     letter-spacing: -1px;
     color: rgb(75, 71, 66);
 }
