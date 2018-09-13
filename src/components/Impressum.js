@@ -3,25 +3,28 @@ import ReactDOM from 'react-dom';
 import "./css/Impressum.css";
 import EmailIcon from "@material-ui/icons/Email";
 import ContactMailIcon from "@material-ui/icons/ContactMail";
+import ContactPhoneIcon from "@material-ui/icons/ContactPhone";
+
 
 
 class Impressum extends Component {
 
-    handleClose(){
+    handleClose() {
         this.props.handleClose();
     }
 
     getImpressumComponent() {
         return <div className="impressumContainer">
             <div >
-            <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.handleClose()}><span aria-hidden="true">&times;</span></button>
+                <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.handleClose()}><span aria-hidden="true">&times;</span></button>
                 <h1>Zoestha UG (haftungsbeschränkt)</h1>
                 <br />
-                <ContactMailIcon style={{color:"black", fontSize:"16px", verticalAlign:"-3px" }} /> Fockestr. 23
+                <ContactMailIcon style={{ color: "black", fontSize: "16px", verticalAlign: "-3px" }} /> Fockestr. 23
                         <br /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;04275 Leipzig
                         <br />
-                <EmailIcon style={{color:"black", fontSize:"16px", verticalAlign:"-3px" }}/> info@zoestha.de
+                <EmailIcon style={{ color: "black", fontSize: "16px", verticalAlign: "-3px" }} /> info@zoestha.de
                     <br />
+                <ContactPhoneIcon style={{ color: "black", fontSize: "16px", verticalAlign: "-3px" }} /> 49. 341. 2384083
                 <p>Geschäftsführer: Sébastien Barré
                     <br /> Registergericht: Leipzig, HRB 32943
                     <br /> Ust-IdNr: DE308957906</p>

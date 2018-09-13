@@ -128,7 +128,7 @@ class MyPlaceInfo extends Component {
                 <div className="hvrbox-layer_top hvrbox-layer_slideup">
                   <div className="hvrbox-text">&copy;  &nbsp;
                 <a target="_new" href={info.thumbnail} rel="noopener">Wikipedia contributors</a>&thinsp; &#8209; &thinsp;
-                <a target="_new" href="https://creativecommons.org/licenses/by-sa/3.0/" rel="noopener">CC BY</a>
+                <a target="_new" href="https://creativecommons.org/licenses/by-sa/3.0/" rel="noopener">CC BY-SA</a>
                   </div>
                 </div>
               </div>

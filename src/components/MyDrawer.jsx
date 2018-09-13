@@ -366,7 +366,7 @@ class MyDrawer extends Component {
                       <InputLabel htmlFor="JardinsCheckbox" primary={"Jardins"} title="Jardins remarquables">
                         Jardins
                       </InputLabel>
-                      <ListItemSecondaryAction style={{ right: "10px" }}>
+                      <ListItemSecondaryAction>
                         <img className={classes.icon} alt="Jardins remarquables" title="Jardins remarquables" src={JardinsIcon} />
                       </ListItemSecondaryAction>
                     </ListItem>
@@ -376,7 +376,7 @@ class MyDrawer extends Component {
                       <InputLabel htmlFor="GSFCheckbox" primary={"Grands Sites"} title="Grands Sites de France">
                         Grands Sites
                       </InputLabel>
-                      <ListItemSecondaryAction style={{ right: "10px" }}>
+                      <ListItemSecondaryAction>
                       <HomeIcon className={classes.icon} style={{ color: "#217619" }} alt="Grands Sites de France" title="Grands Sites de France" />
                         {/* <img className={classes.icon} alt="Grand Site de France" title="Grand Site de France" src={GSFIcon} /> */}
                       </ListItemSecondaryAction>
@@ -416,7 +416,7 @@ class MyDrawer extends Component {
                     <ListItem key={"ParcsJardins"} dense button className={classes.listItem}>
                       <Checkbox tabIndex={-1} checked={this.state.visibility["ParcsJardins"]} onChange={this._onVisibilityChange.bind(this, "ParcsJardins")} value="true" color="default" aria-label="ParcsJardinsCheckbox" htmlFor="ParcsJardinsListItemText" id="ParcsJardinsCheckbox" disableRipple />
                       <InputLabel htmlFor="ParcsJardinsCheckbox" id="ParcsJardinsListItemText" primary={"ParcsJardins"} title="Parcs et jardins">
-                        Parcs et jardins
+                        Parcs &amp; jardins
                       </InputLabel>
                       <ListItemSecondaryAction>
                         <HomeIcon className={classes.icon} style={{ color: "#4aa52c" }} alt="Parcs et jardins" title="Parcs et jardins" />
@@ -510,7 +510,7 @@ class MyDrawer extends Component {
                         Marchés
                       </InputLabel>
                       <ListItemSecondaryAction>
-                        <HomeIcon className={classes.icon} style={{ color: "#007cbf" }} alt="Marches" title="Marches" />
+                        <HomeIcon className={classes.icon} style={{ color: "#4aa52c" }} alt="Marches" title="Marches" />
                       </ListItemSecondaryAction>
                     </ListItem>
                     <ListItem key={"VidesGreniers"} dense button className={classes.listItem}>
@@ -519,7 +519,7 @@ class MyDrawer extends Component {
                         Vide-greniers
                       </InputLabel>
                       <ListItemSecondaryAction>
-                        <HomeIcon className={classes.icon} style={{ color: "#15178a" }} alt="Vide-greniers" title="Vide-greniers" />
+                        <HomeIcon className={classes.icon} style={{ color: "#007cbf" }} alt="Vide-greniers" title="Vide-greniers" />
                       </ListItemSecondaryAction>
                     </ListItem>
                   </List>                  

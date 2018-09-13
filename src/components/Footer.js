@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import Impressum from "./Impressum.js"
+import Impressum from "./ImpressumFr.js"
 
 const styles = (theme) => ({
   footerStyle: {
@@ -69,7 +69,7 @@ class Footer extends Component {
       <div>
         <div className={classes.footerStyle}>
           <Typography variant="title" className={classes.fontStyle} onClick={() => this._onClick()}>Zoestha UG |</Typography >
-          <Typography variant="title" className={classes.fontStyle} onClick={() => this._onClick()}> Impressum</Typography>
+          <Typography variant="title" className={classes.fontStyle} onClick={() => this._onClick()}> Mentions légales</Typography>
 
         </div>
 

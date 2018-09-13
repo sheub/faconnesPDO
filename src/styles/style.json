@@ -3015,7 +3015,7 @@
             },
             "paint": {
                 "circle-radius": 4,
-                "circle-color": "#007cbf"
+                "circle-color": "#4aa52c"
             }
         },{
             "id": "videsgreniers",
@@ -3026,7 +3026,7 @@
             },
             "paint": {
                 "circle-radius": 4,
-                "circle-color": "#15178a"
+                "circle-color": "#007cbf"
             }
         },
         {

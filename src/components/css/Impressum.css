@@ -22,7 +22,7 @@
     text-align: left;
     z-index: 1301;
     padding: 12px;
-    overflow-y: overlay;
+    overflow-y: auto;
 }
 
 .btn-close {

@@ -103,7 +103,7 @@ function getActionPayload(key, value) {
     actionPayload = {
       coords: value
     };
-  } else if (key === 'searchLocation') {
+  } else if (key === 'searchLocation' && typeof value.properties !== "undefined") {
     actionPayload = {
       searchCoords: value.geometry.coordinates,
       // searchPlace: value.place_name.split(',')[0]
