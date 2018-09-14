@@ -489,7 +489,7 @@ class MyDrawer extends Component {
                     <ListItem key={"Musique"} dense button className={classes.listItem}>
                       <Checkbox tabIndex={-1} checked={this.state.visibility["Musique"]} onChange={this._onVisibilityChange.bind(this, "Musique")} value="true" color="default" aria-label="MusiqueCheckbox" htmlFor="MusiqueListItemText" id="MusiqueCheckbox" disableRipple />
                       <InputLabel htmlFor="MusiqueCheckbox" id="MusiqueListItemText" primary={"Musique"} title="Musique et spectacles">
-                        Musique et spectacles
+                        Musique &amp; spectacles
                       </InputLabel>
                       <ListItemSecondaryAction>
                         <HomeIcon className={classes.icon} style={{ color: "#a52c56" }} alt="Musique et spectacles" title="Musique et spectacles" />

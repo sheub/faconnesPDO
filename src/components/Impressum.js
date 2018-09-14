@@ -16,7 +16,7 @@ class Impressum extends Component {
     getImpressumComponent() {
         return <div className="impressumContainer">
             <div >
-                <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.handleClose()}><span aria-hidden="true">&times;</span></button>
+                <button type="button" className="btn-close-impressum" data-dismiss="alert" aria-label="Close" onClick={() => this.handleClose()}><span aria-hidden="true">&times;</span></button>
                 <h1>Zoestha UG (haftungsbeschränkt)</h1>
                 <br />
                 <ContactMailIcon style={{ color: "black", fontSize: "16px", verticalAlign: "-3px" }} /> Fockestr. 23

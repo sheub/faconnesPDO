@@ -164,13 +164,17 @@
 
 .btn-close {
     position: absolute;
-    top: 0px;
-    right: 6px;
+    top: 0;
+    right: 0;
     cursor: pointer;
-    background-color: #fff;
-    padding-left: 4px;
-    /* font-size: 11px; */
-    /* color: white; */
+    margin: 6px;
+    /* background-color: #707172; */
+    font-size: 22px;
+    /* border-radius: 50%;
+    color: white; */
+    line-height: 14px;
+
+
 }
 
 /* 
@@ -203,6 +207,7 @@
         position: absolute;
         top: 52px;
         width: 100%;
+        z-index: 2;
     }
 
     .baseText {

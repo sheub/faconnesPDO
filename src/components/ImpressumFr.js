@@ -69,7 +69,7 @@ class Impressum extends Component {
                 <p>
                 Sauf mention contraire l'ensemble des éléments accessibles sur le site sont placés sous Licence Creative Commons Paternité-Partage des Conditions Initiales à l'Identique (Creative Commons Attribution-ShareAlike license (CC-BY-SA))<br />
 
-                Les données utilisées par l’API de la Base Adresse Nationale (https://adresse.data.gouv.fr/api) pour le géocodage sont sous licence ODbL.
+                Les données utilisées par l’API de la Base Adresse Nationale (https://adresse.data.gouv.fr/api) pour le géocodage sont sous licence ODbL.<br />
 
                 Les données fournis par la base DataTourisme sont placés sous Licence Ouverte V 2.0 disponible pour téléchargement au format pdf sur le site etalab.gouv.fr 
                 <a href="https://www.etalab.gouv.fr/wp-content/uploads/2017/04/ETALAB-Licence-Ouverte-v2.0.pdf" rel="noopener">Fichier pdf</a>
@@ -98,12 +98,12 @@ class Impressum extends Component {
                 <h2>8.  UTILISATION DE TÉMOINS DE CONNEXION (« COOKIES »)</h2>
                 <p>
                     Lors de la consultation du lieuxdits.de, des témoins de connexions, dits « cookies », sont déposés sur votre ordinateur, votre mobile ou votre tablette.
-                    Ces cookies permettent essentiellement à lieuxdits.de :
+                    Ces cookies permettent essentiellement à lieuxdits.de :</p>
                     <ul>
                     <li>d'afficher, lors de votre première visite, le bandeau signalant la présence de cookies et la faculté que vous avez de les accepter ou de les refuser ;</li>
                     <li>d'établir des mesures statistiques de fréquentation et d'utilisation du site. Pour information, le tiers émetteur, Mapbox Inc, est également soumis à la loi informatique et libertés</li>
                     </ul>
-                
+                    <p>
                     Le refus d’installation d’un cookie peut entraîner l’impossibilité d’accéder à certains services. L’utilisateur peut toutefois configurer son ordinateur de la manière suivante, pour refuser l’installation des cookies :
                     
                     Sous Internet Explorer : onglet outil (pictogramme en forme de rouage en haut a droite) / options internet. Cliquez sur Confidentialité et choisissez Bloquer tous les cookies. Validez sur Ok.

@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Impressum from "./ImpressumFr.js"
+import About from "./About.js"
+
 
 const styles = (theme) => ({
   footerStyle: {
@@ -10,7 +12,7 @@ const styles = (theme) => ({
     color: "white",
     position: "absolute",
     bottom: 0,
-    display: "flex",
+    display: "block",
     width: "100%",
     height: "100px",
     paddingLeft: "30px",
@@ -21,19 +23,9 @@ const styles = (theme) => ({
 
   fontStyle: {
     color: "#808080",
-    marginBottom: "18px",
-    border: 0,
     fontSize: "12px",
-    fontStyle: "normal",
-    fontWeight: 500,
-    margin: 0,
-    outline: 0,
     paddingLeft: "4px",
-    verticalAlign: "baseline",
-    lineHeight: "30px",
-    cursor: "pointer",
-
-
+    marginBottom: "9px",
   }
 })
 
@@ -43,23 +35,42 @@ class Footer extends Component {
     super(props);
     this.state = {
       showImpressum: false,
+      showAbout: false,
+
     };
     this._onClick = this._onClick.bind(this);
+    this._onClickAbout = this._onClickAbout.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    
   }
 
   _onClick() {
     if (!this.state.showImpressum) {
       this.setState({ showImpressum: true });
+      this.setState({ showAbout: false });
     }
     else {
       this.setState({ showImpressum: false });
+      
+    }
+  }
+
+  
+  _onClickAbout() {
+    if (!this.state.showAbout) {
+      this.setState({ showAbout: true });
+      this.setState({ showImpressum: false });
+
+    }
+    else {
+      this.setState({ showAbout: false });
     }
   }
 
   handleClose = () => {
     this.setState({
       showImpressum: false,
+      showAbout: false,
     });
   }
 
@@ -68,13 +79,20 @@ class Footer extends Component {
     return (
       <div>
         <div className={classes.footerStyle}>
-          <Typography variant="title" className={classes.fontStyle} onClick={() => this._onClick()}>Zoestha UG |</Typography >
-          <Typography variant="title" className={classes.fontStyle} onClick={() => this._onClick()}> Mentions légales</Typography>
+          
+          <Typography variant="title" className={classes.fontStyle} onClick={() => this._onClickAbout()} style={{cursor: "pointer", display: "inline-block"}}> À propos |</Typography>
+          <Typography variant="title" className={classes.fontStyle} onClick={() => this._onClick()} style={{cursor: "pointer", display: "inline-block"}}> Mentions légales</Typography>
+          <Typography variant="title" className={classes.fontStyle} >&copy;Zoestha UG </Typography>
+
 
         </div>
 
         {this.state.showImpressum ?
           <Impressum handleClose={this.handleClose} /> : null
+        }
+        
+        {this.state.showAbout ?
+          <About handleClose={this.handleClose} /> : null
         }
       </div>
 
