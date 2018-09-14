@@ -20,7 +20,6 @@
     "pitch": 0,
     "sources": {
         "composite": {
-            "url": "mapbox://mapbox.mapbox-streets-v7,sheub.623zkazi,sheub.5wb1wtbj,sheub.9e12f1eo,sheub.0q76nwnl,sheub.4w8m41y7,sheub.4wjhcapt,sheub.Grand_Site_de_France,sheub.72t5vtea,sheub.localProductShop,sheub.craftmanShop,sheub.ParcsJardins",
             "url": "mapbox://mapbox.mapbox-streets-v7,sheub.623zkazi,sheub.Plus_Beaux_Villages_de_France,sheub.craftmanShop,sheub.Monuments_nationaux,sheub.Patrimoine_mondial_en_France,sheub.ParcsJardins,sheub.Grand_Site_de_France,sheub.5wb1wtbj,sheub.Jardin_remarquable,sheub.localProductShop,sheub.restaurants,sheub.9e12f1eo",
             "type": "vector"
             },

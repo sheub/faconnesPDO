@@ -17,7 +17,7 @@ class Impressum extends Component {
     getImpressumComponent() {
         return <div className="impressumContainer">
             <div >
-                <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.handleClose()}><span aria-hidden="true">&times;</span></button>
+                <button type="button" className="btn-close-impressum" data-dismiss="alert" aria-label="Close" onClick={() => this.handleClose()}><span aria-hidden="true">&times;</span></button>
                 <h1>INFORMATIONS LÉGALES :</h1>
                 <h2>1. PRÉSENTATION DU SITE.</h2>
                 <br />
@@ -36,7 +36,7 @@ class Impressum extends Component {
                 <strong>Créateur :</strong> Sébastien Barré<br />
                 <strong>Responsable de la publication :</strong> Sébastien Barré – info@zoestha.de<br />
                 <strong>Programmation :</strong> Sébastien Barré – info@zoestha.de<br />
-                <strong>Hébergeur :</strong> Github Pages – 88 Colin P Kelly Junior Street, San Francisco, CA 94107, United States
+                <strong>Hébergeur :</strong> Github Pages – 88 Colin P Kelly Junior Street, San Francisco, CA 94107, United States<br />
                 <strong>Hébergement fonds des cartes :</strong> Mapbox - 1714 14th St NW Rear Entrance 20009, Washington, United States
                 </p>
                 <br />

@@ -55,7 +55,7 @@ body {
   object-fit: cover;
 }
 
-.style-switch {
+/* .style-switch {
   width: 60px;
   height: 60px;
 }
@@ -106,4 +106,4 @@ body {
   75% {
     transform: translate3d(6px, 0, 0);
   }
-}
+} */
