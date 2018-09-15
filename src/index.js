@@ -49,7 +49,7 @@ let store = createStore(
 // Store subscription that will keep the persisted state in local storage in sync with the state.
 store.subscribe(() => {
   const state = store.getState();
-  const keys = ["app.userLocation", "app.mapCoords"];
+  const keys = ["app.userLocation", "app.mapCoords", "app.visibility"];
   const persistedState = {};
   keys.forEach((key) => {
     var val = _.get(state, key);

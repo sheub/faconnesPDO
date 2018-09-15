@@ -196,24 +196,25 @@ class MyDrawer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      visibility: {
-        Museum: false,
-        Villages: false,
-        Unesco: true,
-        AOP: false,
-        Jardins: false,
-        GSF: false,
-        MN: false,
-        ParcsJardins: false,
-        Restaurants: false,
-        LocalProdShop: false,
-        CraftmanShop: false,
-        Exposition: false,
-        Musique: false,
-        Children: false,
-        Marches: false,
-        VidesGreniers: false
-      },
+      visibility: props.visibility,
+      // visibility: {
+      //   Museum: false,
+      //   Villages: false,
+      //   Unesco: true,
+      //   AOP: false,
+      //   Jardins: false,
+      //   GSF: false,
+      //   MN: false,
+      //   ParcsJardins: false,
+      //   Restaurants: false,
+      //   LocalProdShop: false,
+      //   CraftmanShop: false,
+      //   Exposition: false,
+      //   Musique: false,
+      //   Children: false,
+      //   Marches: false,
+      //   VidesGreniers: false
+      // },
 
       // Drawer opened per Default
       open: false,
@@ -293,11 +294,12 @@ class MyDrawer extends Component {
 
   _onVisibilityChange(name, event) {
 
-    const visibility = { ...this.state.visibility, [name]: event.target.checked };
+    const visibility = { ...this.props.visibility, [name]: event.target.checked };
     this.setState({ visibility });
 
     this.props.setStateValues({
       toggleLayerVisibility: layerSelector[name].source,
+      visibility: visibility,
       // needMapRestyle: true,
       needMapToggleLayer: true
     });
@@ -548,13 +550,15 @@ MyDrawer.propTypes = {
   setStateValues: PropTypes.func,
   toggleLayerVisibility: PropTypes.string,
   triggerMapUpdate: PropTypes.func,
+  visibility: PropTypes.array,
 };
 
 const mapStateToProps = (state) => {
   return {
     dateFrom: state.app.dateFrom,
     dateTo: state.app.dateTo,
-    toggleLayerVisibility: state.app.toggleLayerVisibility
+    toggleLayerVisibility: state.app.toggleLayerVisibility, 
+    visibility: state.app.visibility
   };
 };
 
