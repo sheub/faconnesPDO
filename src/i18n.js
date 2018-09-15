@@ -21,7 +21,10 @@ i18n
     },
 
     react: {
-      wait: true
+      wait: true,
+      bindI18n: 'languageChanged loaded',
+      bindStore: 'added removed',
+      nsMode: 'default'
     }
   });
 

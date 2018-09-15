@@ -19,9 +19,16 @@ import "./index.css";
 
 import './i18n';
 
-registerServiceWorker();
 // Read persisted state from the local storage and put that in the initial state.
-const persistedState = localStorage.getItem("persistedState") ? JSON.parse(localStorage.getItem("persistedState")) : {};
+var persistedS = localStorage.getItem("persistedState") ? JSON.parse(localStorage.getItem("persistedState")) : {};
+const languageSet = localStorage.getItem("i18nextLng") ? localStorage.getItem("i18nextLng") : 'en';
+if(typeof(persistedS) !== "undefined" && typeof(persistedS.app) !== "undefined")
+  persistedS.app.languageSet = languageSet;
+
+
+// const persistedState = localStorage.getItem("persistedState") ? JSON.parse(localStorage.getItem("persistedState")) : {};
+const persistedState = persistedS ? persistedS : {};
+
 const initialState = _.merge({}, defaultState, persistedState);
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -89,3 +96,4 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
+registerServiceWorker();
