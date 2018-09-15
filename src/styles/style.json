@@ -1359,10 +1359,7 @@
                 "text-padding": 1,
                 "text-rotation-alignment": "map",
                 "text-pitch-alignment": "viewport",
-                "text-field": [
-                    "get",
-                    "name_en"
-                ]
+                "text-field": "{name_en}"
             },
             "paint": {
                 "text-color": "hsl(0, 0%, 0%)",
@@ -1414,10 +1411,7 @@
                     0.75
                 ],
                 "text-anchor": "top",
-                "text-field": [
-                    "get",
-                    "name_en"
-                ],
+                "text-field": "{name_en}",
                 "text-max-width": 8
             },
             "paint": {
@@ -1495,10 +1489,7 @@
                         "ref"
                     ],
                     14,
-                    [
-                        "get",
-                        "name_en"
-                    ]
+                    "{name_en}"
                 ],
                 "text-max-width": 9
             },
@@ -1522,10 +1513,7 @@
                 "suburb"
             ],
             "layout": {
-                "text-field": [
-                    "get",
-                    "name_en"
-                ],
+                "text-field": "{name_en}",
                 "text-transform": "uppercase",
                 "text-letter-spacing": 0.15,
                 "text-max-width": 8,
@@ -1637,10 +1625,7 @@
                     ]
                 ],
                 "text-max-width": 7,
-                "text-field": [
-                    "get",
-                    "name_en"
-                ]
+                "text-field": "{name_en}"
             },
             "paint": {
                 "text-color": "hsl(0, 0%, 0%)",
@@ -1690,10 +1675,7 @@
                     ]
                 ],
                 "text-max-width": 10,
-                "text-field": [
-                    "get",
-                    "name_en"
-                ]
+                "text-field": "{name_en}"
             },
             "paint": {
                 "text-color": [
@@ -1802,10 +1784,7 @@
                     ]
                 ],
                 "text-max-width": 10,
-                "text-field": [
-                    "get",
-                    "name_en"
-                ]
+                "text-field": "{name_en}"
             },
             "paint": {
                 "text-color": [
@@ -1892,16 +1871,10 @@
                             "abbr"
                         ],
                         80000,
-                        [
-                            "get",
-                            "name_en"
-                        ]
+                        "{name_en}"
                     ],
                     5,
-                    [
-                        "get",
-                        "name_en"
-                    ]
+                    "{name_en}"
                 ],
                 "text-letter-spacing": 0.2,
                 "text-max-width": 6
@@ -1920,10 +1893,7 @@
             "minzoom": 1,
             "maxzoom": 8,
             "layout": {
-                "text-field": [
-                    "get",
-                    "name_en"
-                ],
+                "text-field": "{name_en}",
                 "text-max-width": [
                     "interpolate",
                     [

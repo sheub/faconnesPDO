@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types';
+
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl';
-import turfBbox from '@turf/bbox';
+import MapboxLanguage from "@mapbox/mapbox-gl-language";
+import turfBbox from "@turf/bbox";
 import turfBboxPolygon from '@turf/bbox-polygon';
 import turfBuffer from '@turf/buffer';
 import turfDistance from '@turf/distance';
@@ -13,8 +15,6 @@ import {
   triggerMapUpdate,
   getRoute,
   getReverseGeocode,
-  setContextMenu,
-  resetContextMenu,
   resetStateKeys
 } from '../actions/index';
 
@@ -27,6 +27,7 @@ if (process.env.NODE_ENV === 'production') {
   spriteUrl = 'http://localhost:3000/sprite';
 }
 style.sprite = spriteUrl;
+var language = new MapboxLanguage();
 
 class MapComponent extends Component {
   constructor(props) {
@@ -39,6 +40,7 @@ class MapComponent extends Component {
     };
   }
 
+  
   render() {
     return (
       // <div id='map' className='viewport-full'>
@@ -53,7 +55,7 @@ class MapComponent extends Component {
     const map = new mapboxgl.Map({
       container: 'map',
       style: style,
-      center: [2, 46.5], //this.props.center,
+      center: [2, 46.5],
       zoom: 5,
       minZoom: 2,
       maxZoom: 21
@@ -64,15 +66,11 @@ class MapComponent extends Component {
     map.on('load', () => {
       this.onLoad();
     });
+
   }
 
   componentDidUpdate() {
     if (!this.props.needMapUpdate) return;
-
-    // This is where we update the layers and map bbox
-    // if (this.props.userLocation && this.props.userLocation.geometry && typeof(this.map.getSource('geolocation')) !== 'undefined' ) {
-    //   this.map.getSource('geolocation').setData(this.props.userLocation.geometry);
-    // }
 
     // Search mode
     if (this.props.mode === 'search') {
@@ -149,14 +147,7 @@ class MapComponent extends Component {
       }
     }
 
-    if (this.props.needMapRestyle) {
-      this.updateStyle(this.props.mapStyle);
-    } else {
-      // No need to re-update until the state says so
-      this.props.setStateValue('needMapUpdate', false);
-      this.props.setStateValue('needMapRepan', false);
-    }
-
+    this.props.setStateValue('needMapUpdate', false);
     if (this.props.needMapToggleLayer) {
       this.toggleLayerVisibility(this.props.toggleLayerVisibility);
     }
@@ -164,6 +155,9 @@ class MapComponent extends Component {
     if (this.props.needMapFilterByDate) {
       this.filterByDate(this.props.dateFrom, this.props.dateTo);
     }
+
+    var lng = this.props.languageSet;
+    this.map.setStyle(language.setLanguage(this.map.getStyle(), lng));
 
     this.props.setStateValue('needMapRestyle', false);
     this.props.setStateValue('needMapToggleLayer', false);
@@ -323,21 +317,6 @@ class MapComponent extends Component {
     }
   }
 
-  onContextMenu(e) {
-    let coordinates = [e.lngLat.lng, e.lngLat.lat];
-    let location = [e.point.x, e.point.y];
-    this.props.getReverseGeocode(
-      'contextMenuPlace',
-      coordinates,
-      this.props.accessToken
-    );
-    this.props.setContextMenu(coordinates, location);
-
-    this.map
-      .once('move', () => this.props.resetContextMenu())
-      .once('click', () => this.props.resetContextMenu());
-  }
-
   onLoad() {
     // helper to set geolocation
     const setGeolocation = (data) => {
@@ -359,30 +338,8 @@ class MapComponent extends Component {
     geolocateControl.on('geolocate', setGeolocation);
     this.map.addControl(geolocateControl, 'bottom-right');
 
-    // // Initial ask for location and display on the map
-    // if (this.props.userLocation) {
-    //   this.map.getSource('geolocation').setData(this.props.userLocation.geometry);
-    //   if (this.props.moveOnLoad) this.moveTo(this.props.userLocation, 6);
-    // } 
-    // else if (navigator.geolocation) {
-    //   navigator.geolocation.getCurrentPosition(setGeolocation);
-    // }
-
-    // // Regularly poll the user location and update the map
-    // window.setInterval(() => {
-    //   if (navigator.geolocation) {
-    //     navigator.geolocation.getCurrentPosition((data) => {
-    //       const geometry = {type: 'Point', coordinates: [data.coords.longitude, data.coords.latitude]};
-    //       this.map.getSource('geolocation').setData(geometry);
-    //       this.props.setUserLocation(geometry.coordinates);
-    //     });
-    //   }
-    // }, 10000);
-
     // Set event listeners
     this.map.on('click', (e) => this.onClick(e));
-
-    this.map.on('contextmenu', (e) => this.onContextMenu(e));
 
     this.map.on('mousemove', (e) => {
       var features = this.map.queryRenderedFeatures(e.point, {layers: this.movableLayers.concat(this.selectableLayers)});
@@ -407,9 +364,6 @@ class MapComponent extends Component {
       const zoom = this.map.getZoom();
       this.props.setStateValue('mapCoords', [center.lng, center.lat, zoom]);
     });
-
-    // Update the style if needed
-    this.updateStyle(this.props.mapStyle);
 
     this.filterByDate(new Date().getTime());
 
@@ -465,6 +419,7 @@ class MapComponent extends Component {
     } else {
       this.map.setLayoutProperty(toggleLayerVisibility, 'visibility', 'visible');
     }
+
   }
 
   loadJsonData(dataStr) {
@@ -581,16 +536,15 @@ class MapComponent extends Component {
 MapComponent.propTypes = {
   accessToken: PropTypes.string,
   center: PropTypes.array,
-  contextMenuActive: PropTypes.bool,
+  dateFrom: PropTypes.number,
+  dateTo: PropTypes.number,
   directionsFrom: PropTypes.object,
   directionsTo: PropTypes.object,
   getReverseGeocode: PropTypes.func,
   getRoute: PropTypes.func,
+  languageSet: PropTypes.string,
   map: PropTypes.object,
   mapStyle: PropTypes.string,
-  toggleLayerVisibility: PropTypes.string,
-  dateFrom: PropTypes.number,
-  dateTo: PropTypes.number,
   modality: PropTypes.string,
   mode: PropTypes.string,
   moveOnLoad: PropTypes.bool,
@@ -600,15 +554,16 @@ MapComponent.propTypes = {
   needMapFilterByDate: PropTypes.bool,
   needMapUpdate: PropTypes.bool,
   pushHistory: PropTypes.func,
-  resetContextMenu: PropTypes.func,
+  // resetContextMenu: PropTypes.func,
   resetStateKeys: PropTypes.func,
   route: PropTypes.object,
   routeStatus: PropTypes.string,
   searchLocation: PropTypes.object,
-  setContextMenu: PropTypes.func,
+  // setContextMenu: PropTypes.func,
   setStateValue: PropTypes.func,
   setUserLocation: PropTypes.func,
   triggerMapUpdate: PropTypes.func,
+  toggleLayerVisibility: PropTypes.string,
   userLocation: PropTypes.object,
   zoom: PropTypes.number,
 };
@@ -617,13 +572,14 @@ const mapStateToProps = (state) => {
   return {
     accessToken: state.app.mapboxAccessToken,
     center: state.app.mapCoords.slice(0, 2),
-    contextMenuActive: state.app.contextMenuActive,
+    // contextMenuActive: state.app.contextMenuActive,
     directionsFrom: state.app.directionsFrom,
     directionsTo: state.app.directionsTo,
     mapStyle: state.app.mapStyle,
     toggleLayerVisibility: state.app.toggleLayerVisibility,
     dateFrom: state.app.dateFrom,
     dateTo: state.app.dateTo,
+    languageSet: state.app.languageSet,
     modality: state.app.modality,
     mode: state.app.mode,
     needMapRepan: state.app.needMapRepan,
@@ -644,8 +600,6 @@ const mapDispatchToProps = (dispatch) => {
     getReverseGeocode: (key, coordinates, accessToken) => dispatch(getReverseGeocode(key, coordinates, accessToken)),
     getRoute: (directionsFrom, directionsTo, modality, accessToken) => dispatch(getRoute(directionsFrom, directionsTo, modality, accessToken)),
     pushHistory: (url) => dispatch(push(url)),
-    resetContextMenu: () => dispatch(resetContextMenu()),
-    setContextMenu: (coordinates, location) => dispatch(setContextMenu(coordinates, location)),
     setStateValue: (key, value) => dispatch(setStateValue(key, value)),
     setUserLocation: (coordinates) => dispatch(setUserLocation(coordinates)),
     triggerMapUpdate: (repan) => dispatch(triggerMapUpdate(repan)),

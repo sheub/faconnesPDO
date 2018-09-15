@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { translate } from "react-i18next";
+import { triggerMapUpdate, setStateValues } from "../actions/index";
 
 import classNames from "classnames";
 import AppBar from "@material-ui/core/AppBar";
@@ -12,6 +14,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import LanguageIcon from "@material-ui/icons/Language";
+import PropTypes from "prop-types";
 
 import "./css/App.css";
 import "./css/mdIcons.css";
@@ -61,6 +64,7 @@ const drawerWidth = 270;
 class MyAppBar extends Component {
     state = {
         anchorEl: null,
+        languageSet: 'en'
     };
 
     handleDrawerOpen = () => {
@@ -76,14 +80,19 @@ class MyAppBar extends Component {
     };
 
     render() {
-        const { open, classes } = this.props;
+        const { open, classes, t, i18n } = this.props;
         const { anchorEl } = this.state;
         const openMenu = Boolean(anchorEl);
-        const { t, i18n } = this.props;
 
         const changeLanguage = (lng) => {
-            this.setState({ anchorEl: null });
+            this.setState({ anchorEl: null, languageSet: lng });
+
+            this.props.setStateValues({
+                languageSet: lng,
+            });
+
             i18n.changeLanguage(lng);
+            this.props.triggerMapUpdate();
         }
         return (
 
@@ -132,4 +141,20 @@ class MyAppBar extends Component {
         );
     }
 }
-export default withStyles(styles)(translate("translations")(MyAppBar));
+AppBar.propTypes = {
+    languageSet: PropTypes.string,
+    setStateValues: PropTypes.func,
+    triggerMapUpdate: PropTypes.func,
+};
+const mapStateToProps = (state) => {
+    return {
+        languageSet: state.app.languageSet,
+    };
+  };
+  const mapDispatchToProps = (dispatch) => {
+    return {
+      setStateValues: (obj) => dispatch(setStateValues(obj)),
+      triggerMapUpdate: (v) => dispatch(triggerMapUpdate(v))
+    };
+  };
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(translate("translations")(MyAppBar)));

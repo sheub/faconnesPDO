@@ -420,7 +420,7 @@ class MyDrawer extends Component {
                     <List>
                       <ListItem key={"ParcsJardins"} dense button className={classes.listItem}>
                         <Checkbox tabIndex={-1} checked={this.state.visibility["ParcsJardins"]} onChange={this._onVisibilityChange.bind(this, "ParcsJardins")} value="true" color="default" aria-label="ParcsJardinsCheckbox" htmlFor="ParcsJardinsListItemText" id="ParcsJardinsCheckbox" disableRipple />
-                        <InputLabel htmlFor="ParcsJardinsCheckbox" id="ParcsJardinsListItemText" primary={"ParcsJardins"} title={t("parcsJardins")}>
+                        <InputLabel htmlFor="ParcsJardinsCheckbox" id="ParcsJardinsListItemText" primary={"ParcsJardins"} title={t("drawer.parcsJardins")}>
                           {t("drawer.parcsJardins")}
                         </InputLabel>
                         <ListItemSecondaryAction>
@@ -493,7 +493,7 @@ class MyDrawer extends Component {
 
                       <ListItem key={"Musique"} dense button className={classes.listItem}>
                         <Checkbox tabIndex={-1} checked={this.state.visibility["Musique"]} onChange={this._onVisibilityChange.bind(this, "Musique")} value="true" color="default" aria-label="MusiqueCheckbox" htmlFor="MusiqueListItemText" id="MusiqueCheckbox" disableRipple />
-                        <InputLabel htmlFor="MusiqueCheckbox" id="MusiqueListItemText" primary={"Musique"} title={t("musiqueSpectacles")}>
+                        <InputLabel htmlFor="MusiqueCheckbox" id="MusiqueListItemText" primary={"Musique"} title={t("drawer.musiqueSpectacles")}>
                           {t("drawer.musiqueSpectacles")}
                         </InputLabel>
                         <ListItemSecondaryAction>
@@ -543,9 +543,9 @@ class MyDrawer extends Component {
 
 MyDrawer.propTypes = {
   classes: PropTypes.object.isRequired,
-  setStateValues: PropTypes.func,
   dateFrom: PropTypes.number,
   dateTo: PropTypes.number,
+  setStateValues: PropTypes.func,
   toggleLayerVisibility: PropTypes.string,
   triggerMapUpdate: PropTypes.func,
 };
