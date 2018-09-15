@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import { I18n } from 'react-i18next';
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Impressum from "./ImpressumFr.js"
@@ -41,7 +41,7 @@ class Footer extends Component {
     this._onClick = this._onClick.bind(this);
     this._onClickAbout = this._onClickAbout.bind(this);
     this.handleClose = this.handleClose.bind(this);
-    
+
   }
 
   _onClick() {
@@ -51,11 +51,11 @@ class Footer extends Component {
     }
     else {
       this.setState({ showImpressum: false });
-      
+
     }
   }
 
-  
+
   _onClickAbout() {
     if (!this.state.showAbout) {
       this.setState({ showAbout: true });
@@ -76,26 +76,31 @@ class Footer extends Component {
 
   render() {
     const { classes } = this.props;
+
     return (
-      <div>
-        <div className={classes.footerStyle}>
-          
-          <Typography variant="title" className={classes.fontStyle} onClick={() => this._onClickAbout()} style={{cursor: "pointer", display: "inline-block"}}> À propos |</Typography>
-          <Typography variant="title" className={classes.fontStyle} onClick={() => this._onClick()} style={{cursor: "pointer", display: "inline-block"}}> Mentions légales</Typography>
-          <Typography variant="title" className={classes.fontStyle} >&copy;Zoestha UG </Typography>
+      <I18n ns="translations">
+        {
+          (t, { i18n }) => (
 
+            <div className={classes.root}>
+              <div>
+                <div className={classes.footerStyle}>
+                  <Typography variant="title" className={classes.fontStyle} onClick={() => this._onClickAbout()} style={{ cursor: "pointer", display: "inline-block" }}> {t("about")} |</Typography>
+                  <Typography variant="title" className={classes.fontStyle} onClick={() => this._onClick()} style={{ cursor: "pointer", display: "inline-block" }}> {t("legalNotice")}</Typography>
+                  <Typography variant="title" className={classes.fontStyle} >&copy;Zoestha UG </Typography>
+                </div>
+                {this.state.showImpressum ?
+                  <Impressum handleClose={this.handleClose} /> : null
+                }
 
-        </div>
-
-        {this.state.showImpressum ?
-          <Impressum handleClose={this.handleClose} /> : null
+                {this.state.showAbout ?
+                  <About handleClose={this.handleClose} /> : null
+                }
+              </div>
+            </div>
+          )
         }
-        
-        {this.state.showAbout ?
-          <About handleClose={this.handleClose} /> : null
-        }
-      </div>
-
+      </I18n>
     );
   }
 }

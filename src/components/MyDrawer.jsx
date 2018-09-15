@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import {connect} from 'react-redux';
-import {triggerMapUpdate, setStateValues} from '../actions/index';
+import { connect } from "react-redux";
+import { I18n } from "react-i18next";
+
+import { triggerMapUpdate, setStateValues } from "../actions/index";
 
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
@@ -26,7 +28,7 @@ import Collapse from "@material-ui/core/Collapse";
 import MuiPickersUtilsProvider from "material-ui-pickers/utils/MuiPickersUtilsProvider";
 import DatePicker from "material-ui-pickers/DatePicker";
 import DateFnsUtils from "material-ui-pickers/utils/date-fns-utils";
-import frLocale from 'date-fns/locale/fr';
+import frLocale from "date-fns/locale/fr";
 
 import ListSubheader from "@material-ui/core/ListSubheader";
 import VillagesIcon from "./../styles/icons/village-11.svg";
@@ -41,11 +43,11 @@ import "./css/App.css";
 import "./css/mdIcons.css";
 
 function HomeIcon(props) {
-    return (
-        <SvgIcon {...props}>
-            <circle cx="10" cy="10" r="9" />
-        </SvgIcon>
-    );
+  return (
+    <SvgIcon {...props}>
+      <circle cx="10" cy="10" r="9" />
+    </SvgIcon>
+  );
 }
 
 const drawerWidth = 270;
@@ -82,7 +84,7 @@ const styles = (theme) => ({
   drawerPaper: {
     position: "relative",
     whiteSpace: "nowrap",
-    display:"flex",
+    display: "flex",
     paddingBottom: "100px",
     width: drawerWidth,
     transition: theme.transitions.create("width", {
@@ -131,14 +133,14 @@ const styles = (theme) => ({
     display: "flex",
     justifyContent: "space-around",
   },
-  expandIcons:{
-    position: "absolute", right: "12px"    
+  expandIcons: {
+    position: "absolute", right: "12px"
   },
-  MuiInputInput:{
-    textAlign:"center"
+  MuiInputInput: {
+    textAlign: "center"
   },
 
-    // container: {
+  // container: {
   //   display: "flex",
   //   flexWrap: "wrap",
   // },
@@ -172,227 +174,230 @@ const styles = (theme) => ({
 
 // Layer id patterns by category
 const layerSelector = {
-            Museum: /liste-et-localisation-des-mus-5iczl9/,
-            Villages: /plus-beaux-villages-de-france/,
-            Unesco: /patrimoine-mondial-en-france/, // This is the Layer id
-            AOP: /n-inao-aop-fr-16md1w/,
-            Jardins: /jardin-remarquable/,
-            GSF: /grand-site-de-france/,
-            MN: /monuments-nationaux/,
-            ParcsJardins: /parcsjardins/,
-            Restaurants: /restaurants/,
-            LocalProdShop: /localproductshop/,
-            CraftmanShop: /craftmanshop/,
-            Exposition: /exposition/,
-            Musique: /musique/,
-            Children: /children/,
-            Marches: /marches/,
-            VidesGreniers: /videsgreniers/
+  Museum: /liste-et-localisation-des-mus-5iczl9/,
+  Villages: /plus-beaux-villages-de-france/,
+  Unesco: /patrimoine-mondial-en-france/, // This is the Layer id
+  AOP: /n-inao-aop-fr-16md1w/,
+  Jardins: /jardin-remarquable/,
+  GSF: /grand-site-de-france/,
+  MN: /monuments-nationaux/,
+  ParcsJardins: /parcsjardins/,
+  Restaurants: /restaurants/,
+  LocalProdShop: /localproductshop/,
+  CraftmanShop: /craftmanshop/,
+  Exposition: /exposition/,
+  Musique: /musique/,
+  Children: /children/,
+  Marches: /marches/,
+  VidesGreniers: /videsgreniers/
 };
 
 class MyDrawer extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            visibility: {
-                Museum: false,
-                Villages: false,
-                Unesco: true, 
-                AOP: false,
-                Jardins: false,
-                GSF: false,
-                MN: false,
-                ParcsJardins: false,
-                Restaurants: false,
-                LocalProdShop: false,
-                CraftmanShop: false,
-                Exposition: false,
-                Musique: false,
-                Children: false,
-                Marches: false,
-                VidesGreniers: false
-            },
+  constructor(props) {
+    super(props);
+    this.state = {
+      visibility: {
+        Museum: false,
+        Villages: false,
+        Unesco: true,
+        AOP: false,
+        Jardins: false,
+        GSF: false,
+        MN: false,
+        ParcsJardins: false,
+        Restaurants: false,
+        LocalProdShop: false,
+        CraftmanShop: false,
+        Exposition: false,
+        Musique: false,
+        Children: false,
+        Marches: false,
+        VidesGreniers: false
+      },
 
-            // Drawer opened per Default
-            mapStyle: "",
-            open: false,
-            list1Open: false,
-            listLoisirOpen: false,
-            listAgendaOpen: true,
-            dateFrom: new Date(), //Today
-            dateTo: new Date() // Today plus one day
+      // Drawer opened per Default
+      open: false,
+      list1Open: false,
+      listLoisirOpen: false,
+      listAgendaOpen: true,
+      dateFrom: new Date(), //Today
+      dateTo: new Date() // Today plus one day
 
-        };
+    };
 
-        if (window.innerWidth < 600) {
-            // Close Drawer per default for small screens
-            this.state.open = false;
-        }
+    if (window.innerWidth < 600) {
+      // Close Drawer per default for small screens
+      this.state.open = false;
     }
+  }
 
-    handleDrawerOpen = () => {
-        this.setState({ open: true });
-    };
-
-    handleDrawerClose = () => {
-        this.setState({ open: false });
-    };
-
-    handleChange = name => event => {
-        this.setState({ [name]: event.target.checked });
-    };
-
-    handleClick = () => {
-        this.setState(state => ({ list1Open: !state.list1Open }));
-    };
-    handleClickLoisirOpen = () => {
-      this.setState(state => ({ listLoisirOpen: !state.listLoisirOpen }));
+  handleDrawerOpen = () => {
+    this.setState({ open: true });
   };
-    
-    handleClickListAgendaOpen = () => {
-        this.setState((state) => ({ listAgendaOpen: !state.listAgendaOpen }));
-    };
 
-    handleDateChange = (date) => {
+  handleDrawerClose = () => {
+    this.setState({ open: false });
+  };
 
-      let tempDate = this.state.dateTo;
-      if (this.state.dateTo < date) {
-        // var tomorrow = date;
-        // tomorrow.setDate(tomorrow.getDate() + 1);
+  handleChange = name => event => {
+    this.setState({ [name]: event.target.checked });
+  };
 
-        this.setState({
-          dateFrom: date,
-          dateTo: date
-        });
-        tempDate = date;
-      }
-      else {
-        this.setState({ dateFrom: date });
-      }
+  handleClick = () => {
+    this.setState(state => ({ list1Open: !state.list1Open }));
+  };
+  handleClickLoisirOpen = () => {
+    this.setState(state => ({ listLoisirOpen: !state.listLoisirOpen }));
+  };
 
-      this.props.setStateValues({
-        dateFrom: Date.parse(date),
-        dateTo:  Date.parse(tempDate),
-        needMapFilterByDate: true
+  handleClickListAgendaOpen = () => {
+    this.setState((state) => ({ listAgendaOpen: !state.listAgendaOpen }));
+  };
+
+  handleDateChange = (date) => {
+
+    let tempDate = this.state.dateTo;
+    if (this.state.dateTo < date) {
+      // var tomorrow = date;
+      // tomorrow.setDate(tomorrow.getDate() + 1);
+
+      this.setState({
+        dateFrom: date,
+        dateTo: date
       });
-
-      this.props.triggerMapUpdate();
+      tempDate = date;
+    }
+    else {
+      this.setState({ dateFrom: date });
     }
 
-    handleDateToChange = (date) => {
-      this.setState({ dateTo: date });
+    this.props.setStateValues({
+      dateFrom: Date.parse(date),
+      dateTo: Date.parse(tempDate),
+      needMapFilterByDate: true
+    });
 
-      this.props.setStateValues({
-        dateFrom: Date.parse(this.state.dateFrom),
-        dateTo: Date.parse(date),
-        needMapFilterByDate: true
-      });
-      this.props.triggerMapUpdate();
-    }
+    this.props.triggerMapUpdate();
+  }
 
-    _onVisibilityChange(name, event) {
+  handleDateToChange = (date) => {
+    this.setState({ dateTo: date });
 
-      const visibility = { ...this.state.visibility, [name]: event.target.checked };
-      this.setState({ visibility });
+    this.props.setStateValues({
+      dateFrom: Date.parse(this.state.dateFrom),
+      dateTo: Date.parse(date),
+      needMapFilterByDate: true
+    });
+    this.props.triggerMapUpdate();
+  }
 
-      this.props.setStateValues({
-        toggleLayerVisibility: layerSelector[name].source,
-        // needMapRestyle: true,
-        needMapToggleLayer: true
-      });
-      this.props.triggerMapUpdate();
-    }
+  _onVisibilityChange(name, event) {
 
-    componentDidMount() {
-      //this.dateTo = this.dateTo.getDate() + 1;
-      //this.handleDateChange(Date());
-    }
+    const visibility = { ...this.state.visibility, [name]: event.target.checked };
+    this.setState({ visibility });
+
+    this.props.setStateValues({
+      toggleLayerVisibility: layerSelector[name].source,
+      // needMapRestyle: true,
+      needMapToggleLayer: true
+    });
+    this.props.triggerMapUpdate();
+  }
+
+  componentDidMount() {
+    //this.dateTo = this.dateTo.getDate() + 1;
+    //this.handleDateChange(Date());
+  }
 
 
-    render() {
-        const { classes } = this.props;
-        const {visibility, dateFrom, dateTo } = this.state;
+  render() {
+    const { classes } = this.props;
+    const { visibility, dateFrom, dateTo } = this.state;
 
 
-        return <React.Fragment>
-            <div className={classes.root}>
-              <MyAppBar open={this.state.open} handleDrawerOpen={this.handleDrawerOpen}/>
-              {/* ref={elem => (this.Drawer = elem)} */}
-              <Drawer variant="temporary" classes={{ paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose) }} open={this.state.open}>
-                <div className={classes.toolbarIcon}>
-                  <IconButton onClick={this.handleDrawerClose} aria-label="Close drawer">
-                    <ChevronLeftIcon />
-                  </IconButton>
-                </div>
-                <Divider />
+    return (
+      <I18n ns="translations">
+        {
+          (t, { i18n }) => (
+            <React.Fragment>
+              <div className={classes.root}>
+                <MyAppBar open={this.state.open} handleDrawerOpen={this.handleDrawerOpen} />
+                {/* ref={elem => (this.Drawer = elem)} */}
+                <Drawer variant="temporary" classes={{ paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose) }} open={this.state.open}>
+                  <div className={classes.toolbarIcon}>
+                    <IconButton onClick={this.handleDrawerClose} aria-label="Close drawer">
+                      <ChevronLeftIcon />
+                    </IconButton>
+                  </div>
+                  <Divider />
 
-               <ListItem button onClick={this.handleClick} aria-label="Open Culture et Patrimoine" id="ButtonCultureHeritage">
-                  <ListSubheader style={{color:"black", fontSize:"16px" }} title="Richesses architecturales, naturelles et culturelles">Culture &amp; Patrimoine</ListSubheader>
-                  {this.state.list1Open ? <ExpandLess className={classes.expandIcons}/> : <ExpandMore className={classes.expandIcons}/>}
-                </ListItem>
-                <Collapse in={this.state.list1Open} timeout="auto" unmountOnExit className={classes.collapses}>
-                  <List>
-                    <ListItem key={"Villages"} dense button className={classes.listItem}>
-                      <Checkbox tabIndex={-1} checked={visibility["Villages"]} onChange={this._onVisibilityChange.bind(this, "Villages")} value="true" color="default" aria-label="VillagesCheckbox" htmlFor="VillagesListItemText" id="VillagesCheckbox" disableRipple />
-                      <InputLabel htmlFor="VillagesCheckbox" id="VillagesListItemText" primary={"Villages"} title="Plus beaux Villages de France">
-                        Villages
-                      </InputLabel>
-                      <ListItemSecondaryAction>
-                        <img className={classes.icon} alt="Plus beaux Villages de France" title="Plus beaux Villages de France" src={VillagesIcon} />
-                      </ListItemSecondaryAction>
-                    </ListItem>
-                    <ListItem key={"Unesco"} dense button className={classes.listItem}>
-                      <Checkbox tabIndex={-1} checked={visibility["Unesco"]} onChange={this._onVisibilityChange.bind(this, "Unesco")} value="true" color="default" id="UnescoCheckbox" disableRipple />
-                      <InputLabel htmlFor="UnescoCheckbox" primary={"Unesco"} title="Patrimoine mondial de l'UNESCO">
-                        Unesco
-                      </InputLabel>
-                      <ListItemSecondaryAction>
-                        <img className={classes.icon} alt="Patrimoine mondial de l'UNESCO" title="Patrimoine mondial de l'UNESCO" src={UnescoIcon} />
-                      </ListItemSecondaryAction>
-                    </ListItem>
+                  <ListItem button onClick={this.handleClick} aria-label="Open Culture et Patrimoine" id="ButtonCultureHeritage">
+                    <ListSubheader style={{ color: "black", fontSize: "16px" }} title={t("drawer.main1Title")}> {t("drawer.main1")} </ListSubheader>
+                    {this.state.list1Open ? <ExpandLess className={classes.expandIcons} /> : <ExpandMore className={classes.expandIcons} />}
+                  </ListItem>
+                  <Collapse in={this.state.list1Open} timeout="auto" unmountOnExit className={classes.collapses}>
+                    <List>
+                      <ListItem key={"Villages"} dense button className={classes.listItem}>
+                        <Checkbox tabIndex={-1} checked={visibility["Villages"]} onChange={this._onVisibilityChange.bind(this, "Villages")} value="true" color="default" aria-label="VillagesCheckbox" htmlFor="VillagesListItemText" id="VillagesCheckbox" disableRipple />
+                        <InputLabel htmlFor="VillagesCheckbox" id="VillagesListItemText" primary={"Villages"} title={t("drawer.villagesTitle")}>
+                          {t("drawer.villages")}
+                        </InputLabel>
+                        <ListItemSecondaryAction>
+                          <img className={classes.icon} alt={t("drawer.villagesTitle")} title={t("drawer.villagesTitle")} src={VillagesIcon} />
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                      <ListItem key={"Unesco"} dense button className={classes.listItem}>
+                        <Checkbox tabIndex={-1} checked={visibility["Unesco"]} onChange={this._onVisibilityChange.bind(this, "Unesco")} value="true" color="default" id="UnescoCheckbox" disableRipple />
+                        <InputLabel htmlFor="UnescoCheckbox" primary={"Unesco"} title={t("drawer.unescoTitle")}>
+                          {t("drawer.unesco")}
+                        </InputLabel>
+                        <ListItemSecondaryAction>
+                          <img className={classes.icon} alt={t("drawer.unescoTitle")} title={t("drawer.unescoTitle")} src={UnescoIcon} />
+                        </ListItemSecondaryAction>
+                      </ListItem>
 
-                    <ListItem key={"Museum"} dense button className={classes.listItem}>
-                      <Checkbox tabIndex={-1} checked={this.state.visibility["Museum"]} onChange={this._onVisibilityChange.bind(this, "Museum")} value="true" color="default" id="MuseumCheckbox" disableRipple />
-                      <InputLabel htmlFor="MuseumCheckbox" primary={"Museum"} title="Musées">
-                        Musées
-                      </InputLabel>
-                      <ListItemSecondaryAction>
-                        <img className={classes.icon} alt="Musées" title="Musées" src={MuseumIcon} />
-                      </ListItemSecondaryAction>
-                    </ListItem>
+                      <ListItem key={"Museum"} dense button className={classes.listItem}>
+                        <Checkbox tabIndex={-1} checked={this.state.visibility["Museum"]} onChange={this._onVisibilityChange.bind(this, "Museum")} value="true" color="default" id="MuseumCheckbox" disableRipple />
+                        <InputLabel htmlFor="MuseumCheckbox" primary={"Museum"} title={t("drawer.museum")}>
+                          {t("drawer.museum")}
+                        </InputLabel>
+                        <ListItemSecondaryAction>
+                          <img className={classes.icon} alt={t("drawer.museum")} title={t("drawer.museum")} src={MuseumIcon} />
+                        </ListItemSecondaryAction>
+                      </ListItem>
 
-                    <ListItem key={"Jardins"} dense button className={classes.listItem}>
-                      <Checkbox tabIndex={-1} checked={visibility["Jardins"]} onChange={this._onVisibilityChange.bind(this, "Jardins")} value="true" color="default" id="JardinsCheckbox" disableRipple />
-                      <InputLabel htmlFor="JardinsCheckbox" primary={"Jardins"} title="Jardins remarquables">
-                        Jardins
-                      </InputLabel>
-                      <ListItemSecondaryAction>
-                        <img className={classes.icon} alt="Jardins remarquables" title="Jardins remarquables" src={JardinsIcon} />
-                      </ListItemSecondaryAction>
-                    </ListItem>
+                      <ListItem key={"Jardins"} dense button className={classes.listItem}>
+                        <Checkbox tabIndex={-1} checked={visibility["Jardins"]} onChange={this._onVisibilityChange.bind(this, "Jardins")} value="true" color="default" id="JardinsCheckbox" disableRipple />
+                        <InputLabel htmlFor="JardinsCheckbox" primary={"Jardins"} title={t("drawer.gardensTitle")}>
+                          {t("drawer.gardens")}
+                        </InputLabel>
+                        <ListItemSecondaryAction>
+                          <img className={classes.icon} alt={t("drawer.gardensTitle")} title={t("drawer.gardensTitle")} src={JardinsIcon} />
+                        </ListItemSecondaryAction>
+                      </ListItem>
 
-                    <ListItem key={"GSF"} dense button className={classes.listItem}>
-                      <Checkbox tabIndex={-1} checked={this.state.visibility["GSF"]} onChange={this._onVisibilityChange.bind(this, "GSF")} value="true" color="default" id="GSFCheckbox" disableRipple />
-                      <InputLabel htmlFor="GSFCheckbox" primary={"Grands Sites"} title="Grands Sites de France">
-                        Grands Sites
-                      </InputLabel>
-                      <ListItemSecondaryAction>
-                      <HomeIcon className={classes.icon} style={{ color: "#217619" }} alt="Grands Sites de France" title="Grands Sites de France" />
-                        {/* <img className={classes.icon} alt="Grand Site de France" title="Grand Site de France" src={GSFIcon} /> */}
-                      </ListItemSecondaryAction>
-                    </ListItem>
+                      <ListItem key={"GSF"} dense button className={classes.listItem}>
+                        <Checkbox tabIndex={-1} checked={this.state.visibility["GSF"]} onChange={this._onVisibilityChange.bind(this, "GSF")} value="true" color="default" id="GSFCheckbox" disableRipple />
+                        <InputLabel htmlFor="GSFCheckbox" primary={"Grands Sites"} title={t("drawer.grandsSitesTitle")}>
+                          {t("drawer.grandsSites")}
+                        </InputLabel>
+                        <ListItemSecondaryAction>
+                          <HomeIcon className={classes.icon} style={{ color: "#217619" }} alt={t("drawer.grandsSitesTitle")} title={t("drawer.grandsSitesTitle")} />
+                          {/* <img className={classes.icon} alt="Grand Site de France" title="Grand Site de France" src={GSFIcon} /> */}
+                        </ListItemSecondaryAction>
+                      </ListItem>
 
-                    <ListItem key={"MN"} dense button className={classes.listItem}>
-                      <Checkbox tabIndex={-1} checked={this.state.visibility["MN"]} onChange={this._onVisibilityChange.bind(this, "MN")} value="true" color="default" id="MNCheckbox" disableRipple />
-                      <InputLabel htmlFor="MNCheckbox" primary={"Monuments"} title="Édifices gérés par le centre des monuments nationaux">
-                        Monuments
-                      </InputLabel>
-                      <ListItemSecondaryAction>
-                        <HomeIcon className={classes.icon} style={{ color: "#1f08a6" }} alt="Monuments Nationaux" title="Édifices gérés par le centre des monuments nationaux" />
-                      </ListItemSecondaryAction>
-                    </ListItem>
+                      <ListItem key={"MN"} dense button className={classes.listItem}>
+                        <Checkbox tabIndex={-1} checked={this.state.visibility["MN"]} onChange={this._onVisibilityChange.bind(this, "MN")} value="true" color="default" id="MNCheckbox" disableRipple />
+                        <InputLabel htmlFor="MNCheckbox" primary={"Monuments"} title={t("drawer.monumentsTitle")}>
+                          {t("drawer.monuments")}
+                        </InputLabel>
+                        <ListItemSecondaryAction>
+                          <HomeIcon className={classes.icon} style={{ color: "#1f08a6" }} alt={t("drawer.monumentsTitle")} title={t("drawer.monumentsTitle")} />
+                        </ListItemSecondaryAction>
+                      </ListItem>
 
-                    {/* <ListItem key={"AOP"} dense button className={classes.listItem}>
+                      {/* <ListItem key={"AOP"} dense button className={classes.listItem}>
                       <Checkbox tabIndex={-1} checked={this.state.visibility["AOP"]} onChange={this._onVisibilityChange.bind(this, "AOP")} value="true" color="default" id="AOPCheckbox" disableRipple />
                       <InputLabel htmlFor="AOPCheckbox" primary={"AOP"} title="Apellations d'origine controllée">
                         AOP
@@ -401,135 +406,138 @@ class MyDrawer extends Component {
                         <img className={classes.icon} alt="Apellations d'origine controllée" title="Apellations d'origine controllée" src={AOPIcon} />
                       </ListItemSecondaryAction>
                     </ListItem> */}
-                    
+
                     </List>
-                    </Collapse>
-                    <Divider light/>
+                  </Collapse>
+                  <Divider light />
 
                   <ListItem button onClick={this.handleClickLoisirOpen} aria-label="Open Loisirs et Artisanat" id="ButtonLoisir">
-                  <ListSubheader style={{color:"black", fontSize:"16px" }}>Loisirs &amp; Artisanat</ListSubheader>
-                  {this.state.listLoisirOpen ? <ExpandLess className={classes.expandIcons}/> : <ExpandMore className={classes.expandIcons}/>}
-                </ListItem>
-
-                <Collapse in={this.state.listLoisirOpen} timeout="auto" unmountOnExit className={classes.collapses}>
-                  <List>
-                    <ListItem key={"ParcsJardins"} dense button className={classes.listItem}>
-                      <Checkbox tabIndex={-1} checked={this.state.visibility["ParcsJardins"]} onChange={this._onVisibilityChange.bind(this, "ParcsJardins")} value="true" color="default" aria-label="ParcsJardinsCheckbox" htmlFor="ParcsJardinsListItemText" id="ParcsJardinsCheckbox" disableRipple />
-                      <InputLabel htmlFor="ParcsJardinsCheckbox" id="ParcsJardinsListItemText" primary={"ParcsJardins"} title="Parcs et jardins">
-                        Parcs &amp; jardins
-                      </InputLabel>
-                      <ListItemSecondaryAction>
-                        <HomeIcon className={classes.icon} style={{ color: "#4aa52c" }} alt="Parcs et jardins" title="Parcs et jardins" />
-                      </ListItemSecondaryAction>
-                    </ListItem>
-                    <ListItem key={"Restaurants"} dense button className={classes.listItem}>
-                      <Checkbox tabIndex={-1} checked={this.state.visibility["Restaurants"]} onChange={this._onVisibilityChange.bind(this, "Restaurants")} value="true" color="default" aria-label="RestaurantsCheckbox" htmlFor="RestaurantsListItemText" id="RestaurantsCheckbox" disableRipple />
-                      <InputLabel htmlFor="RestaurantsCheckbox" id="RestaurantsListItemText" primary={"Restaurants"} title="Restaurants">
-                        Restaurants
-                      </InputLabel>
-                      <ListItemSecondaryAction>
-                        <HomeIcon className={classes.icon} style={{ color: "#a22020" }} alt="Restaurants" title="Restaurants" />
-                      </ListItemSecondaryAction>
-                    </ListItem>
-                    <ListItem key={"LocalProdShop"} dense button className={classes.listItem}>
-                      <Checkbox tabIndex={-1} checked={this.state.visibility["LocalProdShop"]} onChange={this._onVisibilityChange.bind(this, "LocalProdShop")} value="true" color="default" aria-label="LocalProdShopCheckbox" htmlFor="LocalProdShopListItemText" id="LocalProdShopCheckbox" disableRipple />
-                      <InputLabel htmlFor="LocalProdShopCheckbox" id="LocalProdShopListItemText" primary={"LocalProdShop"} title="Commerce local">
-                        Commerce local
-                      </InputLabel>
-                      <ListItemSecondaryAction>
-                        <HomeIcon className={classes.icon} style={{ color: "#E8EF1F" }} alt="Commerce local" title="Commerce local" />
-                      </ListItemSecondaryAction>
-                    </ListItem>
-                    <ListItem key={"CraftmanShop"} dense button className={classes.listItem}>
-                      <Checkbox tabIndex={-1} checked={this.state.visibility["CraftmanShop"]} onChange={this._onVisibilityChange.bind(this, "CraftmanShop")} value="true" color="default" aria-label="CraftmanShopCheckbox" htmlFor="CraftmanShopListItemText" id="CraftmanShopCheckbox" disableRipple />
-                      <InputLabel htmlFor="CraftmanShopCheckbox" id="CraftmanShopListItemText" primary={"CraftmanShop"} title="Atelier artisanal">
-                        Atelier artisanal
-                      </InputLabel>
-                      <ListItemSecondaryAction>
-                        <HomeIcon className={classes.icon} style={{ color: "#ee8568" }} alt="Atelier artisanal" title="Atelier artisanal" />
-                      </ListItemSecondaryAction>
-                    </ListItem>
-                  </List>                  
-                </Collapse>
-                <Divider light/>
-                <ListItem button onClick={this.handleClickListAgendaOpen} aria-label="Open Agenda" id="ButtonAgenda" style={{backgroundColor: "white" }}>
-                  <ListSubheader style={{color:"black", fontSize:"16px" }}>Agenda</ListSubheader>
-                  {this.state.listAgendaOpen ? <ExpandLess className={classes.expandIcons} /> : <ExpandMore className={classes.expandIcons} />}
-                </ListItem>
-                <Collapse in={this.state.listAgendaOpen} timeout="auto" unmountOnExit className={classes.collapses}>
-                
-
-
-                <List>
-                  <ListItem style={{ backgroundColor: "#eceded", paddingLeft: "17px", paddingRight: "17px"}}>
-
-                    <div style={{ backgroundColor: "#eceded", width: "50%", padding: "6px", float: "left" }} >
-                      <MuiPickersUtilsProvider utils={DateFnsUtils} locale={frLocale}>
-                        <DatePicker style={{ maxWidth: "100%", textAlign: "center" }} value={dateFrom} minDate={Date()} disablePast={true} onChange={this.handleDateChange.bind(this)} />
-                      </MuiPickersUtilsProvider>
-                    </div>
-
-                    <div style={{ backgroundColor: "#eceded", width: "50%", padding: "6px", float: "right" }}>
-                      <MuiPickersUtilsProvider utils={DateFnsUtils} locale={frLocale}>
-                        <DatePicker style={{ maxWidth: "100%", textAlign: "center" }} value={dateTo} minDate={dateFrom} onChange={this.handleDateToChange} />
-                      </MuiPickersUtilsProvider>
-                    </div>
+                    <ListSubheader title={t("drawer.main2")} style={{ color: "black", fontSize: "16px" }}>{t("drawer.main2")}</ListSubheader>
+                    {this.state.listLoisirOpen ? <ExpandLess className={classes.expandIcons} /> : <ExpandMore className={classes.expandIcons} />}
                   </ListItem>
 
-                    <ListItem key={"Exposition"} dense button className={classes.listItem}>
-                      <Checkbox tabIndex={-1} checked={this.state.visibility["Exposition"]} onChange={this._onVisibilityChange.bind(this, "Exposition")} value="true" color="default" aria-label="ExpositionCheckbox" htmlFor="ExpositionListItemText" id="ExpositionCheckbox" disableRipple />
-                      <InputLabel htmlFor="ExpositionCheckbox" id="ExpositionListItemText" primary={"Exposition"} title="Expositions">
-                        Expositions
-                      </InputLabel>
-                      <ListItemSecondaryAction>
-                        <HomeIcon className={classes.icon} style={{ color: "#E10E0E" }} alt="Expositions" title="Expositions" />
-                      </ListItemSecondaryAction>
-                    </ListItem>
+                  <Collapse in={this.state.listLoisirOpen} timeout="auto" unmountOnExit className={classes.collapses}>
+                    <List>
+                      <ListItem key={"ParcsJardins"} dense button className={classes.listItem}>
+                        <Checkbox tabIndex={-1} checked={this.state.visibility["ParcsJardins"]} onChange={this._onVisibilityChange.bind(this, "ParcsJardins")} value="true" color="default" aria-label="ParcsJardinsCheckbox" htmlFor="ParcsJardinsListItemText" id="ParcsJardinsCheckbox" disableRipple />
+                        <InputLabel htmlFor="ParcsJardinsCheckbox" id="ParcsJardinsListItemText" primary={"ParcsJardins"} title={t("parcsJardins")}>
+                          {t("drawer.parcsJardins")}
+                        </InputLabel>
+                        <ListItemSecondaryAction>
+                          <HomeIcon className={classes.icon} style={{ color: "#4aa52c" }} alt={t("drawer.parcsJardins")} title={t("drawer.parcsJardins")} />
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                      <ListItem key={"Restaurants"} dense button className={classes.listItem}>
+                        <Checkbox tabIndex={-1} checked={this.state.visibility["Restaurants"]} onChange={this._onVisibilityChange.bind(this, "Restaurants")} value="true" color="default" aria-label="RestaurantsCheckbox" htmlFor="RestaurantsListItemText" id="RestaurantsCheckbox" disableRipple />
+                        <InputLabel htmlFor="RestaurantsCheckbox" id="RestaurantsListItemText" primary={"Restaurants"} title={t("drawer.restaurants")}>
+                          {t("drawer.restaurants")}
+                        </InputLabel>
+                        <ListItemSecondaryAction>
+                          <HomeIcon className={classes.icon} style={{ color: "#a22020" }} alt={t("drawer.restaurants")} title={t("drawer.restaurants")} />
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                      <ListItem key={"LocalProdShop"} dense button className={classes.listItem}>
+                        <Checkbox tabIndex={-1} checked={this.state.visibility["LocalProdShop"]} onChange={this._onVisibilityChange.bind(this, "LocalProdShop")} value="true" color="default" aria-label="LocalProdShopCheckbox" htmlFor="LocalProdShopListItemText" id="LocalProdShopCheckbox" disableRipple />
+                        <InputLabel htmlFor="LocalProdShopCheckbox" id="LocalProdShopListItemText" primary={"LocalProdShop"} title={t("drawer.localpropshop")}>
+                          {t("drawer.localpropshop")}
+                        </InputLabel>
+                        <ListItemSecondaryAction>
+                          <HomeIcon className={classes.icon} style={{ color: "#E8EF1F" }} alt={t("drawer.localpropshop")} title={t("drawer.localpropshop")} />
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                      <ListItem key={"CraftmanShop"} dense button className={classes.listItem}>
+                        <Checkbox tabIndex={-1} checked={this.state.visibility["CraftmanShop"]} onChange={this._onVisibilityChange.bind(this, "CraftmanShop")} value="true" color="default" aria-label="CraftmanShopCheckbox" htmlFor="CraftmanShopListItemText" id="CraftmanShopCheckbox" disableRipple />
+                        <InputLabel htmlFor="CraftmanShopCheckbox" id="CraftmanShopListItemText" primary={"CraftmanShop"} title={t("drawer.craftmanShop")}>
+                          {t("drawer.craftmanShop")}
+                        </InputLabel>
+                        <ListItemSecondaryAction>
+                          <HomeIcon className={classes.icon} style={{ color: "#ee8568" }} alt={t("drawer.craftmanShop")} title={t("drawer.craftmanShop")} />
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                    </List>
+                  </Collapse>
+                  <Divider light />
+                  <ListItem button onClick={this.handleClickListAgendaOpen} aria-label="Open Agenda" id="ButtonAgenda" style={{ backgroundColor: "white" }}>
+                    <ListSubheader title={t("drawer.main3")} style={{ color: "black", fontSize: "16px" }}>{t("drawer.main3")}</ListSubheader>
+                    {this.state.listAgendaOpen ? <ExpandLess className={classes.expandIcons} /> : <ExpandMore className={classes.expandIcons} />}
+                  </ListItem>
+                  <Collapse in={this.state.listAgendaOpen} timeout="auto" unmountOnExit className={classes.collapses}>
 
-                    <ListItem key={"Musique"} dense button className={classes.listItem}>
-                      <Checkbox tabIndex={-1} checked={this.state.visibility["Musique"]} onChange={this._onVisibilityChange.bind(this, "Musique")} value="true" color="default" aria-label="MusiqueCheckbox" htmlFor="MusiqueListItemText" id="MusiqueCheckbox" disableRipple />
-                      <InputLabel htmlFor="MusiqueCheckbox" id="MusiqueListItemText" primary={"Musique"} title="Musique et spectacles">
-                        Musique &amp; spectacles
-                      </InputLabel>
-                      <ListItemSecondaryAction>
-                        <HomeIcon className={classes.icon} style={{ color: "#a52c56" }} alt="Musique et spectacles" title="Musique et spectacles" />
-                      </ListItemSecondaryAction>
-                    </ListItem>
-                    <ListItem key={"Children"} dense button className={classes.listItem}>
-                      <Checkbox tabIndex={-1} checked={this.state.visibility["Children"]} onChange={this._onVisibilityChange.bind(this, "Children")} value="true" color="default" aria-label="ChildrenCheckbox" htmlFor="ChildrenListItemText" id="ChildrenCheckbox" disableRipple />
-                      <InputLabel htmlFor="ChildrenCheckbox" id="ChildrenListItemText" primary={"Children"} title="Children's Corner">
-                        Children's Corner
-                      </InputLabel>
-                      <ListItemSecondaryAction>
-                        <HomeIcon className={classes.icon} style={{ color: "#15178a" }} alt="Children's Corner" title="Children's Corner" />
-                      </ListItemSecondaryAction>
-                    </ListItem>
-                    <ListItem key={"Marches"} dense button className={classes.listItem}>
-                      <Checkbox tabIndex={-1} checked={this.state.visibility["Marches"]} onChange={this._onVisibilityChange.bind(this, "Marches")} value="true" color="default" aria-label="MarchesCheckbox" htmlFor="MarchesListItemText" id="MarchesCheckbox" disableRipple />
-                      <InputLabel htmlFor="MarchesCheckbox" id="MarchesListItemText" primary={"Marches"} title="Marches">
-                        Marchés
-                      </InputLabel>
-                      <ListItemSecondaryAction>
-                        <HomeIcon className={classes.icon} style={{ color: "#4aa52c" }} alt="Marches" title="Marches" />
-                      </ListItemSecondaryAction>
-                    </ListItem>
-                    <ListItem key={"VidesGreniers"} dense button className={classes.listItem}>
-                      <Checkbox tabIndex={-1} checked={this.state.visibility["VidesGreniers"]} onChange={this._onVisibilityChange.bind(this, "VidesGreniers")} value="true" color="default" aria-label="VidesGreniersCheckbox" htmlFor="VidesGreniersListItemText" id="VidesGreniersCheckbox" disableRipple />
-                      <InputLabel htmlFor="VidesGreniersCheckbox" id="VidesGreniersListItemText" primary={"VidesGreniers"} title="Vide-greniers">
-                        Vide-greniers
-                      </InputLabel>
-                      <ListItemSecondaryAction>
-                        <HomeIcon className={classes.icon} style={{ color: "#007cbf" }} alt="Vide-greniers" title="Vide-greniers" />
-                      </ListItemSecondaryAction>
-                    </ListItem>
-                  </List>                  
-                </Collapse>
-                <Divider />
-                <Footer />
-              </Drawer>
-            </div>
-          </React.Fragment>;
-    }
+
+
+                    <List>
+                      <ListItem style={{ backgroundColor: "#eceded", paddingLeft: "17px", paddingRight: "17px" }}>
+
+                        <div style={{ backgroundColor: "#eceded", width: "50%", padding: "6px", float: "left" }} >
+                          <MuiPickersUtilsProvider utils={DateFnsUtils} locale={frLocale}>
+                            <DatePicker style={{ maxWidth: "100%", textAlign: "center" }} value={dateFrom} minDate={Date()} disablePast={true} onChange={this.handleDateChange.bind(this)} />
+                          </MuiPickersUtilsProvider>
+                        </div>
+
+                        <div style={{ backgroundColor: "#eceded", width: "50%", padding: "6px", float: "right" }}>
+                          <MuiPickersUtilsProvider utils={DateFnsUtils} locale={frLocale}>
+                            <DatePicker style={{ maxWidth: "100%", textAlign: "center" }} value={dateTo} minDate={dateFrom} onChange={this.handleDateToChange} />
+                          </MuiPickersUtilsProvider>
+                        </div>
+                      </ListItem>
+
+                      <ListItem key={"Exposition"} dense button className={classes.listItem}>
+                        <Checkbox tabIndex={-1} checked={this.state.visibility["Exposition"]} onChange={this._onVisibilityChange.bind(this, "Exposition")} value="true" color="default" aria-label="ExpositionCheckbox" htmlFor="ExpositionListItemText" id="ExpositionCheckbox" disableRipple />
+                        <InputLabel htmlFor="ExpositionCheckbox" id="ExpositionListItemText" primary={"Exposition"} title={t("drawer.exposition")}>
+                          {t("drawer.exposition")}
+                        </InputLabel>
+                        <ListItemSecondaryAction>
+                          <HomeIcon className={classes.icon} style={{ color: "#E10E0E" }} alt={t("drawer.exposition")} title={t("drawer.exposition")} />
+                        </ListItemSecondaryAction>
+                      </ListItem>
+
+                      <ListItem key={"Musique"} dense button className={classes.listItem}>
+                        <Checkbox tabIndex={-1} checked={this.state.visibility["Musique"]} onChange={this._onVisibilityChange.bind(this, "Musique")} value="true" color="default" aria-label="MusiqueCheckbox" htmlFor="MusiqueListItemText" id="MusiqueCheckbox" disableRipple />
+                        <InputLabel htmlFor="MusiqueCheckbox" id="MusiqueListItemText" primary={"Musique"} title={t("musiqueSpectacles")}>
+                          {t("drawer.musiqueSpectacles")}
+                        </InputLabel>
+                        <ListItemSecondaryAction>
+                          <HomeIcon className={classes.icon} style={{ color: "#a52c56" }} alt={t("drawer.musiqueSpectacles")} title={t("drawer.musiqueSpectacles")} />
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                      <ListItem key={"Children"} dense button className={classes.listItem}>
+                        <Checkbox tabIndex={-1} checked={this.state.visibility["Children"]} onChange={this._onVisibilityChange.bind(this, "Children")} value="true" color="default" aria-label="ChildrenCheckbox" htmlFor="ChildrenListItemText" id="ChildrenCheckbox" disableRipple />
+                        <InputLabel htmlFor="ChildrenCheckbox" id="ChildrenListItemText" primary={"Children"} title={t("drawer.childrensCorner")}>
+                          {t("drawer.childrensCorner")}
+                        </InputLabel>
+                        <ListItemSecondaryAction>
+                          <HomeIcon className={classes.icon} style={{ color: "#15178a" }} alt={t("drawer.childrensCorner")} title={t("drawer.childrensCorner")} />
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                      <ListItem key={"Marches"} dense button className={classes.listItem}>
+                        <Checkbox tabIndex={-1} checked={this.state.visibility["Marches"]} onChange={this._onVisibilityChange.bind(this, "Marches")} value="true" color="default" aria-label="MarchesCheckbox" htmlFor="MarchesListItemText" id="MarchesCheckbox" disableRipple />
+                        <InputLabel htmlFor="MarchesCheckbox" id="MarchesListItemText" primary={"Marches"} title={t("drawer.markets")}>
+                          {t("drawer.markets")}
+                        </InputLabel>
+                        <ListItemSecondaryAction>
+                          <HomeIcon className={classes.icon} style={{ color: "#4aa52c" }} alt={t("drawer.markets")} title={t("drawer.markets")} />
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                      <ListItem key={"VidesGreniers"} dense button className={classes.listItem}>
+                        <Checkbox tabIndex={-1} checked={this.state.visibility["VidesGreniers"]} onChange={this._onVisibilityChange.bind(this, "VidesGreniers")} value="true" color="default" aria-label="VidesGreniersCheckbox" htmlFor="VidesGreniersListItemText" id="VidesGreniersCheckbox" disableRipple />
+                        <InputLabel htmlFor="VidesGreniersCheckbox" id="VidesGreniersListItemText" primary={"VidesGreniers"} title={t("drawer.fleaMarket")}>
+                          {t("drawer.fleaMarket")}
+                        </InputLabel>
+                        <ListItemSecondaryAction>
+                          <HomeIcon className={classes.icon} style={{ color: "#007cbf" }} title={t("drawer.fleaMarket")} />
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                    </List>
+                  </Collapse>
+                  <Divider />
+                  <Footer />
+                </Drawer>
+              </div>
+            </React.Fragment>)
+        }
+      </I18n>
+    );
+  }
 }
 
 
@@ -556,7 +564,7 @@ const mapDispatchToProps = (dispatch) => {
     triggerMapUpdate: (v) => dispatch(triggerMapUpdate(v))
   };
 };
-export {MyDrawer};
+export { MyDrawer };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(MyDrawer));
 

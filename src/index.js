@@ -17,6 +17,8 @@ import App from "./components/App";
 
 import "./index.css";
 
+import './i18n';
+
 registerServiceWorker();
 // Read persisted state from the local storage and put that in the initial state.
 const persistedState = localStorage.getItem("persistedState") ? JSON.parse(localStorage.getItem("persistedState")) : {};

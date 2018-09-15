@@ -1,0 +1,33 @@
+{
+    "title": "France Discovery",
+    "drawer": {
+        "main1": "Cultural heritage",
+        "main1Title": "Cultural heritage",
+        "main2": "Leisure & handcraft",
+        "main3": "Agenda",
+        "about": "About",
+        "legalNotice": "legal Notice",
+        "villages": "Villages",
+        "villagesTitle": "Plus beaux Villages de France",
+        "unesco": "Unesco",
+        "unescoTitle": "UNESCO World Heritage Site",
+        "museum": "Museums",
+        "gardens": "Gardens",
+        "gardensTitle": "Jardins Remarquables",
+        "grandsSites": "Grands Sites",
+        "grandsSitesTitle": "Grands Sites de France",
+        "monuments": "Monuments",
+        "parcsJardins": "Parcs & gardens",
+        "restaurants": "Restaurants",
+        "localpropshop": "Local product shop",
+        "craftmanShop": "Craftman shop",
+        "exposition": "Exhibition",
+        "musiqueSpectacles": "Musique & shows",
+        "childrensCorner": "Children's Corner",
+        "markets": "Markets",
+        "fleaMarket": "Flea Markets"
+    },
+    "search": "Search",
+    "about": "About",
+    "legalNotice": "Legal notice"
+}

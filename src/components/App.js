@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { I18n, Trans } from 'react-i18next';
 import Map from './Map';
 import MyDrawer from "./MyDrawer";
 import Search from './Search';
 import Directions from './Directions';
-import {setStateFromURL} from '../actions/index';
+import { setStateFromURL } from '../actions/index';
 
 class App extends Component {
 
@@ -20,19 +21,38 @@ class App extends Component {
       .length;
 
     return (
-      <div className='root'>
-        <MyDrawer />
-        <div className='mapCont'>
-        <Map moveOnLoad={moveOnLoad} />
-          <div className='relative m12 m24-mm w420-mm flex-parent flex-parent--column'>
-            {
-              (this.props.mode === 'directions')
-                ? <Directions />
-                : <Search />
-            }
-          </div>
-        </div>
-      </div>
+      <I18n ns="translations">
+        {
+          (t, { i18n }) => (
+            <div className='root'>
+
+              {/* <div className="App-header">
+                <h2>{t('title')}</h2>
+                <button onClick={() => i18n.changeLanguage('de')}>de</button>
+                <button onClick={() => i18n.changeLanguage('en')}>en</button>
+              </div>
+              <div className="App-intro">
+                <Trans i18nKey="description.part1">
+                  To get started, edit <code>src/App.js</code> and save to reload.
+                </Trans>
+              </div>
+              <div>{t('description.part2')}</div> */}
+
+              <MyDrawer />
+              <div className='mapCont'>
+                <Map moveOnLoad={moveOnLoad} />
+                <div className='relative m12 m24-mm w420-mm flex-parent flex-parent--column'>
+                  {
+                    (this.props.mode === 'directions')
+                      ? <Directions />
+                      : <Search />
+                  }
+                </div>
+              </div>
+            </div>
+          )
+        }
+      </I18n>
     );
   }
 }
