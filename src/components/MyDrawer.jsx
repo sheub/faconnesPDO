@@ -176,11 +176,11 @@ const styles = (theme) => ({
 const layerSelector = {
   Museum: /liste-et-localisation-des-mus-5iczl9/,
   Villages: /plus-beaux-villages-de-france/,
-  Unesco: /patrimoine-mondial-en-france/, // This is the Layer id
+  Unesco: /patrimoinemondialenfrance/, // This is the Layer id
   AOP: /n-inao-aop-fr-16md1w/,
   Jardins: /jardin-remarquable/,
-  GSF: /grand-site-de-france/,
-  MN: /monuments-nationaux/,
+  GSF: /grandSiteDeFrance/,
+  MN: /monumentsnationaux/,
   ParcsJardins: /parcsjardins/,
   Restaurants: /restaurants/,
   LocalProdShop: /localproductshop/,

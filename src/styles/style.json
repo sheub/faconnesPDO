@@ -20,17 +20,12 @@
     "pitch": 0,
     "sources": {
         "composite": {
-            "url": "mapbox://mapbox.mapbox-streets-v7,sheub.623zkazi,sheub.Plus_Beaux_Villages_de_France,sheub.craftmanShop,sheub.Monuments_nationaux,sheub.Patrimoine_mondial_en_France,sheub.ParcsJardins,sheub.Grand_Site_de_France,sheub.5wb1wtbj,sheub.Jardin_remarquable,sheub.localProductShop,sheub.restaurants,sheub.9e12f1eo",
+            "url": "mapbox://mapbox.mapbox-streets-v7,sheub.623zkazi,sheub.Plus_Beaux_Villages_de_France,sheub.craftmanShop,sheub.ParcsJardins,sheub.5wb1wtbj,sheub.Jardin_remarquable,sheub.localProductShop,sheub.restaurants,sheub.9e12f1eo",
             "type": "vector"
             },
         "traffic": {
           "url": "mapbox://mapbox.mapbox-traffic-v1",
           "type": "vector"
-        },
-        "satellite": {
-            "url": "mapbox://mapbox.satellite",
-            "type": "raster",
-            "tileSize": 256
         },
         "marker": {
             "type": "geojson",
@@ -71,7 +66,21 @@
         "children": {
             "type": "geojson",
             "data": {"type": "FeatureCollection", "features": []}
+        },
+        "patrimoinemondialenfrance": {
+            "type": "geojson",
+            "data": {"type": "FeatureCollection", "features": []}
+        },
+        "grandSiteDeFrance": {
+            "type": "geojson",
+            "data": {"type": "FeatureCollection", "features": []}
+        },
+        "monumentsnationaux": {
+            "type": "geojson",
+            "data": {"type": "FeatureCollection", "features": []}
         }
+        
+        
     },
     "sprite": "mapbox://sprites/sheub/cjk8ejp92h7e62smuojkqrgnx",
     "glyphs": "mapbox://fonts/sheub/{fontstack}/{range}.pbf",
@@ -2765,33 +2774,21 @@
             }
 		},
         {
-            "id": "patrimoine-mondial-en-france",
+            "id": "patrimoinemondialenfrance",
+            "source": "patrimoinemondialenfrance",
             "type": "symbol",
-            "source": "composite",
-            "source-layer": "Patrimoine_mondial_en_France",
-            "filter": [
-                "==",
-                "$type",
-                "Point"
-            ],
             "layout": {
                 "visibility": "none",
                 "icon-image": "World_Heritage_Logo_global_small",
                 "icon-padding": 0,
                 "icon-allow-overlap":true
-            },
-            "paint": {}
+            }
         },
         {
             "id": "plus-beaux-villages-de-france",
             "type": "symbol",
             "source": "composite",
             "source-layer": "Plus_Beaux_Villages_de_France",
-            "filter": [
-                "==",
-                "$type",
-                "Point"
-            ],
             "layout": {
                 "visibility": "none",
                 "icon-image": [
@@ -2827,10 +2824,9 @@
             "paint": {}
         },
         {
-            "id": "grand-site-de-france",
+            "id": "grandSiteDeFrance",
             "type": "circle",
-            "source": "composite",
-            "source-layer": "Grand_Site_de_France",
+            "source": "grandSiteDeFrance",
             "layout": {
                 "visibility": "none"
             },
@@ -2874,15 +2870,9 @@
             }
 		},
         {
-            "id": "monuments-nationaux",
+            "id": "monumentsnationaux",
             "type": "circle",
-            "source": "composite",
-            "source-layer": "Monuments_nationaux",
-            "filter": [
-                "==",
-                "$type",
-                "Point"
-            ],
+            "source": "monumentsnationaux",
             "layout": {
                 "visibility": "none"
             },

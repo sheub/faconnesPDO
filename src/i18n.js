@@ -3,6 +3,13 @@ import Backend from 'i18next-xhr-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import { reactI18nextModule } from 'react-i18next';
 
+let baseDataUrl;
+if (process.env.NODE_ENV === 'production') {
+  baseDataUrl = process.env.PUBLIC_URL + '/marvelous-map/';
+} else { // Dev server runs on port 3000
+  baseDataUrl = 'http://localhost:3000/';
+}
+
 i18n
   .use(Backend)
   .use(LanguageDetector)
@@ -19,6 +26,9 @@ i18n
     interpolation: {
       escapeValue: false, // not needed for react!!
     },
+    backend: {
+        loadPath: baseDataUrl + '/locales/{{lng}}/{{ns}}.json'
+      },
 
     react: {
       wait: true,

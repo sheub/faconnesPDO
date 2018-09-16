@@ -107,11 +107,11 @@ class MyPlaceInfo extends Component {
     // if (window.innerHeight < 500) return null;
 
     if (["plus-beaux-villages-de-france",
-      "patrimoine-mondial-en-france",
+      "patrimoinemondialenfrance",
       "n-inao-aop-fr-16md1w",
       "jardin-remarquable",
-      "grand-site-de-france",
-      "monuments-nationaux"].includes(layerId)) {
+      "grandSiteDeFrance",
+      "monumentsnationaux"].includes(layerId)) {
 
       return (
         <div>

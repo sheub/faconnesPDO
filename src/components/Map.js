@@ -156,12 +156,16 @@ class MapComponent extends Component {
       this.filterByDate(this.props.dateFrom, this.props.dateTo);
     }
 
-    var lng = this.props.languageSet;
-    this.map.setStyle(language.setLanguage(this.map.getStyle(), lng));
+    if(this.props.needMapActualizeLanguage){
+      var lng = this.props.languageSet;
+      this.map.setStyle(language.setLanguage(this.map.getStyle(), lng));
+      this.initLayerVisibility();
+    }
 
     this.props.setStateValue('needMapRestyle', false);
     this.props.setStateValue('needMapToggleLayer', false);
     this.props.setStateValue('needMapFilterByDate', false);
+    this.props.setStateValue('needMapActualizeLanguage', false);
 
   }
 
@@ -377,11 +381,11 @@ class MapComponent extends Component {
     const layerSelector = {
       Museum: /liste-et-localisation-des-mus-5iczl9/,
       Villages: /plus-beaux-villages-de-france/,
-      Unesco: /patrimoine-mondial-en-france/, // This is the Layer id
+      Unesco: /patrimoinemondialenfrance/, // This is the Layer id
       AOP: /n-inao-aop-fr-16md1w/,
       Jardins: /jardin-remarquable/,
-      GSF: /grand-site-de-france/,
-      MN: /monuments-nationaux/,
+      GSF: /grandSiteDeFrance/,
+      MN: /monumentsnationaux/,
       ParcsJardins: /parcsjardins/,
       Restaurants: /restaurants/,
       LocalProdShop: /localproductshop/,
@@ -397,11 +401,21 @@ class MapComponent extends Component {
     Object.keys(this.props.visibility).forEach(key => {
       if (this.props.visibility[key]) {
         this.map.setLayoutProperty(layerSelector[key].source, 'visibility', 'visible');
+        if( ["marches", "exposition", "musique", "children", "videsgreniers"].includes(layerSelector[key].source)){
+          this.loadJsonData(layerSelector[key].source);
+        }
+        if( ["grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(layerSelector[key].source)){
+          this.loadJsonData(layerSelector[key].source);
+        }
       } else {
         this.map.setLayoutProperty(layerSelector[key].source, 'visibility', 'none');
       }
     });
 
+  }
+
+  initVectorLayers(){
+    
   }
 
   updateStyle(styleString) {
@@ -442,29 +456,23 @@ class MapComponent extends Component {
   }
 
   toggleLayerVisibility(toggleLayerVisibility) {
-    if( ["marches", "exposition", "musique", "children", "videsgreniers"].includes(toggleLayerVisibility)){
-      this.loadJsonData(toggleLayerVisibility);
-    }
 
     var visibility = this.map.getLayoutProperty(toggleLayerVisibility, 'visibility');
     if (visibility === 'visible') {
       this.map.setLayoutProperty(toggleLayerVisibility, 'visibility', 'none');
     } else {
       this.map.setLayoutProperty(toggleLayerVisibility, 'visibility', 'visible');
+      if( ["marches", "exposition", "musique", "children", "videsgreniers"].includes(toggleLayerVisibility)){
+        this.loadJsonData(toggleLayerVisibility);
+      }
+      if( ["grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(toggleLayerVisibility)){
+        this.loadJsonData(toggleLayerVisibility);
+      }
     }
 
   }
 
   loadJsonData(dataStr) {
-
-    // data are loaded via require, may be better to use the data url
-    // const AllData = {
-    //   marches: require("./data/marches.json"),
-    //   exposition: require("./data/exposition.json"),
-    //   musique: require("./data/musique.json"),
-    //   children: require("./data/children.json"),
-    //   videsgreniers: require("./data/videsGreniers.json")
-    // };
 
     let baseDataUrl;
     if (process.env.NODE_ENV === 'production') {
@@ -474,13 +482,31 @@ class MapComponent extends Component {
     }
 
 
-    const AllData = {
+    let AllData = {
       marches: "marches.json",
       exposition: "exposition.json",
       musique: "musique.json",
       children: "children.json",
       videsgreniers: "videsGreniers.json"
     };
+    var lng = this.props.languageSet;
+
+    if (["grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(dataStr) && lng === 'fr') {
+      AllData = {
+        patrimoinemondialenfrance: "Patrimoine_mondial_en_France.geojson",
+        monumentsnationaux: "Monuments_nationaux.geojson",
+        grandSiteDeFrance: "Grand_Site_de_France.geojson"
+      }
+    } else
+      if (["grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(dataStr) && lng === 'en') {
+        AllData = {
+          patrimoinemondialenfrance: "Patrimoine_mondial_en_France_en.geojson",
+          monumentsnationaux: "Monuments_nationaux_en.geojson",
+          grandSiteDeFrance: "Grand_Site_de_France_en.geojson"
+        }
+      }
+
+
 
     const marchesData = baseDataUrl + AllData[dataStr];
 
@@ -544,11 +570,11 @@ class MapComponent extends Component {
       // 'poi-parks-scalerank4',
       "liste-et-localisation-des-mus-5iczl9",
       "plus-beaux-villages-de-france",
-      "patrimoine-mondial-en-france",
+      "patrimoinemondialenfrance",
       "n-inao-aop-fr-16md1w",
       "jardin-remarquable",
-      "grand-site-de-france",
-      "monuments-nationaux",
+      "grandSiteDeFrance",
+      "monumentsnationaux",
       "parcsjardins",
       "restaurants",
       "localproductshop",
@@ -585,6 +611,7 @@ MapComponent.propTypes = {
   needMapRestyle: PropTypes.bool,
   needMapToggleLayer: PropTypes.bool,
   needMapFilterByDate: PropTypes.bool,
+  needMapActualizeLanguage: PropTypes.bool,
   needMapUpdate: PropTypes.bool,
   pushHistory: PropTypes.func,
   // resetContextMenu: PropTypes.func,
@@ -619,6 +646,7 @@ const mapStateToProps = (state) => {
     needMapRepan: state.app.needMapRepan,
     needMapRestyle: state.app.needMapRestyle,
     needMapToggleLayer: state.app.needMapToggleLayer,
+    needMapActualizeLanguage: state.app.needMapActualizeLanguage,
     needMapFilterByDate: state.app.needMapFilterByDate,    
     needMapUpdate: state.app.needMapUpdate,
     route: state.app.route,

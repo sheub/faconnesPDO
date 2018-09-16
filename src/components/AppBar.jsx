@@ -89,6 +89,7 @@ class MyAppBar extends Component {
 
             this.props.setStateValues({
                 languageSet: lng,
+                needMapActualizeLanguage: true
             });
 
             i18n.changeLanguage(lng);
@@ -143,12 +144,14 @@ class MyAppBar extends Component {
 }
 AppBar.propTypes = {
     languageSet: PropTypes.string,
+    needMapActualizeLanguage: PropTypes.bool,
     setStateValues: PropTypes.func,
     triggerMapUpdate: PropTypes.func,
 };
 const mapStateToProps = (state) => {
     return {
         languageSet: state.app.languageSet,
+        needMapActualizeLanguage: state.app.needMapActualizeLanguage
     };
   };
   const mapDispatchToProps = (dispatch) => {
