@@ -2775,7 +2775,7 @@
                 "Point"
             ],
             "layout": {
-                "visibility": "visible",
+                "visibility": "none",
                 "icon-image": "World_Heritage_Logo_global_small",
                 "icon-padding": 0,
                 "icon-allow-overlap":true

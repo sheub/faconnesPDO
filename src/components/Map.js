@@ -367,8 +367,41 @@ class MapComponent extends Component {
 
     this.filterByDate(new Date().getTime());
 
+    this.initLayerVisibility();
+
     // Final update if the original state has some data
     this.props.triggerMapUpdate();
+  }
+
+  initLayerVisibility(){
+    const layerSelector = {
+      Museum: /liste-et-localisation-des-mus-5iczl9/,
+      Villages: /plus-beaux-villages-de-france/,
+      Unesco: /patrimoine-mondial-en-france/, // This is the Layer id
+      AOP: /n-inao-aop-fr-16md1w/,
+      Jardins: /jardin-remarquable/,
+      GSF: /grand-site-de-france/,
+      MN: /monuments-nationaux/,
+      ParcsJardins: /parcsjardins/,
+      Restaurants: /restaurants/,
+      LocalProdShop: /localproductshop/,
+      CraftmanShop: /craftmanshop/,
+      Exposition: /exposition/,
+      Musique: /musique/,
+      Children: /children/,
+      Marches: /marches/,
+      VidesGreniers: /videsgreniers/
+    };
+
+
+    Object.keys(this.props.visibility).forEach(key => {
+      if (this.props.visibility[key]) {
+        this.map.setLayoutProperty(layerSelector[key].source, 'visibility', 'visible');
+      } else {
+        this.map.setLayoutProperty(layerSelector[key].source, 'visibility', 'none');
+      }
+    });
+
   }
 
   updateStyle(styleString) {
@@ -565,6 +598,7 @@ MapComponent.propTypes = {
   triggerMapUpdate: PropTypes.func,
   toggleLayerVisibility: PropTypes.string,
   userLocation: PropTypes.object,
+  visibility: PropTypes.object,
   zoom: PropTypes.number,
 };
 
@@ -591,6 +625,7 @@ const mapStateToProps = (state) => {
     routeStatus: state.app.routeStatus,
     searchLocation: state.app.searchLocation,
     userLocation: state.app.userLocation,
+    visibility: state.app.visibility,
     zoom: state.app.mapCoords[2],
   };
 };

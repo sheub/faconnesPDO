@@ -550,14 +550,14 @@ MyDrawer.propTypes = {
   setStateValues: PropTypes.func,
   toggleLayerVisibility: PropTypes.string,
   triggerMapUpdate: PropTypes.func,
-  visibility: PropTypes.array,
+  visibility: PropTypes.object,
 };
 
 const mapStateToProps = (state) => {
   return {
     dateFrom: state.app.dateFrom,
     dateTo: state.app.dateTo,
-    toggleLayerVisibility: state.app.toggleLayerVisibility, 
+    toggleLayerVisibility: state.app.toggleLayerVisibility,
     visibility: state.app.visibility
   };
 };
