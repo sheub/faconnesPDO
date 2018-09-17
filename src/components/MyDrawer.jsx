@@ -175,10 +175,10 @@ const styles = (theme) => ({
 // Layer id patterns by category
 const layerSelector = {
   Museum: /liste-et-localisation-des-mus-5iczl9/,
-  Villages: /plus-beaux-villages-de-france/,
+  Villages: /plusBeauxVillagesDeFrance/,
   Unesco: /patrimoinemondialenfrance/, // This is the Layer id
   AOP: /n-inao-aop-fr-16md1w/,
-  Jardins: /jardin-remarquable/,
+  Jardins: /jardinremarquable/,
   GSF: /grandSiteDeFrance/,
   MN: /monumentsnationaux/,
   ParcsJardins: /parcsjardins/,

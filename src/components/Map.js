@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl';
@@ -50,8 +49,8 @@ class MapComponent extends Component {
   }
 
   componentDidMount() {
-    mapboxgl.accessToken = this.props.accessToken;
 
+    mapboxgl.accessToken = this.props.accessToken;
     const map = new mapboxgl.Map({
       container: 'map',
       style: style,
@@ -70,6 +69,7 @@ class MapComponent extends Component {
   }
 
   componentDidUpdate() {
+
     if (!this.props.needMapUpdate) return;
 
     // Search mode
@@ -380,10 +380,10 @@ class MapComponent extends Component {
   initLayerVisibility(){
     const layerSelector = {
       Museum: /liste-et-localisation-des-mus-5iczl9/,
-      Villages: /plus-beaux-villages-de-france/,
+      Villages: /plusBeauxVillagesDeFrance/,
       Unesco: /patrimoinemondialenfrance/, // This is the Layer id
       AOP: /n-inao-aop-fr-16md1w/,
-      Jardins: /jardin-remarquable/,
+      Jardins: /jardinremarquable/,
       GSF: /grandSiteDeFrance/,
       MN: /monumentsnationaux/,
       ParcsJardins: /parcsjardins/,
@@ -404,7 +404,7 @@ class MapComponent extends Component {
         if( ["marches", "exposition", "musique", "children", "videsgreniers"].includes(layerSelector[key].source)){
           this.loadJsonData(layerSelector[key].source);
         }
-        if( ["grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(layerSelector[key].source)){
+        if( ["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(layerSelector[key].source)){
           this.loadJsonData(layerSelector[key].source);
         }
       } else {
@@ -412,10 +412,6 @@ class MapComponent extends Component {
       }
     });
 
-  }
-
-  initVectorLayers(){
-    
   }
 
   updateStyle(styleString) {
@@ -465,7 +461,7 @@ class MapComponent extends Component {
       if( ["marches", "exposition", "musique", "children", "videsgreniers"].includes(toggleLayerVisibility)){
         this.loadJsonData(toggleLayerVisibility);
       }
-      if( ["grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(toggleLayerVisibility)){
+      if( ["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(toggleLayerVisibility)){
         this.loadJsonData(toggleLayerVisibility);
       }
     }
@@ -491,56 +487,49 @@ class MapComponent extends Component {
     };
     var lng = this.props.languageSet;
 
-    if (["grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(dataStr) && lng === 'fr') {
+    if (["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(dataStr) && lng === 'fr') {
       AllData = {
         patrimoinemondialenfrance: "Patrimoine_mondial_en_France.geojson",
         monumentsnationaux: "Monuments_nationaux.geojson",
-        grandSiteDeFrance: "Grand_Site_de_France.geojson"
+        grandSiteDeFrance: "Grand_Site_de_France.geojson",
+        jardinremarquable: "Jardin_Remarquable.geojson",
+        plusBeauxVillagesDeFrance: "Plus_Beaux_Villages_de_France.geojson"
       }
     } else
-      if (["grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(dataStr) && lng === 'en') {
+      if (["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(dataStr) && lng === 'en') {
         AllData = {
           patrimoinemondialenfrance: "Patrimoine_mondial_en_France_en.geojson",
           monumentsnationaux: "Monuments_nationaux_en.geojson",
-          grandSiteDeFrance: "Grand_Site_de_France_en.geojson"
+          grandSiteDeFrance: "Grand_Site_de_France_en.geojson",
+          jardinremarquable: "Jardin_Remarquable_en.geojson",
+          plusBeauxVillagesDeFrance: "Plus_Beaux_Villages_de_France_en.geojson"
         }
       }
 
-
-
     const marchesData = baseDataUrl + AllData[dataStr];
-
     this.map.getSource(dataStr).setData(marchesData);
-
   }
 
-  filterByDate(dateFrom, dateTo){    
-
+  filterByDate(dateFrom, dateTo){
 
     if(dateTo)
-    {
-  
+    {  
       let filterTo = ['>=', dateTo, ['number', ['get', 'valid_from']]];
       let filterFrom = ["<=", dateFrom, ["number", ["get", "valid_from"]]];
-
-
       this.map.setFilter('musique', ['all', filterFrom, filterTo]);
       this.map.setFilter('exposition', ['all', filterFrom, filterTo]);
       this.map.setFilter('children', ['all', filterFrom, filterTo]);
       this.map.setFilter('videsgreniers', ['all', filterFrom, filterTo]);
       this.map.setFilter('marches', ['all', filterFrom, filterTo]);
-
     }
     else
     {
-
       this.map.setFilter("musique", ["<=", dateFrom, ["number", ["get", "valid_from"]]]);
       this.map.setFilter("exposition", ["<=", dateFrom, ["number", ["get", "valid_from"]]]);
       this.map.setFilter("children", ["<=", dateFrom, ["number", ["get", "valid_from"]]]);
       this.map.setFilter("videsgreniers", ["<=", dateFrom, ["number", ["get", "valid_from"]]]);
       this.map.setFilter("marches", ["<=", dateFrom, ["number", ["get", "valid_from"]]]);
     }
-
   }
 
   layerToKey(layer) {
@@ -569,10 +558,10 @@ class MapComponent extends Component {
       // 'poi-scalerank4',
       // 'poi-parks-scalerank4',
       "liste-et-localisation-des-mus-5iczl9",
-      "plus-beaux-villages-de-france",
+      "plusBeauxVillagesDeFrance",
       "patrimoinemondialenfrance",
       "n-inao-aop-fr-16md1w",
-      "jardin-remarquable",
+      "jardinremarquable",
       "grandSiteDeFrance",
       "monumentsnationaux",
       "parcsjardins",
@@ -614,12 +603,10 @@ MapComponent.propTypes = {
   needMapActualizeLanguage: PropTypes.bool,
   needMapUpdate: PropTypes.bool,
   pushHistory: PropTypes.func,
-  // resetContextMenu: PropTypes.func,
   resetStateKeys: PropTypes.func,
   route: PropTypes.object,
   routeStatus: PropTypes.string,
   searchLocation: PropTypes.object,
-  // setContextMenu: PropTypes.func,
   setStateValue: PropTypes.func,
   setUserLocation: PropTypes.func,
   triggerMapUpdate: PropTypes.func,
@@ -633,7 +620,6 @@ const mapStateToProps = (state) => {
   return {
     accessToken: state.app.mapboxAccessToken,
     center: state.app.mapCoords.slice(0, 2),
-    // contextMenuActive: state.app.contextMenuActive,
     directionsFrom: state.app.directionsFrom,
     directionsTo: state.app.directionsTo,
     mapStyle: state.app.mapStyle,

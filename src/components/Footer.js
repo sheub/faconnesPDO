@@ -36,12 +36,11 @@ class Footer extends Component {
     this.state = {
       showImpressum: false,
       showAbout: false,
-
     };
+
     this._onClick = this._onClick.bind(this);
     this._onClickAbout = this._onClickAbout.bind(this);
     this.handleClose = this.handleClose.bind(this);
-
   }
 
   _onClick() {
@@ -51,16 +50,13 @@ class Footer extends Component {
     }
     else {
       this.setState({ showImpressum: false });
-
     }
   }
-
 
   _onClickAbout() {
     if (!this.state.showAbout) {
       this.setState({ showAbout: true });
       this.setState({ showImpressum: false });
-
     }
     else {
       this.setState({ showAbout: false });

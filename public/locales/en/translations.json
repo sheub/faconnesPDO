@@ -28,6 +28,15 @@
         "markets": "Markets",
         "fleaMarket": "Flea Markets"
     },
+    "MyPlaceInfo":{
+        "postcode": "postcode",
+        "website": "website",
+        "More": "More",
+        "from": "From",
+        "to": "To",
+        "le": " "
+    },
+
     "search": "Search",
     "about": "About",
     "legalNotice": "Legal notice"

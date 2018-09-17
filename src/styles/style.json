@@ -20,7 +20,7 @@
     "pitch": 0,
     "sources": {
         "composite": {
-            "url": "mapbox://mapbox.mapbox-streets-v7,sheub.623zkazi,sheub.Plus_Beaux_Villages_de_France,sheub.craftmanShop,sheub.ParcsJardins,sheub.5wb1wtbj,sheub.Jardin_remarquable,sheub.localProductShop,sheub.restaurants,sheub.9e12f1eo",
+            "url": "mapbox://mapbox.mapbox-streets-v7,sheub.623zkazi,sheub.craftmanShop,sheub.ParcsJardins,sheub.5wb1wtbj,sheub.localProductShop,sheub.restaurants,sheub.9e12f1eo",
             "type": "vector"
             },
         "traffic": {
@@ -76,6 +76,14 @@
             "data": {"type": "FeatureCollection", "features": []}
         },
         "monumentsnationaux": {
+            "type": "geojson",
+            "data": {"type": "FeatureCollection", "features": []}
+        },
+        "jardinremarquable": {
+            "type": "geojson",
+            "data": {"type": "FeatureCollection", "features": []}
+        },
+        "plusBeauxVillagesDeFrance": {
             "type": "geojson",
             "data": {"type": "FeatureCollection", "features": []}
         }
@@ -2785,43 +2793,26 @@
             }
         },
         {
-            "id": "plus-beaux-villages-de-france",
+            "id": "plusBeauxVillagesDeFrance",
+            "source": "plusBeauxVillagesDeFrance",
             "type": "symbol",
-            "source": "composite",
-            "source-layer": "Plus_Beaux_Villages_de_France",
             "layout": {
                 "visibility": "none",
-                "icon-image": [
-                    "step",
-                    [
-                        "zoom"
-                    ],
-                    "village-11",
-                    22,
-                    "village-11"
-                ],
+                "icon-image": "village-11",
                 "icon-padding": 0,
-            "icon-allow-overlap":true
-            },
-            "paint": {}
+                "icon-allow-overlap":true
+            }
         },
         {
-            "id": "jardin-remarquable",
+            "id": "jardinremarquable",
+            "source": "jardinremarquable",
             "type": "symbol",
-            "source": "composite",
-            "source-layer": "Jardin_remarquable",
-            "filter": [
-                "==",
-                "$type",
-                "Point"
-            ],
             "layout": {
                 "visibility": "none",
                 "icon-image": "Jardins_Remarquables_15",
                 "icon-padding": 0,
                 "icon-allow-overlap":true
-            },
-            "paint": {}
+            }
         },
         {
             "id": "grandSiteDeFrance",
@@ -2831,13 +2822,7 @@
                 "visibility": "none"
             },
             "paint": {
-                "circle-color": "hsl(115, 65%, 28%)",
-                "circle-radius": [
-                    "interpolate", ["linear"], ["zoom"],
-                    5, 3,
-                    10, 6
-                ]
-                
+                "circle-color": "hsl(115, 65%, 28%)"                
             }
         },
         {
@@ -2976,7 +2961,8 @@
                 "circle-radius": 4,
                 "circle-color": "#4aa52c"
             }
-        },{
+        },
+        {
             "id": "videsgreniers",
             "type": "circle",
             "source": "videsgreniers",

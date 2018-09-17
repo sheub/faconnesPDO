@@ -5,7 +5,7 @@ import { reactI18nextModule } from 'react-i18next';
 
 let baseDataUrl;
 if (process.env.NODE_ENV === 'production') {
-  baseDataUrl = process.env.PUBLIC_URL + '/marvelous-map/';
+  baseDataUrl = process.env.PUBLIC_URL;
 } else { // Dev server runs on port 3000
   baseDataUrl = 'http://localhost:3000/';
 }

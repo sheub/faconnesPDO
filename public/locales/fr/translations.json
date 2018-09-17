@@ -28,6 +28,14 @@
         "markets": "Marchés",
         "fleaMarket": "Vide-greniers"
     },
+    "MyPlaceInfo":{
+        "postcode": "Code Postal",
+        "website": "website",
+        "More": "Suite",
+        "from": "Du",
+        "to": "au",
+        "le": "Le"
+    },
     "search": "rechercher",
     "about": "À propos",
     "legalNotice": "Mentions Légales"

@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { translate } from "react-i18next";
+
 import Truncate from "react-truncate";
 import SvgIcon from "@material-ui/core/SvgIcon";
 import "./css/PopupInfo.css";
@@ -12,19 +14,6 @@ function HomeIcon(props) {
     </SvgIcon>
   );
 }
-
-// function ShowOpeningHours(props) {
-//   if (!props.info.startTime) {
-//     return null;
-//   }
-//   return (
-//     <div>
-//       Horaires: <br />
-//       StartTime {props.info.startTime}<br />
-//       EndTime: {props.info.endTime}<br />
-//     </div>
-//   );
-// }
 
 function RenderUrl(props) {
   if (props.url) {
@@ -49,9 +38,13 @@ function RenderAddress(props) {
 }
 
 function RenderDateTime(props) {
-  if (props.info.valid_from) {
-    let eventStart = new Date(props.info.valid_from);
-    let eventEnd = new Date(props.info.valid_through);
+  const {t, info} = props.props;
+  const lng = props.props.i18n.language;
+  //let info = props.info.properties;
+
+  if (info.properties.valid_from) {
+    let eventStart = new Date(info.properties.valid_from);
+    let eventEnd = new Date(info.properties.valid_through);
     let options = {
       weekday: "long",
       year: "numeric",
@@ -62,15 +55,15 @@ function RenderDateTime(props) {
     if (eventStart.getDate() === eventEnd.getDate())
       return (
         <div className="datePopup">
-          Le: {eventStart.toLocaleDateString("fr-FR", options)}
+          {t("le")}: {eventStart.toLocaleDateString(lng, options)}
         </div>
       );
     else {
       return (
         <div className="datePopup">
-          Du: {eventStart.toLocaleDateString("fr-FR", options)}
+          {t("from")}: {eventStart.toLocaleDateString(lng, options)}
           <br />
-          au: {eventEnd.toLocaleDateString("fr-FR", options)}
+          {t("to")}: {eventEnd.toLocaleDateString(lng, options)}
         </div>
       );
     }
@@ -79,37 +72,35 @@ function RenderDateTime(props) {
 }
 
 class MyPlaceInfo extends Component {
-
   
+
   hidePopup() {
     this.props.info.popupActive = false;
     // this.props.isActive = false;
-
     this.forceUpdate();
   }
 
-
- 
   render() {
+
+    const {t} = this.props;
 
     let popupActive = this.props.info.popupActive;
     let info = this.props.info.properties;
-
     const layerId = this.props.info.layerId;
     const paintColor = this.props.info.paintColor;
-    
+
     const styles = {
       width: "12",
       verticalAlign: "middle",
       marginRight: "3pt",
       color: paintColor
-      };
+    };
     // if (window.innerHeight < 500) return null;
 
-    if (["plus-beaux-villages-de-france",
+    if (["plusBeauxVillagesDeFrance",
       "patrimoinemondialenfrance",
       "n-inao-aop-fr-16md1w",
-      "jardin-remarquable",
+      "jardinremarquable",
       "grandSiteDeFrance",
       "monumentsnationaux"].includes(layerId)) {
 
@@ -118,9 +109,7 @@ class MyPlaceInfo extends Component {
           {popupActive &&
             <div className="mapboxgl-popupup popPupStyle">
               <div className="titleText">
-
                 <a target="_new" href={info.link} className="titleText" rel="noopener">{info.label}</a><br />
-
               </div>
               <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.hidePopup()}><span aria-hidden="true">&times;</span></button>
               <div className="hvrbox">
@@ -134,7 +123,7 @@ class MyPlaceInfo extends Component {
               </div>
               <div className="baseInfo">
                 <div className="baseText">
-                  <Truncate lines={9} ellipsis={<span>... <a href={info.link} rel="noopener">Suite</a></span>}>
+                  <Truncate lines={9} ellipsis={<span>... <a href={info.link} rel="noopener">{t("More")}</a></span>}>
                     {info.abstract}
                   </Truncate>
                 </div>
@@ -143,98 +132,99 @@ class MyPlaceInfo extends Component {
         </div>
       );
     }
+
     if ([
       "parcsjardins",
       "restaurants",
       "localproductshop",
       "craftmanshop"].includes(layerId)) {
       return (
-               <div>
+        <div>
           {popupActive &&
-        <div className="mapboxgl-popupup  popPupStyle">
-        <div className="baseText">
-          <div className="baseInfo">
-            <div className="titleText">
-              <HomeIcon style={styles} alt={layerId} title={layerId} />
-              {info.label}
-            </div>
-            <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.hidePopup()}><span aria-hidden="true">&times;</span></button>
-            <div className="introtext">
-              <div className="abstractPopup">
-                {info.abstract}
+            <div className="mapboxgl-popupup  popPupStyle">
+              <div className="baseText">
+                <div className="baseInfo">
+                  <div className="titleText">
+                    <HomeIcon style={styles} alt={layerId} title={layerId} />
+                    {info.label}
+                  </div>
+                  <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.hidePopup()}><span aria-hidden="true">&times;</span></button>
+                  <div className="introtext">
+                    <div className="abstractPopup">
+                      {info.abstract}
+                    </div>
+                    <RenderUrl url={info.url} />
+                    <RenderAddress info={info} />
+                  </div>
+                </div>
               </div>
-              <RenderUrl url={info.url} />
-              <RenderAddress info={info} />
-            </div>
-          </div>
-          </div>
-        </div>}
+            </div>}
         </div>
       );
-
     }
+
     if (["exposition",
       "musique",
       "children",
       "marches",
       "videsgreniers"].includes(layerId)) {
-      return (               <div>
+      return (
+        <div>
           {popupActive &&
-        <div className="mapboxgl-popupup popPupStyle">
-        <div className="baseInfo">
-          <div className="baseText">
-            <div className="titleText">
-              <HomeIcon style={styles} alt={layerId} title={layerId} />
-              {info.label}
-            </div>
-           <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.hidePopup()}><span aria-hidden="true">&times;</span></button>
-            <div className="introtext">
-              <div className="abstractPopup">
-                {info.abstract}
+            <div className="mapboxgl-popupup popPupStyle">
+              <div className="baseInfo">
+                <div className="baseText">
+                  <div className="titleText">
+                    <HomeIcon style={styles} alt={layerId} title={layerId} />
+                    {info.label}
+                  </div>
+                  <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.hidePopup()}><span aria-hidden="true">&times;</span></button>
+                  <div className="introtext">
+                    <div className="abstractPopup">
+                      {info.abstract}
+                    </div>
+                    <RenderDateTime props={this.props} />
+                    <RenderUrl url={info.url} />
+                    <RenderAddress info={info} />
+                  </div>
+                </div>
               </div>
-              <RenderDateTime info={info} />
-              <RenderUrl url={info.url} />
-              <RenderAddress info={info} />
-            </div>
-          </div>
-          </div>
-        </div>}
+            </div>}
         </div>
       );
-
     }
-    if("liste-et-localisation-des-mus-5iczl9".includes(layerId)){
+
+    if ("liste-et-localisation-des-mus-5iczl9".includes(layerId)) {
       var link = null;
       if (info.sitweb) {
         link = info.sitweb.includes("http://") ? info.sitweb : "http://" + info.sitweb;
       }
       return (
-                       <div>
-       {popupActive &&
-        <div className="mapboxgl-popupup popPupStyle">
-          <div className="baseInfo">
-            <div className="baseText">
-              <div className="titleText">
-                {info.label}<br />
+        <div>
+          {popupActive &&
+            <div className="mapboxgl-popupup popPupStyle">
+              <div className="baseInfo">
+                <div className="baseText">
+                  <div className="titleText">
+                    {info.label}<br />
+                  </div>
+                  <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.hidePopup()}><span aria-hidden="true">&times;</span></button>
+                  <div className="introtext">
+                    {info.adr}<br />
+                    {info.cp}{" "}{info.ville}<br />
+                    {"Ouverture:"}<br />
+                    {info.periode_ouverture}
+                  </div>
+                </div>
+                <a target="_new" href={link} rel="noopener">{t("website")}</a>
               </div>
-              <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={() => this.hidePopup()}><span aria-hidden="true">&times;</span></button>
-              <div className="introtext">
-                {info.adr}<br />
-                {info.cp}{" "}{info.ville}<br />
-                {"Ouverture:"}<br />
-                {info.periode_ouverture}
-              </div>
-            </div>
-            <a target="_new" href={link} rel="noopener">Site internet</a>
-          </div>
-        </div>}
+            </div>}
         </div>
       );
     }
 
     // Case: geocoder result
-    if(info && this.props.info.geometry)
-    {
+    if (info && this.props.info.geometry) {
       popupActive = this.props.isActive;
       return (
         <div>
@@ -250,7 +240,7 @@ class MyPlaceInfo extends Component {
                     <div className="abstractPopup">
                       {info.context}
                     </div>
-                    postcode : {info.postcode}<br/>
+                    {t("postcode")} : {info.postcode}<br />
                   </div>
                 </div>
               </div>
@@ -276,7 +266,8 @@ class MyPlaceInfo extends Component {
 MyPlaceInfo.propTypes = {
   clickDirections: PropTypes.func,
   info: PropTypes.object,
+  languageSet: PropTypes.string,
 };
 
 
-export default MyPlaceInfo;
+export default translate("translations")(MyPlaceInfo);
