@@ -25,13 +25,6 @@ import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import Collapse from "@material-ui/core/Collapse";
 
-import MuiPickersUtilsProvider from "material-ui-pickers/utils/MuiPickersUtilsProvider";
-import DatePicker from "material-ui-pickers/DatePicker";
-import DateFnsUtils from "material-ui-pickers/utils/date-fns-utils";
-import frLocale from "date-fns/locale/fr";
-import format from 'date-fns/format';
-// import deLocale from "date-fns/locale/de";
-
 import ListSubheader from "@material-ui/core/ListSubheader";
 import VillagesIcon from "./../styles/icons/village-11.svg";
 import MuseumIcon from "./../styles/icons/museum-11.svg";
@@ -39,6 +32,8 @@ import UnescoIcon from "./../styles/icons/World_Heritage_Logo_global_small.svg";
 import JardinsIcon from "./../styles/icons/Jardins_Remarquables_15.svg";
 import Footer from "./Footer.js"
 //import AOPIcon from "./../styles/icons/AOP.svg";
+
+import MyDatePicker from "./MyDatePicker";
 
 
 import "./css/App.css";
@@ -194,64 +189,6 @@ const layerSelector = {
   VidesGreniers: /videsgreniers/
 };
 
-class LocalizedUtilsFR extends DateFnsUtils {
-  getDatePickerHeaderText(date) {
-    return format(date, 'EEE d MMM', { locale: this.locale });
-  }
-}
-class LocalizedUtils extends DateFnsUtils {
-  getDateTimePickerHeaderText(date) {
-    return format(date, 'MM do', { locale: this.locale });
-  }
-}
-
-function RenderDatePicker (state)
-{
-
-  const { dateFrom, dateTo } = state.state;
-
-  let LocalUtils = LocalizedUtils;
-  let localParam = null;
-  if(state.i18n.language === "fr"){
-    LocalUtils = LocalizedUtilsFR;
-    localParam = frLocale;
-  }
-
-
-
-  return(
-    <ListItem style={{ backgroundColor: "#eceded", paddingLeft: "17px", paddingRight: "17px" }}>
-
-    <div style={{ backgroundColor: "#eceded", width: "50%", padding: "6px", float: "left" }} >
-      <MuiPickersUtilsProvider utils={LocalUtils} locale={localParam} >
-        <DatePicker
-          style={{ maxWidth: "100%", textAlign: "center" }}
-          label={state.t("drawer.startfrom")}
-          value={dateFrom}
-          minDate={Date()}
-          format={state.t("drawer.dateformat")}
-          disablePast={true}
-          onChange={state.dateChange}
-          />
-      </MuiPickersUtilsProvider>
-    </div>
-
-    <div style={{ backgroundColor: "#eceded", width: "50%", padding: "6px", float: "right" }}>
-      <MuiPickersUtilsProvider utils={LocalUtils} locale={localParam}>
-        <DatePicker
-          label={state.t("drawer.lastuntil")}
-          style={{ maxWidth: "100%", textAlign: "center" }}
-          value={dateTo} 
-          minDate={dateFrom}
-          format={state.t("drawer.dateformat")}
-          onChange={state.dateToChange}
-           />
-      </MuiPickersUtilsProvider>
-    </div>
-  </ListItem>
-  );
-}
-
 class MyDrawer extends Component {
   constructor(props) {
     super(props);
@@ -301,8 +238,6 @@ class MyDrawer extends Component {
 
     let tempDate = this.state.dateTo;
     if (this.state.dateTo < date) {
-      // var tomorrow = date;
-      // tomorrow.setDate(tomorrow.getDate() + 1);
 
       this.setState({
         dateFrom: date,
@@ -509,7 +444,9 @@ class MyDrawer extends Component {
 
 
                     <List>
-                    <RenderDatePicker t={t} i18n={i18n} state={this.state} dateChange={this.handleDateChange.bind(this)}  dateToChange={this.handleDateToChange.bind(this)} />
+                    <ListItem style={{ backgroundColor: "#eceded", paddingLeft: "17px", paddingRight: "17px" }}>
+                    <MyDatePicker t={t} i18n={i18n} state={this.state} dateChange={this.handleDateChange.bind(this)}  dateToChange={this.handleDateToChange.bind(this)} />
+                    </ListItem>
 
                       <ListItem key={"Exposition"} dense button className={classes.listItem}>
                         <Checkbox tabIndex={-1} checked={this.state.visibility["Exposition"]} onChange={this._onVisibilityChange.bind(this, "Exposition")} value="true" color="default" aria-label="ExpositionCheckbox" htmlFor="ExpositionListItemText" id="ExpositionCheckbox" disableRipple />

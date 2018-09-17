@@ -51,22 +51,43 @@
   <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
   <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
   <script>
-  window.addEventListener("load", function(){
-  window.cookieconsent.initialise({
-    "palette": {
-    "popup": {
-      "background": "#edeff5",
-      "text": "#838391"
-    },
-    "button": {
-      "background": "#4b81e8"
-    },
-    "content": {
-    "message": "En poursuivant votre navigation, vous acceptez le dépôt de cookies destinés à mesurer la fréquentation du site ainsi que des contenus animés et interactifs."
-  }
+      // Get language preferences
+      const getLang = () => navigator.language || navigator.browserLanguage || (navigator.languages || ["en"])[0];
+      // Set CustomContent
+      var customContent = {
+          "href": "http://website/Policy"
+      };
+      if (getLang === 'de') {
+          customContent = {
+              "message": "Um unsere Webseite für Sie optimal zu gestalten und fortlaufend verbessern zu können, verwenden wir Cookies. Durch die weitere Nutzung der Webseite stimmen Sie der Verwendung von Cookies zu. Weitere Informationen zu Cookies erhalten Sie in unserer Datenschutzerklärung.",
+              "link": "Mehr Erfahren",
+              "dismiss": "Verstanden",
+              "href": "http://website/Datenschutz"
+          }
+      }
+      else if (getLang === 'fr') {
+          customContent = {
+              "message": "En poursuivant votre navigation, vous acceptez le dépôt de cookies destinés à mesurer la fréquentation du site ainsi que des contenus animés et interactifs.",
+              "link": "En savoir plus",
+              "dismiss": "Accepter",
+              "href": "http://website/Policy"
+          }
+      }
 
-  }
-  })});
+      window.addEventListener("load", function () {
+          window.cookieconsent.initialise({
+              palette: {
+                  popup: {
+                      background: "#edeff5",
+                      text: "#838391"
+                  },
+                  button: {
+                      background: "#4b81e8"
+                  },
+                  "content": customContent
+              }
+          })
+      })
   </script>
 </head>
 
