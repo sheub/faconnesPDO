@@ -29,6 +29,8 @@ import MuiPickersUtilsProvider from "material-ui-pickers/utils/MuiPickersUtilsPr
 import DatePicker from "material-ui-pickers/DatePicker";
 import DateFnsUtils from "material-ui-pickers/utils/date-fns-utils";
 import frLocale from "date-fns/locale/fr";
+import format from 'date-fns/format';
+// import deLocale from "date-fns/locale/de";
 
 import ListSubheader from "@material-ui/core/ListSubheader";
 import VillagesIcon from "./../styles/icons/village-11.svg";
@@ -192,29 +194,69 @@ const layerSelector = {
   VidesGreniers: /videsgreniers/
 };
 
+class LocalizedUtilsFR extends DateFnsUtils {
+  getDatePickerHeaderText(date) {
+    return format(date, 'EEE d MMM', { locale: this.locale });
+  }
+}
+class LocalizedUtils extends DateFnsUtils {
+  getDateTimePickerHeaderText(date) {
+    return format(date, 'MM do', { locale: this.locale });
+  }
+}
+
+function RenderDatePicker (state)
+{
+
+  const { dateFrom, dateTo } = state.state;
+
+  let LocalUtils = LocalizedUtils;
+  let localParam = null;
+  if(state.i18n.language === "fr"){
+    LocalUtils = LocalizedUtilsFR;
+    localParam = frLocale;
+  }
+
+
+
+  return(
+    <ListItem style={{ backgroundColor: "#eceded", paddingLeft: "17px", paddingRight: "17px" }}>
+
+    <div style={{ backgroundColor: "#eceded", width: "50%", padding: "6px", float: "left" }} >
+      <MuiPickersUtilsProvider utils={LocalUtils} locale={localParam} >
+        <DatePicker
+          style={{ maxWidth: "100%", textAlign: "center" }}
+          label={state.t("drawer.startfrom")}
+          value={dateFrom}
+          minDate={Date()}
+          format={state.t("drawer.dateformat")}
+          disablePast={true}
+          onChange={state.dateChange}
+          />
+      </MuiPickersUtilsProvider>
+    </div>
+
+    <div style={{ backgroundColor: "#eceded", width: "50%", padding: "6px", float: "right" }}>
+      <MuiPickersUtilsProvider utils={LocalUtils} locale={localParam}>
+        <DatePicker
+          label={state.t("drawer.lastuntil")}
+          style={{ maxWidth: "100%", textAlign: "center" }}
+          value={dateTo} 
+          minDate={dateFrom}
+          format={state.t("drawer.dateformat")}
+          onChange={state.dateToChange}
+           />
+      </MuiPickersUtilsProvider>
+    </div>
+  </ListItem>
+  );
+}
+
 class MyDrawer extends Component {
   constructor(props) {
     super(props);
     this.state = {
       visibility: props.visibility,
-      // visibility: {
-      //   Museum: false,
-      //   Villages: false,
-      //   Unesco: true,
-      //   AOP: false,
-      //   Jardins: false,
-      //   GSF: false,
-      //   MN: false,
-      //   ParcsJardins: false,
-      //   Restaurants: false,
-      //   LocalProdShop: false,
-      //   CraftmanShop: false,
-      //   Exposition: false,
-      //   Musique: false,
-      //   Children: false,
-      //   Marches: false,
-      //   VidesGreniers: false
-      // },
 
       // Drawer opened per Default
       open: false,
@@ -311,10 +353,9 @@ class MyDrawer extends Component {
     //this.handleDateChange(Date());
   }
 
-
   render() {
     const { classes } = this.props;
-    const { visibility, dateFrom, dateTo } = this.state;
+    const { visibility} = this.state;
 
 
     return (
@@ -468,20 +509,7 @@ class MyDrawer extends Component {
 
 
                     <List>
-                      <ListItem style={{ backgroundColor: "#eceded", paddingLeft: "17px", paddingRight: "17px" }}>
-
-                        <div style={{ backgroundColor: "#eceded", width: "50%", padding: "6px", float: "left" }} >
-                          <MuiPickersUtilsProvider utils={DateFnsUtils} locale={frLocale}>
-                            <DatePicker style={{ maxWidth: "100%", textAlign: "center" }} value={dateFrom} minDate={Date()} disablePast={true} onChange={this.handleDateChange.bind(this)} />
-                          </MuiPickersUtilsProvider>
-                        </div>
-
-                        <div style={{ backgroundColor: "#eceded", width: "50%", padding: "6px", float: "right" }}>
-                          <MuiPickersUtilsProvider utils={DateFnsUtils} locale={frLocale}>
-                            <DatePicker style={{ maxWidth: "100%", textAlign: "center" }} value={dateTo} minDate={dateFrom} onChange={this.handleDateToChange} />
-                          </MuiPickersUtilsProvider>
-                        </div>
-                      </ListItem>
+                    <RenderDatePicker t={t} i18n={i18n} state={this.state} dateChange={this.handleDateChange.bind(this)}  dateToChange={this.handleDateToChange.bind(this)} />
 
                       <ListItem key={"Exposition"} dense button className={classes.listItem}>
                         <Checkbox tabIndex={-1} checked={this.state.visibility["Exposition"]} onChange={this._onVisibilityChange.bind(this, "Exposition")} value="true" color="default" aria-label="ExpositionCheckbox" htmlFor="ExpositionListItemText" id="ExpositionCheckbox" disableRipple />

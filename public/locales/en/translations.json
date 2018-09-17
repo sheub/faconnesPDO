@@ -26,7 +26,11 @@
         "musiqueSpectacles": "Musique & shows",
         "childrensCorner": "Children's Corner",
         "markets": "Markets",
-        "fleaMarket": "Flea Markets"
+        "fleaMarket": "Flea Markets",
+        "startfrom":"Start From",
+        "lastuntil": "Last until",
+        "dateformat": "MMM do, YYYY"
+        
     },
     "MyPlaceInfo":{
         "postcode": "postcode",

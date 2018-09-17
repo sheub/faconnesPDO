@@ -26,7 +26,11 @@
         "musiqueSpectacles": "Musique & spectacles",
         "childrensCorner": "Children's Corner",
         "markets": "Marchés",
-        "fleaMarket": "Vide-greniers"
+        "fleaMarket": "Vide-greniers",
+        "startfrom":"À partir de",
+        "lastuntil": "Jusqu'au",
+        "dateformat": "d MMM YYYY"
+        
     },
     "MyPlaceInfo":{
         "postcode": "Code Postal",
