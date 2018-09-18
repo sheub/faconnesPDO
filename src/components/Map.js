@@ -489,8 +489,8 @@ class MapComponent extends Component {
 
     if (["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(dataStr) && lng === 'fr') {
       AllData = {
-        patrimoinemondialenfrance: "Patrimoine_mondial_en_France.geojson",
-        monumentsnationaux: "Monuments_nationaux.geojson",
+        patrimoinemondialenfrance: "Patrimoine_Mondial_en_France.geojson",
+        monumentsnationaux: "Monuments_Nationaux.geojson",
         grandSiteDeFrance: "Grand_Site_de_France.geojson",
         jardinremarquable: "Jardin_Remarquable.geojson",
         plusBeauxVillagesDeFrance: "Plus_Beaux_Villages_de_France.geojson"
@@ -498,8 +498,8 @@ class MapComponent extends Component {
     } else
       if (["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(dataStr) && lng === 'en') {
         AllData = {
-          patrimoinemondialenfrance: "Patrimoine_mondial_en_France_en.geojson",
-          monumentsnationaux: "Monuments_nationaux_en.geojson",
+          patrimoinemondialenfrance: "Patrimoine_Mondial_en_France_en.geojson",
+          monumentsnationaux: "Monuments_Nationaux_en.geojson",
           grandSiteDeFrance: "Grand_Site_de_France_en.geojson",
           jardinremarquable: "Jardin_Remarquable_en.geojson",
           plusBeauxVillagesDeFrance: "Plus_Beaux_Villages_de_France_en.geojson"

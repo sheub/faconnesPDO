@@ -52,7 +52,7 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
   <script>
       // Get language preferences
-      const getLang = () => navigator.language || navigator.browserLanguage || (navigator.languages || ["en"])[0];
+      const getLang = navigator.language || navigator.browserLanguage || (navigator.languages || ["en"])[0];
       // Set CustomContent
       var customContent = {
           "href": "http://website/Policy"
