@@ -2720,21 +2720,21 @@
             "source": "composite",
             "source-layer": "liste-et-localisation-des-mus-5iczl9",
             "layout": {
-				"visibility": "none",
-                "icon-image": [
-                    "step",
-                    [
-                        "zoom"
-                    ],
-                    "museum-11",
-                    7,
-                    "museum-11"
+                "visibility": "none",
+                "text-line-height": 1,
+                "text-padding": 0,
+                "text-allow-overlap": true,
+                "text-size": 11,
+                "icon-optional": true,
+                "text-anchor": "top",
+                "text-font": [
+                    "Font Awesome 5 Free Solid",
+                    "Arial Unicode MS Regular"
                 ],
-                "icon-padding": 0,
-                "icon-allow-overlap":true
+                "text-field": ""
             },
             "paint": {
-                "icon-color": "hsl(115, 65%, 28%)"
+                "text-color": "#33baab"
             }
         },
         {
@@ -2786,34 +2786,38 @@
             "type": "symbol",
             "layout": {
                 "visibility": "none",
-                "icon-image": "World_Heritage_Logo_global_small",
-                "icon-padding": 0,
-                "icon-allow-overlap":true
-            }
-        },
-        {
+                "text-line-height": 1,
+                "text-padding": 0,
+                "text-allow-overlap": true,
+                "text-size": 11,
+                "icon-optional": true,
+                "text-anchor": "top",
+                "text-font": [
+                    "Font Awesome 5 Free Solid",
+                    "Arial Unicode MS Regular"
+                ],
+                "text-field": ""
+            },
+            "paint": {"text-color": "#14222D"}
+        }, {
             "id": "plusBeauxVillagesDeFrance",
             "source": "plusBeauxVillagesDeFrance",
             "type": "symbol",
             "layout": {
                 "visibility": "none",
-                "icon-image": [
-                    "step",
-                    [
-                        "zoom"
-                    ],
-                    "village-11",
-                    7,
-                    "village-11"
+                "text-line-height": 1,
+                "text-padding": 0,
+                "text-anchor": "top",
+                "text-allow-overlap": true,
+                "text-size": 11,
+                "icon-optional": true,
+                "text-font": [
+                    "Font Awesome 5 Free Solid",
+                    "Arial Unicode MS Regular"
                 ],
-                
-                "icon-padding": 0,
-                "icon-allow-overlap":true
+                "text-field": ""
             },
-            "paint": {
-                "icon-color": "hsl(115, 65%, 28%)"
-            }
-            
+            "paint": {"text-color": "hsl(0, 78%, 33%)"}
         },
         {
             "id": "jardinremarquable",
@@ -2821,20 +2825,40 @@
             "type": "symbol",
             "layout": {
                 "visibility": "none",
-                "icon-image": "Jardins_Remarquables_15",
-                "icon-padding": 0,
-                "icon-allow-overlap":true
-            }
+                "text-line-height": 1,
+                "text-padding": 0,
+                "text-anchor": "top",
+                "text-allow-overlap": true,
+                "text-size": 11,
+                "icon-optional": true,
+                "text-font": [
+                    "Font Awesome 5 Free Solid",
+                    "Arial Unicode MS Regular"
+                ],
+                "text-field": ""
+            },
+            "paint": {"text-color": "#4aa52c"}
         },
         {
             "id": "grandSiteDeFrance",
-            "type": "circle",
+            "type": "symbol",
             "source": "grandSiteDeFrance",
             "layout": {
-                "visibility": "none"
+                "visibility": "none",
+                "text-line-height": 1,
+                "text-padding": 0,
+                "text-anchor": "top",
+                "text-allow-overlap": true,
+                "text-size": 11,
+                "icon-optional": true,
+                "text-font": [
+                    "Font Awesome 5 Free Solid",
+                    "Arial Unicode MS Regular"
+                ],
+                "text-field": ""
             },
             "paint": {
-                "circle-color": "hsl(115, 65%, 28%)"                
+                "text-color": "hsl(115, 65%, 28%)"                
             }
         },
         {
@@ -2868,51 +2892,93 @@
 		},
         {
             "id": "monumentsnationaux",
-            "type": "circle",
+            "type": "symbol",
             "source": "monumentsnationaux",
             "layout": {
-                "visibility": "none"
+                "visibility": "none",
+                "text-line-height": 1,
+                "text-padding": 0,
+                "text-anchor": "top",
+                "text-allow-overlap": true,
+                "text-size": 11,
+                "icon-optional": true,
+                "text-font": [
+                    "Font Awesome 5 Free Solid",
+                    "Arial Unicode MS Regular"
+                ],
+                "text-field": ""
             },
             "paint": {
-                "circle-color": "hsl(249, 91%, 34%)"
+                "text-color": "hsl(249, 91%, 34%)"
             }
         },
         {
             "id": "localproductshop",
-            "type": "circle",
+            "type": "symbol",
             "source": "composite",
             "source-layer": "localProductShop",
             "layout": {
-                "visibility": "none"
+                "visibility": "none",
+                "text-line-height": 1,
+                "text-padding": 0,
+                "text-anchor": "top",
+                "text-allow-overlap": true,
+                "text-size": 11,
+                "icon-optional": true,
+                "text-font": [
+                    "Font Awesome 5 Free Solid",
+                    "Arial Unicode MS Regular"
+                ],
+                "text-field": ""
             },
             "paint": {
-                "circle-color": "hsl(62, 87%, 53%)"
-            }
+                "text-color": "hsl(62, 87%, 53%)"
+            }            
         },
         {
             "id": "craftmanshop",
-            "type": "circle",
+            "type": "symbol",
             "source": "composite",
             "source-layer": "craftmanShop",
             "layout": {
-                "visibility": "none"
+                "visibility": "none",
+                "text-line-height": 1,
+                "text-padding": 0,
+                "text-anchor": "top",
+                "text-allow-overlap": true,
+                "text-size": 11,
+                "icon-optional": true,
+                "text-font": [
+                    "Font Awesome 5 Free Solid",
+                    "Arial Unicode MS Regular"
+                ],
+                "text-field": ""
             },
             "paint": {
-                "circle-color": "#ee8568",
-                "circle-radius": 4
+                "text-color": "#ee8568"
             }
         },
         {
             "id": "parcsjardins",
-            "type": "circle",
+            "type": "symbol",
             "source": "composite",
             "source-layer": "ParcsJardins",
             "layout": {
-                "visibility": "none"
+                "visibility": "none",
+                "text-line-height": 1,
+                "text-padding": 0,
+                "text-anchor": "top",
+                "text-allow-overlap": true,
+                "text-size": 11,
+                "icon-optional": true,
+                "text-font": [
+                    "Font Awesome 5 Free Solid",
+                    "Arial Unicode MS Regular"
+                ],
+                "text-field": ""
             },
             "paint": {
-                "circle-color": "hsl(105, 58%, 41%)",
-                "circle-radius": 4
+                "text-color": "hsl(105, 58%, 41%)"
             }
         },
         {

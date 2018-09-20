@@ -26,10 +26,15 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 import Collapse from "@material-ui/core/Collapse";
 
 import ListSubheader from "@material-ui/core/ListSubheader";
-import VillagesIcon from "./../styles/icons/village-11.svg";
-import MuseumIcon from "./../styles/icons/museum-11.svg";
-import UnescoIcon from "./../styles/icons/World_Heritage_Logo_global_small.svg";
-import JardinsIcon from "./../styles/icons/Jardins_Remarquables_15.svg";
+// import VillagesIcon from "./../styles/icons/village-11.svg";
+// mport MuseumIcon from "./../styles/icons/museum-11.svg";
+// import UnescoIcon from "./../styles/icons/World_Heritage_Logo_global_small.svg";
+// import JardinsIcon from "./../styles/icons/Jardins_Remarquables_15.svg";
+import { FaStar } from 'react-icons/fa';
+import { FaSquareFull } from 'react-icons/fa';
+
+
+
 import Footer from "./Footer.js"
 //import AOPIcon from "./../styles/icons/AOP.svg";
 
@@ -123,7 +128,9 @@ const styles = (theme) => ({
     padding: theme.spacing.unit * 0
   },
   icon: {
-    width: 25
+    width: 25,
+    color: "#ff0000",
+    // verticalAlign: 'middle'
   },
 
   pickers: {
@@ -205,10 +212,10 @@ class MyDrawer extends Component {
 
     };
 
-    if (window.innerWidth < 600) {
-      // Close Drawer per default for small screens
-      this.state.open = false;
-    }
+    // if (window.innerWidth < 600) {
+    //   // Close Drawer per default for small screens
+    //   this.state.open = false;
+    // }
   }
 
   handleDrawerOpen = () => {
@@ -283,10 +290,10 @@ class MyDrawer extends Component {
     this.props.triggerMapUpdate();
   }
 
-  componentDidMount() {
-    //this.dateTo = this.dateTo.getDate() + 1;
-    //this.handleDateChange(Date());
-  }
+  // componentDidMount() {
+  //   //this.dateTo = this.dateTo.getDate() + 1;
+  //   //this.handleDateChange(Date());
+  // }
 
   render() {
     const { classes } = this.props;
@@ -321,7 +328,7 @@ class MyDrawer extends Component {
                           {t("drawer.villages")}
                         </InputLabel>
                         <ListItemSecondaryAction>
-                          <img className={classes.icon} alt={t("drawer.villagesTitle")} title={t("drawer.villagesTitle")} src={VillagesIcon} />
+                          <FaStar className={classes.icon} style={{color: "hsl(0, 78%, 33%)"}} alt={t("drawer.villagesTitle")} title={t("drawer.villagesTitle")}/>
                         </ListItemSecondaryAction>
                       </ListItem>
                       <ListItem key={"Unesco"} dense button className={classes.listItem}>
@@ -330,7 +337,8 @@ class MyDrawer extends Component {
                           {t("drawer.unesco")}
                         </InputLabel>
                         <ListItemSecondaryAction>
-                          <img className={classes.icon} alt={t("drawer.unescoTitle")} title={t("drawer.unescoTitle")} src={UnescoIcon} />
+                          <FaStar className={classes.icon} style={{ color: "#14222D" }} />
+                          {/* <img className={classes.icon} alt={t("drawer.unescoTitle")} title={t("drawer.unescoTitle")} src={UnescoIcon} /> */}
                         </ListItemSecondaryAction>
                       </ListItem>
 
@@ -340,7 +348,7 @@ class MyDrawer extends Component {
                           {t("drawer.museum")}
                         </InputLabel>
                         <ListItemSecondaryAction>
-                          <img className={classes.icon} alt={t("drawer.museum")} title={t("drawer.museum")} src={MuseumIcon} />
+                        <FaStar className={classes.icon}  style={{ color: "#33baab" }} />
                         </ListItemSecondaryAction>
                       </ListItem>
 
@@ -350,7 +358,7 @@ class MyDrawer extends Component {
                           {t("drawer.gardens")}
                         </InputLabel>
                         <ListItemSecondaryAction>
-                          <img className={classes.icon} alt={t("drawer.gardensTitle")} title={t("drawer.gardensTitle")} src={JardinsIcon} />
+                          <FaStar className={classes.icon} style={{ color: "#4aa52c" }} />
                         </ListItemSecondaryAction>
                       </ListItem>
 
@@ -360,8 +368,7 @@ class MyDrawer extends Component {
                           {t("drawer.grandsSites")}
                         </InputLabel>
                         <ListItemSecondaryAction>
-                          <HomeIcon className={classes.icon} style={{ color: "#217619" }} alt={t("drawer.grandsSitesTitle")} title={t("drawer.grandsSitesTitle")} />
-                          {/* <img className={classes.icon} alt="Grand Site de France" title="Grand Site de France" src={GSFIcon} /> */}
+                          <FaStar className={classes.icon}  style={{ color: "#217619" }} alt={t("drawer.grandsSitesTitle")} title={t("drawer.grandsSitesTitle")}/>
                         </ListItemSecondaryAction>
                       </ListItem>
 
@@ -371,7 +378,8 @@ class MyDrawer extends Component {
                           {t("drawer.monuments")}
                         </InputLabel>
                         <ListItemSecondaryAction>
-                          <HomeIcon className={classes.icon} style={{ color: "#1f08a6" }} alt={t("drawer.monumentsTitle")} title={t("drawer.monumentsTitle")} />
+                        <FaStar className={classes.icon}  style={{ color: "#1f08a6" }} alt={t("drawer.monumentsTitle")} title={t("drawer.monumentsTitle")} />
+                          {/* <HomeIcon className={classes.icon} style={{ color: "#1f08a6" }} alt={t("drawer.monumentsTitle")} title={t("drawer.monumentsTitle")} /> */}
                         </ListItemSecondaryAction>
                       </ListItem>
 
@@ -402,7 +410,8 @@ class MyDrawer extends Component {
                           {t("drawer.parcsJardins")}
                         </InputLabel>
                         <ListItemSecondaryAction>
-                          <HomeIcon className={classes.icon} style={{ color: "#4aa52c" }} alt={t("drawer.parcsJardins")} title={t("drawer.parcsJardins")} />
+                          <FaSquareFull className={classes.icon} style={{ color: "#4aa52c" }}/>
+                          {/* <HomeIcon className={classes.icon} style={{ color: "#4aa52c" }} alt={t("drawer.parcsJardins")} title={t("drawer.parcsJardins")} /> */}
                         </ListItemSecondaryAction>
                       </ListItem>
                       {/* <ListItem key={"Restaurants"} dense button className={classes.listItem}>
@@ -420,7 +429,8 @@ class MyDrawer extends Component {
                           {t("drawer.localpropshop")}
                         </InputLabel>
                         <ListItemSecondaryAction>
-                          <HomeIcon className={classes.icon} style={{ color: "#E8EF1F" }} alt={t("drawer.localpropshop")} title={t("drawer.localpropshop")} />
+                        <FaSquareFull className={classes.icon} style={{ color: "#E8EF1F" }} />
+                          {/* <HomeIcon className={classes.icon} style={{ color: "#E8EF1F" }} alt={t("drawer.localpropshop")} title={t("drawer.localpropshop")} /> */}
                         </ListItemSecondaryAction>
                       </ListItem>
                       <ListItem key={"CraftmanShop"} dense button className={classes.listItem}>
@@ -429,7 +439,8 @@ class MyDrawer extends Component {
                           {t("drawer.craftmanShop")}
                         </InputLabel>
                         <ListItemSecondaryAction>
-                          <HomeIcon className={classes.icon} style={{ color: "#ee8568" }} alt={t("drawer.craftmanShop")} title={t("drawer.craftmanShop")} />
+                        <FaSquareFull className={classes.icon} style={{ color: "#ee8568" }}/>
+                          {/* <HomeIcon className={classes.icon} style={{ color: "#ee8568" }} alt={t("drawer.craftmanShop")} title={t("drawer.craftmanShop")} /> */}
                         </ListItemSecondaryAction>
                       </ListItem>
                     </List>

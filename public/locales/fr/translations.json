@@ -32,7 +32,7 @@
         "dateformat": "d MMM YYYY"
         
     },
-    "MyPlaceInfo":{
+    "myplaceinfo":{
         "postcode": "Code Postal",
         "website": "website",
         "More": "More",
