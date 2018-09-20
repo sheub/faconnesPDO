@@ -55,15 +55,15 @@ function RenderDateTime(props) {
     if (eventStart.getDate() === eventEnd.getDate())
       return (
         <div className="datePopup">
-          {t("le")}: {eventStart.toLocaleDateString(lng, options)}
+          {t("myplaceinfo.le")}: {eventStart.toLocaleDateString(lng, options)}
         </div>
       );
     else {
       return (
         <div className="datePopup">
-          {t("from")}: {eventStart.toLocaleDateString(lng, options)}
+          {t("myplaceinfo.from")}: {eventStart.toLocaleDateString(lng, options)}
           <br />
-          {t("to")}: {eventEnd.toLocaleDateString(lng, options)}
+          {t("myplaceinfo.to")}: {eventEnd.toLocaleDateString(lng, options)}
         </div>
       );
     }
@@ -123,7 +123,7 @@ class MyPlaceInfo extends Component {
               </div>
               <div className="baseInfo">
                 <div className="baseText">
-                  <Truncate lines={9} ellipsis={<span>... <a href={info.link} rel="noopener">{t("More")}</a></span>}>
+                  <Truncate lines={9} ellipsis={<span>... <a target="_new" href={info.link} rel="noopener">{t("myplaceinfo.More")}</a></span>}>
                     {info.abstract}
                   </Truncate>
                 </div>
@@ -216,7 +216,7 @@ class MyPlaceInfo extends Component {
                     {info.periode_ouverture}
                   </div>
                 </div>
-                <a target="_new" href={link} rel="noopener">{t("website")}</a>
+                <a target="_new" href={link} rel="noopener">{t("myplaceinfo.website")}</a>
               </div>
             </div>}
         </div>

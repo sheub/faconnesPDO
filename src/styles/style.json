@@ -2719,11 +2719,6 @@
             "type": "symbol",
             "source": "composite",
             "source-layer": "liste-et-localisation-des-mus-5iczl9",
-            "filter": [
-                "==",
-                "$type",
-                "Point"
-            ],
             "layout": {
 				"visibility": "none",
                 "icon-image": [
@@ -2734,9 +2729,13 @@
                     "museum-11",
                     7,
                     "museum-11"
-                ]
+                ],
+                "icon-padding": 0,
+                "icon-allow-overlap":true
             },
-            "paint": {}
+            "paint": {
+                "icon-color": "hsl(115, 65%, 28%)"
+            }
         },
         {
             "id": "n-inao-aop-fr-16md1w",
@@ -2798,10 +2797,23 @@
             "type": "symbol",
             "layout": {
                 "visibility": "none",
-                "icon-image": "village-11",
+                "icon-image": [
+                    "step",
+                    [
+                        "zoom"
+                    ],
+                    "village-11",
+                    7,
+                    "village-11"
+                ],
+                
                 "icon-padding": 0,
                 "icon-allow-overlap":true
+            },
+            "paint": {
+                "icon-color": "hsl(115, 65%, 28%)"
             }
+            
         },
         {
             "id": "jardinremarquable",

@@ -130,14 +130,14 @@ class MapComponent extends Component {
       if (this.props.mode === 'directions') {
         if (this.props.route) {
           const bbox = turfBbox(this.props.route.geometry);
-          this.moveTo({bbox: bbox});
+          this.moveTo({ bbox: bbox });
 
         } else if (this.props.directionsTo && this.props.directionsFrom) {
           const bbox = turfBbox({
             type: 'FeatureCollection',
             features: [this.props.directionsFrom, this.props.directionsTo]
           });
-          this.moveTo({bbox: bbox});
+          this.moveTo({ bbox: bbox });
 
         } else {
           // Whichever exists
@@ -156,7 +156,7 @@ class MapComponent extends Component {
       this.filterByDate(this.props.dateFrom, this.props.dateTo);
     }
 
-    if(this.props.needMapActualizeLanguage){
+    if (this.props.needMapActualizeLanguage) {
       var lng = this.props.languageSet;
       this.map.setStyle(language.setLanguage(this.map.getStyle(), lng));
       this.initLayerVisibility();
@@ -176,9 +176,9 @@ class MapComponent extends Component {
       const buffered = turfBuffer(turfBboxPolygon(location.bbox), distance / 2, 'kilometers');
       const bbox = turfBbox(buffered);
       try {
-        this.map.fitBounds(bbox, {linear: true});
+        this.map.fitBounds(bbox, { linear: true });
       } catch (e) {
-        this.map.fitBounds(location.bbox, {linear: true});
+        this.map.fitBounds(location.bbox, { linear: true });
       }
     } else { // We just have a point
       this.map.easeTo({
@@ -191,7 +191,7 @@ class MapComponent extends Component {
   mouseDown(e) {
     if (!this.state.isDragging && !this.state.isCursorOverPoint) return;
 
-    var features = this.map.queryRenderedFeatures(e.point, {layers: this.movableLayers});
+    var features = this.map.queryRenderedFeatures(e.point, { layers: this.movableLayers });
     if (!features.length) return;
 
 
@@ -200,7 +200,7 @@ class MapComponent extends Component {
 
     const mouseMoveFn = (e) => this.onMove(e);
 
-    this.setState({isDragging: true, draggedLayer: features[0].layer.id, mouseMoveFn: mouseMoveFn});
+    this.setState({ isDragging: true, draggedLayer: features[0].layer.id, mouseMoveFn: mouseMoveFn });
 
     // Mouse events
     this.map.on('mousemove', mouseMoveFn);
@@ -215,7 +215,7 @@ class MapComponent extends Component {
     if (this.movableLayers.indexOf(layerId) < 0) return;
 
     var coords = [e.lngLat.lng, e.lngLat.lat];
-    this.setState({draggedCoords: coords});
+    this.setState({ draggedCoords: coords });
 
     // Set a UI indicator for dragging.
     this.map.getCanvas().style.cursor = 'grabbing';
@@ -324,7 +324,7 @@ class MapComponent extends Component {
   onLoad() {
     // helper to set geolocation
     const setGeolocation = (data) => {
-      const geometry = {type: 'Point', coordinates: [data.coords.longitude, data.coords.latitude]};
+      const geometry = { type: 'Point', coordinates: [data.coords.longitude, data.coords.latitude] };
       this.map.getSource('geolocation').setData(geometry);
       this.props.setUserLocation(geometry.coordinates);
       if (this.props.moveOnLoad) this.moveTo(geometry, 6);
@@ -346,17 +346,17 @@ class MapComponent extends Component {
     this.map.on('click', (e) => this.onClick(e));
 
     this.map.on('mousemove', (e) => {
-      var features = this.map.queryRenderedFeatures(e.point, {layers: this.movableLayers.concat(this.selectableLayers)});
+      var features = this.map.queryRenderedFeatures(e.point, { layers: this.movableLayers.concat(this.selectableLayers) });
 
       if (features.length) {
         this.map.getCanvas().style.cursor = 'pointer';
         if (this.movableLayers.indexOf(features[0].layer.id) > -1) {
-          this.setState({isCursorOverPoint: true});
+          this.setState({ isCursorOverPoint: true });
           this.map.dragPan.disable();
         }
       } else {
         this.map.getCanvas().style.cursor = '';
-        this.setState({isCursorOverPoint: false});
+        this.setState({ isCursorOverPoint: false });
         this.map.dragPan.enable();
       }
     });
@@ -401,14 +401,19 @@ class MapComponent extends Component {
     Object.keys(this.props.visibility).forEach(key => {
       if (this.props.visibility[key]) {
         this.map.setLayoutProperty(layerSelector[key].source, 'visibility', 'visible');
-        if( ["marches", "exposition", "musique", "children", "videsgreniers"].includes(layerSelector[key].source)){
+        if (["marches", "exposition", "musique", "children", "videsgreniers"].includes(layerSelector[key].source)) {
           this.loadJsonData(layerSelector[key].source);
         }
-        if( ["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(layerSelector[key].source)){
+        if (["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(layerSelector[key].source)) {
           this.loadJsonData(layerSelector[key].source);
         }
       } else {
         this.map.setLayoutProperty(layerSelector[key].source, 'visibility', 'none');
+        if (["marches", "exposition", "musique", "children", "videsgreniers",
+          "plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance",
+          "monumentsnationaux", "patrimoinemondialenfrance"].includes(layerSelector[key].source)) {
+          this.setEmptyData(layerSelector[key].source);
+        }
       }
     });
 
@@ -456,6 +461,7 @@ class MapComponent extends Component {
     var visibility = this.map.getLayoutProperty(toggleLayerVisibility, 'visibility');
     if (visibility === 'visible') {
       this.map.setLayoutProperty(toggleLayerVisibility, 'visibility', 'none');
+
     } else {
       this.map.setLayoutProperty(toggleLayerVisibility, 'visibility', 'visible');
       if( ["marches", "exposition", "musique", "children", "videsgreniers"].includes(toggleLayerVisibility)){
@@ -468,6 +474,13 @@ class MapComponent extends Component {
 
   }
 
+  setEmptyData(dataStr){
+    this.map.getSource(dataStr).setData({
+      "type": "FeatureCollection",
+      "features": []
+  });
+
+  }
   loadJsonData(dataStr) {
 
     let baseDataUrl;

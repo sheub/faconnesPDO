@@ -4,7 +4,7 @@ import "./css/Impressum.css";
 
 class About extends Component {
 
-    handleClose(){
+    handleClose() {
         this.props.handleClose();
     }
 
@@ -20,7 +20,7 @@ class About extends Component {
                 <h2><strong>Unesco :</strong></h2> Site instcrit sur la liste du patrimoine mondial de l'unesco.<br />
                 <h2><strong>Musées :</strong></h2>  Liste des musées de France au 31.12.2017<br />
                 Coordonnées postale (Adresse, Ville, CP), Téléphone, Site web, Fermeture annuelle, Période d'ouverture, Jours nocturnes.<br />
-                Jeu de données disponible sur le site data.gouv.fr/ 
+                Jeu de données disponible sur le site data.gouv.fr/
                 <a target="_new" href="https://www.data.gouv.fr/en/datasets/liste-et-localisation-des-musees-de-france/#_" rel="noopener">lien</a>
                 <h2><strong>Jardins Remarquables :</strong></h2> Le label <i>Jardin remarquable</i> est délivré par le ministère de la Culture français avec le
                      concours du Conseil national des parcs et jardins (la liste présentée sur lieuxdits.de est non exhaustive).
@@ -29,11 +29,12 @@ class About extends Component {
                     forte fréquentation. La liste de lieuxdits.de présente également les membres du réseau <i>Grand Site de France</i> n'ayant pas encore recu le label.
                 <h2><strong>Monuments : </strong></h2> Édifice géré par le centre des monuments nationaux qui ouvre à la visite près de 100 monuments propriétés de l'état.
 
-                Données présentées dans les rubriques <i>Parcs &amp; Jardins</i>, <i>Restaurants</i>, <i>Commerce local</i>, <i>Atelier artisanal</i> ainsi que l'ensemble des rubriques du 
-                groupe <strong>Agenda</strong> (<i>Expositions, Musique &amp; Spectacles</i>, <i>Children's Corner</i>, <i>Marchés</i>, et <i>Vide-greniers</i>) proviennent de la plateforme DataTourisme.
-                
+                Données présentées dans les rubriques <i>Parcs &amp; Jardins</i>, <i>Restaurants</i>, <i>Commerce local</i>, <i>Atelier artisanal</i> ainsi que l'ensemble des rubriques du
+                groupe <strong>Agenda</strong> (<i>Expositions, Musique &amp; Spectacles</i>, <i>Children's Corner</i>, <i>Marchés</i>, et <i>Vide-greniers</i>)
+                proviennent de la plateforme DataTourisme.
 
-   
+
+
             </div>
         </div>
     }

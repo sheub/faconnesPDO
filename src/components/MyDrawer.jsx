@@ -405,7 +405,7 @@ class MyDrawer extends Component {
                           <HomeIcon className={classes.icon} style={{ color: "#4aa52c" }} alt={t("drawer.parcsJardins")} title={t("drawer.parcsJardins")} />
                         </ListItemSecondaryAction>
                       </ListItem>
-                      <ListItem key={"Restaurants"} dense button className={classes.listItem}>
+                      {/* <ListItem key={"Restaurants"} dense button className={classes.listItem}>
                         <Checkbox tabIndex={-1} checked={this.state.visibility["Restaurants"]} onChange={this._onVisibilityChange.bind(this, "Restaurants")} value="true" color="default" aria-label="RestaurantsCheckbox" htmlFor="RestaurantsListItemText" id="RestaurantsCheckbox" disableRipple />
                         <InputLabel htmlFor="RestaurantsCheckbox" id="RestaurantsListItemText" primary={"Restaurants"} title={t("drawer.restaurants")}>
                           {t("drawer.restaurants")}
@@ -413,7 +413,7 @@ class MyDrawer extends Component {
                         <ListItemSecondaryAction>
                           <HomeIcon className={classes.icon} style={{ color: "#a22020" }} alt={t("drawer.restaurants")} title={t("drawer.restaurants")} />
                         </ListItemSecondaryAction>
-                      </ListItem>
+                      </ListItem> */}
                       <ListItem key={"LocalProdShop"} dense button className={classes.listItem}>
                         <Checkbox tabIndex={-1} checked={this.state.visibility["LocalProdShop"]} onChange={this._onVisibilityChange.bind(this, "LocalProdShop")} value="true" color="default" aria-label="LocalProdShopCheckbox" htmlFor="LocalProdShopListItemText" id="LocalProdShopCheckbox" disableRipple />
                         <InputLabel htmlFor="LocalProdShopCheckbox" id="LocalProdShopListItemText" primary={"LocalProdShop"} title={t("drawer.localpropshop")}>
