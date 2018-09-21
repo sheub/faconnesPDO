@@ -31,7 +31,7 @@ class About extends Component {
 
                 Données présentées dans les rubriques <i>Parcs &amp; Jardins</i>, <i>Commerce local</i>, <i>Atelier artisanal</i> ainsi que l'ensemble des rubriques du
                 groupe <strong>Agenda</strong> (<i>Expositions, Musique &amp; Spectacles</i>, <i>Children's Corner</i>, <i>Marchés</i>, et <i>Vide-greniers</i>)
-                proviennent de la plateforme DataTourisme.
+                proviennent de la plateforme DataTourisme. Elles sont mises à jours quotidiennement.
 
 
 
