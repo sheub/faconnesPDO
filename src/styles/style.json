@@ -20,80 +20,117 @@
     "pitch": 0,
     "sources": {
         "composite": {
-            "url": "mapbox://mapbox.mapbox-streets-v7,sheub.623zkazi,sheub.craftmanShop,sheub.ParcsJardins,sheub.5wb1wtbj,sheub.localProductShop,sheub.restaurants,sheub.9e12f1eo",
+            "url": "mapbox://mapbox.mapbox-streets-v7,sheub.623zkazi,sheub.craftmanShop,sheub.ParcsJardins,sheub.5wb1wtbj,sheub.localProductShop,sheub.9e12f1eo",
             "type": "vector"
-            },
+        },
         "traffic": {
-          "url": "mapbox://mapbox.mapbox-traffic-v1",
-          "type": "vector"
+            "url": "mapbox://mapbox.mapbox-traffic-v1",
+            "type": "vector"
         },
         "marker": {
             "type": "geojson",
-            "data": {"type": "FeatureCollection", "features": []}
+            "data": {
+                "type": "FeatureCollection",
+                "features": []
+            }
         },
         "route": {
             "type": "geojson",
-            "data": {"type": "FeatureCollection", "features": []}
+            "data": {
+                "type": "FeatureCollection",
+                "features": []
+            }
         },
         "geolocation": {
             "type": "geojson",
-            "data": {"type": "FeatureCollection", "features": []}
+            "data": {
+                "type": "FeatureCollection",
+                "features": []
+            }
         },
         "fromMarker": {
             "type": "geojson",
-            "data": {"type": "FeatureCollection", "features": []}
-        },        
-        "restaurants": {
-            "type": "vector",
-            "url": "mapbox://sheub.restaurants"
+            "data": {
+                "type": "FeatureCollection",
+                "features": []
+            }
         },
         "videsgreniers": {
             "type": "geojson",
-            "data": {"type": "FeatureCollection", "features": []}
+            "data": {
+                "type": "FeatureCollection",
+                "features": []
+            }
         },
         "marches": {
             "type": "geojson",
-            "data": {"type": "FeatureCollection", "features": []}
+            "data": {
+                "type": "FeatureCollection",
+                "features": []
+            }
         },
         "exposition": {
             "type": "geojson",
-            "data": {"type": "FeatureCollection", "features": []}
+            "data": {
+                "type": "FeatureCollection",
+                "features": []
+            }
         },
         "musique": {
             "type": "geojson",
-            "data": {"type": "FeatureCollection", "features": []}
+            "data": {
+                "type": "FeatureCollection",
+                "features": []
+            }
         },
         "children": {
             "type": "geojson",
-            "data": {"type": "FeatureCollection", "features": []}
+            "data": {
+                "type": "FeatureCollection",
+                "features": []
+            }
         },
         "patrimoinemondialenfrance": {
             "type": "geojson",
-            "data": {"type": "FeatureCollection", "features": []}
+            "data": {
+                "type": "FeatureCollection",
+                "features": []
+            }
         },
         "grandSiteDeFrance": {
             "type": "geojson",
-            "data": {"type": "FeatureCollection", "features": []}
+            "data": {
+                "type": "FeatureCollection",
+                "features": []
+            }
         },
         "monumentsnationaux": {
             "type": "geojson",
-            "data": {"type": "FeatureCollection", "features": []}
+            "data": {
+                "type": "FeatureCollection",
+                "features": []
+            }
         },
         "jardinremarquable": {
             "type": "geojson",
-            "data": {"type": "FeatureCollection", "features": []}
+            "data": {
+                "type": "FeatureCollection",
+                "features": []
+            }
         },
         "plusBeauxVillagesDeFrance": {
             "type": "geojson",
-            "data": {"type": "FeatureCollection", "features": []}
+            "data": {
+                "type": "FeatureCollection",
+                "features": []
+            }
         }
-        
-        
+
+
     },
     "sprite": "mapbox://sprites/sheub/cjk8ejp92h7e62smuojkqrgnx",
     "glyphs": "mapbox://fonts/sheub/{fontstack}/{range}.pbf",
-    "layers": [
-        {
+    "layers": [{
             "id": "background",
             "type": "background",
             "layout": {},
@@ -2214,7 +2251,7 @@
                 "text-halo-color": "hsla(0, 0%, 100%, 0.6)",
                 "text-halo-width": 1
             }
-        },  
+        },
         {
             "id": "poi-scalerank2",
             "type": "symbol",
@@ -2493,7 +2530,7 @@
                 "text-halo-color": "hsla(0, 0%, 100%, 0.6)",
                 "text-halo-width": 1
             }
-        },{
+        }, {
             "id": "poi-scalerank4",
             "type": "symbol",
             "source": "composite",
@@ -2738,49 +2775,6 @@
             }
         },
         {
-            "id": "n-inao-aop-fr-16md1w",
-            "type": "fill",
-            "source": "composite",
-            "source-layer": "n_inao_aop_fr-16md1w",
-            "layout": {
-                "visibility": "none"
-            },
-            "paint": {
-                "fill-color": [
-                    "case",
-                    [
-                        "==",
-                        [
-                            "get",
-                            "categorie"
-                        ],
-                        "Vins & spiritueux"
-                    ],
-                    "hsl(360, 78%, 25%)",
-                    [
-                        "==",
-                        [
-                            "get",
-                            "sous_cat"
-                        ],
-                        "Vin blanc"
-                    ],
-                    "hsl(39, 90%, 38%)",
-                    [
-                        "==",
-                        [
-                            "get",
-                            "sous_cat"
-                        ],
-                        "Lait de vache"
-                    ],
-                    "hsl(43, 92%, 81%)",
-                    "hsl(128, 59%, 37%)"
-                ],
-                "fill-opacity": 0.48
-            }
-		},
-        {
             "id": "patrimoinemondialenfrance",
             "source": "patrimoinemondialenfrance",
             "type": "symbol",
@@ -2798,7 +2792,9 @@
                 ],
                 "text-field": ""
             },
-            "paint": {"text-color": "#14222D"}
+            "paint": {
+                "text-color": "#14222D"
+            }
         }, {
             "id": "plusBeauxVillagesDeFrance",
             "source": "plusBeauxVillagesDeFrance",
@@ -2817,7 +2813,9 @@
                 ],
                 "text-field": ""
             },
-            "paint": {"text-color": "hsl(0, 78%, 33%)"}
+            "paint": {
+                "text-color": "hsl(0, 78%, 33%)"
+            }
         },
         {
             "id": "jardinremarquable",
@@ -2837,7 +2835,9 @@
                 ],
                 "text-field": ""
             },
-            "paint": {"text-color": "#4aa52c"}
+            "paint": {
+                "text-color": "#4aa52c"
+            }
         },
         {
             "id": "grandSiteDeFrance",
@@ -2858,7 +2858,7 @@
                 "text-field": ""
             },
             "paint": {
-                "text-color": "hsl(115, 65%, 28%)"                
+                "text-color": "hsl(115, 65%, 28%)"
             }
         },
         {
@@ -2889,7 +2889,7 @@
                     0
                 ]
             }
-		},
+        },
         {
             "id": "monumentsnationaux",
             "type": "symbol",
@@ -2933,7 +2933,7 @@
             },
             "paint": {
                 "text-color": "hsl(62, 87%, 53%)"
-            }            
+            }
         },
         {
             "id": "craftmanshop",
@@ -2980,20 +2980,7 @@
             "paint": {
                 "text-color": "hsl(105, 58%, 41%)"
             }
-        },
-        {
-            "id": "restaurants",
-            "type": "circle",
-            "source": "restaurants",
-            "source-layer": "restaurants",
-            "layout": {
-                "visibility": "none"
-            },
-            "paint": {
-                "circle-radius": 4,
-                "circle-color": "hsl(0, 88%, 47%)"
-            }
-        },{
+        }, {
             "id": "exposition",
             "type": "circle",
             "source": "exposition",
@@ -3016,7 +3003,7 @@
                 "circle-radius": 4,
                 "circle-color": "#a52c56"
             }
-        },{
+        }, {
             "id": "children",
             "type": "circle",
             "source": "children",

@@ -26,17 +26,12 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 import Collapse from "@material-ui/core/Collapse";
 
 import ListSubheader from "@material-ui/core/ListSubheader";
-// import VillagesIcon from "./../styles/icons/village-11.svg";
-// mport MuseumIcon from "./../styles/icons/museum-11.svg";
-// import UnescoIcon from "./../styles/icons/World_Heritage_Logo_global_small.svg";
-// import JardinsIcon from "./../styles/icons/Jardins_Remarquables_15.svg";
 import { FaStar } from 'react-icons/fa';
 import { FaSquareFull } from 'react-icons/fa';
 
 
 
 import Footer from "./Footer.js"
-//import AOPIcon from "./../styles/icons/AOP.svg";
 
 import MyDatePicker from "./MyDatePicker";
 
@@ -108,10 +103,7 @@ const styles = (theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
     }),
-    width: 0,//theme.spacing.unit * 7,
-    // [theme.breakpoints.up("sm")]: {
-    //     width: theme.spacing.unit * 9
-    // }
+    width: 0,
   },
   collapses: {
     overflowY: "auto",
@@ -181,12 +173,10 @@ const layerSelector = {
   Museum: /liste-et-localisation-des-mus-5iczl9/,
   Villages: /plusBeauxVillagesDeFrance/,
   Unesco: /patrimoinemondialenfrance/, // This is the Layer id
-  AOP: /n-inao-aop-fr-16md1w/,
   Jardins: /jardinremarquable/,
   GSF: /grandSiteDeFrance/,
   MN: /monumentsnationaux/,
   ParcsJardins: /parcsjardins/,
-  Restaurants: /restaurants/,
   LocalProdShop: /localproductshop/,
   CraftmanShop: /craftmanshop/,
   Exposition: /exposition/,
@@ -382,17 +372,6 @@ class MyDrawer extends Component {
                           {/* <HomeIcon className={classes.icon} style={{ color: "#1f08a6" }} alt={t("drawer.monumentsTitle")} title={t("drawer.monumentsTitle")} /> */}
                         </ListItemSecondaryAction>
                       </ListItem>
-
-                      {/* <ListItem key={"AOP"} dense button className={classes.listItem}>
-                      <Checkbox tabIndex={-1} checked={this.state.visibility["AOP"]} onChange={this._onVisibilityChange.bind(this, "AOP")} value="true" color="default" id="AOPCheckbox" disableRipple />
-                      <InputLabel htmlFor="AOPCheckbox" primary={"AOP"} title="Apellations d'origine controllée">
-                        AOP
-                      </InputLabel>
-                      <ListItemSecondaryAction>
-                        <img className={classes.icon} alt="Apellations d'origine controllée" title="Apellations d'origine controllée" src={AOPIcon} />
-                      </ListItemSecondaryAction>
-                    </ListItem> */}
-
                     </List>
                   </Collapse>
                   <Divider light />
@@ -410,19 +389,10 @@ class MyDrawer extends Component {
                           {t("drawer.parcsJardins")}
                         </InputLabel>
                         <ListItemSecondaryAction>
-                          <FaSquareFull className={classes.icon} style={{ color: "#4aa52c" }}/>
-                          {/* <HomeIcon className={classes.icon} style={{ color: "#4aa52c" }} alt={t("drawer.parcsJardins")} title={t("drawer.parcsJardins")} /> */}
+                          <FaSquareFull className={classes.icon} style={{ color: "#4AA52C" }}/>
                         </ListItemSecondaryAction>
                       </ListItem>
-                      {/* <ListItem key={"Restaurants"} dense button className={classes.listItem}>
-                        <Checkbox tabIndex={-1} checked={this.state.visibility["Restaurants"]} onChange={this._onVisibilityChange.bind(this, "Restaurants")} value="true" color="default" aria-label="RestaurantsCheckbox" htmlFor="RestaurantsListItemText" id="RestaurantsCheckbox" disableRipple />
-                        <InputLabel htmlFor="RestaurantsCheckbox" id="RestaurantsListItemText" primary={"Restaurants"} title={t("drawer.restaurants")}>
-                          {t("drawer.restaurants")}
-                        </InputLabel>
-                        <ListItemSecondaryAction>
-                          <HomeIcon className={classes.icon} style={{ color: "#a22020" }} alt={t("drawer.restaurants")} title={t("drawer.restaurants")} />
-                        </ListItemSecondaryAction>
-                      </ListItem> */}
+
                       <ListItem key={"LocalProdShop"} dense button className={classes.listItem}>
                         <Checkbox tabIndex={-1} checked={this.state.visibility["LocalProdShop"]} onChange={this._onVisibilityChange.bind(this, "LocalProdShop")} value="true" color="default" aria-label="LocalProdShopCheckbox" htmlFor="LocalProdShopListItemText" id="LocalProdShopCheckbox" disableRipple />
                         <InputLabel htmlFor="LocalProdShopCheckbox" id="LocalProdShopListItemText" primary={"LocalProdShop"} title={t("drawer.localpropshop")}>
@@ -439,7 +409,7 @@ class MyDrawer extends Component {
                           {t("drawer.craftmanShop")}
                         </InputLabel>
                         <ListItemSecondaryAction>
-                        <FaSquareFull className={classes.icon} style={{ color: "#ee8568" }}/>
+                        <FaSquareFull className={classes.icon} style={{ color: "#EE8568" }}/>
                           {/* <HomeIcon className={classes.icon} style={{ color: "#ee8568" }} alt={t("drawer.craftmanShop")} title={t("drawer.craftmanShop")} /> */}
                         </ListItemSecondaryAction>
                       </ListItem>
@@ -455,7 +425,7 @@ class MyDrawer extends Component {
 
 
                     <List>
-                    <ListItem style={{ backgroundColor: "#eceded", paddingLeft: "17px", paddingRight: "17px" }}>
+                    <ListItem style={{ backgroundColor: "#ECEDED", paddingLeft: "17px", paddingRight: "17px" }}>
                     <MyDatePicker t={t} i18n={i18n} state={this.state} dateChange={this.handleDateChange.bind(this)}  dateToChange={this.handleDateToChange.bind(this)} />
                     </ListItem>
 
@@ -475,7 +445,7 @@ class MyDrawer extends Component {
                           {t("drawer.musiqueSpectacles")}
                         </InputLabel>
                         <ListItemSecondaryAction>
-                          <HomeIcon className={classes.icon} style={{ color: "#a52c56" }} alt={t("drawer.musiqueSpectacles")} title={t("drawer.musiqueSpectacles")} />
+                          <HomeIcon className={classes.icon} style={{ color: "#A52C56" }} alt={t("drawer.musiqueSpectacles")} title={t("drawer.musiqueSpectacles")} />
                         </ListItemSecondaryAction>
                       </ListItem>
                       <ListItem key={"Children"} dense button className={classes.listItem}>
@@ -484,7 +454,7 @@ class MyDrawer extends Component {
                           {t("drawer.childrensCorner")}
                         </InputLabel>
                         <ListItemSecondaryAction>
-                          <HomeIcon className={classes.icon} style={{ color: "#15178a" }} alt={t("drawer.childrensCorner")} title={t("drawer.childrensCorner")} />
+                          <HomeIcon className={classes.icon} style={{ color: "#15178A" }} alt={t("drawer.childrensCorner")} title={t("drawer.childrensCorner")} />
                         </ListItemSecondaryAction>
                       </ListItem>
                       <ListItem key={"Marches"} dense button className={classes.listItem}>
@@ -502,7 +472,7 @@ class MyDrawer extends Component {
                           {t("drawer.fleaMarket")}
                         </InputLabel>
                         <ListItemSecondaryAction>
-                          <HomeIcon className={classes.icon} style={{ color: "#007cbf" }} title={t("drawer.fleaMarket")} />
+                          <HomeIcon className={classes.icon} style={{ color: "#007CBF" }} title={t("drawer.fleaMarket")} />
                         </ListItemSecondaryAction>
                       </ListItem>
                     </List>

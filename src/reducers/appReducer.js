@@ -30,22 +30,15 @@ const defaultAppState = {
   route: null,
   routeStatus: 'idle',
   lastQueried: 0,
-  // Context menu
-  // contextMenuActive: false,
-  // contextMenuCoordinates: null,
-  // contextMenuPosition: null,
-  // contextMenuPlace: null,
   toggleLayerVisibility: '',
   visibility: {
     Museum: false,
     Villages: false,
     Unesco: true,
-    AOP: false,
     Jardins: false,
     GSF: false,
     MN: false,
     ParcsJardins: false,
-    Restaurants: false,
     LocalProdShop: false,
     CraftmanShop: false,
     Exposition: false,
@@ -137,31 +130,6 @@ const appReducer = (state = defaultAppState, action) => {
       });
     }
   }
-
-  // case 'SET_CONTEXT_MENU': {
-  //   return Object.assign({}, state, {
-  //     contextMenuCoordinates: action.coordinates,
-  //     contextMenuPosition: action.position,
-  //     contextMenuPlace: {
-  //       'place_name': '__loading', // will trigger the spinner
-  //       center: action.coordinates,
-  //       geometry: {
-  //         type: 'Point',
-  //         coordinates: action.coordinates
-  //       }
-  //     },
-  //     // contextMenuActive: true
-  //   });
-  // }
-
-  // case 'RESET_CONTEXT_MENU': {
-  //   return Object.assign({}, state, {
-  //     contextMenuCoordinates: null,
-  //     contextMenuPosition: null,
-  //     contextMenuPlace: null,
-  //     contextMenuActive: false
-  //   });
-  // }
 
   case 'SET_STATE_FROM_URL': {
     return state;

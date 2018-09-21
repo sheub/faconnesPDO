@@ -99,7 +99,6 @@ class MyPlaceInfo extends Component {
 
     if (["plusBeauxVillagesDeFrance",
       "patrimoinemondialenfrance",
-      "n-inao-aop-fr-16md1w",
       "jardinremarquable",
       "grandSiteDeFrance",
       "monumentsnationaux"].includes(layerId)) {
@@ -135,7 +134,6 @@ class MyPlaceInfo extends Component {
 
     if ([
       "parcsjardins",
-      "restaurants",
       "localproductshop",
       "craftmanshop"].includes(layerId)) {
       return (

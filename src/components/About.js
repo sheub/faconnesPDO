@@ -29,7 +29,7 @@ class About extends Component {
                     forte fréquentation. La liste de lieuxdits.de présente également les membres du réseau <i>Grand Site de France</i> n'ayant pas encore recu le label.
                 <h2><strong>Monuments : </strong></h2> Édifice géré par le centre des monuments nationaux qui ouvre à la visite près de 100 monuments propriétés de l'état.
 
-                Données présentées dans les rubriques <i>Parcs &amp; Jardins</i>, <i>Restaurants</i>, <i>Commerce local</i>, <i>Atelier artisanal</i> ainsi que l'ensemble des rubriques du
+                Données présentées dans les rubriques <i>Parcs &amp; Jardins</i>, <i>Commerce local</i>, <i>Atelier artisanal</i> ainsi que l'ensemble des rubriques du
                 groupe <strong>Agenda</strong> (<i>Expositions, Musique &amp; Spectacles</i>, <i>Children's Corner</i>, <i>Marchés</i>, et <i>Vide-greniers</i>)
                 proviennent de la plateforme DataTourisme.
 
