@@ -20,7 +20,7 @@
     "pitch": 0,
     "sources": {
         "composite": {
-            "url": "mapbox://mapbox.mapbox-streets-v7,sheub.623zkazi,sheub.craftmanShop,sheub.ParcsJardins,sheub.5wb1wtbj,sheub.localProductShop,sheub.9e12f1eo",
+            "url": "mapbox://mapbox.mapbox-streets-v7,sheub.623zkazi,sheub.9e12f1eo,sheub.craftmanShop,sheub.ParcsJardins,sheub.localProductShop",
             "type": "vector"
         },
         "traffic": {
