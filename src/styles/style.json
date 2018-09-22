@@ -20,7 +20,11 @@
     "pitch": 0,
     "sources": {
         "composite": {
-            "url": "mapbox://mapbox.mapbox-streets-v7,sheub.623zkazi,sheub.9e12f1eo,sheub.craftmanShop,sheub.ParcsJardins,sheub.localProductShop?optimize=true",
+            "url": "mapbox://mapbox.mapbox-streets-v7?optimize=true,sheub.623zkazi,sheub.9e12f1eo,sheub.craftmanShop,sheub.ParcsJardins,sheub.localProductShop",
+            "type": "vector"
+        },
+        "mycomposite": {
+            "url": "mapbox://sheub.623zkazi,sheub.9e12f1eo,sheub.craftmanShop,sheub.ParcsJardins,sheub.localProductShop",
             "type": "vector"
         },
         "traffic": {
@@ -2752,29 +2756,6 @@
             }
         },
         {
-            "id": "liste-et-localisation-des-mus-5iczl9",
-            "type": "symbol",
-            "source": "composite",
-            "source-layer": "liste-et-localisation-des-mus-5iczl9",
-            "layout": {
-                "visibility": "none",
-                "text-line-height": 1,
-                "text-padding": 0,
-                "text-allow-overlap": true,
-                "text-size": 11,
-                "icon-optional": true,
-                "text-anchor": "top",
-                "text-font": [
-                    "Font Awesome 5 Free Solid",
-                    "Arial Unicode MS Regular"
-                ],
-                "text-field": ""
-            },
-            "paint": {
-                "text-color": "#33baab"
-            }
-        },
-        {
             "id": "patrimoinemondialenfrance",
             "source": "patrimoinemondialenfrance",
             "type": "symbol",
@@ -2862,9 +2843,32 @@
             }
         },
         {
+            "id": "liste-et-localisation-des-mus-5iczl9",
+            "type": "symbol",
+            "source": "mycomposite",
+            "source-layer": "liste-et-localisation-des-mus-5iczl9",
+            "layout": {
+                "visibility": "none",
+                "text-line-height": 1,
+                "text-padding": 0,
+                "text-allow-overlap": true,
+                "text-size": 11,
+                "icon-optional": true,
+                "text-anchor": "top",
+                "text-font": [
+                    "Font Awesome 5 Free Solid",
+                    "Arial Unicode MS Regular"
+                ],
+                "text-field": ""
+            },
+            "paint": {
+                "text-color": "#33baab"
+            }
+        },
+        {
             "id": "ne-10m-admin-0-countries-1bmnl8",
             "type": "fill",
-            "source": "composite",
+            "source": "mycomposite",
             "source-layer": "ne_10m_admin_0_countries-1bmnl8",
             "filter": [
                 "==",
@@ -2891,31 +2895,9 @@
             }
         },
         {
-            "id": "monumentsnationaux",
-            "type": "symbol",
-            "source": "monumentsnationaux",
-            "layout": {
-                "visibility": "none",
-                "text-line-height": 1,
-                "text-padding": 0,
-                "text-anchor": "top",
-                "text-allow-overlap": true,
-                "text-size": 11,
-                "icon-optional": true,
-                "text-font": [
-                    "Font Awesome 5 Free Solid",
-                    "Arial Unicode MS Regular"
-                ],
-                "text-field": ""
-            },
-            "paint": {
-                "text-color": "hsl(249, 91%, 34%)"
-            }
-        },
-        {
             "id": "localproductshop",
             "type": "symbol",
-            "source": "composite",
+            "source": "mycomposite",
             "source-layer": "localProductShop",
             "layout": {
                 "visibility": "none",
@@ -2938,7 +2920,7 @@
         {
             "id": "craftmanshop",
             "type": "symbol",
-            "source": "composite",
+            "source": "mycomposite",
             "source-layer": "craftmanShop",
             "layout": {
                 "visibility": "none",
@@ -2961,7 +2943,7 @@
         {
             "id": "parcsjardins",
             "type": "symbol",
-            "source": "composite",
+            "source": "mycomposite",
             "source-layer": "ParcsJardins",
             "layout": {
                 "visibility": "none",
@@ -2980,7 +2962,29 @@
             "paint": {
                 "text-color": "hsl(105, 58%, 41%)"
             }
-        }, {
+        },{
+            "id": "monumentsnationaux",
+            "type": "symbol",
+            "source": "monumentsnationaux",
+            "layout": {
+                "visibility": "none",
+                "text-line-height": 1,
+                "text-padding": 0,
+                "text-anchor": "top",
+                "text-allow-overlap": true,
+                "text-size": 11,
+                "icon-optional": true,
+                "text-font": [
+                    "Font Awesome 5 Free Solid",
+                    "Arial Unicode MS Regular"
+                ],
+                "text-field": ""
+            },
+            "paint": {
+                "text-color": "hsl(249, 91%, 34%)"
+            }
+        },
+        {
             "id": "exposition",
             "type": "circle",
             "source": "exposition",

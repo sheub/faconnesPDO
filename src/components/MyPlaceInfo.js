@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { translate } from "react-i18next";
 
-import Truncate from "react-truncate";
+// import Truncate from "react-truncate";
 import SvgIcon from "@material-ui/core/SvgIcon";
 import "./css/PopupInfo.css";
 
@@ -120,13 +120,12 @@ class MyPlaceInfo extends Component {
                   </div>
                 </div>
               </div>
-              <div className="baseInfo">
-                <div className="baseText">
-                  <Truncate lines={9} ellipsis={<span>... <a target="_new" href={info.link} rel="noopener">{t("myplaceinfo.More")}</a></span>}>
-                    {info.abstract}
-                  </Truncate>
-                </div>
+            <div className="baseText">
+              <div className="abstractPopup">
+                {info.abstract}<br />
+                <a target="_new" href={info.link} rel="noopener">Art. Wikipedia</a>
               </div>
+            </div>
             </div>}
         </div>
       );
@@ -141,7 +140,7 @@ class MyPlaceInfo extends Component {
           {popupActive &&
             <div className="mapboxgl-popupup  popPupStyle">
               <div className="baseText">
-                <div className="baseInfo">
+                {/* <div className="baseInfo"> */}
                   <div className="titleText">
                     <HomeIcon style={styles} alt={layerId} title={layerId} />
                     {info.label}
@@ -154,7 +153,7 @@ class MyPlaceInfo extends Component {
                     <RenderUrl url={info.url} />
                     <RenderAddress info={info} />
                   </div>
-                </div>
+                {/* </div> */}
               </div>
             </div>}
         </div>
@@ -170,7 +169,7 @@ class MyPlaceInfo extends Component {
         <div>
           {popupActive &&
             <div className="mapboxgl-popupup popPupStyle">
-              <div className="baseInfo">
+              {/* <div className="baseInfo"> */}
                 <div className="baseText">
                   <div className="titleText">
                     <HomeIcon style={styles} alt={layerId} title={layerId} />
@@ -186,7 +185,7 @@ class MyPlaceInfo extends Component {
                     <RenderAddress info={info} />
                   </div>
                 </div>
-              </div>
+              {/* </div> */}
             </div>}
         </div>
       );
@@ -201,7 +200,7 @@ class MyPlaceInfo extends Component {
         <div>
           {popupActive &&
             <div className="mapboxgl-popupup popPupStyle">
-              <div className="baseInfo">
+              {/* <div className="baseInfo"> */}
                 <div className="baseText">
                   <div className="titleText">
                     {info.label}<br />
@@ -215,7 +214,7 @@ class MyPlaceInfo extends Component {
                   </div>
                 </div>
                 <a target="_new" href={link} rel="noopener">{t("myplaceinfo.website")}</a>
-              </div>
+              {/* </div> */}
             </div>}
         </div>
       );

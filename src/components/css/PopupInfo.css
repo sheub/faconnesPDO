@@ -16,9 +16,16 @@
     margin-left: 6px;
     margin-bottom: 6px;
     margin-top: 6px;
+    padding-left: 3px;
+    padding-right: 3px;
     color: black;
-    /* text-align: justify; // Does not work with Truncate
+    /* text-align: justify;
     text-justify: inter-word; */
+}
+.baseInfo {
+    padding-left: 3px;
+    padding-right: 3px;
+    width: 100%;
 }
 
 .titleText {
@@ -185,11 +192,6 @@
 	border-radius: 50%;
 
 } */
-.baseInfo {
-    padding-left: 3px;
-    padding-right: 3px;
-    width: 100%;
-}
 
 @media screen and (max-width: 600px) {
     .mapboxgl-popupup {

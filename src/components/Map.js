@@ -504,7 +504,12 @@ class MapComponent extends Component {
         monumentsnationaux: "Monuments_Nationaux.geojson",
         grandSiteDeFrance: "Grand_Site_de_France.geojson",
         jardinremarquable: "Jardin_Remarquable.geojson",
-        plusBeauxVillagesDeFrance: "Plus_Beaux_Villages_de_France.geojson"
+        plusBeauxVillagesDeFrance: "Plus_Beaux_Villages_de_France.geojson",
+        marches: "marches.json",
+        exposition: "exposition.json",
+        musique: "musique.json",
+        children: "children.json",
+        videsgreniers: "videsGreniers.json"
       }
     } else
       if (["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(dataStr) && lng === 'en') {
@@ -513,7 +518,12 @@ class MapComponent extends Component {
           monumentsnationaux: "Monuments_Nationaux_en.geojson",
           grandSiteDeFrance: "Grand_Site_de_France_en.geojson",
           jardinremarquable: "Jardin_Remarquable_en.geojson",
-          plusBeauxVillagesDeFrance: "Plus_Beaux_Villages_de_France_en.geojson"
+          plusBeauxVillagesDeFrance: "Plus_Beaux_Villages_de_France_en.geojson",
+          marches: "marches_en.json",
+          exposition: "exposition_en.json",
+          musique: "musique_en.json",
+          children: "children_en.json",
+          videsgreniers: "videsGreniers_en.json"
         }
       }
 
