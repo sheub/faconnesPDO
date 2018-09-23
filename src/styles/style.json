@@ -15,12 +15,13 @@
         4.406521801572808,
         46.91718645170806
     ],
+    "bounds": [-15.06, 34.07, 24.32, 55.11],
     "zoom": 5.471187326585468,
     "bearing": 0,
     "pitch": 0,
     "sources": {
         "composite": {
-            "url": "mapbox://mapbox.mapbox-streets-v7?optimize=true,sheub.623zkazi,sheub.9e12f1eo,sheub.craftmanShop,sheub.ParcsJardins,sheub.localProductShop",
+            "url": "mapbox://mapbox.mapbox-streets-v7?optimize=true",
             "type": "vector"
         },
         "mycomposite": {

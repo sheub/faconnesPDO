@@ -57,7 +57,9 @@ class MapComponent extends Component {
       center: [2, 46.5],
       zoom: 5,
       minZoom: 2,
-      maxZoom: 21
+      maxZoom: 21,
+      maxBounds: [-15.06, 34.07, 24.32, 55.11],
+
     });
 
     this.map = map;
@@ -330,12 +332,12 @@ class MapComponent extends Component {
       if (this.props.moveOnLoad) this.moveTo(geometry, 6);
     };
 
-    // Create scale control
-    const scaleControl = new mapboxgl.ScaleControl({
-      maxWidth: 80,
-      unit: 'metric'
-    });
-    this.map.addControl(scaleControl, 'bottom-right');
+    // // Create scale control
+    // const scaleControl = new mapboxgl.ScaleControl({
+    //   maxWidth: 80,
+    //   unit: 'metric'
+    // });
+    // this.map.addControl(scaleControl, 'bottom-right');
 
     // Create geolocation control
     const geolocateControl = new mapboxgl.GeolocateControl();
@@ -369,7 +371,7 @@ class MapComponent extends Component {
       this.props.setStateValue('mapCoords', [center.lng, center.lat, zoom]);
     });
 
-    this.filterByDate(new Date().getTime());
+    // this.filterByDate(new Date().getTime());
 
     this.initLayerVisibility();
 
@@ -405,7 +407,7 @@ class MapComponent extends Component {
         if (["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(layerSelector[key].source)) {
           this.loadJsonData(layerSelector[key].source);
         }
-      } else {
+      } else { // set Empty Data to sources
         this.map.setLayoutProperty(layerSelector[key].source, 'visibility', 'none');
         if (["marches", "exposition", "musique", "children", "videsgreniers",
           "plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance",
@@ -498,7 +500,7 @@ class MapComponent extends Component {
     };
     var lng = this.props.languageSet;
 
-    if (["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(dataStr) && lng === 'fr') {
+    if (["marches", "exposition", "musique", "children", "videsgreniers", "plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(dataStr) && lng === 'fr') {
       AllData = {
         patrimoinemondialenfrance: "Patrimoine_Mondial_en_France.geojson",
         monumentsnationaux: "Monuments_Nationaux.geojson",
@@ -512,7 +514,7 @@ class MapComponent extends Component {
         videsgreniers: "videsGreniers.json"
       }
     } else
-      if (["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(dataStr) && lng === 'en') {
+      if (["marches", "exposition", "musique", "children", "videsgreniers", "plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(dataStr) && lng === 'en') {
         AllData = {
           patrimoinemondialenfrance: "Patrimoine_Mondial_en_France_en.geojson",
           monumentsnationaux: "Monuments_Nationaux_en.geojson",
