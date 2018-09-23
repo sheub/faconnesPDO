@@ -401,15 +401,15 @@ class MapComponent extends Component {
     Object.keys(this.props.visibility).forEach(key => {
       if (this.props.visibility[key]) {
         this.map.setLayoutProperty(layerSelector[key].source, 'visibility', 'visible');
-        if (["marches", "exposition", "musique", "children", "videsgreniers"].includes(layerSelector[key].source)) {
+        if (["parcsjardins", "localproductshop", "craftmanshop", "marches", "exposition", "musique", "children", "videsgreniers"].includes(layerSelector[key].source)) {
           this.loadJsonData(layerSelector[key].source);
         }
-        if (["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(layerSelector[key].source)) {
+        if (["parcsjardins", "localproductshop", "craftmanshop", "plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(layerSelector[key].source)) {
           this.loadJsonData(layerSelector[key].source);
         }
       } else { // set Empty Data to sources
         this.map.setLayoutProperty(layerSelector[key].source, 'visibility', 'none');
-        if (["marches", "exposition", "musique", "children", "videsgreniers",
+        if (["parcsjardins", "localproductshop", "craftmanshop", "marches", "exposition", "musique", "children", "videsgreniers",
           "plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance",
           "monumentsnationaux", "patrimoinemondialenfrance"].includes(layerSelector[key].source)) {
           this.setEmptyData(layerSelector[key].source);
@@ -464,7 +464,7 @@ class MapComponent extends Component {
 
     } else {
       this.map.setLayoutProperty(toggleLayerVisibility, 'visibility', 'visible');
-      if( ["marches", "exposition", "musique", "children", "videsgreniers"].includes(toggleLayerVisibility)){
+      if( ["parcsjardins", "localproductshop", "craftmanshop", "marches", "exposition", "musique", "children", "videsgreniers"].includes(toggleLayerVisibility)){
         this.loadJsonData(toggleLayerVisibility);
       }
       if( ["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(toggleLayerVisibility)){
@@ -500,13 +500,16 @@ class MapComponent extends Component {
     };
     var lng = this.props.languageSet;
 
-    if (["marches", "exposition", "musique", "children", "videsgreniers", "plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(dataStr) && lng === 'fr') {
+    if (["parcsjardins", "localproductshop", "craftmanshop", "marches", "exposition", "musique", "children", "videsgreniers", "plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(dataStr) && lng === 'fr') {
       AllData = {
         patrimoinemondialenfrance: "Patrimoine_Mondial_en_France.geojson",
         monumentsnationaux: "Monuments_Nationaux.geojson",
         grandSiteDeFrance: "Grand_Site_de_France.geojson",
         jardinremarquable: "Jardin_Remarquable.geojson",
         plusBeauxVillagesDeFrance: "Plus_Beaux_Villages_de_France.geojson",
+        parcsjardins: "ParcsJardins.json",
+        localproductshop: "localProductShop.json",
+        craftmanshop: "craftmanShop.json", 
         marches: "marches.json",
         exposition: "exposition.json",
         musique: "musique.json",
@@ -514,13 +517,16 @@ class MapComponent extends Component {
         videsgreniers: "videsGreniers.json"
       }
     } else
-      if (["marches", "exposition", "musique", "children", "videsgreniers", "plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(dataStr) && lng === 'en') {
+      if (["parcsjardins", "localproductshop", "craftmanshop", "marches", "exposition", "musique", "children", "videsgreniers", "plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(dataStr) && lng === 'en') {
         AllData = {
           patrimoinemondialenfrance: "Patrimoine_Mondial_en_France_en.geojson",
           monumentsnationaux: "Monuments_Nationaux_en.geojson",
           grandSiteDeFrance: "Grand_Site_de_France_en.geojson",
           jardinremarquable: "Jardin_Remarquable_en.geojson",
           plusBeauxVillagesDeFrance: "Plus_Beaux_Villages_de_France_en.geojson",
+          parcsjardins: "ParcsJardins_en.json",
+          localproductshop: "localProductShop_en.json",
+          craftmanshop: "craftmanShop_en.json", 
           marches: "marches_en.json",
           exposition: "exposition_en.json",
           musique: "musique_en.json",

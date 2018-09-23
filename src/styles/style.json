@@ -95,6 +95,27 @@
                 "features": []
             }
         },
+        "craftmanshop": {
+            "type": "geojson",
+            "data": {
+                "type": "FeatureCollection",
+                "features": []
+            }
+        },
+        "localproductshop": {
+            "type": "geojson",
+            "data": {
+                "type": "FeatureCollection",
+                "features": []
+            }
+        },
+        "parcsjardins": {
+            "type": "geojson",
+            "data": {
+                "type": "FeatureCollection",
+                "features": []
+            }
+        },
         "patrimoinemondialenfrance": {
             "type": "geojson",
             "data": {
@@ -2898,8 +2919,7 @@
         {
             "id": "localproductshop",
             "type": "symbol",
-            "source": "mycomposite",
-            "source-layer": "localProductShop",
+            "source": "localproductshop",
             "layout": {
                 "visibility": "none",
                 "text-line-height": 1,
@@ -2921,8 +2941,7 @@
         {
             "id": "craftmanshop",
             "type": "symbol",
-            "source": "mycomposite",
-            "source-layer": "craftmanShop",
+            "source": "craftmanshop",
             "layout": {
                 "visibility": "none",
                 "text-line-height": 1,
@@ -2944,8 +2963,7 @@
         {
             "id": "parcsjardins",
             "type": "symbol",
-            "source": "mycomposite",
-            "source-layer": "ParcsJardins",
+            "source": "parcsjardins",
             "layout": {
                 "visibility": "none",
                 "text-line-height": 1,
