@@ -27,18 +27,33 @@
         "childrensCorner": "Children's Corner",
         "markets": "Marchés",
         "fleaMarket": "Vide-greniers",
-        "startfrom":"À partir de",
+        "startfrom": "À partir de",
         "lastuntil": "Jusqu'au",
         "dateformat": "d MMM YYYY"
-        
     },
-    "myplaceinfo":{
+    "myplaceinfo": {
         "postcode": "Code Postal",
         "website": "website",
         "More": "More",
         "from": "Du",
         "to": "au",
         "le": "Le"
+    },
+    "maplayerids": {
+        "liste-et-localisation-des-mus-5iczl9": "Musée",
+        "plusBeauxVillagesDeFrance": "Villages",
+        "patrimoinemondialenfrance": "Unesco",
+        "jardinremarquable": "Jardins Remarquables",
+        "grandSiteDeFrance": "Grands Sites",
+        "monumentsnationaux": "Monuments Nationaux",
+        "parcsjardins": "Parcs et jardins",
+        "localproductshop": "Commerce Local",
+        "craftmanshop": "Atelier artisanal",
+        "exposition": "Exposition",
+        "musique": "Musique",
+        "children": "Enfants",
+        "marches": "Marchés",
+        "videsgreniers": "Vide-greniers"
     },
     "search": "rechercher",
     "about": "À propos",

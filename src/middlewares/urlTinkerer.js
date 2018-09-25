@@ -104,11 +104,22 @@ function getActionPayload(key, value) {
       coords: value
     };
   } else if (key === 'searchLocation' && typeof value.properties !== "undefined") {
+
+    let theSearchPlace = "";
+    if (typeof (value.properties.label) !== "undefined") {
+      theSearchPlace = value.properties.label.split(',')[0];
+    }
+
+    else if (typeof (value.properties.name) !== "undefined") {
+      theSearchPlace = value.properties.name;
+    }
+
     actionPayload = {
       searchCoords: value.geometry.coordinates,
       // searchPlace: value.place_name.split(',')[0]
       //searchPlace: value.label.split(',')[0]
-      searchPlace: value.properties.label.split(',')[0]
+      searchPlace: theSearchPlace
+
     };
   }
   return actionPayload;

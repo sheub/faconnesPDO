@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
+import { translate } from "react-i18next";
+
 import {connect} from 'react-redux';
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl';
 import MapboxLanguage from "@mapbox/mapbox-gl-language";
@@ -7,6 +9,7 @@ import turfBbox from "@turf/bbox";
 import turfBboxPolygon from '@turf/bbox-polygon';
 import turfBuffer from '@turf/buffer';
 import turfDistance from '@turf/distance';
+
 import {push} from 'react-router-redux';
 import {
   setStateValue,
@@ -43,7 +46,9 @@ class MapComponent extends Component {
   render() {
     return (
       // <div id='map' className='viewport-full'>
-      <div id="map">
+      <div>
+        <div id="map"></div>
+        <div className='map-overlay' id='legend'></div>
       </div>
     );
   }
@@ -77,7 +82,11 @@ class MapComponent extends Component {
     // Search mode
     if (this.props.mode === 'search') {
       if (this.props.searchLocation) {
-        if (this.props.searchLocation.geometry) this.map.getSource('marker').setData(this.props.searchLocation.geometry);
+        if (this.props.searchLocation.geometry) {
+          let markerSource = this.map.getSource('marker')
+          if (typeof (markerSource) === "undefined") { return }
+          this.map.getSource('marker').setData(this.props.searchLocation.geometry);
+        }
       } else {
         this.map.getSource('marker').setData(this.emptyData);
       }
@@ -255,11 +264,11 @@ class MapComponent extends Component {
     // Unbind mouse events
     this.map.off('mousemove', this.state.mouseMoveFn);
 
-    this.props.getReverseGeocode(
-      this.layerToKey(this.state.draggedLayer),
-      this.state.draggedCoords,
-      this.props.accessToken
-    );
+    // this.props.getReverseGeocode(
+    //   this.layerToKey(this.state.draggedLayer),
+    //   this.state.draggedCoords,
+    //   this.props.accessToken
+    // );
 
     this.onceMove(e, 'idle');
     this.setState({isDragging: false, draggedLayer: '', draggedCoords: null});
@@ -332,12 +341,16 @@ class MapComponent extends Component {
       if (this.props.moveOnLoad) this.moveTo(geometry, 6);
     };
 
-    // // Create scale control
-    // const scaleControl = new mapboxgl.ScaleControl({
-    //   maxWidth: 80,
-    //   unit: 'metric'
-    // });
-    // this.map.addControl(scaleControl, 'bottom-right');
+    // Create scale control
+    if (window.innerWidth > 320) {
+      const scaleControl = new mapboxgl.ScaleControl({
+        maxWidth: 80,
+        unit: 'metric'
+      });
+      this.map.addControl(scaleControl, 'bottom-left');
+
+      this.map.addControl(new mapboxgl.NavigationControl(), "bottom-left");
+    }
 
     // Create geolocation control
     const geolocateControl = new mapboxgl.GeolocateControl();
@@ -401,11 +414,12 @@ class MapComponent extends Component {
     Object.keys(this.props.visibility).forEach(key => {
       if (this.props.visibility[key]) {
         this.map.setLayoutProperty(layerSelector[key].source, 'visibility', 'visible');
-        if (["parcsjardins", "localproductshop", "craftmanshop", "marches", "exposition", "musique", "children", "videsgreniers"].includes(layerSelector[key].source)) {
+        // if (["marches", "exposition", "musique", "children", "videsgreniers"].includes(layerSelector[key].source)) {
+        //   this.loadJsonData(layerSelector[key].source);
+        // }
+        if (["marches", "exposition", "musique", "children", "videsgreniers","parcsjardins", "localproductshop", "craftmanshop", "plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(layerSelector[key].source)) {
           this.loadJsonData(layerSelector[key].source);
-        }
-        if (["parcsjardins", "localproductshop", "craftmanshop", "plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(layerSelector[key].source)) {
-          this.loadJsonData(layerSelector[key].source);
+          this.addLegendItem(layerSelector[key].source);
         }
       } else { // set Empty Data to sources
         this.map.setLayoutProperty(layerSelector[key].source, 'visibility', 'none');
@@ -416,7 +430,6 @@ class MapComponent extends Component {
         }
       }
     });
-
   }
 
   updateStyle(styleString) {
@@ -461,17 +474,71 @@ class MapComponent extends Component {
     var visibility = this.map.getLayoutProperty(toggleLayerVisibility, 'visibility');
     if (visibility === 'visible') {
       this.map.setLayoutProperty(toggleLayerVisibility, 'visibility', 'none');
+      this.removeLegendItem(toggleLayerVisibility);
 
     } else {
       this.map.setLayoutProperty(toggleLayerVisibility, 'visibility', 'visible');
       if( ["parcsjardins", "localproductshop", "craftmanshop", "marches", "exposition", "musique", "children", "videsgreniers"].includes(toggleLayerVisibility)){
         this.loadJsonData(toggleLayerVisibility);
+        this.addLegendItem(toggleLayerVisibility);
       }
       if( ["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(toggleLayerVisibility)){
         this.loadJsonData(toggleLayerVisibility);
+        this.addLegendItem(toggleLayerVisibility);
       }
     }
+  }
 
+  addLegendItem(idLayer) {
+    const { t } = this.props;
+    var legend = document.getElementById('legend');
+
+    let itemId = "lgnSpan" + idLayer;
+    var item = document.getElementById(itemId);
+    /*if element already there (because of language switch -> simply translate)*/
+    if(item!=null){
+      item.innerHTML =  t("maplayerids." + idLayer);
+      return;
+    }    
+
+    
+    let mapLayer = this.map.getLayer(idLayer);
+    var color;
+    item = document.createElement('div');
+    var key = document.createElement('span');
+
+    if(mapLayer.type === "symbol"){
+      color = mapLayer.paint._values["text-color"].value.value;
+      key.style.color = color
+      key.textContent = mapLayer.layout._values["text-field"].value.value;
+    }
+    else
+    {
+      color = mapLayer.paint._values["circle-color"].value.value;
+      key.style.backgroundColor = color;
+    }
+
+    key.className = 'legend-key';
+    
+
+    var value = document.createElement('span');
+    value.innerHTML =  t("maplayerids." + idLayer);
+    value.id = "lgnSpan" + idLayer; 
+
+    item.id = "lgn" + idLayer;
+    item.appendChild(key);
+    item.appendChild(value);
+    legend.appendChild(item);
+  }
+
+  removeLegendItem(idLayer) {
+    // let mapLayer = this.map.getLayer(idLayer);
+    var legend = document.getElementById('legend');
+    let itemId = "lgn" + idLayer;
+    var item = document.getElementById(itemId);
+    if (item !== null) {
+      legend.removeChild(item);
+    }
   }
 
   setEmptyData(dataStr){
@@ -492,11 +559,6 @@ class MapComponent extends Component {
 
 
     let AllData = {
-      marches: "marches.json",
-      exposition: "exposition.json",
-      musique: "musique.json",
-      children: "children.json",
-      videsgreniers: "videsGreniers.json"
     };
     var lng = this.props.languageSet;
 
@@ -586,6 +648,7 @@ class MapComponent extends Component {
       // 'poi-parks-scalerank3',
       // 'poi-scalerank4',
       // 'poi-parks-scalerank4',
+      "france-wiki2-dw4zq5",
       "liste-et-localisation-des-mus-5iczl9",
       "plusBeauxVillagesDeFrance",
       "patrimoinemondialenfrance",
@@ -686,4 +749,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(MapComponent);
+)(translate("translations")(MapComponent));

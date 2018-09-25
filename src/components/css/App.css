@@ -1,3 +1,4 @@
+
 .App {
   text-align: center;
 }
@@ -53,3 +54,46 @@
       bottom:0;
   }
 }
+
+.map-overlay {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.8);
+  margin-right: 10px;
+  /* font-family: Arial, sans-serif; */
+  overflow: auto;
+  border-radius: 3px;
+}
+
+#legend {
+  padding: 10px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  line-height: 18px;
+  height: fit-content;
+  margin-bottom: 64px;
+  width:  fit-content;
+}
+
+.legend-key {
+  display: inline-block;
+  border-radius: 20%;
+  width: 10px;
+  height: 10px;
+  margin-right: 5px;
+  font-family: "FontAwesome";
+
+  /* font-style: normal; */
+  font-weight: bolder; 
+}
+
+@media only screen and (max-width: 640px) {
+  #legend {
+    margin-bottom: 79px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  #legend { display: none;}
+}
+

@@ -25,7 +25,7 @@
             "type": "vector"
         },
         "mycomposite": {
-            "url": "mapbox://sheub.623zkazi,sheub.9e12f1eo,sheub.craftmanShop,sheub.ParcsJardins,sheub.localProductShop",
+            "url": "mapbox://sheub.623zkazi,sheub.9e12f1eo,sheub.7ttpvoqh,sheub.9fhdpwo7,sheub.craftmanShop,sheub.ParcsJardins,sheub.localProductShop",
             "type": "vector"
         },
         "traffic": {
@@ -2051,576 +2051,6 @@
             }
         },
         {
-            "id": "rail-label",
-            "type": "symbol",
-            "source": "composite",
-            "source-layer": "rail_station_label",
-            "minzoom": 12,
-            "filter": [
-                "!=",
-                "maki",
-                "entrance"
-            ],
-            "layout": {
-                "text-line-height": 1.1,
-                "text-size": {
-                    "base": 1,
-                    "stops": [
-                        [
-                            14,
-                            11
-                        ],
-                        [
-                            20,
-                            16
-                        ]
-                    ]
-                },
-                "icon-image": "{network}",
-                "text-ignore-placement": {
-                    "base": 1,
-                    "stops": [
-                        [
-                            14,
-                            true
-                        ],
-                        [
-                            15,
-                            false
-                        ]
-                    ]
-                },
-                "symbol-spacing": 250,
-                "text-font": [
-                    "Roboto Medium",
-                    "Arial Unicode MS Regular"
-                ],
-                "text-offset": [
-                    0,
-                    0.85
-                ],
-                "text-rotation-alignment": "viewport",
-                "text-anchor": "top",
-                "text-field": {
-                    "base": 1,
-                    "stops": [
-                        [
-                            0,
-                            ""
-                        ],
-                        [
-                            13,
-                            "{name_en}"
-                        ]
-                    ]
-                },
-                "text-letter-spacing": 0.01,
-                "icon-padding": 0,
-                "text-max-width": 7
-            },
-            "paint": {
-                "text-color": "hsl(230, 48%, 50%)",
-                "text-halo-color": "hsla(0, 0%, 100%, 0.6)",
-                "text-halo-width": 1,
-                "icon-halo-width": 4,
-                "icon-halo-color": "#fff",
-                "text-opacity": {
-                    "base": 1,
-                    "stops": [
-                        [
-                            14.99,
-                            0
-                        ],
-                        [
-                            15,
-                            1
-                        ]
-                    ]
-                }
-            }
-        },
-        {
-            "id": "poi-parks-scalerank1",
-            "type": "symbol",
-            "source": "composite",
-            "source-layer": "poi_label",
-            "filter": [
-                "all",
-                [
-                    "<=",
-                    "scalerank",
-                    1
-                ],
-                [
-                    "in",
-                    "maki",
-                    "campsite",
-                    "cemetery",
-                    "dog-park",
-                    "garden",
-                    "golf",
-                    "park",
-                    "picnic-site",
-                    "playground",
-                    "zoo"
-                ]
-            ],
-            "layout": {
-                "text-line-height": 1,
-                "text-size": {
-                    "base": 1,
-                    "stops": [
-                        [
-                            10,
-                            11
-                        ],
-                        [
-                            18,
-                            16
-                        ]
-                    ]
-                },
-                "text-max-angle": 38,
-                "symbol-spacing": 250,
-                "text-font": [
-                    "Roboto Medium",
-                    "Arial Unicode MS Regular"
-                ],
-                "text-padding": 0,
-                "text-offset": [
-                    0,
-                    0
-                ],
-                "text-rotation-alignment": "viewport",
-                "text-field": "{name_en}",
-                "text-letter-spacing": 0.01,
-                "text-max-width": 10
-            },
-            "paint": {
-                "text-color": "hsl(100, 100%, 23%)",
-                "text-halo-color": "hsla(0, 0%, 100%, 0.6)",
-                "text-halo-width": 1
-            }
-        },
-        {
-            "id": "poi-scalerank1",
-            "type": "symbol",
-            "source": "composite",
-            "source-layer": "poi_label",
-            "filter": [
-                "all",
-                [
-                    "!in",
-                    "maki",
-                    "campsite",
-                    "cemetery",
-                    "dog-park",
-                    "garden",
-                    "golf",
-                    "park",
-                    "picnic-site",
-                    "playground",
-                    "zoo"
-                ],
-                [
-                    "<=",
-                    "scalerank",
-                    1
-                ]
-            ],
-            "layout": {
-                "text-line-height": 1.1,
-                "text-size": {
-                    "base": 1,
-                    "stops": [
-                        [
-                            10,
-                            11
-                        ],
-                        [
-                            18,
-                            16
-                        ]
-                    ]
-                },
-                "icon-image": {
-                    "stops": [
-                        [
-                            12,
-                            "{maki}-11"
-                        ],
-                        [
-                            13,
-                            "{maki}-15"
-                        ]
-                    ]
-                },
-                "text-max-angle": 38,
-                "symbol-spacing": 250,
-                "text-font": [
-                    "Roboto Medium",
-                    "Arial Unicode MS Regular"
-                ],
-                "text-padding": 2,
-                "text-offset": [
-                    0,
-                    0.65
-                ],
-                "text-rotation-alignment": "viewport",
-                "text-anchor": "top",
-                "text-field": "{name_en}",
-                "text-letter-spacing": 0.01,
-                "text-max-width": 8
-            },
-            "paint": {
-                "text-color": "hsl(230, 48%, 50%)",
-                "text-halo-color": "hsla(0, 0%, 100%, 0.6)",
-                "text-halo-width": 1
-            }
-        },
-        {
-            "id": "poi-scalerank2",
-            "type": "symbol",
-            "source": "composite",
-            "source-layer": "poi_label",
-            "filter": [
-                "all",
-                [
-                    "!in",
-                    "maki",
-                    "campsite",
-                    "cemetery",
-                    "dog-park",
-                    "garden",
-                    "golf",
-                    "park",
-                    "picnic-site",
-                    "playground",
-                    "zoo"
-                ],
-                [
-                    "==",
-                    "scalerank",
-                    2
-                ]
-            ],
-            "layout": {
-                "text-line-height": 1.1,
-                "text-size": {
-                    "base": 1,
-                    "stops": [
-                        [
-                            12,
-                            11
-                        ],
-                        [
-                            20,
-                            16
-                        ]
-                    ]
-                },
-                "icon-image": {
-                    "stops": [
-                        [
-                            13,
-                            "{maki}-11"
-                        ],
-                        [
-                            14,
-                            "{maki}-15"
-                        ]
-                    ]
-                },
-                "text-max-angle": 38,
-                "symbol-spacing": 250,
-                "text-font": [
-                    "Roboto Medium",
-                    "Arial Unicode MS Regular"
-                ],
-                "text-padding": 2,
-                "text-offset": [
-                    0,
-                    0.65
-                ],
-                "text-rotation-alignment": "viewport",
-                "text-anchor": "top",
-                "text-field": "{name_en}",
-                "text-letter-spacing": 0.01,
-                "text-max-width": 8
-            },
-            "paint": {
-                "text-color": "hsl(230, 48%, 50%)",
-                "text-halo-color": "hsla(0, 0%, 100%, 0.6)",
-                "text-halo-width": 1
-            }
-        },
-        {
-            "id": "poi-parks-scalerank2",
-            "type": "symbol",
-            "source": "composite",
-            "source-layer": "poi_label",
-            "filter": [
-                "all",
-                [
-                    "==",
-                    "scalerank",
-                    2
-                ],
-                [
-                    "in",
-                    "maki",
-                    "campsite",
-                    "cemetery",
-                    "dog-park",
-                    "garden",
-                    "golf",
-                    "park",
-                    "picnic-site",
-                    "playground",
-                    "zoo"
-                ]
-            ],
-            "layout": {
-                "text-line-height": 1,
-                "text-size": {
-                    "base": 1,
-                    "stops": [
-                        [
-                            12,
-                            11
-                        ],
-                        [
-                            20,
-                            16
-                        ]
-                    ]
-                },
-                "text-max-angle": 38,
-                "symbol-spacing": 250,
-                "text-font": [
-                    "Roboto Medium",
-                    "Arial Unicode MS Regular"
-                ],
-                "text-padding": 0,
-                "text-offset": [
-                    0,
-                    0
-                ],
-                "text-rotation-alignment": "viewport",
-                "text-field": "{name_en}",
-                "text-letter-spacing": 0.01,
-                "text-max-width": 8
-            },
-            "paint": {
-                "text-color": "hsl(100, 100%, 23%)",
-                "text-halo-color": "hsla(0, 0%, 100%, 0.6)",
-                "text-halo-width": 1
-            }
-        },
-        {
-            "id": "poi-scalerank3",
-            "type": "symbol",
-            "source": "composite",
-            "source-layer": "poi_label",
-            "filter": [
-                "all",
-                [
-                    "!in",
-                    "maki",
-                    "campsite",
-                    "cemetery",
-                    "dog-park",
-                    "garden",
-                    "golf",
-                    "park",
-                    "picnic-site",
-                    "playground",
-                    "zoo"
-                ],
-                [
-                    "==",
-                    "scalerank",
-                    3
-                ]
-            ],
-            "layout": {
-                "text-line-height": 1.1,
-                "text-size": {
-                    "base": 1,
-                    "stops": [
-                        [
-                            14,
-                            11
-                        ],
-                        [
-                            20,
-                            16
-                        ]
-                    ]
-                },
-                "icon-image": {
-                    "base": 1,
-                    "stops": [
-                        [
-                            14,
-                            "{maki}-11"
-                        ],
-                        [
-                            15,
-                            "{maki}-15"
-                        ]
-                    ]
-                },
-                "text-max-angle": 38,
-                "symbol-spacing": 250,
-                "text-font": [
-                    "Roboto Medium",
-                    "Arial Unicode MS Regular"
-                ],
-                "text-padding": 1,
-                "text-offset": [
-                    0,
-                    0.65
-                ],
-                "text-rotation-alignment": "viewport",
-                "text-anchor": "top",
-                "text-field": "{name_en}",
-                "text-letter-spacing": 0.01,
-                "text-max-width": 8
-            },
-            "paint": {
-                "text-color": "hsl(230, 48%, 50%)",
-                "text-halo-color": "hsla(0, 0%, 100%, 0.6)",
-                "text-halo-width": 1
-            }
-        },
-        {
-            "id": "poi-parks-scalerank3",
-            "type": "symbol",
-            "source": "composite",
-            "source-layer": "poi_label",
-            "filter": [
-                "all",
-                [
-                    "==",
-                    "scalerank",
-                    3
-                ],
-                [
-                    "in",
-                    "maki",
-                    "campsite",
-                    "cemetery",
-                    "dog-park",
-                    "garden",
-                    "golf",
-                    "park",
-                    "picnic-site",
-                    "playground",
-                    "zoo"
-                ]
-            ],
-            "layout": {
-                "text-line-height": 1.1,
-                "text-size": {
-                    "base": 1,
-                    "stops": [
-                        [
-                            14,
-                            11
-                        ],
-                        [
-                            20,
-                            16
-                        ]
-                    ]
-                },
-                "text-max-angle": 38,
-                "symbol-spacing": 250,
-                "text-font": [
-                    "Roboto Medium",
-                    "Arial Unicode MS Regular"
-                ],
-                "text-padding": 0,
-                "text-offset": [
-                    0,
-                    0
-                ],
-                "text-rotation-alignment": "viewport",
-                "text-field": "{name_en}",
-                "text-letter-spacing": 0.01,
-                "text-max-width": 8
-            },
-            "paint": {
-                "text-color": "hsl(100, 100%, 23%)",
-                "text-halo-color": "hsla(0, 0%, 100%, 0.6)",
-                "text-halo-width": 1
-            }
-        }, {
-            "id": "poi-scalerank4",
-            "type": "symbol",
-            "source": "composite",
-            "source-layer": "poi_label",
-            "minzoom": 17,
-            "filter": [
-                "all",
-                [
-                    "<=",
-                    "localrank",
-                    14
-                ],
-                [
-                    "==",
-                    "scalerank",
-                    4
-                ],
-                [
-                    "in",
-                    "maki",
-                    "fuel",
-                    "information"
-                ]
-            ],
-            "layout": {
-                "text-line-height": 1.1,
-                "text-size": {
-                    "base": 1,
-                    "stops": [
-                        [
-                            16,
-                            11.5
-                        ],
-                        [
-                            20,
-                            15
-                        ]
-                    ]
-                },
-                "icon-image": "{maki}-15",
-                "text-max-angle": 38,
-                "symbol-spacing": 250,
-                "text-font": [
-                    "Roboto Medium",
-                    "Arial Unicode MS Regular"
-                ],
-                "text-padding": 1,
-                "text-offset": [
-                    0,
-                    0.65
-                ],
-                "text-rotation-alignment": "viewport",
-                "text-anchor": "top",
-                "text-field": "{name_en}",
-                "text-letter-spacing": 0.01,
-                "text-max-width": 8
-            },
-            "paint": {
-                "text-color": "hsl(230, 48%, 50%)",
-                "text-halo-color": "hsla(0, 0%, 100%, 0.6)",
-                "text-halo-width": 1
-            }
-        },
-        {
             "id": "route-casing",
             "source": "route",
             "type": "line",
@@ -2778,6 +2208,32 @@
             }
         },
         {
+            "id": "france-wiki2-dw4zq5",
+            "type": "symbol",
+            "source": "mycomposite",
+            "source-layer": "France_wiki2_-dw4zq5",
+            "minzoom": 15,
+            "layout": {
+                "visibility": "visible",
+                "text-field": ["to-string", ["get", "name"]],
+                "text-font": ["Roboto Regular", "Arial Unicode MS Regular"],
+                "icon-image": "star-11",
+                "text-max-width": 12,
+                "text-line-height": 1,
+                "text-offset": [0, 2],
+                "text-size": [
+                    "interpolate",
+                    ["linear"],
+                    ["zoom"],
+                    10,
+                    11,
+                    18,
+                    13
+                ]
+            },
+            "paint": {"text-color": "hsl(206, 38%, 13%)"}
+        },
+        {
             "id": "patrimoinemondialenfrance",
             "source": "patrimoinemondialenfrance",
             "type": "symbol",
@@ -2885,35 +2341,6 @@
             },
             "paint": {
                 "text-color": "#33baab"
-            }
-        },
-        {
-            "id": "ne-10m-admin-0-countries-1bmnl8",
-            "type": "fill",
-            "source": "mycomposite",
-            "source-layer": "ne_10m_admin_0_countries-1bmnl8",
-            "filter": [
-                "==",
-                "$type",
-                "Polygon"
-            ],
-            "layout": {
-                "visibility": "visible"
-            },
-            "paint": {
-                "fill-opacity": [
-                    "case",
-                    [
-                        "!=",
-                        [
-                            "get",
-                            "NAME_LONG"
-                        ],
-                        "France"
-                    ],
-                    0.24,
-                    0
-                ]
             }
         },
         {
@@ -6131,6 +5558,14 @@
                     ]
                 }
             }
+        },
+        {
+            "id": "FranceDiffHD-bvoty8",
+            "type": "fill",
+            "source": "mycomposite",
+            "source-layer": "FranceDiffHD-bvoty8",
+            "layout": {},
+            "paint": {"fill-color": "hsl(209, 0%, 0%)", "fill-opacity": 0.33}
         }
 
     ],

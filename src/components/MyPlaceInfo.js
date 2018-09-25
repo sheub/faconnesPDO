@@ -220,6 +220,50 @@ class MyPlaceInfo extends Component {
       );
     }
 
+    if ("france-wiki2-dw4zq5".includes(layerId)) {
+      var other_Tags = info.other_tags;
+      var startWikidata = other_Tags.indexOf("wikidata");
+      startWikidata = other_Tags.indexOf("=>", startWikidata + 1) + 3;
+      let endWikidata = other_Tags.indexOf(",", startWikidata + 1) - 1;
+
+      let wikidata = other_Tags.substring(startWikidata, endWikidata);
+
+      var startWikipedia = other_Tags.indexOf("wikipedia");
+      startWikipedia = other_Tags.indexOf("=>", startWikipedia + 1) + 3;
+
+      let endWikipedia=0;
+      if(other_Tags.indexOf(",", startWikipedia + 1) > 0){
+        endWikipedia = other_Tags.indexOf(",", startWikipedia + 1) - 1;
+      }
+      else {endWikipedia = other_Tags.length - 1;}
+
+      let wikipedia = other_Tags.substring(startWikipedia, endWikipedia);
+
+
+      // let link = null;
+      // if (info.sitweb) {
+      //   link = info.sitweb.includes("http://") ? info.sitweb : "http://" + info.sitweb;
+      // }
+      return (
+        <div>
+          {popupActive &&
+            <div className="mapboxgl-popupup popPupStyle">
+                <div className="baseText">
+                  <div className="titleText">
+                    {wikipedia}<br />
+                  </div>
+                  <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.hidePopup()}><span aria-hidden="true">&times;</span></button>
+                  <div className="introtext">
+                    {wikidata}<br />
+                    {wikipedia}
+                  </div>
+                </div>
+                <a target="_new" href={link} rel="noopener">{t("myplaceinfo.website")}</a>
+            </div>}
+        </div>
+      );
+    }
+
     // Case: geocoder result
     if (info && this.props.info.geometry) {
       popupActive = this.props.isActive;

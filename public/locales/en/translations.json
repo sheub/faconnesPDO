@@ -40,6 +40,22 @@
         "to": "To",
         "le": " "
     },
+    "maplayerids": {
+        "liste-et-localisation-des-mus-5iczl9": "Museum",
+        "plusBeauxVillagesDeFrance": "Villages",
+        "patrimoinemondialenfrance": "Unesco",
+        "jardinremarquable": "Remarkable Gardens",
+        "grandSiteDeFrance": "Grands Sites",
+        "monumentsnationaux": "Monuments",
+        "parcsjardins": "Parcs & gardens",
+        "localproductshop": "Local product shop",
+        "craftmanshop": "Craftman shop",
+        "exposition": "Exhibition",
+        "musique": "Musique & shows",
+        "children": "Children's Corner",
+        "marches": "Markets",
+        "videsgreniers": "Flea Markets"
+    },
 
     "search": "Search",
     "about": "About",

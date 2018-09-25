@@ -3,13 +3,16 @@ import React, {Component} from 'react';
 
 class MyPlaceName extends Component {
   render() {
-    // var parts = this.props.location.place_name.split(', ');
     var parts = null;
-    if(this.props.location.properties)
-        {parts = this.props.location.properties.label.split(', ');}
+    if (this.props.location.properties) {
+      if (typeof (this.props.location.properties.label) !== "undefined") {
+        parts = this.props.location.properties.label.split(', ');
+      }
+
+      else if (typeof (this.props.location.properties.name) !== "undefined") { parts = this.props.location.properties.name; }
+    }
     else
-        if(this.props.location.place_name)
-            {parts = this.props.location.place_name.split(', ');}
+      if (this.props.location.place_name) { parts = this.props.location.place_name.split(', '); }
 
     if (parts.length < 1) return null;
 
