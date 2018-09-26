@@ -52,8 +52,6 @@ const drawerWidth = 270;
 const styles = (theme) => ({
 
   root: {
-    // display: "flex",
-    // flexGrow: 1,
     float: "left"
   },
   toolbarIcon: {
@@ -76,9 +74,7 @@ const styles = (theme) => ({
     marginLeft: 12,
     marginRight: 36
   },
-  // menuButtonHidden: {
-  //   display: "none"
-  // },
+
   title: {
     flexGrow: 0
   },
@@ -90,11 +86,11 @@ const styles = (theme) => ({
     display: "flex",
     paddingBottom: "100px",
     width: drawerWidth,
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-      // duration: 0//theme.transitions.duration.leavingScreen
-    }),
+    // transition: theme.transitions.create(["margin", "width"], {
+    //   easing: theme.transitions.easing.sharp,
+    //   duration: theme.transitions.duration.leavingScreen
+    //   // duration: 0//theme.transitions.duration.leavingScreen
+    // }),
     overflowX: "hidden",
     overflowY: "auto",
     "&:hover": {
@@ -106,72 +102,45 @@ const styles = (theme) => ({
   },
   drawerPaperClose: {
     overflowX: "hidden",
-    transition: theme.transitions.create("width", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    }),
+    // transition: theme.transitions.create("width", {
+    //   easing: theme.transitions.easing.sharp,
+    //   duration: theme.transitions.duration.leavingScreen
+    // }),
     width: 0,
   },
   collapses: {
     overflowY: "auto",
-    //     "&:hover": {
-    //   overflowY: "auto",
-    // },
-    // "&::-webkit-scrollbar": {
-    //   display: "none",
-    // },
+
   },
-  // appBarSpacer: theme.mixins.toolbar,
-  // content: {
-  //   flexGrow: 0,
-  //   padding: theme.spacing.unit * 0
-  // },
+
   icon: {
     width: 25,
     color: "#ff0000",
-    // verticalAlign: 'middle'
   },
 
-  // pickers: {
-  //   display: "flex",
-  //   justifyContent: "space-around",
-  // },
   expandIcons: {
     position: "absolute", right: "12px"
   },
-  // MuiInputInput: {
-  //   textAlign: "center"
-  // },
-
-  // container: {
-  //   display: "flex",
-  //   flexWrap: "wrap",
-  // },
-  // textField: {
-  //   marginLeft: theme.spacing.unit,
-  //   marginRight: theme.spacing.unit,
-  //   width: 200,
-  // },
 
   // Name of the component ⚛️
-  MuiListItemSecondaryAction: {
-    // The properties to apply
-    right: "10px",
-  },
-  MuiInput: {
-    textAlign: "inherit"
-  },
+  // MuiListItemSecondaryAction: {
+  //   // The properties to apply
+  //   right: "10px",
+  // },
+  // MuiInput: {
+  //   textAlign: "inherit"
+  // },
 
-  overrides: {
-    // Name of the component ⚛️
-    MuiListItemSecondaryAction: {
-      // The properties to apply
-      right: "10px",
-    },
-    MuiInput: {
-      textAlign: "inherit"
-    }
-  },
+  // overrides: {
+  //   // Name of the component ⚛️
+  //   MuiListItemSecondaryAction: {
+  //     // The properties to apply
+  //     right: "10px",
+  //   },
+  //   MuiInput: {
+  //     textAlign: "inherit"
+  //   }
+  // },
 
 });
 
@@ -208,11 +177,6 @@ class MyDrawer extends Component {
       dateTo: new Date() // Today plus one day
 
     };
-
-    // if (window.innerWidth < 600) {
-    //   // Close Drawer per default for small screens
-    //   this.state.open = false;
-    // }
   }
 
   handleDrawerOpen = () => {
@@ -287,11 +251,6 @@ class MyDrawer extends Component {
     this.props.triggerMapUpdate();
   }
 
-  // componentDidMount() {
-  //   //this.dateTo = this.dateTo.getDate() + 1;
-  //   //this.handleDateChange(Date());
-  // }
-
   render() {
     const { classes } = this.props;
     const { visibility} = this.state;
@@ -304,7 +263,6 @@ class MyDrawer extends Component {
             <React.Fragment>
               <div className={classes.root}>
                 <MyAppBar open={this.state.open} handleDrawerOpen={this.handleDrawerOpen} />
-                {/* ref={elem => (this.Drawer = elem)} */}
                 <Drawer variant="persistent" anchor='left' classes={{ paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose) }} open={this.state.open}>
                   <div className={classes.toolbarIcon}>
                     <IconButton onClick={this.handleDrawerClose} aria-label="Close drawer">
@@ -335,7 +293,6 @@ class MyDrawer extends Component {
                         </InputLabel>
                         <ListItemSecondaryAction>
                           <FaStar className={classes.icon} style={{ color: "#14222D" }} />
-                          {/* <img className={classes.icon} alt={t("drawer.unescoTitle")} title={t("drawer.unescoTitle")} src={UnescoIcon} /> */}
                         </ListItemSecondaryAction>
                       </ListItem>
 
@@ -376,7 +333,6 @@ class MyDrawer extends Component {
                         </InputLabel>
                         <ListItemSecondaryAction>
                         <FaStar className={classes.icon}  style={{ color: "#1f08a6" }} alt={t("drawer.monumentsTitle")} title={t("drawer.monumentsTitle")} />
-                          {/* <HomeIcon className={classes.icon} style={{ color: "#1f08a6" }} alt={t("drawer.monumentsTitle")} title={t("drawer.monumentsTitle")} /> */}
                         </ListItemSecondaryAction>
                       </ListItem>
                     </List>

@@ -46,10 +46,12 @@
     "recharts": "^1.1.0",
     "redux": "^3.6.0",
     "serve": "^10.0.0",
+    "source-map-explorer": "^1.6.0",
     "wikidata-sdk": "^4.2.4",
     "xhr": "^2.5.0"
   },
   "scripts": {
+    "analyze": "source-map-explorer build/static/js/main.*",
     "dev": "react-scripts start",
     "start": "serve ./build",
     "build": "npm run build-sprites && react-scripts build",

@@ -200,25 +200,25 @@ class MapComponent extends Component {
     }
   }
 
-  mouseDown(e) {
-    if (!this.state.isDragging && !this.state.isCursorOverPoint) return;
+  // mouseDown(e) {
+  //   if (!this.state.isDragging && !this.state.isCursorOverPoint) return;
 
-    var features = this.map.queryRenderedFeatures(e.point, { layers: this.movableLayers });
-    if (!features.length) return;
+  //   var features = this.map.queryRenderedFeatures(e.point, { layers: this.movableLayers });
+  //   if (!features.length) return;
 
 
-    // Set a cursor indicator
-    this.map.getCanvas().style.cursor = 'grab';
+  //   // Set a cursor indicator
+  //   this.map.getCanvas().style.cursor = 'grab';
 
-    const mouseMoveFn = (e) => this.onMove(e);
+  //   const mouseMoveFn = (e) => this.onMove(e);
 
-    this.setState({ isDragging: true, draggedLayer: features[0].layer.id, mouseMoveFn: mouseMoveFn });
+  //   this.setState({ isDragging: true, draggedLayer: features[0].layer.id, mouseMoveFn: mouseMoveFn });
 
-    // Mouse events
-    this.map.on('mousemove', mouseMoveFn);
-    this.map.once('mousemove', (e) => this.onceMove(e));
-    this.map.once('mouseup', (e) => this.onUp(e));
-  }
+  //   // Mouse events
+  //   this.map.on('mousemove', mouseMoveFn);
+  //   this.map.once('mousemove', (e) => this.onceMove(e));
+  //   this.map.once('mouseup', (e) => this.onUp(e));
+  // }
 
   onMove(e) {
     if (!this.state.isDragging) return;
@@ -280,15 +280,6 @@ class MapComponent extends Component {
     var bbox = [[e.point.x - 5, e.point.y - 5], [e.point.x + 5, e.point.y + 5]];
     var features = this.map.queryRenderedFeatures(bbox, { layers: this.selectableLayers });
 
-    // if (!features.length) {
-    //   // No feature is selected, reset the search location on click on the map
-    //   if (this.props.mode === 'search' && !this.props.contextMenuActive) {
-    //     this.props.resetStateKeys(['placeInfo', 'searchString', 'searchLocation']);
-    //     this.props.triggerMapUpdate();
-    //   }
-    //   return;
-    // }
-
     if (features.length) {
       // We have a selected feature
       var feature = features[0];
@@ -314,7 +305,11 @@ class MapComponent extends Component {
 
       var paintColor = null;
       if ("paint" in feature.layer) {
-        paintColor = feature.layer.paint["circle-color"];
+        if(typeof(feature.layer.paint["circle-color"])!== "undefined")
+          {paintColor = feature.layer.paint["circle-color"];}
+          else if(typeof(feature.layer.paint["text-color"])!== "undefined"){
+            paintColor = feature.layer.paint["text-color"];
+          }
       }
 
       if (key && place_name) {
@@ -362,30 +357,29 @@ class MapComponent extends Component {
     this.map.on('click', (e) => this.onClick(e));
 
     this.map.on('mousemove', (e) => {
-      var features = this.map.queryRenderedFeatures(e.point, { layers: this.movableLayers.concat(this.selectableLayers) });
+      var features = this.map.queryRenderedFeatures(e.point, { layers: this.selectableLayers });
 
       if (features.length) {
         this.map.getCanvas().style.cursor = 'pointer';
-        if (this.movableLayers.indexOf(features[0].layer.id) > -1) {
-          this.setState({ isCursorOverPoint: true });
-          this.map.dragPan.disable();
-        }
-      } else {
+        // if (this.movableLayers.indexOf(features[0].layer.id) > -1) {
+        //   this.setState({ isCursorOverPoint: true });
+        //   this.map.dragPan.disable();
+        // }
+      } 
+      else {
         this.map.getCanvas().style.cursor = '';
         this.setState({ isCursorOverPoint: false });
         this.map.dragPan.enable();
       }
     });
 
-    this.map.on('mousedown', (e) => this.mouseDown(e));
+    // this.map.on('mousedown', (e) => this.mouseDown(e));
 
     this.map.on('moveend', () => {
       const center = this.map.getCenter();
       const zoom = this.map.getZoom();
       this.props.setStateValue('mapCoords', [center.lng, center.lat, zoom]);
     });
-
-    // this.filterByDate(new Date().getTime());
 
     this.initLayerVisibility();
 
@@ -415,9 +409,7 @@ class MapComponent extends Component {
     Object.keys(this.props.visibility).forEach(key => {
       if (this.props.visibility[key]) {
         this.map.setLayoutProperty(layerSelector[key].source, 'visibility', 'visible');
-        // if (["marches", "exposition", "musique", "children", "videsgreniers"].includes(layerSelector[key].source)) {
-        //   this.loadJsonData(layerSelector[key].source);
-        // }
+
         if (["marches", "exposition", "musique", "children", "videsgreniers","parcsjardins", "localproductshop", "craftmanshop", "plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(layerSelector[key].source)) {
           this.loadJsonData(layerSelector[key].source);
           this.addLegendItem(layerSelector[key].source);
@@ -691,9 +683,9 @@ class MapComponent extends Component {
     ];
   }
 
-  get movableLayers() {
-    return ['marker', 'fromMarker'];
-  }
+  // get movableLayers() {
+  //   return ['marker', 'fromMarker'];
+  // }
 }
 
 MapComponent.propTypes = {

@@ -123,7 +123,7 @@ class MyPlaceInfo extends Component {
             <div className="baseText">
               <div className="abstractPopup">
                 {info.abstract}<br />
-                <a target="_new" href={info.link} rel="noopener">Art. Wikipedia</a>
+                <a target="_new" href={info.link} rel="noopener">&rarr; Wikipedia</a>
               </div>
             </div>
             </div>}
@@ -240,10 +240,6 @@ class MyPlaceInfo extends Component {
       let wikipedia = other_Tags.substring(startWikipedia, endWikipedia);
 
 
-      // let link = null;
-      // if (info.sitweb) {
-      //   link = info.sitweb.includes("http://") ? info.sitweb : "http://" + info.sitweb;
-      // }
       return (
         <div>
           {popupActive &&
