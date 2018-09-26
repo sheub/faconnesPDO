@@ -25,7 +25,7 @@ class App extends Component {
         <MyDrawer />
         <div className='mapCont'>
           <Map moveOnLoad={moveOnLoad} />
-          <div className='relative m12 m24-mm w420-mm flex-parent flex-parent--column'>
+          <div className='relative fr m12 m24-mm w420-mm flex-parent flex-parent--column'>
             {
               (this.props.mode === 'directions')
                 ? <Directions />

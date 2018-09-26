@@ -2020,7 +2020,7 @@
                     "Font Awesome 5 Free Solid",
                     "Arial Unicode MS Regular"
                 ],
-                "text-field": ""
+                "text-field": "\uf005"
             },
             "paint": {
                 "text-color": "#14222D"
@@ -2041,7 +2041,7 @@
                     "Font Awesome 5 Free Solid",
                     "Arial Unicode MS Regular"
                 ],
-                "text-field": ""
+                "text-field": "\uf005"
             },
             "paint": {
                 "text-color": "hsl(0, 78%, 33%)"
@@ -2063,7 +2063,7 @@
                     "Font Awesome 5 Free Solid",
                     "Arial Unicode MS Regular"
                 ],
-                "text-field": ""
+                "text-field": "\uf005"
             },
             "paint": {
                 "text-color": "#4aa52c"
@@ -2085,7 +2085,7 @@
                     "Font Awesome 5 Free Solid",
                     "Arial Unicode MS Regular"
                 ],
-                "text-field": ""
+                "text-field": "\uf005"
             },
             "paint": {
                 "text-color": "hsl(115, 65%, 28%)"
@@ -2108,10 +2108,31 @@
                     "Font Awesome 5 Free Solid",
                     "Arial Unicode MS Regular"
                 ],
-                "text-field": ""
+                "text-field": "\uf005"
             },
             "paint": {
                 "text-color": "#33baab"
+            }
+        },{
+            "id": "monumentsnationaux",
+            "type": "symbol",
+            "source": "monumentsnationaux",
+            "layout": {
+                "visibility": "none",
+                "text-line-height": 1,
+                "text-padding": 0,
+                "text-anchor": "top",
+                "text-allow-overlap": true,
+                "text-size": 11,
+                "icon-optional": true,
+                "text-font": [
+                    "Font Awesome 5 Free Solid",
+                    "Arial Unicode MS Regular"
+                ],
+                "text-field": "\uf005"
+            },
+            "paint": {
+                "text-color": "hsl(249, 91%, 34%)"
             }
         },
         {
@@ -2130,7 +2151,7 @@
                     "Font Awesome 5 Free Solid",
                     "Arial Unicode MS Regular"
                 ],
-                "text-field": ""
+                "text-field": "\uf45c"
             },
             "paint": {
                 "text-color": "hsl(62, 87%, 53%)"
@@ -2152,7 +2173,7 @@
                     "Font Awesome 5 Free Solid",
                     "Arial Unicode MS Regular"
                 ],
-                "text-field": ""
+                "text-field": "\uf45c"
             },
             "paint": {
                 "text-color": "#ee8568"
@@ -2174,34 +2195,12 @@
                     "Font Awesome 5 Free Solid",
                     "Arial Unicode MS Regular"
                 ],
-                "text-field": ""
+                "text-field": "\uf45c"
             },
             "paint": {
                 "text-color": "hsl(105, 58%, 41%)"
             }
         },{
-            "id": "monumentsnationaux",
-            "type": "symbol",
-            "source": "monumentsnationaux",
-            "layout": {
-                "visibility": "none",
-                "text-line-height": 1,
-                "text-padding": 0,
-                "text-anchor": "top",
-                "text-allow-overlap": true,
-                "text-size": 11,
-                "icon-optional": true,
-                "text-font": [
-                    "Font Awesome 5 Free Solid",
-                    "Arial Unicode MS Regular"
-                ],
-                "text-field": ""
-            },
-            "paint": {
-                "text-color": "hsl(249, 91%, 34%)"
-            }
-        },
-        {
             "id": "exposition",
             "type": "circle",
             "source": "exposition",

@@ -52,7 +52,9 @@ const drawerWidth = 270;
 const styles = (theme) => ({
 
   root: {
-    display: "flex"
+    // display: "flex",
+    // flexGrow: 1,
+    float: "left"
   },
   toolbarIcon: {
     display: "flex",
@@ -62,11 +64,13 @@ const styles = (theme) => ({
     ...theme.mixins.toolbar
   },
   appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    })
+    position: "absolute",
+    // zIndex: theme.zIndex.drawer + 1,
+    // transition: theme.transitions.create(["margin", "width"], {
+    //   easing: theme.transitions.easing.sharp,
+    //   duration: theme.transitions.duration.leavingScreen
+    //   // duration: 0//theme.transitions.duration.enteringScreen
+    // })
   },
   menuButton: {
     marginLeft: 12,
@@ -78,15 +82,18 @@ const styles = (theme) => ({
   title: {
     flexGrow: 0
   },
+
   drawerPaper: {
+    height: "100vh",
     position: "relative",
     whiteSpace: "nowrap",
     display: "flex",
     paddingBottom: "100px",
     width: drawerWidth,
-    transition: theme.transitions.create("width", {
+    transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen
+      duration: theme.transitions.duration.leavingScreen
+      // duration: 0//theme.transitions.duration.leavingScreen
     }),
     overflowX: "hidden",
     overflowY: "auto",
@@ -115,36 +122,36 @@ const styles = (theme) => ({
     // },
   },
   // appBarSpacer: theme.mixins.toolbar,
-  content: {
-    flexGrow: 0,
-    padding: theme.spacing.unit * 0
-  },
+  // content: {
+  //   flexGrow: 0,
+  //   padding: theme.spacing.unit * 0
+  // },
   icon: {
     width: 25,
     color: "#ff0000",
     // verticalAlign: 'middle'
   },
 
-  pickers: {
-    display: "flex",
-    justifyContent: "space-around",
-  },
+  // pickers: {
+  //   display: "flex",
+  //   justifyContent: "space-around",
+  // },
   expandIcons: {
     position: "absolute", right: "12px"
   },
-  MuiInputInput: {
-    textAlign: "center"
-  },
+  // MuiInputInput: {
+  //   textAlign: "center"
+  // },
 
   // container: {
   //   display: "flex",
   //   flexWrap: "wrap",
   // },
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    width: 200,
-  },
+  // textField: {
+  //   marginLeft: theme.spacing.unit,
+  //   marginRight: theme.spacing.unit,
+  //   width: 200,
+  // },
 
   // Name of the component ⚛️
   MuiListItemSecondaryAction: {
@@ -154,8 +161,8 @@ const styles = (theme) => ({
   MuiInput: {
     textAlign: "inherit"
   },
-  overrides: {
 
+  overrides: {
     // Name of the component ⚛️
     MuiListItemSecondaryAction: {
       // The properties to apply
@@ -196,7 +203,7 @@ class MyDrawer extends Component {
       open: false,
       list1Open: false,
       listLoisirOpen: false,
-      listAgendaOpen: true,
+      listAgendaOpen: false,
       dateFrom: new Date(), //Today
       dateTo: new Date() // Today plus one day
 
@@ -298,7 +305,7 @@ class MyDrawer extends Component {
               <div className={classes.root}>
                 <MyAppBar open={this.state.open} handleDrawerOpen={this.handleDrawerOpen} />
                 {/* ref={elem => (this.Drawer = elem)} */}
-                <Drawer variant="temporary" classes={{ paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose) }} open={this.state.open}>
+                <Drawer variant="persistent" anchor='left' classes={{ paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose) }} open={this.state.open}>
                   <div className={classes.toolbarIcon}>
                     <IconButton onClick={this.handleDrawerClose} aria-label="Close drawer">
                       <ChevronLeftIcon />

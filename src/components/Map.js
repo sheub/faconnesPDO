@@ -9,6 +9,8 @@ import turfBbox from "@turf/bbox";
 import turfBboxPolygon from '@turf/bbox-polygon';
 import turfBuffer from '@turf/buffer';
 import turfDistance from '@turf/distance';
+import { FaStar } from 'react-icons/fa';
+
 
 import {push} from 'react-router-redux';
 import {
@@ -42,7 +44,6 @@ class MapComponent extends Component {
     };
   }
 
-  
   render() {
     return (
       // <div id='map' className='viewport-full'>
@@ -489,6 +490,16 @@ class MapComponent extends Component {
     }
   }
 
+  RenderUrl(value, color) {
+    if (value) {
+      return (
+        <div >
+          <FaStar style={{ color: color }}/>;
+        </div>);
+    }
+    return null;
+  }
+
   addLegendItem(idLayer) {
     const { t } = this.props;
     var legend = document.getElementById('legend');
@@ -509,8 +520,23 @@ class MapComponent extends Component {
 
     if(mapLayer.type === "symbol"){
       color = mapLayer.paint._values["text-color"].value.value;
-      key.style.color = color
-      key.textContent = mapLayer.layout._values["text-field"].value.value;
+      key.style.color = color;
+      if(mapLayer.layout._values["text-field"].value.value === "\uf005")
+      {
+        key.textContent = "\uf005";
+        // key.innerHTML = <RenderUrl value = {mapLayer.layout._values["text-field"].value.value} />;
+        //key.innerHTML = <div dangerouslySetInnerHTML={{ __html: "Hello" }} />
+        //key.style.backgroundColor = color;
+
+      }
+      else if(mapLayer.layout._values["text-field"].value.value === "\uf45c")
+      {
+        //  key.textContent = "\ufc08";
+        //  key.innerHTML = <FaSquareFull style={{ color: color }} />
+        key.style.backgroundColor = color;
+
+      }
+
     }
     else
     {
@@ -532,7 +558,6 @@ class MapComponent extends Component {
   }
 
   removeLegendItem(idLayer) {
-    // let mapLayer = this.map.getLayer(idLayer);
     var legend = document.getElementById('legend');
     let itemId = "lgn" + idLayer;
     var item = document.getElementById(itemId);
