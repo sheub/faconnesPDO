@@ -1,15 +1,8 @@
 {
     "version": 8,
     "name": "All mbtiles",
-    "metadata": {
-        "mapbox:origin": "basic-template-v1",
-        "mapbox:autocomposite": true,
-        "mapbox:type": "template",
-        "mapbox:sdk-support": {
-            "js": "0.46.0",
-            "android": "6.0.0",
-            "ios": "4.0.0"
-        }
+    "light": {
+        "intensity": 0.28
     },
     "center": [
         4.406521801572808,
@@ -154,7 +147,7 @@
 
 
     },
-    "sprite": "mapbox://sprites/sheub/cjk8ejp92h7e62smuojkqrgnx",
+    "sprite": "This is set at runtime in the Map component.",
     "glyphs": "mapbox://fonts/sheub/{fontstack}/{range}.pbf",
     "layers": [{
             "id": "background",
@@ -392,7 +385,7 @@
         },
         {
             "id": "building",
-            "type": "fill",
+            "type": "fill-extrusion",
             "source": "composite",
             "source-layer": "building",
             "minzoom": 15,
@@ -400,31 +393,86 @@
                 "all",
                 [
                     "!=",
-                    "type",
-                    "building:part"
-                ],
-                [
-                    "==",
                     "underground",
-                    "false"
+                    "true"
                 ]
             ],
             "layout": {},
             "paint": {
-                "fill-color": "hsl(38, 28%, 77%)",
-                "fill-opacity": [
-                    "interpolate",
-                    [
-                        "linear"
+                "fill-extrusion-color": "hsl(40, 63%, 95%)",
+                "fill-extrusion-height": {
+                    "base": 1,
+                    "type": "exponential",
+                    "property": "height",
+                    "stops": [
+                        [
+                            {
+                                "zoom": 15,
+                                "value": 1
+                            },
+                            0
+                        ],
+                        [
+                            {
+                                "value": 1000,
+                                "zoom": 15
+                            },
+                            0
+                        ],
+                        [
+                            {
+                                "value": 1,
+                                "zoom": 16
+                            },
+                            1
+                        ],
+                        [
+                            {
+                                "value": 1000,
+                                "zoom": 16
+                            },
+                            1000
+                        ]
                     ],
-                    [
-                        "zoom"
+                    "default": 10
+                },
+                "fill-extrusion-base": {
+                    "base": 1,
+                    "type": "exponential",
+                    "property": "min_height",
+                    "stops": [
+                        [
+                            {
+                                "zoom": 15,
+                                "value": 1
+                            },
+                            0
+                        ],
+                        [
+                            {
+                                "value": 1000,
+                                "zoom": 15
+                            },
+                            0
+                        ],
+                        [
+                            {
+                                "value": 1,
+                                "zoom": 16
+                            },
+                            1
+                        ],
+                        [
+                            {
+                                "value": 1000,
+                                "zoom": 16
+                            },
+                            1000
+                        ]
                     ],
-                    15.5,
-                    0,
-                    16,
-                    1
-                ]
+                    "default": 0
+                },
+                "fill-extrusion-opacity": 0.66
             }
         },
         {
@@ -1316,54 +1364,6 @@
             }
         },
         {
-            "id": "admin-country-disputed",
-            "type": "line",
-            "source": "composite",
-            "source-layer": "admin",
-            "minzoom": 1,
-            "filter": [
-                "all",
-                [
-                    "<=",
-                    "admin_level",
-                    2
-                ],
-                [
-                    "==",
-                    "disputed",
-                    1
-                ],
-                [
-                    "==",
-                    "maritime",
-                    0
-                ]
-            ],
-            "layout": {
-                "line-join": "round"
-            },
-            "paint": {
-                "line-color": "hsl(0, 0%, 50%)",
-                "line-width": [
-                    "interpolate",
-                    [
-                        "linear"
-                    ],
-                    [
-                        "zoom"
-                    ],
-                    3,
-                    0.5,
-                    10,
-                    2
-                ],
-                "line-dasharray": [
-                    1.5,
-                    1.5
-                ]
-            }
-        },
-        {
             "id": "road-label",
             "type": "symbol",
             "source": "composite",
@@ -1443,138 +1443,6 @@
             },
             "paint": {
                 "text-color": "hsl(0, 0%, 0%)",
-                "text-halo-color": "hsl(0, 0%, 100%)",
-                "text-halo-width": 1
-            }
-        },
-        {
-            "id": "poi-label",
-            "type": "symbol",
-            "source": "composite",
-            "source-layer": "poi_label",
-            "filter": [
-                "<=",
-                "scalerank",
-                3
-            ],
-            "layout": {
-                "text-line-height": 1.1,
-                "text-size": [
-                    "interpolate",
-                    [
-                        "linear"
-                    ],
-                    [
-                        "zoom"
-                    ],
-                    10,
-                    11,
-                    18,
-                    13
-                ],
-                "icon-image": [
-                    "concat",
-                    [
-                        "get",
-                        "maki"
-                    ],
-                    "-11"
-                ],
-                "text-max-angle": 38,
-                "text-font": [
-                    "Roboto Regular",
-                    "Arial Unicode MS Regular"
-                ],
-                "text-padding": 2,
-                "text-offset": [
-                    0,
-                    0.75
-                ],
-                "text-anchor": "top",
-                "text-field": "{name_en}",
-                "text-max-width": 8
-            },
-            "paint": {
-                "text-color": "hsl(38, 19%, 29%)",
-                "text-halo-color": "hsla(0, 0%, 100%, 0.75)",
-                "text-halo-width": 1,
-                "text-halo-blur": 0.5
-            }
-        },
-        {
-            "id": "airport-label",
-            "type": "symbol",
-            "source": "composite",
-            "source-layer": "airport_label",
-            "filter": [
-                "<=",
-                "scalerank",
-                2
-            ],
-            "layout": {
-                "text-line-height": 1.1,
-                "text-size": [
-                    "interpolate",
-                    [
-                        "linear"
-                    ],
-                    [
-                        "zoom"
-                    ],
-                    10,
-                    12,
-                    18,
-                    18
-                ],
-                "icon-image": [
-                    "step",
-                    [
-                        "zoom"
-                    ],
-                    [
-                        "concat",
-                        [
-                            "get",
-                            "maki"
-                        ],
-                        "-11"
-                    ],
-                    13,
-                    [
-                        "concat",
-                        [
-                            "get",
-                            "maki"
-                        ],
-                        "-15"
-                    ]
-                ],
-                "text-font": [
-                    "Roboto Regular",
-                    "Arial Unicode MS Regular"
-                ],
-                "text-padding": 2,
-                "text-offset": [
-                    0,
-                    0.75
-                ],
-                "text-anchor": "top",
-                "text-field": [
-                    "step",
-                    [
-                        "zoom"
-                    ],
-                    [
-                        "get",
-                        "ref"
-                    ],
-                    14,
-                    "{name_en}"
-                ],
-                "text-max-width": 9
-            },
-            "paint": {
-                "text-color": "hsl(38, 19%, 29%)",
                 "text-halo-color": "hsl(0, 0%, 100%)",
                 "text-halo-width": 1
             }
@@ -2112,99 +1980,6 @@
             "layout": {
                 "line-join": "round",
                 "line-cap": "round"
-            }
-        },
-        {
-            "id": "poi-parks-scalerank4",
-            "type": "symbol",
-            "source": "composite",
-            "source-layer": "poi_label",
-            "minzoom": 16,
-            "filter": [
-                "all",
-                [
-                    "==",
-                    "scalerank",
-                    4
-                ],
-                [
-                    "in",
-                    "maki",
-                    "campsite",
-                    "cemetery",
-                    "dog-park",
-                    "garden",
-                    "golf",
-                    "park",
-                    "picnic-site",
-                    "playground",
-                    "zoo"
-                ]
-            ],
-            "layout": {
-                "text-line-height": 1.1,
-                "text-size": {
-                    "base": 1,
-                    "stops": [
-                        [
-                            16,
-                            11.5
-                        ],
-                        [
-                            20,
-                            15
-                        ]
-                    ]
-                },
-                "text-max-angle": 38,
-                "symbol-spacing": 250,
-                "text-font": [
-                    "Roboto Medium",
-                    "Arial Unicode MS Regular"
-                ],
-                "text-padding": 1,
-                "text-offset": [
-                    0,
-                    0
-                ],
-                "text-rotation-alignment": "viewport",
-                "text-field": "{name_en}",
-                "text-letter-spacing": 0.01,
-                "text-max-width": 8
-            },
-            "paint": {
-                "text-color": "hsl(100, 100%, 23%)",
-                "text-halo-color": "hsla(0, 0%, 100%, 0.6)",
-                "text-halo-width": 1
-            }
-        },
-        {
-            "id": "motorway-junction",
-            "type": "symbol",
-            "source": "composite",
-            "source-layer": "motorway_junction",
-            "minzoom": 13,
-            "filter": [
-                "<=",
-                "reflen",
-                9
-            ],
-            "layout": {
-                "text-field": "{ref}",
-                "text-size": 9,
-                "icon-image": "motorway-exit-{reflen}",
-                "text-font": [
-                    "Roboto Bold",
-                    "Arial Unicode MS Bold"
-                ],
-                "icon-size": 1
-            },
-            "paint": {
-                "text-color": "hsl(0, 0%, 100%)",
-                "text-translate": [
-                    0,
-                    0
-                ]
             }
         },
         {
