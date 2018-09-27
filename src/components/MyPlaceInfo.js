@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import PropTypes from "prop-types";
+import React, { Component } from "react";
 import { translate } from "react-i18next";
 
 // import Truncate from "react-truncate";
@@ -38,7 +38,7 @@ function RenderAddress(props) {
 }
 
 function RenderDateTime(props) {
-  const {t, info} = props.props;
+  const { t, info } = props.props;
   const lng = props.props.i18n.language;
   //let info = props.info.properties;
 
@@ -72,17 +72,16 @@ function RenderDateTime(props) {
 }
 
 class MyPlaceInfo extends Component {
-  
+
 
   hidePopup() {
     this.props.info.popupActive = false;
-    // this.props.isActive = false;
     this.forceUpdate();
   }
 
   render() {
 
-    const {t} = this.props;
+    const { t } = this.props;
 
     let popupActive = this.props.info.popupActive;
     let info = this.props.info.properties;
@@ -95,7 +94,6 @@ class MyPlaceInfo extends Component {
       marginRight: "3pt",
       color: paintColor
     };
-    // if (window.innerHeight < 500) return null;
 
     if (["plusBeauxVillagesDeFrance",
       "patrimoinemondialenfrance",
@@ -120,12 +118,12 @@ class MyPlaceInfo extends Component {
                   </div>
                 </div>
               </div>
-            <div className="baseText">
-              <div className="abstractPopup">
-                {info.abstract}<br />
-                <a target="_new" href={info.link} rel="noopener">&rarr; Wikipedia</a>
+              <div className="baseText">
+                <div className="abstractPopup">
+                  {info.abstract}<br />
+                  <a target="_new" href={info.link} rel="noopener">&rarr; Wikipedia</a>
+                </div>
               </div>
-            </div>
             </div>}
         </div>
       );
@@ -141,18 +139,18 @@ class MyPlaceInfo extends Component {
             <div className="mapboxgl-popupup  popPupStyle">
               <div className="baseText">
                 {/* <div className="baseInfo"> */}
-                  <div className="titleText">
-                    <HomeIcon style={styles} alt={layerId} title={layerId} />
-                    {info.label}
+                <div className="titleText">
+                  <HomeIcon style={styles} alt={layerId} title={layerId} />
+                  {info.label}
+                </div>
+                <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.hidePopup()}><span aria-hidden="true">&times;</span></button>
+                <div className="introtext">
+                  <div className="abstractPopup">
+                    {info.abstract}
                   </div>
-                  <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.hidePopup()}><span aria-hidden="true">&times;</span></button>
-                  <div className="introtext">
-                    <div className="abstractPopup">
-                      {info.abstract}
-                    </div>
-                    <RenderUrl url={info.url} />
-                    <RenderAddress info={info} />
-                  </div>
+                  <RenderUrl url={info.url} />
+                  <RenderAddress info={info} />
+                </div>
                 {/* </div> */}
               </div>
             </div>}
@@ -170,21 +168,21 @@ class MyPlaceInfo extends Component {
           {popupActive &&
             <div className="mapboxgl-popupup popPupStyle">
               {/* <div className="baseInfo"> */}
-                <div className="baseText">
-                  <div className="titleText">
-                    <HomeIcon style={styles} alt={layerId} title={layerId} />
-                    {info.label}
-                  </div>
-                  <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.hidePopup()}><span aria-hidden="true">&times;</span></button>
-                  <div className="introtext">
-                    <div className="abstractPopup">
-                      {info.abstract}
-                    </div>
-                    <RenderDateTime props={this.props} />
-                    <RenderUrl url={info.url} />
-                    <RenderAddress info={info} />
-                  </div>
+              <div className="baseText">
+                <div className="titleText">
+                  <HomeIcon style={styles} alt={layerId} title={layerId} />
+                  {info.label}
                 </div>
+                <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.hidePopup()}><span aria-hidden="true">&times;</span></button>
+                <div className="introtext">
+                  <div className="abstractPopup">
+                    {info.abstract}
+                  </div>
+                  <RenderDateTime props={this.props} />
+                  <RenderUrl url={info.url} />
+                  <RenderAddress info={info} />
+                </div>
+              </div>
               {/* </div> */}
             </div>}
         </div>
@@ -200,21 +198,19 @@ class MyPlaceInfo extends Component {
         <div>
           {popupActive &&
             <div className="mapboxgl-popupup popPupStyle">
-              {/* <div className="baseInfo"> */}
-                <div className="baseText">
-                  <div className="titleText">
-                    {info.label}<br />
-                  </div>
-                  <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.hidePopup()}><span aria-hidden="true">&times;</span></button>
-                  <div className="introtext">
-                    {info.adr}<br />
-                    {info.cp}{" "}{info.ville}<br />
-                    {"Ouverture:"}<br />
-                    {info.periode_ouverture}
-                  </div>
+              <div className="baseText">
+                <div className="titleText">
+                  {info.label}<br />
                 </div>
-                <a target="_new" href={link} rel="noopener">{t("myplaceinfo.website")}</a>
-              {/* </div> */}
+                <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.hidePopup()}><span aria-hidden="true">&times;</span></button>
+                <div className="introtext">
+                  {info.adr}<br />
+                  {info.cp}{" "}{info.ville}<br />
+                  {"Ouverture:"}<br />
+                  {info.periode_ouverture}
+                </div>
+              </div>
+              <a target="_new" href={link} rel="noopener">{t("myplaceinfo.website")}</a>
             </div>}
         </div>
       );
@@ -231,11 +227,11 @@ class MyPlaceInfo extends Component {
       var startWikipedia = other_Tags.indexOf("wikipedia");
       startWikipedia = other_Tags.indexOf("=>", startWikipedia + 1) + 3;
 
-      let endWikipedia=0;
-      if(other_Tags.indexOf(",", startWikipedia + 1) > 0){
+      let endWikipedia = 0;
+      if (other_Tags.indexOf(",", startWikipedia + 1) > 0) {
         endWikipedia = other_Tags.indexOf(",", startWikipedia + 1) - 1;
       }
-      else {endWikipedia = other_Tags.length - 1;}
+      else { endWikipedia = other_Tags.length - 1; }
 
       let wikipedia = other_Tags.substring(startWikipedia, endWikipedia);
 
@@ -244,17 +240,17 @@ class MyPlaceInfo extends Component {
         <div>
           {popupActive &&
             <div className="mapboxgl-popupup popPupStyle">
-                <div className="baseText">
-                  <div className="titleText">
-                    {wikipedia}<br />
-                  </div>
-                  <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.hidePopup()}><span aria-hidden="true">&times;</span></button>
-                  <div className="introtext">
-                    {wikidata}<br />
-                    {wikipedia}
-                  </div>
+              <div className="baseText">
+                <div className="titleText">
+                  {wikipedia}<br />
                 </div>
-                <a target="_new" href={link} rel="noopener">{t("myplaceinfo.website")}</a>
+                <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.hidePopup()}><span aria-hidden="true">&times;</span></button>
+                <div className="introtext">
+                  {wikidata}<br />
+                  {wikipedia}
+                </div>
+              </div>
+              <a target="_new" href={link} rel="noopener">{t("myplaceinfo.website")}</a>
             </div>}
         </div>
       );
@@ -290,11 +286,11 @@ class MyPlaceInfo extends Component {
 
   get styles() {
     return {
-      directionsIcon: 'bg-white hmin42 wmin42 hmin48-mm wmin48-mm hmax42 wmax42 hmax48-mm wmax48-mm m6 m12-mm round-full shadow-darken10 cursor-pointer flex-parent flex-parent--center-main flex-parent--center-cross',
-      icon: 'flex-parent flex-parent--center-cross flex-parent--center-main w42 h42',
-      infoRow: 'h24 h36-mm py6 pr12 flex-parent flex-parent--row flex-parent--center-cross',
-      mainInfo: 'p6 flex-child flex-child--grow flex-parent flex-parent--column flex-parent--center-main',
-      placeInfo: 'place-info absolute top bg-white w-full w420-mm shadow-darken25 flex-parent flex-parent--column',
+      directionsIcon: "bg-white hmin42 wmin42 hmin48-mm wmin48-mm hmax42 wmax42 hmax48-mm wmax48-mm m6 m12-mm round-full shadow-darken10 cursor-pointer flex-parent flex-parent--center-main flex-parent--center-cross",
+      icon: "flex-parent flex-parent--center-cross flex-parent--center-main w42 h42",
+      infoRow: "h24 h36-mm py6 pr12 flex-parent flex-parent--row flex-parent--center-cross",
+      mainInfo: "p6 flex-child flex-child--grow flex-parent flex-parent--column flex-parent--center-main",
+      placeInfo: "place-info absolute top bg-white w-full w420-mm shadow-darken25 flex-parent flex-parent--column",
     };
   }
 

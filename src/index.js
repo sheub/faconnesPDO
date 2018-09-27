@@ -17,11 +17,11 @@ import App from "./components/App";
 
 import "./index.css";
 
-import './i18n';
+import "./i18n";
 
 // Read persisted state from the local storage and put that in the initial state.
 var persistedS = localStorage.getItem("persistedState") ? JSON.parse(localStorage.getItem("persistedState")) : {};
-const languageSet = localStorage.getItem("i18nextLng") ? localStorage.getItem("i18nextLng") : 'en';
+const languageSet = localStorage.getItem("i18nextLng") ? localStorage.getItem("i18nextLng") : "en";
 if(typeof(persistedS) !== "undefined" && typeof(persistedS.app) !== "undefined")
   persistedS.app.languageSet = languageSet;
 
@@ -82,7 +82,7 @@ const theme = createMuiTheme({
       '"Apple Color Emoji"',
       '"Segoe UI Emoji"',
       '"Segoe UI Symbol"',
-    ].join(','),
+    ].join(","),
   },
 });
 
@@ -94,6 +94,6 @@ ReactDOM.render(
       </MuiThemeProvider>
     </ConnectedRouter>
   </Provider>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 registerServiceWorker();

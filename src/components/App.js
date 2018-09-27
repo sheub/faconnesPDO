@@ -1,11 +1,11 @@
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import Map from './Map';
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import Map from "./Map";
 import MyDrawer from "./MyDrawer";
-import Search from './Search';
-import Directions from './Directions';
-import { setStateFromURL } from '../actions/index';
+import Search from "./Search";
+import Directions from "./Directions";
+import { setStateFromURL } from "../actions/index";
 
 class App extends Component {
 
@@ -15,19 +15,19 @@ class App extends Component {
 
   render() {
     var moveOnLoad = !this.props.url
-      .split('/')
-      .filter(e => e.startsWith('+') || e.startsWith('@'))
+      .split("/")
+      .filter(e => e.startsWith("+") || e.startsWith("@"))
       .length;
 
     return (
 
-      <div className='root'>
+      <div className="root">
         <MyDrawer />
-        <div className='mapCont'>
+        <div className="mapCont">
           <Map moveOnLoad={moveOnLoad} />
-          <div className='relative fr m12 m24-mm w420-mm flex-parent flex-parent--column'>
+          <div className="relative fr m12 m24-mm w420-mm flex-parent flex-parent--column">
             {
-              (this.props.mode === 'directions')
+              (this.props.mode === "directions")
                 ? <Directions />
                 : <Search />
             }
