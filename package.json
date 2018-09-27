@@ -55,7 +55,7 @@
     "analyze": "source-map-explorer build/static/js/main.*",
     "dev": "react-scripts start",
     "start": "serve ./build",
-    "build": "npm run build-sprites && react-scripts build",
+    "build": "react-scripts build",
     "clean": "rm -rf node_modules/gh-pages/.cache",
     "test": "react-scripts test --env=jsdom",
     "lint": "eslint src/**/*.js",
