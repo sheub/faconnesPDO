@@ -1,6 +1,6 @@
 # Marvelous Map
 
-[An interactive map with local tourism infos](https://sheub.github.io/marvelous-map)
+[An interactive map of France with local tourism infos](https://sheub.github.io/marvelous-map)
 
 
 ------
