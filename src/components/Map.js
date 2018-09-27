@@ -296,6 +296,7 @@ class MapComponent extends Component {
       }
 
 
+      /*Prepare data for Detailinfo*/
       let place_name = null;
       if (feature.properties.name) {
         place_name = feature.properties.name
@@ -312,6 +313,7 @@ class MapComponent extends Component {
           }
       }
 
+      /**Call setStateValue */
       if (key && place_name) {
         this.props.setStateValue(key, {
           'type': 'Feature',
@@ -361,10 +363,6 @@ class MapComponent extends Component {
 
       if (features.length) {
         this.map.getCanvas().style.cursor = 'pointer';
-        // if (this.movableLayers.indexOf(features[0].layer.id) > -1) {
-        //   this.setState({ isCursorOverPoint: true });
-        //   this.map.dragPan.disable();
-        // }
       } 
       else {
         this.map.getCanvas().style.cursor = '';
@@ -372,8 +370,6 @@ class MapComponent extends Component {
         this.map.dragPan.enable();
       }
     });
-
-    // this.map.on('mousedown', (e) => this.mouseDown(e));
 
     this.map.on('moveend', () => {
       const center = this.map.getCenter();

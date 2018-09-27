@@ -317,69 +317,6 @@
             }
         },
         {
-            "id": "aeroway-polygon",
-            "type": "fill",
-            "source": "composite",
-            "source-layer": "aeroway",
-            "filter": [
-                "all",
-                [
-                    "==",
-                    "$type",
-                    "Polygon"
-                ],
-                [
-                    "in",
-                    "type",
-                    "helipad",
-                    "runway",
-                    "taxiway"
-                ]
-            ],
-            "layout": {},
-            "paint": {
-                "fill-color": "hsl(0, 0%, 77%)"
-            }
-        },
-        {
-            "id": "aeroway-line",
-            "type": "line",
-            "source": "composite",
-            "source-layer": "aeroway",
-            "filter": [
-                "all",
-                [
-                    "==",
-                    "$type",
-                    "LineString"
-                ],
-                [
-                    "in",
-                    "type",
-                    "runway",
-                    "taxiway"
-                ]
-            ],
-            "layout": {},
-            "paint": {
-                "line-width": [
-                    "interpolate",
-                    [
-                        "exponential",
-                        1.5
-                    ],
-                    [
-                        "zoom"
-                    ],
-                    10,
-                    0.5,
-                    18,
-                    20
-                ],
-                "line-color": "hsl(0, 0%, 77%)"
-            }
-        },
-        {
             "id": "building",
             "type": "fill-extrusion",
             "source": "composite",
@@ -1699,7 +1636,7 @@
                     [
                         "literal",
                         [
-                            "Roboto Medium",
+                            "Adobe Caslon Pro Semibold",
                             "Arial Unicode MS Regular"
                         ]
                     ],
@@ -1713,7 +1650,7 @@
                         [
                             "literal",
                             [
-                                "Roboto Bold",
+                                "Adobe Caslon Pro Bold",
                                 "Arial Unicode MS Bold"
                             ]
                         ],
@@ -1721,7 +1658,7 @@
                         [
                             "literal",
                             [
-                                "Roboto Medium",
+                                "Adobe Caslon Pro Semibold",
                                 "Arial Unicode MS Regular"
                             ]
                         ]
