@@ -353,7 +353,7 @@ class MapComponent extends Component {
     // Create geolocation control
     const geolocateControl = new mapboxgl.GeolocateControl();
     geolocateControl.on('geolocate', setGeolocation);
-    this.map.addControl(geolocateControl, 'bottom-right');
+    this.map.addControl(geolocateControl, 'bottom-left');
 
     // Set event listeners
     this.map.on('click', (e) => this.onClick(e));

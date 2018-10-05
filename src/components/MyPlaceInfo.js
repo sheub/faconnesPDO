@@ -4,6 +4,10 @@ import { translate } from "react-i18next";
 
 // import Truncate from "react-truncate";
 import SvgIcon from "@material-ui/core/SvgIcon";
+import CloseIcon from "@material-ui/icons/Close";
+
+import IconButton from '@material-ui/core/IconButton';
+
 import "./css/PopupInfo.css";
 
 
@@ -108,7 +112,12 @@ class MyPlaceInfo extends Component {
               <div className="titleText">
                 <a target="_new" href={info.link} className="titleText" rel="noopener">{info.label}</a><br />
               </div>
-              <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.hidePopup()}><span aria-hidden="true">&times;</span></button>
+            <div className="btn-close" aria-label="Close">
+              <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.hidePopup()}>
+                <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
+              </IconButton>
+            </div>
+              {/* <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.hidePopup()}><span aria-hidden="true">&times;</span></button> */}
               <div className="hvrbox">
                 <img src={info.thumbnail} className="picturePoppup hvrbox-layer_bottom" alt={info.label} title={info.label} />
                 <div className="hvrbox-layer_top hvrbox-layer_slideup">
@@ -143,7 +152,12 @@ class MyPlaceInfo extends Component {
                   <HomeIcon style={styles} alt={layerId} title={layerId} />
                   {info.label}
                 </div>
-                <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.hidePopup()}><span aria-hidden="true">&times;</span></button>
+              <div className="btn-close" aria-label="Close">
+                <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.hidePopup()}>
+                  <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
+                </IconButton>
+              </div>
+                {/* <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.hidePopup()}><span aria-hidden="true">&times;</span></button> */}
                 <div className="introtext">
                   <div className="abstractPopup">
                     {info.abstract}
@@ -173,7 +187,12 @@ class MyPlaceInfo extends Component {
                   <HomeIcon style={styles} alt={layerId} title={layerId} />
                   {info.label}
                 </div>
-                <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.hidePopup()}><span aria-hidden="true">&times;</span></button>
+              <div className="btn-close" aria-label="Close">
+                <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.hidePopup()}>
+                  <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
+                </IconButton>
+              </div>
+                {/* <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.hidePopup()}><span aria-hidden="true">&times;</span></button> */}
                 <div className="introtext">
                   <div className="abstractPopup">
                     {info.abstract}
@@ -202,7 +221,12 @@ class MyPlaceInfo extends Component {
                 <div className="titleText">
                   {info.label}<br />
                 </div>
-                <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.hidePopup()}><span aria-hidden="true">&times;</span></button>
+              <div className="btn-close" aria-label="Close">
+                <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.hidePopup()}>
+                  <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
+                </IconButton>
+              </div>
+                {/* <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.hidePopup()}><span aria-hidden="true">&times;</span></button> */}
                 <div className="introtext">
                   {info.adr}<br />
                   {info.cp}{" "}{info.ville}<br />
@@ -244,7 +268,12 @@ class MyPlaceInfo extends Component {
                 <div className="titleText">
                   {wikipedia}<br />
                 </div>
-                <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.hidePopup()}><span aria-hidden="true">&times;</span></button>
+                <div className="btn-close" aria-label="Close">
+              <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.hidePopup()}>
+                <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
+              </IconButton>
+            </div>
+                {/* <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.hidePopup()}><span aria-hidden="true">&times;</span></button> */}
                 <div className="introtext">
                   {wikidata}<br />
                   {wikipedia}
@@ -268,7 +297,12 @@ class MyPlaceInfo extends Component {
                   <div className="titleText">
                     {info.label}
                   </div>
-                  <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.hidePopup()}><span aria-hidden="true">&times;</span></button>
+                <div className="btn-close" aria-label="Close">
+                  <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.hidePopup()}>
+                    <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
+                  </IconButton>
+                </div>
+                  {/* <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.hidePopup()}><span aria-hidden="true">&times;</span></button> */}
                   <div className="introtext">
                     <div className="abstractPopup">
                       {info.context}

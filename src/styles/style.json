@@ -54,91 +54,104 @@
             "data": {
                 "type": "FeatureCollection",
                 "features": []
-            }
+            },
+            "buffer": 0
         },
         "marches": {
             "type": "geojson",
             "data": {
                 "type": "FeatureCollection",
                 "features": []
-            }
+            },
+            "buffer": 0
         },
         "exposition": {
             "type": "geojson",
             "data": {
                 "type": "FeatureCollection",
                 "features": []
-            }
+            },
+            "buffer": 0
         },
         "musique": {
             "type": "geojson",
             "data": {
                 "type": "FeatureCollection",
                 "features": []
-            }
+            },
+            "buffer": 0
         },
         "children": {
             "type": "geojson",
             "data": {
                 "type": "FeatureCollection",
                 "features": []
-            }
+            },
+            "buffer": 0
         },
         "craftmanshop": {
             "type": "geojson",
             "data": {
                 "type": "FeatureCollection",
                 "features": []
-            }
+            },
+            "buffer": 0
         },
         "localproductshop": {
             "type": "geojson",
             "data": {
                 "type": "FeatureCollection",
                 "features": []
-            }
+            },
+            "buffer": 0
         },
         "parcsjardins": {
             "type": "geojson",
             "data": {
                 "type": "FeatureCollection",
                 "features": []
-            }
+            },
+            "buffer": 0
         },
         "patrimoinemondialenfrance": {
             "type": "geojson",
             "data": {
                 "type": "FeatureCollection",
                 "features": []
-            }
+            },
+            "buffer": 0
         },
         "grandSiteDeFrance": {
             "type": "geojson",
             "data": {
                 "type": "FeatureCollection",
                 "features": []
-            }
+            },
+            "buffer": 0
         },
         "monumentsnationaux": {
             "type": "geojson",
             "data": {
                 "type": "FeatureCollection",
                 "features": []
-            }
+            },
+            "buffer": 0
         },
         "jardinremarquable": {
             "type": "geojson",
             "data": {
                 "type": "FeatureCollection",
                 "features": []
-            }
+            },
+            "buffer": 0
         },
         "plusBeauxVillagesDeFrance": {
             "type": "geojson",
             "data": {
                 "type": "FeatureCollection",
                 "features": []
-            }
+            },
+            "buffer": 0
         }
 
 

@@ -31,7 +31,7 @@ class Search extends Component {
     } else { // There is a selected place
       SearchBar = (
         <div className={this.styles.input + " flex-parent flex-parent--center-cross flex-parent--center-main"}>
-          <div className="w-full w420-mm pr42 txt-truncate">
+          <div className="w-full w240-mm pr42 txt-truncate">
             <MyPlaceName
               location={this.props.searchLocation}
               onClick={() => {
@@ -97,10 +97,10 @@ class Search extends Component {
 
   get styles() {
     return {
-      main: "absolute h42 w-full w420-mm bg-white shadow-darken25 flex-parent flex-parent--row flex-parent--space-between-main",
+      main: " h42 w240 bg-white shadow-darken25 flex-parent flex-parent--row flex-parent--space-between-main",
       icon: "absolute flex-parent flex-parent--center-cross flex-parent--center-main w42 h42",
       input: "input px42 h42 border--transparent",
-      results: "results bg-white shadow-darken25 mt6 border-darken10"
+      results: "w420-mm results bg-white shadow-darken25 mt6 border-darken10"
     };
   }
 }

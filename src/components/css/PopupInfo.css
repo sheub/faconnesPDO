@@ -36,7 +36,7 @@
     font-size: 20px;
     text-decoration: none;
     color: black;
-    margin: 4px 18px 10px 2px; /*top right bottom left*/
+    margin: 4px 31px 10px 2px; /*top right bottom left*/
     /* margin-bottom: 10px;
     margin-top: 4px;
     margin-left: 2px;
@@ -157,10 +157,10 @@
 
 .mapboxgl-popupup {
     position: absolute;
-    top: 60px;
+    margin-top: 8px;
     left: 0;
     background-color: #FFF;
-    width: 240px;
+    /* width: 240px; */
     height: auto;
     line-height: normal;
     margin-bottom: 10px;
@@ -171,47 +171,53 @@
 }
 
 .btn-close {
-    position: absolute;
-    top: 0;
-    right: 0;
-    cursor: pointer;
-    margin: 6px;
-    /* background-color: #707172; */
-    font-size: 22px;
-    /* border-radius: 50%;
-    color: white; */
-    line-height: 14px;
-
-
+	position: absolute;
+	top: -4px;
+	right: -4px;
+	cursor: pointer;
+	/* margin: 6px; */
+	/* background-color: #707172; */
+	/* font-size: 22px; */
+	/* border-radius: 50%; */
+	/* color: white; */
+	/* line-height: 14px; */
 }
 
-/* 
-.btn-close:hover {
-   
-    border: 1px solid;
-	border-radius: 50%;
+.btn-icon {
+    height: 18px;
+    color: #666;
 
+}
+/* @media screen and (max-width: 600px) {
+  .mapCont {
+    top: 56px;
+  }
 } */
 
-@media screen and (max-width: 600px) {
+/* @media screen and (max-width : 480px) and (orientation: landscape) {
+  .mapCont {
+    top: 48px;
+  }
+} */
+
+/* @media screen and (max-width: 600px) {
     .mapboxgl-popupup {
-        top: 52px;
+        top: 46px;
     }
 }
 
-@media only screen and (orientation: landscape) {
+@media screen and (max-width : 480px) and (orientation: landscape) {
     .mapboxgl-popupup {
         top: 44px;
     }
-}
+} */
 
 @media only screen and (max-width : 320px) {
-    .mapboxgl-popupup {
-        position: absolute;
+    /* .mapboxgl-popupup {
         top: 52px;
         width: 100%;
         z-index: 2;
-    }
+    } */
 
     .baseText {
         width: 100%;
