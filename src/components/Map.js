@@ -406,18 +406,23 @@ class MapComponent extends Component {
       if (this.props.visibility[key]) {
         this.map.setLayoutProperty(layerSelector[key].source, 'visibility', 'visible');
 
-        if (["marches", "exposition", "musique", "children", "videsgreniers","parcsjardins", "localproductshop", "craftmanshop", "plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(layerSelector[key].source)) {
+        if (["marches", "exposition", "musique", "children", "videsgreniers", 
+            "parcsjardins", "localproductshop", "craftmanshop", "plusBeauxVillagesDeFrance", 
+            "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(layerSelector[key].source)) {
           this.loadJsonData(layerSelector[key].source);
           this.addLegendItem(layerSelector[key].source);
         }
-      } else { // set Empty Data to sources
+      } else{
+        let isVisible = this.map.getLayoutProperty(layerSelector[key].source, 'visibility');
+        if(isVisible === 'visible') { // set Empty Data to sources
         this.map.setLayoutProperty(layerSelector[key].source, 'visibility', 'none');
-        if (["parcsjardins", "localproductshop", "craftmanshop", "marches", "exposition", "musique", "children", "videsgreniers",
+        if (["parcsjardins", "localproductshop", "craftmanshop", "exposition", "musique", "children", "videsgreniers",
           "plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance",
           "monumentsnationaux", "patrimoinemondialenfrance"].includes(layerSelector[key].source)) {
           this.setEmptyData(layerSelector[key].source);
         }
       }
+    }
     });
   }
 
@@ -563,6 +568,10 @@ class MapComponent extends Component {
   }
   loadJsonData(dataStr) {
 
+    if (["marches"].includes(dataStr))
+    {
+      return; 
+    }
     let baseDataUrl;
     if (process.env.NODE_ENV === 'production') {
       baseDataUrl = process.env.PUBLIC_URL + '/data/';

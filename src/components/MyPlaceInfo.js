@@ -1,11 +1,7 @@
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { translate } from "react-i18next";
-
-// import Truncate from "react-truncate";
 import SvgIcon from "@material-ui/core/SvgIcon";
-import CloseIcon from "@material-ui/icons/Close";
-
 import IconButton from '@material-ui/core/IconButton';
 
 import "./css/PopupInfo.css";
