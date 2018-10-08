@@ -21,7 +21,7 @@ i18n
     ns: ['translations'],
     defaultNS: 'translations',
 
-    debug: true,
+    debug: false,
 
     interpolation: {
       escapeValue: false, // not needed for react!!

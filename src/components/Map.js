@@ -4,12 +4,12 @@ import { translate } from "react-i18next";
 
 import {connect} from 'react-redux';
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl';
-import MapboxLanguage from "@mapbox/mapbox-gl-language";
 import turfBbox from "@turf/bbox";
 import turfBboxPolygon from '@turf/bbox-polygon';
 import turfBuffer from '@turf/buffer';
 import turfDistance from '@turf/distance';
 import { FaStar } from 'react-icons/fa';
+import {setLanguage} from '../utils/openmaptiles-language'
 
 
 import {push} from 'react-router-redux';
@@ -22,7 +22,7 @@ import {
   resetStateKeys
 } from '../actions/index';
 
-import style from '../styles/style.json';
+import style from '../styles/osm-bright.json';
 // Set the sprite URL in the style. It has to be a full, absolute URL.
 let spriteUrl;
 if (process.env.NODE_ENV === 'production') {
@@ -31,7 +31,6 @@ if (process.env.NODE_ENV === 'production') {
   spriteUrl = 'http://localhost:3000/sprite';
 }
 style.sprite = spriteUrl;
-var language = new MapboxLanguage();
 
 class MapComponent extends Component {
   constructor(props) {
@@ -170,8 +169,11 @@ class MapComponent extends Component {
 
     if (this.props.needMapActualizeLanguage) {
       var lng = this.props.languageSet;
-      this.map.setStyle(language.setLanguage(this.map.getStyle(), lng));
+      setLanguage (this.map, style, lng, null);
+      // in setLanguage, we use the original style of the map
+      // -> It is necessary to switch and filter all visible layers again (quick hack, there is certainly a more efficient way)
       this.initLayerVisibility();
+      this.filterByDate(this.props.dateFrom, this.props.dateTo);
     }
 
     this.props.setStateValue('needMapRestyle', false);
@@ -199,26 +201,6 @@ class MapComponent extends Component {
       });
     }
   }
-
-  // mouseDown(e) {
-  //   if (!this.state.isDragging && !this.state.isCursorOverPoint) return;
-
-  //   var features = this.map.queryRenderedFeatures(e.point, { layers: this.movableLayers });
-  //   if (!features.length) return;
-
-
-  //   // Set a cursor indicator
-  //   this.map.getCanvas().style.cursor = 'grab';
-
-  //   const mouseMoveFn = (e) => this.onMove(e);
-
-  //   this.setState({ isDragging: true, draggedLayer: features[0].layer.id, mouseMoveFn: mouseMoveFn });
-
-  //   // Mouse events
-  //   this.map.on('mousemove', mouseMoveFn);
-  //   this.map.once('mousemove', (e) => this.onceMove(e));
-  //   this.map.once('mouseup', (e) => this.onUp(e));
-  // }
 
   onMove(e) {
     if (!this.state.isDragging) return;
@@ -265,12 +247,6 @@ class MapComponent extends Component {
     // Unbind mouse events
     this.map.off('mousemove', this.state.mouseMoveFn);
 
-    // this.props.getReverseGeocode(
-    //   this.layerToKey(this.state.draggedLayer),
-    //   this.state.draggedCoords,
-    //   this.props.accessToken
-    // );
-
     this.onceMove(e, 'idle');
     this.setState({isDragging: false, draggedLayer: '', draggedCoords: null});
   }
@@ -297,13 +273,6 @@ class MapComponent extends Component {
 
 
       /*Prepare data for Detailinfo*/
-      let place_name = null;
-      if (feature.properties.name) {
-        place_name = feature.properties.name
-      }
-      else
-        place_name = feature.properties.label;
-
       var paintColor = null;
       if ("paint" in feature.layer) {
         if(typeof(feature.layer.paint["circle-color"])!== "undefined")
@@ -312,6 +281,27 @@ class MapComponent extends Component {
             paintColor = feature.layer.paint["text-color"];
           }
       }
+      let place_name = null;
+      if (feature.properties.name) {
+        place_name = feature.properties.name
+      }
+      else
+        {place_name = feature.properties.label;}
+      if (["parcsjardins", "localproductshop", "craftmanshop", "marches", "exposition", "musique", "children", "videsgreniers"].includes(feature.layer.id))
+      {
+        let lng = this.props.languageSet;
+        if(lng === 'fr')
+        {
+          place_name = feature.properties.label_fr;
+
+        }
+        else{
+          place_name = feature.properties.label_en;
+        }
+
+      }
+
+       
 
       /**Call setStateValue */
       if (key && place_name) {
@@ -323,7 +313,6 @@ class MapComponent extends Component {
           'layerId': feature.layer.id,
           "paintColor": paintColor,
           "popupActive": true
-
         });
         this.props.triggerMapUpdate();
       }
@@ -385,7 +374,7 @@ class MapComponent extends Component {
 
   initLayerVisibility(){
     const layerSelector = {
-      Museum: /liste-et-localisation-des-mus-5iczl9/,
+      Museum: /museesFrance/,
       Villages: /plusBeauxVillagesDeFrance/,
       Unesco: /patrimoinemondialenfrance/, // This is the Layer id
       Jardins: /jardinremarquable/,
@@ -406,61 +395,22 @@ class MapComponent extends Component {
       if (this.props.visibility[key]) {
         this.map.setLayoutProperty(layerSelector[key].source, 'visibility', 'visible');
 
-        if (["marches", "exposition", "musique", "children", "videsgreniers", 
-            "parcsjardins", "localproductshop", "craftmanshop", "plusBeauxVillagesDeFrance", 
-            "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(layerSelector[key].source)) {
+        if (["grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(layerSelector[key].source)) {
           this.loadJsonData(layerSelector[key].source);
           this.addLegendItem(layerSelector[key].source);
         }
-      } else{
+      } else {
+        if( typeof (layerSelector[key]) === "undefined") return;
         let isVisible = this.map.getLayoutProperty(layerSelector[key].source, 'visibility');
-        if(isVisible === 'visible') { // set Empty Data to sources
-        this.map.setLayoutProperty(layerSelector[key].source, 'visibility', 'none');
-        if (["parcsjardins", "localproductshop", "craftmanshop", "exposition", "musique", "children", "videsgreniers",
-          "plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance",
-          "monumentsnationaux", "patrimoinemondialenfrance"].includes(layerSelector[key].source)) {
-          this.setEmptyData(layerSelector[key].source);
+        if (isVisible === 'visible') { // set Empty Data to sources
+          this.map.setLayoutProperty(layerSelector[key].source, 'visibility', 'none');
+          if (["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance",
+            "monumentsnationaux", "patrimoinemondialenfrance"].includes(layerSelector[key].source)) {
+            this.setEmptyData(layerSelector[key].source);
+          }
         }
       }
-    }
     });
-  }
-
-  updateStyle(styleString) {
-    // if (styleString.indexOf('traffic') > -1) {
-    //   this.map.getStyle().layers.forEach(layer => {
-    //     if (layer.source === 'traffic') this.map.setLayoutProperty(layer.id, 'visibility', 'visible');
-    //     // TODO here, change the color of motorways and trunks to white
-    //   });
-    // } else {
-    //   this.map.getStyle().layers.forEach(layer => {
-    //     if (layer.source === 'traffic') this.map.setLayoutProperty(layer.id, 'visibility', 'none');
-    //     // TODO here, change the color of motorways and trunks back to orange/yellow (look in the `style` variable?)
-    //   });
-    // }
-
-    // if (styleString.indexOf('satellite') > -1) 
-    // {
-    //   this.map.setLayoutProperty('satellite', 'visibility', 'visible');
-    //   // TODO add labels and stuff?
-    //   // timeout to have a smooth transition, no flash
-    //   setTimeout(() => {
-    //     this.map.getStyle().layers.forEach(layer => {
-    //       if (layer.source === 'composite')
-    //         this.map.setLayoutProperty(layer.id, 'visibility', 'none');
-    //     });
-    //   }, 300);
-    // }
-    // else 
-    // {
-    //   // this.map.getStyle().layers.forEach(layer => {
-    //   //   if (layer.source === 'composite') 
-    //   //     this.map.setLayoutProperty(layer.id, 'visibility', 'visible');
-    //   // });
-    //   this.map.setLayoutProperty('satellite', 'visibility', 'none');
-    // }
-
-    return styleString;
   }
 
   toggleLayerVisibility(toggleLayerVisibility) {
@@ -472,10 +422,6 @@ class MapComponent extends Component {
 
     } else {
       this.map.setLayoutProperty(toggleLayerVisibility, 'visibility', 'visible');
-      if( ["parcsjardins", "localproductshop", "craftmanshop", "marches", "exposition", "musique", "children", "videsgreniers"].includes(toggleLayerVisibility)){
-        this.loadJsonData(toggleLayerVisibility);
-        this.addLegendItem(toggleLayerVisibility);
-      }
       if( ["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(toggleLayerVisibility)){
         this.loadJsonData(toggleLayerVisibility);
         this.addLegendItem(toggleLayerVisibility);
@@ -568,10 +514,6 @@ class MapComponent extends Component {
   }
   loadJsonData(dataStr) {
 
-    if (["marches"].includes(dataStr))
-    {
-      return; 
-    }
     let baseDataUrl;
     if (process.env.NODE_ENV === 'production') {
       baseDataUrl = process.env.PUBLIC_URL + '/data/';
@@ -584,38 +526,38 @@ class MapComponent extends Component {
     };
     var lng = this.props.languageSet;
 
-    if (["parcsjardins", "localproductshop", "craftmanshop", "marches", "exposition", "musique", "children", "videsgreniers", "plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(dataStr) && lng === 'fr') {
+    if (["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(dataStr) && lng === 'fr') {
       AllData = {
         patrimoinemondialenfrance: "Patrimoine_Mondial_en_France.geojson",
         monumentsnationaux: "Monuments_Nationaux.geojson",
         grandSiteDeFrance: "Grand_Site_de_France.geojson",
         jardinremarquable: "Jardin_Remarquable.geojson",
         plusBeauxVillagesDeFrance: "Plus_Beaux_Villages_de_France.geojson",
-        parcsjardins: "ParcsJardins.json",
-        localproductshop: "localProductShop.json",
-        craftmanshop: "craftmanShop.json", 
-        marches: "marches.json",
-        exposition: "exposition.json",
-        musique: "musique.json",
-        children: "children.json",
-        videsgreniers: "videsGreniers.json"
+        // parcsjardins: "ParcsJardins.json",
+        // localproductshop: "localProductShop.json",
+        // craftmanshop: "craftmanShop.json", 
+        // marches: "marches.json",
+        // exposition: "exposition.json",
+        // musique: "musique.json",
+        // children: "children.json",
+        // videsgreniers: "videsGreniers.json"
       }
     } else
-      if (["parcsjardins", "localproductshop", "craftmanshop", "marches", "exposition", "musique", "children", "videsgreniers", "plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(dataStr) && lng === 'en') {
+      if (["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(dataStr) && lng === 'en') {
         AllData = {
           patrimoinemondialenfrance: "Patrimoine_Mondial_en_France_en.geojson",
           monumentsnationaux: "Monuments_Nationaux_en.geojson",
           grandSiteDeFrance: "Grand_Site_de_France_en.geojson",
           jardinremarquable: "Jardin_Remarquable_en.geojson",
           plusBeauxVillagesDeFrance: "Plus_Beaux_Villages_de_France_en.geojson",
-          parcsjardins: "ParcsJardins_en.json",
-          localproductshop: "localProductShop_en.json",
-          craftmanshop: "craftmanShop_en.json", 
-          marches: "marches_en.json",
-          exposition: "exposition_en.json",
-          musique: "musique_en.json",
-          children: "children_en.json",
-          videsgreniers: "videsGreniers_en.json"
+          // parcsjardins: "ParcsJardins_en.json",
+          // localproductshop: "localProductShop_en.json",
+          // craftmanshop: "craftmanShop_en.json", 
+          // marches: "marches_en.json",
+          // exposition: "exposition_en.json",
+          // musique: "musique_en.json",
+          // children: "children_en.json",
+          // videsgreniers: "videsGreniers_en.json"
         }
       }
 
@@ -671,7 +613,7 @@ class MapComponent extends Component {
       // 'poi-scalerank4',
       // 'poi-parks-scalerank4',
       "france-wiki2-dw4zq5",
-      "liste-et-localisation-des-mus-5iczl9",
+      "museesFrance",
       "plusBeauxVillagesDeFrance",
       "patrimoinemondialenfrance",
       "jardinremarquable",

@@ -8,19 +8,24 @@ class MyPlaceName extends Component {
       if (typeof (this.props.location.properties.label) !== "undefined") {
         parts = this.props.location.properties.label.split(', ');
       }
+      else if (typeof (this.props.location.properties.label_fr) !== "undefined") {
+        parts = this.props.location.properties.label_fr.split(', ');
+      }
 
-      else if (typeof (this.props.location.properties.name) !== "undefined") { parts = this.props.location.properties.name; }
+      else if (typeof (this.props.location.properties.name) !== "undefined") 
+      { 
+        parts = this.props.location.properties.name; 
+      }
     }
     else
       if (this.props.location.place_name) { parts = this.props.location.place_name.split(', '); }
 
-    if (parts.length < 1) return null;
+    if (parts === null || parts.length < 1) return null;
 
     var main = parts[0];
-    //var rest = parts.slice(1).join(', ');
     var rest = null;
     if(this.props.location.properties)
-        {rest = this.props.location.properties.context; }//value.place_name.split(',')[0]
+        {rest = this.props.location.properties.context; }
 
     var mainColor, restColor;
     if (this.props.colors === 'light') {

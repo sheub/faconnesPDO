@@ -426,7 +426,7 @@ class MyDrawer extends Component {
                           {t("drawer.markets")}
                         </InputLabel>
                         <ListItemSecondaryAction>
-                          <HomeIcon className={classes.icon} style={{ color: "#4aa52c" }} alt={t("drawer.markets")} title={t("drawer.markets")} />
+                          <HomeIcon className={classes.icon} style={{ color: "#4AA52C" }} alt={t("drawer.markets")} title={t("drawer.markets")} />
                         </ListItemSecondaryAction>
                       </ListItem>
                       <ListItem key={"VidesGreniers"} dense button className={classes.listItem}>

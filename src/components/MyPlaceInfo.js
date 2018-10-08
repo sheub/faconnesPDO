@@ -84,9 +84,36 @@ class MyPlaceInfo extends Component {
     const { t } = this.props;
 
     let popupActive = this.props.info.popupActive;
-    let info = this.props.info.properties;
     const layerId = this.props.info.layerId;
     const paintColor = this.props.info.paintColor;
+
+    let info = this.props.info.properties;
+
+    if ([
+      "parcsjardins",
+      "localproductshop",
+      "craftmanshop",
+      "exposition",
+      "musique",
+      "children",
+      "marches",
+      "videsgreniers"].includes(layerId)) {
+      const lang = this.props.i18n.language;
+      switch (lang) {
+        case "fr":
+          info.abstract = this.props.info.properties.abstract_fr;
+          info.label = this.props.info.properties.label_fr;
+          break;
+        case "en":
+          info.abstract = this.props.info.properties.abstract_en;
+          info.label = this.props.info.properties.label_en;
+          break;
+          default:
+            info.abstract = this.props.info.properties.abstract_en;
+            info.label = this.props.info.properties.label_en;
+
+      }
+    }
 
     const styles = {
       width: "12",
@@ -153,7 +180,6 @@ class MyPlaceInfo extends Component {
                   <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
                 </IconButton>
               </div>
-                {/* <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.hidePopup()}><span aria-hidden="true">&times;</span></button> */}
                 <div className="introtext">
                   <div className="abstractPopup">
                     {info.abstract}
@@ -188,7 +214,6 @@ class MyPlaceInfo extends Component {
                   <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
                 </IconButton>
               </div>
-                {/* <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.hidePopup()}><span aria-hidden="true">&times;</span></button> */}
                 <div className="introtext">
                   <div className="abstractPopup">
                     {info.abstract}

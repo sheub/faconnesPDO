@@ -6,7 +6,7 @@ import RouteElevation from './RouteElevation';
 class RoutePanel extends Component {
   render() {
     return (
-      <div className='relative mt6 bg-white w-full w420-mm hmin42 hmin48-mm shadow-darken25 flex-parent flex-parent--column flex-parent--center-main'>
+      <div className='relative mt6 bg-white w-full w240-mm hmin42 hmin36-mm shadow-darken25 flex-parent flex-parent--column flex-parent--center-main'>
         {this.routeInfo()}
         {
           this.props.modality === 'bike'
@@ -24,7 +24,7 @@ class RoutePanel extends Component {
     if (this.props.route) {
       return (
         <div className='flex-parent flex-parent--row flex-parent--center-cross'>
-          <div className='w48 hmin48 flex-parent flex-parent--center-main flex-parent--center-cross'>
+          <div className='w36 hmin36 flex-parent flex-parent--center-main flex-parent--center-cross'>
             <svg className='icon color-gray'><use xlinkHref={'#icon-' + this.props.modality}></use></svg>
           </div>
           <div className='bottom pr12'>
