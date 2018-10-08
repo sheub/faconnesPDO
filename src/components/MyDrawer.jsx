@@ -296,15 +296,15 @@ class MyDrawer extends Component {
                         </ListItemSecondaryAction>
                       </ListItem>
 
-                      <ListItem key={"Museum"} dense button className={classes.listItem}>
+                      {/* <ListItem key={"Museum"} dense button className={classes.listItem}>
                         <Checkbox tabIndex={-1} checked={this.state.visibility["Museum"]} onChange={this._onVisibilityChange.bind(this, "Museum")} value="true" color="default" id="MuseumCheckbox" disableRipple />
                         <InputLabel htmlFor="MuseumCheckbox" primary={"Museum"} title={t("drawer.museum")}>
                           {t("drawer.museum")}
                         </InputLabel>
                         <ListItemSecondaryAction>
-                        <FaStar className={classes.icon}  style={{ color: "#33baab" }} />
+                        <FaStar className={classes.icon}  style={{ color: "#33BAAB" }} />
                         </ListItemSecondaryAction>
-                      </ListItem>
+                      </ListItem> */}
 
                       <ListItem key={"Jardins"} dense button className={classes.listItem}>
                         <Checkbox tabIndex={-1} checked={visibility["Jardins"]} onChange={this._onVisibilityChange.bind(this, "Jardins")} value="true" color="default" id="JardinsCheckbox" disableRipple />

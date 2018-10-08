@@ -42,28 +42,28 @@
 
     "localEvents": {
       "type": "vector",
-      "tiles": ["http://localhost/faconnes/tiles/localEvents/{z}/{x}/{y}.pbf"]
+      "tiles": ["https://faconnes.de/tiles/localEvents/{z}/{x}/{y}.pbf"]
     },
     "localTips": {
       "type": "vector",
-      "tiles": ["http://localhost/faconnes/tiles/localTips/{z}/{x}/{y}.pbf"]
+      "tiles": ["https://faconnes.de/tiles/localTips/{z}/{x}/{y}.pbf"]
     },
     "museesFrance": {
       "type": "vector",
-      "tiles": ["http://localhost/faconnes/tiles/museesFrance/{z}/{x}/{y}.pbf"]
+      "tiles": ["https://faconnes.de/tiles/museesFrance/{z}/{x}/{y}.pbf"]
     },
     "Highlight": {
       "type": "vector",
-      "tiles": ["http://localhost/faconnes/tiles/France_Highlight2/{z}/{x}/{y}.pbf"]
+      "tiles": ["https://faconnes.de/tiles/France_Highlight2/{z}/{x}/{y}.pbf"]
     },
     "France_Poi": {
       "type": "vector",
-      "tiles": ["http://localhost/faconnes/tiles/France_Poi/{z}/{x}/{y}.pbf"]
+      "tiles": ["https://faconnes.de/tiles/France_Poi/{z}/{x}/{y}.pbf"]
     },
 
     "openmaptiles": {
       "type": "vector",
-      "tiles": ["http://localhost/faconnes/tiles/france/{z}/{x}/{y}.pbf?optimize=true"],
+      "tiles": ["https://maps.tilehosting.com/data/v3/{z}/{x}/{y}.pbf?key=pErAY63Zg9cVHhUnLbku"],
       "attribution": "<a href=\"http://www.openmaptiles.org/\" target=\"_blank\" rel=\"noopener\">&copy; OpenMapTiles</a> <a href=\"http://www.openstreetmap.org/about/\" target=\"_blank\" rel=\"noopener\">&copy; OpenStreetMap contributors</a>"
     },
 
