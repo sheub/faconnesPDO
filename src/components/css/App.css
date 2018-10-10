@@ -77,14 +77,10 @@
 
 .legend-key {
   display: inline-block;
-  border-radius: 20%;
-  width: 10px;
+  /* border-radius: 20%; */
+  /* width: 10px;
   height: 10px;
-  margin-right: 5px;
-  font-family: "FontAwesome";
-
-  /* font-style: normal; */
-  font-weight: bolder; 
+  margin-right: 5px; */
 }
 
 @media only screen and (max-width: 640px) {

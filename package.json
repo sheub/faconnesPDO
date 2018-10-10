@@ -14,7 +14,8 @@
     "gh-pages": "1.2.0",
     "material-ui-pickers": "^1.0.0-rc.14",
     "react-scripts": "^1.1.5",
-    "react-test-renderer": "16.4.2"
+    "react-test-renderer": "16.4.2",
+    "svg-react-loader": "^0.4.5"
   },
   "dependencies": {
     "@mapbox/mapbox-gl-language": "^0.10.0",

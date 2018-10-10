@@ -1,18 +1,19 @@
-import PropTypes from 'prop-types';
-import React, {Component} from 'react';
+import PropTypes from "prop-types";
+import React, {Component} from "react";
 import { translate } from "react-i18next";
 
-import {connect} from 'react-redux';
-import mapboxgl from 'mapbox-gl/dist/mapbox-gl';
+import {connect} from "react-redux";
+import mapboxgl from "mapbox-gl/dist/mapbox-gl";
 import turfBbox from "@turf/bbox";
-import turfBboxPolygon from '@turf/bbox-polygon';
-import turfBuffer from '@turf/buffer';
-import turfDistance from '@turf/distance';
-import { FaStar } from 'react-icons/fa';
-import {setLanguage} from '../utils/openmaptiles-language'
+import turfBboxPolygon from "@turf/bbox-polygon";
+import turfBuffer from "@turf/buffer";
+import turfDistance from "@turf/distance";
+import { FaStar } from "react-icons/fa";
+import {setLanguage} from "../utils/openmaptiles-language";
+import Legend from "./Legend";
 
 
-import {push} from 'react-router-redux';
+import {push} from "react-router-redux";
 import {
   setStateValue,
   setUserLocation,
@@ -20,15 +21,15 @@ import {
   getRoute,
   getReverseGeocode,
   resetStateKeys
-} from '../actions/index';
+} from "../actions/index";
 
-import style from '../styles/osm-bright.json';
+import style from "../styles/osm-bright.json";
 // Set the sprite URL in the style. It has to be a full, absolute URL.
 let spriteUrl;
-if (process.env.NODE_ENV === 'production') {
-  spriteUrl = process.env.PUBLIC_URL + '/sprite';
+if (process.env.NODE_ENV === "production") {
+  spriteUrl = process.env.PUBLIC_URL + "/sprite";
 } else { // Dev server runs on port 3000
-  spriteUrl = 'http://localhost:3000/sprite';
+  spriteUrl = "http://localhost:3000/sprite";
 }
 style.sprite = spriteUrl;
 
@@ -48,7 +49,8 @@ class MapComponent extends Component {
       // <div id='map' className='viewport-full'>
       <div>
         <div id="map"></div>
-        <div className='map-overlay' id='legend'></div>
+        {/* <div className='map-overlay' id='legend'></div> */}
+        <Legend legendItems={this.props.legendItems}/>
       </div>
     );
   }
@@ -394,16 +396,17 @@ class MapComponent extends Component {
     Object.keys(this.props.visibility).forEach(key => {
       if (this.props.visibility[key]) {
         this.map.setLayoutProperty(layerSelector[key].source, 'visibility', 'visible');
-
+        this.addLegendItem(layerSelector[key].source);
         if (["grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(layerSelector[key].source)) {
           this.loadJsonData(layerSelector[key].source);
-          this.addLegendItem(layerSelector[key].source);
         }
       } else {
         if( typeof (layerSelector[key]) === "undefined") return;
         let isVisible = this.map.getLayoutProperty(layerSelector[key].source, 'visibility');
-        if (isVisible === 'visible') { // set Empty Data to sources
+        if (isVisible === 'visible') { 
+          // set 'visibility' to 'none'
           this.map.setLayoutProperty(layerSelector[key].source, 'visibility', 'none');
+          // set Empty Data to sources
           if (["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance",
             "monumentsnationaux", "patrimoinemondialenfrance"].includes(layerSelector[key].source)) {
             this.setEmptyData(layerSelector[key].source);
@@ -422,9 +425,9 @@ class MapComponent extends Component {
 
     } else {
       this.map.setLayoutProperty(toggleLayerVisibility, 'visibility', 'visible');
+      this.addLegendItem(toggleLayerVisibility);
       if( ["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(toggleLayerVisibility)){
-        this.loadJsonData(toggleLayerVisibility);
-        this.addLegendItem(toggleLayerVisibility);
+        this.loadJsonData(toggleLayerVisibility);        
       }
     }
   }
@@ -440,60 +443,31 @@ class MapComponent extends Component {
   }
 
   addLegendItem(idLayer) {
-    const { t } = this.props;
-    var legend = document.getElementById('legend');
 
-    let itemId = "lgnSpan" + idLayer;
-    var item = document.getElementById(itemId);
-    /*if element already there (because of language switch -> simply translate)*/
-    if(item!=null){
-      item.innerHTML =  t("maplayerids." + idLayer);
-      return;
-    }    
-
-    
     let mapLayer = this.map.getLayer(idLayer);
     var color;
-    item = document.createElement('div');
-    var key = document.createElement('span');
+    // var legendItem;
+    var legendItem = {};
+    legendItem.idLayer = idLayer;
 
     if(mapLayer.type === "symbol"){
       color = mapLayer.paint._values["text-color"].value.value;
-      key.style.color = color;
+      legendItem.symbolColor = color;
       if(mapLayer.layout._values["text-field"].value.value === "\uf005")
       {
-        key.textContent = "\uf005";
-        // key.innerHTML = <RenderUrl value = {mapLayer.layout._values["text-field"].value.value} />;
-        //key.innerHTML = <div dangerouslySetInnerHTML={{ __html: "Hello" }} />
-        //key.style.backgroundColor = color;
-
+        legendItem.symbolKey = "\uf005";
       }
-      else if(mapLayer.layout._values["text-field"].value.value === "\uf45c")
-      {
-        //  key.textContent = "\ufc08";
-        //  key.innerHTML = <FaSquareFull style={{ color: color }} />
-        key.style.backgroundColor = color;
-
-      }
-
-    }
-    else
-    {
-      color = mapLayer.paint._values["circle-color"].value.value;
-      key.style.backgroundColor = color;
     }
 
-    key.className = 'legend-key';
+    let items = legendItem;
+    if (typeof (this.props.legendItems) !== "undefined")
+      {items = this.props.legendItems.concat([legendItem]);}
+
+    this.props.setStateValue("legendItems", items);
+
+
+
     
-
-    var value = document.createElement('span');
-    value.innerHTML =  t("maplayerids." + idLayer);
-    value.id = "lgnSpan" + idLayer; 
-
-    item.id = "lgn" + idLayer;
-    item.appendChild(key);
-    item.appendChild(value);
-    legend.appendChild(item);
   }
 
   removeLegendItem(idLayer) {
@@ -645,6 +619,7 @@ MapComponent.propTypes = {
   getReverseGeocode: PropTypes.func,
   getRoute: PropTypes.func,
   languageSet: PropTypes.string,
+  legendItems: PropTypes.array,
   map: PropTypes.object,
   mapStyle: PropTypes.string,
   modality: PropTypes.string,
@@ -681,6 +656,7 @@ const mapStateToProps = (state) => {
     dateFrom: state.app.dateFrom,
     dateTo: state.app.dateTo,
     languageSet: state.app.languageSet,
+    legendItems: state.app.legendItems,
     modality: state.app.modality,
     mode: state.app.mode,
     needMapRepan: state.app.needMapRepan,

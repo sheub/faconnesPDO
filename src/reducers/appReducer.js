@@ -50,6 +50,7 @@ const defaultAppState = {
   dateFrom:0,
   dateTo:0,
   languageSet:'en',
+  legendItems:[],
   popupActive: false
 };
 
