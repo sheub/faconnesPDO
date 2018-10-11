@@ -70,12 +70,6 @@ const styles = (theme) => ({
   },
   appBar: {
     position: "absolute",
-    // zIndex: theme.zIndex.drawer + 1,
-    // transition: theme.transitions.create(["margin", "width"], {
-    //   easing: theme.transitions.easing.sharp,
-    //   duration: theme.transitions.duration.leavingScreen
-    //   // duration: 0//theme.transitions.duration.enteringScreen
-    // })
   },
   menuButton: {
     marginLeft: 12,
@@ -93,11 +87,6 @@ const styles = (theme) => ({
     display: "flex",
     paddingBottom: "100px",
     width: drawerWidth,
-    // transition: theme.transitions.create(["margin", "width"], {
-    //   easing: theme.transitions.easing.sharp,
-    //   duration: theme.transitions.duration.leavingScreen
-    //   // duration: 0//theme.transitions.duration.leavingScreen
-    // }),
     overflowX: "hidden",
     overflowY: "auto",
     "&:hover": {
@@ -109,10 +98,6 @@ const styles = (theme) => ({
   },
   drawerPaperClose: {
     overflowX: "hidden",
-    // transition: theme.transitions.create("width", {
-    //   easing: theme.transitions.easing.sharp,
-    //   duration: theme.transitions.duration.leavingScreen
-    // }),
     width: 0,
   },
   collapses: {
@@ -129,31 +114,11 @@ const styles = (theme) => ({
     position: "absolute", right: "12px"
   },
 
-  // Name of the component ⚛️
-  // MuiListItemSecondaryAction: {
-  //   // The properties to apply
-  //   right: "10px",
-  // },
-  // MuiInput: {
-  //   textAlign: "inherit"
-  // },
-
-  // overrides: {
-  //   // Name of the component ⚛️
-  //   MuiListItemSecondaryAction: {
-  //     // The properties to apply
-  //     right: "10px",
-  //   },
-  //   MuiInput: {
-  //     textAlign: "inherit"
-  //   }
-  // },
-
 });
 
 // Layer id patterns by category
 const layerSelector = {
-  Museum: /liste-et-localisation-des-mus-5iczl9/,
+  Museum: /museesFrance/,
   Villages: /plusBeauxVillagesDeFrance/,
   Unesco: /patrimoinemondialenfrance/, // This is the Layer id
   Jardins: /jardinremarquable/,
@@ -252,7 +217,6 @@ class MyDrawer extends Component {
     this.props.setStateValues({
       toggleLayerVisibility: layerSelector[name].source,
       visibility: visibility,
-      // needMapRestyle: true,
       needMapToggleLayer: true
     });
     this.props.triggerMapUpdate();
@@ -304,7 +268,7 @@ class MyDrawer extends Component {
                         </ListItemSecondaryAction>
                       </ListItem>
 
-                      {/* <ListItem key={"Museum"} dense button className={classes.listItem}>
+                      <ListItem key={"Museum"} dense button className={classes.listItem}>
                         <Checkbox tabIndex={-1} checked={this.state.visibility["Museum"]} onChange={this._onVisibilityChange.bind(this, "Museum")} value="true" color="default" id="MuseumCheckbox" disableRipple />
                         <InputLabel htmlFor="MuseumCheckbox" primary={"Museum"} title={t("drawer.museum")}>
                           {t("drawer.museum")}
@@ -312,7 +276,7 @@ class MyDrawer extends Component {
                         <ListItemSecondaryAction>
                         <img src={Star15_33BAAB} alt={t("drawer.museum")} className={classes.icon}/>
                         </ListItemSecondaryAction>
-                      </ListItem> */}
+                      </ListItem>
 
                       <ListItem key={"Jardins"} dense button className={classes.listItem}>
                         <Checkbox tabIndex={-1} checked={visibility["Jardins"]} onChange={this._onVisibilityChange.bind(this, "Jardins")} value="true" color="default" id="JardinsCheckbox" disableRipple />

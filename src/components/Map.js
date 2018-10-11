@@ -445,29 +445,21 @@ class MapComponent extends Component {
   addLegendItem(idLayer) {
 
     let mapLayer = this.map.getLayer(idLayer);
-    var color;
-    // var legendItem;
+    // var color;
     var legendItem = {};
     legendItem.idLayer = idLayer;
 
-    if(mapLayer.type === "symbol"){
-      color = mapLayer.paint._values["text-color"].value.value;
-      legendItem.symbolColor = color;
-      if(mapLayer.layout._values["text-field"].value.value === "\uf005")
-      {
-        legendItem.symbolKey = "\uf005";
-      }
+    if (mapLayer.type === "symbol") {
+      legendItem.symbolColor = mapLayer.paint._values["text-color"].value.value;
+    }
+    if (mapLayer.type === "circle") {
+      legendItem.symbolColor = mapLayer.paint._values["circle-color"].value.value;
     }
 
     let items = legendItem;
-    if (typeof (this.props.legendItems) !== "undefined")
-      {items = this.props.legendItems.concat([legendItem]);}
+    if (typeof (this.props.legendItems) !== "undefined") { items = this.props.legendItems.concat([legendItem]); }
 
     this.props.setStateValue("legendItems", items);
-
-
-
-    
   }
 
   removeLegendItem(idLayer) {

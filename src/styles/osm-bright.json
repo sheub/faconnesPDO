@@ -1,70 +1,38 @@
 {
   "version": 8,
   "name": "OSM Bright",
-  "metadata": {
-    "mapbox:type": "template",
-    "mapbox:groups": {
-      "1444849364238.8171": {
-        "collapsed": false,
-        "name": "Buildings"
-      },
-      "1444849354174.1904": {
-        "collapsed": true,
-        "name": "Tunnels"
-      },
-      "1444849388993.3071": {
-        "collapsed": false,
-        "name": "Land"
-      },
-      "1444849242106.713": {
-        "collapsed": false,
-        "name": "Places"
-      },
-      "1444849382550.77": {
-        "collapsed": false,
-        "name": "Water"
-      },
-      "1444849345966.4436": {
-        "collapsed": false,
-        "name": "Roads"
-      },
-      "1444849334699.1902": {
-        "collapsed": true,
-        "name": "Bridges"
-      }
-    },
-    "mapbox:autocomposite": false,
-    "openmaptiles:version": "3.x",
-    "openmaptiles:mapbox:owner": "openmaptiles",
-    "openmaptiles:mapbox:source:url": "mapbox://openmaptiles.4qljc88t"
-  },
   "sources": {
-
-    "localEvents": {
-      "type": "vector",
-      "tiles": ["https://faconnes.de/tiles/localEvents/{z}/{x}/{y}.pbf"]
-    },
-    "localTips": {
-      "type": "vector",
-      "tiles": ["https://faconnes.de/tiles/localTips/{z}/{x}/{y}.pbf"]
-    },
-    "museesFrance": {
-      "type": "vector",
-      "tiles": ["https://faconnes.de/tiles/museesFrance/{z}/{x}/{y}.pbf"]
-    },
-    "Highlight": {
-      "type": "vector",
-      "tiles": ["https://faconnes.de/tiles/France_Highlight2/{z}/{x}/{y}.pbf"]
-    },
-    "France_Poi": {
-      "type": "vector",
-      "tiles": ["https://faconnes.de/tiles/France_Poi/{z}/{x}/{y}.pbf"]
-    },
 
     "openmaptiles": {
       "type": "vector",
       "tiles": ["https://maps.tilehosting.com/data/v3/{z}/{x}/{y}.pbf?key=pErAY63Zg9cVHhUnLbku"],
       "attribution": "<a href=\"http://www.openmaptiles.org/\" target=\"_blank\" rel=\"noopener\">&copy; OpenMapTiles</a> <a href=\"http://www.openstreetmap.org/about/\" target=\"_blank\" rel=\"noopener\">&copy; OpenStreetMap contributors</a>"
+    },
+    "localEvents": {
+      "type": "vector",
+      "tiles": ["https://faconnes.de/tiles/localEvents/{z}/{x}/{y}.png.pbf"],
+      "maxzoom": 22
+    },
+    "localTips": {
+      "type": "vector",
+      "tiles": ["https://faconnes.de/tiles/localTips/{z}/{x}/{y}.png.pbf"],
+      "maxzoom": 22
+    },
+    "museesFrance": {
+      "type": "vector",
+      "tiles": ["https://faconnes.de/tiles/museesFrance/{z}/{x}/{y}.pbf"],
+      "maxzoom": 22
+    },
+    "Highlight": {
+      "type": "vector",
+      "tiles": ["https://faconnes.de/tiles/France_Highlight2/{z}/{x}/{y}.png.pbf"],
+      "maxzoom": 22
+    },
+    "France_Poi": {
+      "type": "vector",
+      "tiles": ["https://faconnes.de/tiles/France_Poi/{z}/{x}/{y}.pbf"],
+      "maxzoom": 22,
+      "minzoom": 14
     },
 
     "marker": {
@@ -148,9 +116,6 @@
     {
       "id": "landcover-glacier",
       "type": "fill",
-      "metadata": {
-        "mapbox:group": "1444849388993.3071"
-      },
       "source": "openmaptiles",
       "source-layer": "landcover",
       "filter": [
@@ -800,6 +765,98 @@
           ]
         }
       }
+    },
+    {
+        "id": "building-3d",
+        "type": "fill-extrusion",
+        "source": "openmaptiles",
+        "source-layer": "building",
+        "minzoom": 14,
+        "filter": [
+            "all",
+            [
+                "!=",
+                "underground",
+                "true"
+            ]
+        ],
+        "layout": {},
+        "paint": {
+            "fill-extrusion-color": "hsl(40, 63%, 95%)",
+            "fill-extrusion-height": {
+                "base": 1,
+                "type": "exponential",
+                "property": "height",
+                "stops": [
+                    [
+                        {
+                            "zoom": 15,
+                            "value": 1
+                        },
+                        0
+                    ],
+                    [
+                        {
+                            "value": 1000,
+                            "zoom": 15
+                        },
+                        0
+                    ],
+                    [
+                        {
+                            "value": 1,
+                            "zoom": 16
+                        },
+                        1
+                    ],
+                    [
+                        {
+                            "value": 1000,
+                            "zoom": 16
+                        },
+                        1000
+                    ]
+                ],
+                "default": 10
+            },
+            "fill-extrusion-base": {
+                "base": 1,
+                "type": "exponential",
+                "property": "min_height",
+                "stops": [
+                    [
+                        {
+                            "zoom": 15,
+                            "value": 1
+                        },
+                        0
+                    ],
+                    [
+                        {
+                            "value": 1000,
+                            "zoom": 15
+                        },
+                        0
+                    ],
+                    [
+                        {
+                            "value": 1,
+                            "zoom": 16
+                        },
+                        1
+                    ],
+                    [
+                        {
+                            "value": 1000,
+                            "zoom": 16
+                        },
+                        1000
+                    ]
+                ],
+                "default": 0
+            },
+            "fill-extrusion-opacity": 0.66
+        }
     },
     {
       "id": "tunnel-service-track-casing",
@@ -3390,9 +3447,6 @@
     {
       "id": "bridge-motorway",
       "type": "line",
-      "metadata": {
-        "mapbox:group": "1444849334699.1902"
-      },
       "source": "openmaptiles",
       "source-layer": "transportation",
       "filter": [
@@ -3435,9 +3489,6 @@
     {
       "id": "bridge-railway",
       "type": "line",
-      "metadata": {
-        "mapbox:group": "1444849334699.1902"
-      },
       "source": "openmaptiles",
       "source-layer": "transportation",
       "filter": [
@@ -3477,9 +3528,6 @@
     {
       "id": "bridge-railway-hatching",
       "type": "line",
-      "metadata": {
-        "mapbox:group": "1444849334699.1902"
-      },
       "source": "openmaptiles",
       "source-layer": "transportation",
       "filter": [
@@ -4570,9 +4618,6 @@
     {
       "id": "place-other",
       "type": "symbol",
-      "metadata": {
-        "mapbox:group": "1444849242106.713"
-      },
       "source": "openmaptiles",
       "source-layer": "place",
       "filter": [
@@ -4616,9 +4661,6 @@
     {
       "id": "place-village",
       "type": "symbol",
-      "metadata": {
-        "mapbox:group": "1444849242106.713"
-      },
       "source": "openmaptiles",
       "source-layer": "place",
       "filter": [
@@ -4656,9 +4698,6 @@
     {
       "id": "place-town",
       "type": "symbol",
-      "metadata": {
-        "mapbox:group": "1444849242106.713"
-      },
       "source": "openmaptiles",
       "source-layer": "place",
       "filter": [
@@ -4696,9 +4735,6 @@
     {
       "id": "place-city",
       "type": "symbol",
-      "metadata": {
-        "mapbox:group": "1444849242106.713"
-      },
       "source": "openmaptiles",
       "source-layer": "place",
       "filter": [
@@ -4744,9 +4780,6 @@
     {
       "id": "place-city-capital",
       "type": "symbol",
-      "metadata": {
-        "mapbox:group": "1444849242106.713"
-      },
       "source": "openmaptiles",
       "source-layer": "place",
       "filter": [
@@ -4799,9 +4832,6 @@
     {
       "id": "place-country-other",
       "type": "symbol",
-      "metadata": {
-        "mapbox:group": "1444849242106.713"
-      },
       "source": "openmaptiles",
       "source-layer": "place",
       "filter": [
@@ -4852,9 +4882,6 @@
     {
       "id": "place-country-3",
       "type": "symbol",
-      "metadata": {
-        "mapbox:group": "1444849242106.713"
-      },
       "source": "openmaptiles",
       "source-layer": "place",
       "filter": [
@@ -4905,9 +4932,6 @@
     {
       "id": "place-country-2",
       "type": "symbol",
-      "metadata": {
-        "mapbox:group": "1444849242106.713"
-      },
       "source": "openmaptiles",
       "source-layer": "place",
       "filter": [
@@ -4958,9 +4982,6 @@
     {
       "id": "place-country-1",
       "type": "symbol",
-      "metadata": {
-        "mapbox:group": "1444849242106.713"
-      },
       "source": "openmaptiles",
       "source-layer": "place",
       "filter": [
@@ -5011,9 +5032,6 @@
     {
       "id": "place-continent",
       "type": "symbol",
-      "metadata": {
-        "mapbox:group": "1444849242106.713"
-      },
       "source": "openmaptiles",
       "source-layer": "place",
       "maxzoom": 1,
@@ -5168,8 +5186,7 @@
               1
             ]
           ]
-        },
-        "text-field": "\uf005"
+        }
       },
       "paint": {
         "text-color": "#14222D"
@@ -5193,8 +5210,7 @@
               1
             ]
           ]
-        },
-        "text-field": "\uf005"
+        }
       },
       "paint": {
         "text-color": "#961313"
@@ -5219,8 +5235,7 @@
               1
             ]
           ]
-        },
-        "text-field": "\uf005"
+        }
       },
       "paint": {
         "text-color": "#4AA52C"
@@ -5245,8 +5260,7 @@
               1
             ]
           ]
-        },
-        "text-field": "\uf005"
+        }
       },
       "paint": {
         "text-color": "#19766E"
@@ -5272,8 +5286,7 @@
               1
             ]
           ]
-        },
-        "text-field": "\uf005"
+        }
       },
       "paint": {
         "text-color": "#33BAAB"
@@ -5312,7 +5325,9 @@
       "layout": {
         "visibility": "none",
         "icon-image": "square-15-E8EF1F",
-        "icon-allow-overlap":true,
+        "icon-allow-overlap": true,
+        "text-ignore-placement": true,
+        "text-allow-overlap": true,
         "icon-size": {
           "stops": [
             [
@@ -5324,8 +5339,7 @@
               1
             ]
           ]
-        },
-        "text-field": "\uf45c"
+        }
       },
       "paint": {
         "text-color": "#E8EF1F"
@@ -5378,8 +5392,7 @@
               1
             ]
           ]
-        },
-        "text-field": "\uf45c"
+        }
       },
       "paint": {
         "text-color": "#4AA52C"
@@ -5395,7 +5408,7 @@
       },
       "paint": {
         "circle-radius": 4,
-        "circle-color": "hsl(0, 88%, 47%)"
+        "circle-color": "#E12E0E"
       }
     },
     {
@@ -5408,7 +5421,7 @@
       },
       "paint": {
         "circle-radius": 4,
-        "circle-color": "#a52c56"
+        "circle-color": "#A52C56"
       }
     },
     {
@@ -5421,7 +5434,7 @@
       },
       "paint": {
         "circle-radius": 4,
-        "circle-color": "#15178a"
+        "circle-color": "#15178A"
       }
     },
     {
@@ -5447,7 +5460,7 @@
       },
       "paint": {
         "circle-radius": 4,
-        "circle-color": "#007cbf"
+        "circle-color": "#007CBF"
       }
     },
     {
@@ -5476,5 +5489,6 @@
       }
     }
   ],
-  "id": "osm-bright"
+  "owner": "sheub",
+  "draft": false
 }
