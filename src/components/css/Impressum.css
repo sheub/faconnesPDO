@@ -1,10 +1,6 @@
 .impressumContainer {
     position: absolute;
-    /* top: 87px; */
-    /* left: 444px; */
     background-color: #FFF;
-    /* width: 100%; */
-    /* height: auto; */
     max-height: 844px;
     max-width: 844px;
     margin: 84px 20px 10px 290px;
@@ -29,12 +25,8 @@
     right: 0;
     cursor: pointer;
     margin: 6px;
-    /* background-color: rgba(138, 138, 138, 0.678); */
     font-size: 22px;
-    /* border-radius: 50%; */
-    /* color: white; */
     line-height: 14px;
-
 }
 
 @media screen and (max-width: 600px) {

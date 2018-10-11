@@ -53,7 +53,7 @@ class Legend extends Component {
             case "videsgreniers":
                 img = <span class="dot" style={{ backgroundColor: item.symbolColor }}></span>
                 break;
-                
+
             default:
                 img = null;
                 break;
@@ -70,9 +70,7 @@ class Legend extends Component {
 
         return (
             <div id={"lgn" + item.idLayer}>
-
                 {this.returnImage(item)}
-
                 <span id={"lgnSpan" + item.idLayer} style={{ color: item.symbolColor }}>
                     {t("maplayerids." + item.idLayer)}
                 </span>

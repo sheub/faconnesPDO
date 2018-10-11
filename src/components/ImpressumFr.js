@@ -4,6 +4,8 @@ import "./css/Impressum.css";
 import EmailIcon from "@material-ui/icons/Email";
 import ContactMailIcon from "@material-ui/icons/ContactMail";
 import ContactPhoneIcon from "@material-ui/icons/ContactPhone";
+import IconButton from '@material-ui/core/IconButton';
+
 
 
 
@@ -16,7 +18,12 @@ class Impressum extends Component {
     getImpressumComponent() {
         return <div className="impressumContainer">
             <div >
-                <button type="button" className="btn-close-impressum" data-dismiss="alert" aria-label="Close" onClick={() => this.handleClose()}><span aria-hidden="true">&times;</span></button>
+            <div className="btn-close-impressum" aria-label="Close">
+              <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.handleClose()}>
+                <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
+              </IconButton>
+            </div>
+                {/* <button type="button" className="btn-close-impressum" data-dismiss="alert" aria-label="Close" onClick={() => this.handleClose()}><span aria-hidden="true">&times;</span></button> */}
                 <h1>INFORMATIONS LÉGALES :</h1>
                 <h2>1. PRÉSENTATION DU SITE.</h2>
                 <br />
@@ -35,8 +42,8 @@ class Impressum extends Component {
                     <strong>Créateur :</strong> Sébastien Barré<br />
                     <strong>Responsable de la publication :</strong> Sébastien Barré – info@zoestha.de<br />
                     <strong>Programmation :</strong> Sébastien Barré – info@zoestha.de<br />
-                    <strong>Hébergeur :</strong> Github Pages – 88 Colin P Kelly Junior Street, San Francisco, CA 94107, United States<br />
-                    <strong>Hébergement fonds des cartes :</strong> Mapbox - 1714 14th St NW Rear Entrance 20009, Washington, United States
+                    <strong>Hébergeur :</strong> STRATO AG Pascalstraße 10 10587 Berlin Allemagne<br />
+                    <strong>Hébergement fonds des cartes :</strong> Klokan Technologies GmbH Hofnerstrasse 98 Unterageri, Zug 6314 Switzerland
                 </p>
                 <br />
 

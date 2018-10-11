@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ReactDOM from 'react-dom';
+import IconButton from '@material-ui/core/IconButton';
 import "./css/Impressum.css";
 
 class About extends Component {
@@ -11,7 +12,12 @@ class About extends Component {
     getAboutComponent() {
         return <div className="impressumContainer">
             <div >
-                <button type="button" className="btn-close-impressum" data-dismiss="alert" aria-label="Close" onClick={() => this.handleClose()}><span aria-hidden="true">&times;</span></button>
+            <div className="btn-close-impressum" aria-label="Close">
+              <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.handleClose()}>
+                <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
+              </IconButton>
+            </div>
+
                 <h1><strong>A propos de lieuxdits.de</strong></h1>
                 Le site lieuxdits.de regroupe des données locales et touristiques de plusieurs sources disponibles en licence ouverte
                 et les mets à disposition de l'utilisateur sous la forme d'une carte interactive.

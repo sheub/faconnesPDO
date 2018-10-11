@@ -19,8 +19,6 @@
     padding-left: 3px;
     padding-right: 3px;
     color: black;
-    /* text-align: justify;
-    text-justify: inter-word; */
 }
 .baseInfo {
     padding-left: 3px;
@@ -32,15 +30,10 @@
     white-space: normal;
     font-family: "Caslon";
     font-weight: 700;
-    /* font-size: 5vw; */
     font-size: 20px;
     text-decoration: none;
     color: black;
-    margin: 4px 31px 10px 2px; /*top right bottom left*/
-    /* margin-bottom: 10px;
-    margin-top: 4px;
-    margin-left: 2px;
-    margin-right: 18px; */
+    margin: 4px 31px 10px 2px; 
 }
 
 .introtext {
@@ -58,7 +51,7 @@
     font-size: 14px;
     white-space: normal;
     color: grey;
-    /* font-family: system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Lucida Grande"; */
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Lucida Grande";
     letter-spacing: -1px;
 }
 
@@ -66,8 +59,7 @@
     font-size: 14px;
     color: #68635C;
     text-transform: capitalize;
-    /*letter-spacing: .0675em;*/
-    /* font-family: system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Lucida Grande"; */
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Lucida Grande";
     padding-bottom: 6px;
 }
 
@@ -160,14 +152,12 @@
     margin-top: 8px;
     left: 0;
     background-color: #FFF;
-    /* width: 240px; */
     height: auto;
     line-height: normal;
     margin-bottom: 10px;
     border-radius: 5px;
     box-shadow: 0px 0px 8px -3px #000;
     transition-duration: 1s;
-    /* cursor: default; */
 }
 
 .btn-close {
@@ -175,12 +165,6 @@
 	top: -4px;
 	right: -4px;
 	cursor: pointer;
-	/* margin: 6px; */
-	/* background-color: #707172; */
-	/* font-size: 22px; */
-	/* border-radius: 50%; */
-	/* color: white; */
-	/* line-height: 14px; */
 }
 
 .btn-icon {
@@ -188,44 +172,12 @@
     color: #666;
 
 }
-/* @media screen and (max-width: 600px) {
-  .mapCont {
-    top: 56px;
-  }
-} */
 
-/* @media screen and (max-width : 480px) and (orientation: landscape) {
-  .mapCont {
-    top: 48px;
-  }
-} */
-
-/* @media screen and (max-width: 600px) {
-    .mapboxgl-popupup {
-        top: 46px;
-    }
-}
-
-@media screen and (max-width : 480px) and (orientation: landscape) {
-    .mapboxgl-popupup {
-        top: 44px;
-    }
-} */
 
 @media only screen and (max-width : 320px) {
-    /* .mapboxgl-popupup {
-        top: 52px;
-        width: 100%;
-        z-index: 2;
-    } */
 
     .baseText {
         width: 100%;
         margin-left: 0;
     }
 }
-
-/* Extra Small Devices, Phones 
-@media only screen and (max-width : 480px) {
-
-} */
