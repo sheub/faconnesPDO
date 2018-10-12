@@ -51,7 +51,7 @@ class Legend extends Component {
             case "musique":
             case "children":
             case "videsgreniers":
-                img = <span class="dot" style={{ backgroundColor: item.symbolColor }}></span>
+                img = <span className="dot" style={{ backgroundColor: item.symbolColor }}></span>
                 break;
 
             default:

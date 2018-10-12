@@ -10,23 +10,23 @@
     },
     "localEvents": {
       "type": "vector",
-      "tiles": ["https://faconnes.de/tiles/localEvents/{z}/{x}/{y}.png.pbf"],
-      "maxzoom": 22
+      "tiles": ["https://faconnes.de/tiles/localEvents/{z}/{x}/{y}.pbf"],
+      "maxzoom": 6
     },
     "localTips": {
       "type": "vector",
-      "tiles": ["https://faconnes.de/tiles/localTips/{z}/{x}/{y}.png.pbf"],
-      "maxzoom": 22
+      "tiles": ["https://faconnes.de/tiles/localTips/{z}/{x}/{y}.pbf"],
+      "maxzoom": 6
     },
     "museesFrance": {
       "type": "vector",
       "tiles": ["https://faconnes.de/tiles/museesFrance/{z}/{x}/{y}.pbf"],
-      "maxzoom": 22
+      "maxzoom": 3
     },
     "Highlight": {
       "type": "vector",
-      "tiles": ["https://faconnes.de/tiles/France_Highlight2/{z}/{x}/{y}.png.pbf"],
-      "maxzoom": 22
+      "tiles": ["https://faconnes.de/tiles/France_Highlight2/{z}/{x}/{y}.pbf"],
+      "maxzoom": 5
     },
     "France_Poi": {
       "type": "vector",
@@ -5365,8 +5365,7 @@
               1
             ]
           ]
-        },
-        "text-field": "\uf45c"
+        }
       },
       "paint": {
         "text-color": "#EE8568"
