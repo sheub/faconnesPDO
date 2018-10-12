@@ -29,7 +29,7 @@
         "fleaMarket": "Flea Markets",
         "startfrom":"Start From",
         "lastuntil": "Last until",
-        "dateformat": "MMM do, YYYY"
+        "dateformat": "MMM do, yyyy"
         
     },
     "myplaceinfo":{

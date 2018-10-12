@@ -59,6 +59,7 @@ store.subscribe(() => {
 });
 
 const theme = createMuiTheme({
+
   palette:
   {
     primary: {
@@ -70,6 +71,7 @@ const theme = createMuiTheme({
   },
 
   typography: {
+    useNextVariants: true,
     // Use the system font instead of the default Roboto font.
     fontFamily: [
       "-apple-system",

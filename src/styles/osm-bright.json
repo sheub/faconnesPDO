@@ -6,7 +6,7 @@
     "openmaptiles": {
       "type": "vector",
       "tiles": ["https://maps.tilehosting.com/data/v3/{z}/{x}/{y}.pbf?key=pErAY63Zg9cVHhUnLbku"],
-      "attribution": "<a href=\"http://www.openmaptiles.org/\" target=\"_blank\" rel=\"noopener\">&copy; OpenMapTiles</a> <a href=\"http://www.openstreetmap.org/about/\" target=\"_blank\" rel=\"noopener\">&copy; OpenStreetMap contributors</a>"
+      "attribution": "<a href=\"https://www.openmaptiles.org/\" target=\"_blank\" rel=\"noopener\">&copy; OpenMapTiles</a> <a href=\"https://www.openstreetmap.org/about/\" target=\"_blank\" rel=\"noopener\">&copy; OpenStreetMap contributors</a>"
     },
     "localEvents": {
       "type": "vector",
@@ -31,8 +31,7 @@
     "France_Poi": {
       "type": "vector",
       "tiles": ["https://faconnes.de/tiles/France_Poi/{z}/{x}/{y}.pbf"],
-      "maxzoom": 22,
-      "minzoom": 14
+      "maxzoom": 2
     },
 
     "marker": {

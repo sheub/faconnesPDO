@@ -10,7 +10,7 @@ import format from 'date-fns/format';
 
 class LocalizedUtilsFR extends DateFnsUtils {
     getDatePickerHeaderText(date) {
-        return format(date, 'EEE d MMM', { locale: this.locale });
+        return format(date, 'EEE d MMM', { locale: this.locale  });
     }
 }
 class LocalizedUtils extends DateFnsUtils {
@@ -34,9 +34,7 @@ class MyDatePicker extends Component {
 
         return (
 
-
             <div>
-
                 <div style={{ backgroundColor: "#eceded", width: "50%", padding: "6px", float: "left" }} >
                     <MuiPickersUtilsProvider utils={LocalUtils} locale={localParam} >
                         <DatePicker

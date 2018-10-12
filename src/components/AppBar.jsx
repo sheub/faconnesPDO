@@ -106,7 +106,7 @@ class MyAppBar extends Component {
                         <IconButton color="inherit" aria-label="Open drawer" onClick={this.handleDrawerOpen} className={classNames(classes.menuButton, open && classes.menuButtonHidden)}>
                             <MenuIcon />
                         </IconButton>
-                        <Typography variant="title" color="inherit" noWrap className={classes.title}>
+                        <Typography variant="h6" color="inherit" noWrap className={classes.title}>
                             {t("title")}
                         </Typography>
                         <div>

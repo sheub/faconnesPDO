@@ -81,9 +81,9 @@ class Footer extends Component {
             <div className={classes.root}>
               <div>
                 <div className={classes.footerStyle}>
-                  <Typography variant="title" className={classes.fontStyle} onClick={() => this._onClickAbout()} style={{ cursor: "pointer", display: "inline-block" }}> {t("about")} |</Typography>
-                  <Typography variant="title" className={classes.fontStyle} onClick={() => this._onClick()} style={{ cursor: "pointer", display: "inline-block" }}> {t("legalNotice")}</Typography>
-                  <Typography variant="title" className={classes.fontStyle} >&copy;Zoestha UG </Typography>
+                  <Typography variant="h6" className={classes.fontStyle} onClick={() => this._onClickAbout()} style={{ cursor: "pointer", display: "inline-block" }}> {t("about")} |</Typography>
+                  <Typography variant="h6" className={classes.fontStyle} onClick={() => this._onClick()} style={{ cursor: "pointer", display: "inline-block" }}> {t("legalNotice")}</Typography>
+                  <Typography variant="h6" className={classes.fontStyle} >&copy;Zoestha UG </Typography>
                 </div>
                 {this.state.showImpressum ?
                   <Impressum handleClose={this.handleClose} /> : null

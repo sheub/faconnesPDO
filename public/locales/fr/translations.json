@@ -29,7 +29,7 @@
         "fleaMarket": "Vide-greniers",
         "startfrom": "À partir de",
         "lastuntil": "Jusqu'au",
-        "dateformat": "d MMM YYYY"
+        "dateformat": "d MMM yyyy"
     },
     "myplaceinfo": {
         "postcode": "Code Postal",
