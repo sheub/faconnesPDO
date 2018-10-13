@@ -1,9 +1,9 @@
-@font-face {
+/* @font-face {
     font-family: "Caslon";
     font-style: normal;
     font-weight: 400;
     src: local("ACaslonPro-Regular"), url(./../fonts/Caslon/ACaslonPro-Regular.otf) format("otf");
-}
+} */
 
 @font-face {
     font-family: "Caslon";
@@ -169,8 +169,7 @@
 
 .btn-icon {
     height: 18px;
-    color: #666;
-
+    width: 18px;
 }
 
 

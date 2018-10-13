@@ -23,7 +23,7 @@ class App extends Component {
 
       <div className="root">
         <MyDrawer />
-        <div className="mapCont">
+        <div id="mapCont">
           <Map moveOnLoad={moveOnLoad} />
           <div className="relative fr m12 w240 flex-parent flex-parent--column">
             {

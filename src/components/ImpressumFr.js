@@ -153,7 +153,7 @@ class Impressum extends Component {
         </div>
     }
     render() {
-        return ReactDOM.createPortal(this.getImpressumComponent(), document.getElementById('map'));
+        return ReactDOM.createPortal(this.getImpressumComponent(), document.getElementById('mapCont'));
     }
 }
 export default Impressum;
