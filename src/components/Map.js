@@ -8,7 +8,6 @@ import turfBbox from "@turf/bbox";
 import turfBboxPolygon from "@turf/bbox-polygon";
 import turfBuffer from "@turf/buffer";
 import turfDistance from "@turf/distance";
-import { FaStar } from "react-icons/fa";
 import {setLanguage} from "../utils/openmaptiles-language";
 import Legend from "./Legend";
 
@@ -430,16 +429,6 @@ class MapComponent extends Component {
         this.loadJsonData(toggleLayerVisibility);        
       }
     }
-  }
-
-  RenderUrl(value, color) {
-    if (value) {
-      return (
-        <div >
-          <FaStar style={{ color: color }}/>;
-        </div>);
-    }
-    return null;
   }
 
   addLegendItem(idLayer) {

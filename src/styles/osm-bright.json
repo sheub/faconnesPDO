@@ -3935,7 +3935,7 @@
       ],
       "layout": {
         "text-font": [
-          "PT Sans Italic"
+          "PT Sans Regular"
         ],
         "text-size": 14,
         "text-field": "{name:latin}",
@@ -3971,7 +3971,7 @@
       ],
       "layout": {
         "text-font": [
-          "PT Sans Italic"
+          "PT Sans Regular"
         ],
         "text-size": {
           "stops": [
