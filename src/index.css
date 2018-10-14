@@ -102,9 +102,9 @@ body {
   float: left;
 }
 
-.mapboxgl-ctrl-top-right .mapboxgl-ctrl {
+/* .mapboxgl-ctrl-top-right .mapboxgl-ctrl {
   margin: 12px 12px 0 0;
-}
+} */
 
 .mapboxgl-ctrl-scale {
   background-color: rgba(255, 255, 255, 0.75);
@@ -158,6 +158,12 @@ body {
 .mapboxgl-ctrl-bottom-right {
   right: 0;
   bottom: 0;
+}
+
+.mapboxgl-ctrl.mapboxgl-ctrl-attrib {
+  padding: 0 5px;
+  background-color: rgba(255, 255, 255, 0.5);
+  margin: 0;
 }
 
 
@@ -305,10 +311,10 @@ body {
 .mapboxgl-ctrl-bottom-right { right: 0; bottom: 0; }
 
 .mapboxgl-ctrl { clear: both; pointer-events: auto; }
-.mapboxgl-ctrl-top-left .mapboxgl-ctrl     { margin: 10px 0 0 10px; float: left; }
+/* .mapboxgl-ctrl-top-left .mapboxgl-ctrl     { margin: 10px 0 0 10px; float: left; }
 .mapboxgl-ctrl-top-right .mapboxgl-ctrl    { margin: 10px 10px 0 0; float: right; }
 .mapboxgl-ctrl-bottom-left .mapboxgl-ctrl  { margin: 0 0 10px 10px; float: left; }
-.mapboxgl-ctrl-bottom-right .mapboxgl-ctrl { margin: 0 10px 10px 0; float: right; }
+.mapboxgl-ctrl-bottom-right .mapboxgl-ctrl { margin: 0 10px 10px 0; float: right; } */
 
 
 /* https://bugzilla.mozilla.org/show_bug.cgi?id=140562 */

@@ -72,24 +72,24 @@ const theme = createMuiTheme({
 
   typography: {
     useNextVariants: true,
-    fontFamily: ["Open Sans", "sans-serif",
-  ].join(","),
+  //   fontFamily: ["Open Sans", "sans-serif",
+  // ].join(","),
           // Use the system font instead of the default Roboto font.
-    // fontFamily: [
-    //   "-apple-system",
-    //   "BlinkMacSystemFont",
-    //   '"Segoe UI"',
-    //   'Roboto',
-    //   '"Helvetica Neue"',
-    //   'Arial',
-    //   'sans-serif',
-    //   '"Apple Color Emoji"',
-    //   '"Segoe UI Emoji"',
-    //   '"Segoe UI Symbol"',
-    // ].join(","),
+    fontFamily: [
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(","),
   },
 });
-
+// font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>

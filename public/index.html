@@ -2,74 +2,76 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
-  <meta name="theme-color" content="#14222D">
-  <meta name="description" content="L'information touristique et locale en France metropolitaine.">
-  <meta name="keywords" content="France,Information,Map,Tourisme">
-  <meta name="author" content="Sébastien Barré">
-    
-  <!-- <meta name="google-site-verification" content="+nxGUDJ4QpAZ5l9Bsjdi102tLVC21AIh5d1Nl23908vVuFHs34="/> -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+    <meta name="theme-color" content="#14222D">
+    <meta name="description" content="L'information touristique et locale en France metropolitaine.">
+    <meta name="keywords" content="France,Information,Map,Tourisme">
+    <meta name="author" content="Sébastien Barré">
 
-  <!-- <link href='https://api.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css' rel='stylesheet' /> -->
-  <link href="https://api.mapbox.com/mapbox-assembly/v0.12.0/assembly.min.css" rel="stylesheet">
-  <script async defer src="https://api.mapbox.com/mapbox-assembly/v0.12.0/assembly.js"></script>
+    <!-- <meta name="google-site-verification" content="+nxGUDJ4QpAZ5l9Bsjdi102tLVC21AIh5d1Nl23908vVuFHs34="/> -->
 
-  <!-- <link href='mapbox-gl.css' rel='stylesheet' />
-  <link href="https://api.mapbox.com/mapbox-assembly/v0.12.0/assembly.min.css" rel="stylesheet">
-  <script async defer src="assembly.min.js"></script> -->
-
-  <link rel="manifest" href="manifest.json">
-  <link rel="shortcut icon" href="favicon.ico">
+    <!-- <link href='https://api.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css' rel='stylesheet' /> -->
+    <!-- <link href="https://api.mapbox.com/mapbox-assembly/v0.12.0/assembly.min.css" rel="stylesheet"> -->
+    <!--script async defer src="https://api.mapbox.com/mapbox-assembly/v0.12.0/assembly.js"></script-->
 
 
+    <link href="./assembly.min.css" rel="stylesheet">
+    <script async defer src="./assembly.min.js"></script>
 
-  <title>Marvelous</title>
+    <!-- <link href='mapbox-gl.css' rel='stylesheet' /-->
+
+
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="shortcut icon" href="favicon.ico">
+
+
+
+    <title>Marvelous</title>
 </head>
 
 <body>
-  <noscript>
-    You need to enable JavaScript to run this app.
-  </noscript>
-  <div id="root"></div>
+    <noscript>
+        You need to enable JavaScript to run this app.
+    </noscript>
+    <div id="root"></div>
 </body>
 <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
 <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
 <script>
-
     window.addEventListener("load", function () {
-    // Get language preferences
-    const getLang = navigator.language || navigator.browserLanguage || (navigator.languages || ["fr"])[0];
-    // Set CustomContent
-    var customContent = {
-        "href": "http://website/Policy"
-    };
-    if (getLang === 'de') {
-        customContent = {
-            message:  "Um unsere Webseite für Sie optimal zu gestalten und fortlaufend verbessern zu können, verwenden wir Cookies. Durch die weitere Nutzung der Webseite stimmen Sie der Verwendung von Cookies zu. Weitere Informationen zu Cookies erhalten Sie in unserer Datenschutzerklärung.",
-          //   link:     "Mehr Erfahren",
-            dismiss:  "Verstanden",
-          //   href:     "http://website/Datenschutz"
+        // Get language preferences
+        const getLang = navigator.language || navigator.browserLanguage || (navigator.languages || ["fr"])[0];
+        // Set CustomContent
+        var customContent = {
+            "href": "http://website/Policy"
+        };
+        if (getLang === 'de') {
+            customContent = {
+                message: "Um unsere Webseite für Sie optimal zu gestalten und fortlaufend verbessern zu können, verwenden wir Cookies. Durch die weitere Nutzung der Webseite stimmen Sie der Verwendung von Cookies zu. Weitere Informationen zu Cookies erhalten Sie in unserer Datenschutzerklärung.",
+                //   link:     "Mehr Erfahren",
+                dismiss: "Verstanden",
+                //   href:     "http://website/Datenschutz"
+            }
+        } else if (getLang === 'fr') {
+            customContent = {
+                message: "En poursuivant votre navigation, vous acceptez le dépôt de cookies destinés à mesurer la fréquentation du site ainsi que des contenus animés et interactifs.",
+                //   link:     "En savoir plus",
+                dismiss: "Accepter",
+                //   href:     "http://website/Policy"
+            }
         }
-    }
-    else if (getLang === 'fr') {
-        customContent= {
-            message:  "En poursuivant votre navigation, vous acceptez le dépôt de cookies destinés à mesurer la fréquentation du site ainsi que des contenus animés et interactifs.",
-          //   link:     "En savoir plus",
-            dismiss:  "Accepter",
-          //   href:     "http://website/Policy"
-        }
-    }
         window.cookieconsent.initialise({
             palette: {
                 popup: {
                     background: "#edeff5",
-                    text:       "#838391"
+                    text: "#838391"
                 },
                 button: {
-                    background: "#4b81e8",                     
+                    background: "#4b81e8",
 
-                }                  
+                }
             },
             content: customContent
         })
@@ -81,14 +83,20 @@
     /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
     _paq.push(['trackPageView']);
     _paq.push(['enableLinkTracking']);
-    (function() {
-      var u="//sheub.de/analytics/";
-      _paq.push(['setTrackerUrl', u+'piwik.php']);
-      _paq.push(['setSiteId', '1']);
-      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-      g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+    (function () {
+        var u = "//faconnes.de/analytics/";
+        _paq.push(['setTrackerUrl', u + 'piwik.php']);
+        _paq.push(['setSiteId', '1']);
+        var d = document,
+            g = d.createElement('script'),
+            s = d.getElementsByTagName('script')[0];
+        g.type = 'text/javascript';
+        g.async = true;
+        g.defer = true;
+        g.src = u + 'piwik.js';
+        s.parentNode.insertBefore(g, s);
     })();
-  </script>
-  <!-- End Matomo Code -->
+</script>
+<!-- End Matomo Code -->
 
 </html>

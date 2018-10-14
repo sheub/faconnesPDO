@@ -3871,7 +3871,7 @@
       ],
       "layout": {
         "text-font": [
-          "PT Sans Italic"
+          "Open Sans Italic"
         ],
         "text-size": 14,
         "text-field": "{name:latin} {name:nonlatin}",
@@ -3899,7 +3899,7 @@
       ],
       "layout": {
         "text-font": [
-          "PT Sans Italic"
+          "Open Sans Italic"
         ],
         "text-size": 14,
         "text-field": "{name:latin}\n{name:nonlatin}",
@@ -3935,7 +3935,7 @@
       ],
       "layout": {
         "text-font": [
-          "PT Sans Regular"
+          "Open Sans Regular"
         ],
         "text-size": 14,
         "text-field": "{name:latin}",
@@ -3971,7 +3971,7 @@
       ],
       "layout": {
         "text-font": [
-          "PT Sans Regular"
+          "Open Sans Regular"
         ],
         "text-size": {
           "stops": [
@@ -4021,7 +4021,7 @@
       "layout": {
         "text-padding": 2,
         "text-font": [
-          "PT Sans Regular"
+          "Open Sans Regular"
         ],
         "text-anchor": "top",
         "icon-image": "{class}-11",
@@ -4067,7 +4067,7 @@
       "layout": {
         "text-padding": 2,
         "text-font": [
-          "PT Sans Regular"
+          "Open Sans Regular"
         ],
         "text-anchor": "top",
         "icon-image": "{class}-11",
@@ -4112,7 +4112,7 @@
       "layout": {
         "text-padding": 2,
         "text-font": [
-          "PT Sans Regular"
+          "Open Sans Regular"
         ],
         "text-anchor": "top",
         "icon-image": "{class}-11",
@@ -4162,7 +4162,7 @@
       "layout": {
         "text-padding": 2,
         "text-font": [
-          "PT Sans Regular"
+          "Open Sans Regular"
         ],
         "text-anchor": "top",
         "icon-image": "{class}-11",
@@ -4311,7 +4311,7 @@
           ]
         },
         "text-font": [
-          "PT Sans Regular"
+          "Open Sans Regular"
         ],
         "text-field": "{name:latin} {name:nonlatin}",
         "symbol-placement": "line",
@@ -4359,7 +4359,7 @@
           ]
         },
         "text-font": [
-          "PT Sans Regular"
+          "Open Sans Regular"
         ],
         "text-field": "{name:latin} {name:nonlatin}",
         "symbol-placement": "line",
@@ -4400,7 +4400,7 @@
           ]
         },
         "text-font": [
-          "PT Sans Regular"
+          "Open Sans Regular"
         ],
         "text-field": "{name:latin} {name:nonlatin}",
         "symbol-placement": "line",
@@ -4444,7 +4444,7 @@
         "icon-rotation-alignment": "viewport",
         "symbol-spacing": 200,
         "text-font": [
-          "PT Sans Regular"
+          "Open Sans Regular"
         ],
         "symbol-placement": {
           "base": 1,
@@ -4495,7 +4495,7 @@
         "icon-rotation-alignment": "viewport",
         "symbol-spacing": 200,
         "text-font": [
-          "PT Sans Regular"
+          "Open Sans Regular"
         ],
         "symbol-placement": {
           "base": 1,
@@ -4553,7 +4553,7 @@
         "icon-rotation-alignment": "viewport",
         "symbol-spacing": 200,
         "text-font": [
-          "PT Sans Regular"
+          "Open Sans Regular"
         ],
         "symbol-placement": {
           "base": 1,
@@ -4592,7 +4592,7 @@
       "layout": {
         "text-padding": 2,
         "text-font": [
-          "PT Sans Regular"
+          "Open Sans Regular"
         ],
         "text-anchor": "top",
         "icon-image": "airport-11",
@@ -4644,7 +4644,7 @@
           ]
         },
         "text-font": [
-          "PT Sans Bold"
+          "Open Sans Bold"
         ],
         "text-field": "{name:latin}\n{name:nonlatin}",
         "text-transform": "uppercase",
@@ -4669,7 +4669,7 @@
       ],
       "layout": {
         "text-font": [
-          "PT Sans Regular"
+          "Open Sans Regular"
         ],
         "text-size": {
           "base": 1.2,
@@ -4706,7 +4706,7 @@
       ],
       "layout": {
         "text-font": [
-          "PT Sans Regular"
+          "Open Sans Regular"
         ],
         "text-size": {
           "base": 1.2,
@@ -4751,7 +4751,7 @@
       ],
       "layout": {
         "text-font": [
-          "PT Sans Regular"
+          "Open Sans Regular"
         ],
         "text-size": {
           "base": 1.2,
@@ -4796,7 +4796,7 @@
       ],
       "layout": {
         "text-font": [
-          "PT Sans Regular"
+          "Open Sans Regular"
         ],
         "text-size": {
           "base": 1.2,
@@ -4852,7 +4852,7 @@
       ],
       "layout": {
         "text-font": [
-          "PT Sans Italic"
+          "Open Sans Italic"
         ],
         "text-field": "{name:latin}",
         "text-size": {
@@ -4902,7 +4902,7 @@
       ],
       "layout": {
         "text-font": [
-          "PT Sans Bold"
+          "Open Sans Bold"
         ],
         "text-field": "{name:latin}",
         "text-size": {
@@ -4952,7 +4952,7 @@
       ],
       "layout": {
         "text-font": [
-          "PT Sans Bold"
+          "Open Sans Bold"
         ],
         "text-field": "{name:latin}",
         "text-size": {
@@ -5002,7 +5002,7 @@
       ],
       "layout": {
         "text-font": [
-          "PT Sans Bold"
+          "Open Sans Bold"
         ],
         "text-field": "{name:latin}",
         "text-size": {
@@ -5041,7 +5041,7 @@
       ],
       "layout": {
         "text-font": [
-          "PT Sans Bold"
+          "Open Sans Bold"
         ],
         "text-field": "{name:latin}",
         "text-size": 14,
@@ -5143,7 +5143,7 @@
         "visibility": "visible",
         "text-field": "{name:latin}\n{name:nonlatin}",
         "text-font": [
-          "PT Sans Regular"
+          "Open Sans Regular"
         ],
         "icon-image": "star-11",
         "icon-size": 0.8,

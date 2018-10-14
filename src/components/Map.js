@@ -22,7 +22,7 @@ import {
   resetStateKeys
 } from "../actions/index";
 
-import style from "../styles/osm-bright.json";
+import style from "../styles/osm-basic.json";
 // Set the sprite URL in the style. It has to be a full, absolute URL.
 let spriteUrl;
 if (process.env.NODE_ENV === "production") {
@@ -488,14 +488,6 @@ class MapComponent extends Component {
         grandSiteDeFrance: "Grand_Site_de_France.geojson",
         jardinremarquable: "Jardin_Remarquable.geojson",
         plusBeauxVillagesDeFrance: "Plus_Beaux_Villages_de_France.geojson",
-        // parcsjardins: "ParcsJardins.json",
-        // localproductshop: "localProductShop.json",
-        // craftmanshop: "craftmanShop.json", 
-        // marches: "marches.json",
-        // exposition: "exposition.json",
-        // musique: "musique.json",
-        // children: "children.json",
-        // videsgreniers: "videsGreniers.json"
       }
     } else
       if (["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(dataStr) && lng === 'en') {
@@ -505,14 +497,6 @@ class MapComponent extends Component {
           grandSiteDeFrance: "Grand_Site_de_France_en.geojson",
           jardinremarquable: "Jardin_Remarquable_en.geojson",
           plusBeauxVillagesDeFrance: "Plus_Beaux_Villages_de_France_en.geojson",
-          // parcsjardins: "ParcsJardins_en.json",
-          // localproductshop: "localProductShop_en.json",
-          // craftmanshop: "craftmanShop_en.json", 
-          // marches: "marches_en.json",
-          // exposition: "exposition_en.json",
-          // musique: "musique_en.json",
-          // children: "children_en.json",
-          // videsgreniers: "videsGreniers_en.json"
         }
       }
 
@@ -585,9 +569,6 @@ class MapComponent extends Component {
     ];
   }
 
-  // get movableLayers() {
-  //   return ['marker', 'fromMarker'];
-  // }
 }
 
 MapComponent.propTypes = {
