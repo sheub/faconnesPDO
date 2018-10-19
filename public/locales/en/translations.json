@@ -33,6 +33,7 @@
         
     },
     "myplaceinfo":{
+        "urlDisplay": "More »",
         "openingHours": "Opening Hours",
         "postcode": "postcode",
         "website": "website",

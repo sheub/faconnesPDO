@@ -32,6 +32,7 @@
         "dateformat": "d MMM yyyy"
     },
     "myplaceinfo": {
+        "urlDisplay": "En savoir plus »",
         "openingHours": "Ouverture",
         "postcode": "Code Postal",
         "website": "website",

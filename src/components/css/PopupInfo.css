@@ -137,10 +137,10 @@
 }
 
 .urlPopup {
+    color: #CC0000;
     margin-bottom: 6px;
     text-decoration: none;
     letter-spacing: -1px;
-    color: rgb(75, 71, 66);
 }
 
 .popPupStyle {

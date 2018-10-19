@@ -16,16 +16,29 @@ function HomeIcon(props) {
 }
 
 function RenderUrl(props) {
-  if (props.url) {
+  const { t, info } = props.props;
+  // const t = translate.t;
+  var link = null;
+  if (info.properties.sitweb) {
+    // <a target="_blank" href={props.url} className="urlPopup" rel="noopener">{props.url}</a><br />
+    if(!info.properties.sitweb.includes(" "))
+      {link = info.properties.sitweb.includes("http://") ? info.properties.sitweb : "http://" + info.properties.sitweb;}
+  }
+  else{
+    link = info.properties.url;
+  }
+
+  if (link) {
     return (
       <div className="urlPopup">
-        <a target="_blank" href={props.url} className="urlPopup" rel="noopener">{props.url}</a><br />
+        <a target="_blank" href={link} className="urlPopup" rel="noopener">{t("myplaceinfo.urlDisplay")}</a><br />
       </div>);
   }
   return null;
 }
 
 function RenderAddress(props) {
+
   let street_address, postal_code, address_locality = null;
   if (props.info.street_address || props.info.postal_code) {
     street_address = props.info.street_address;
@@ -193,7 +206,7 @@ class MyPlaceInfo extends Component {
                   <div className="abstractPopup">
                     {info.abstract}
                   </div>
-                  <RenderUrl url={info.url} />
+                  <RenderUrl props={this.props} />
                   <RenderAddress info={info} />
                 </div>
                 {/* </div> */}
@@ -228,7 +241,7 @@ class MyPlaceInfo extends Component {
                     {info.abstract}
                   </div>
                   <RenderDateTime props={this.props} />
-                  <RenderUrl url={info.url} />
+                  <RenderUrl props={this.props} />
                   <RenderAddress info={info} />
                 </div>
               </div>
@@ -239,11 +252,7 @@ class MyPlaceInfo extends Component {
     }
 
     if ("museesFrance".includes(layerId)) {
-      var link = null;
-      if (info.sitweb) {
-        // <a target="_blank" href={props.url} className="urlPopup" rel="noopener">{props.url}</a><br />
-        link = info.sitweb.includes("http://") ? info.sitweb : "http://" + info.sitweb;
-      }
+
       return (
         <div>
           {popupActive &&
@@ -259,10 +268,12 @@ class MyPlaceInfo extends Component {
                 </IconButton>
               </div>
               <div className="introtext">
-                  {t("myplaceinfo.openingHours")}<br />
+              <div className="abstractPopup">
+                  {/* {t("myplaceinfo.openingHours")}<br /> */}
                   {info.periode_ouverture}
-                  <RenderUrl url={link} />
+                  <RenderUrl props={this.props} />
                   <RenderAddress info={info} />
+                </div>
                 </div>
               </div>
             </div>}
@@ -309,7 +320,7 @@ class MyPlaceInfo extends Component {
                   {wikipedia}
                 </div>
               </div>
-              <a target="_new" href={link} rel="noopener">{t("myplaceinfo.website")}</a>
+              {/* <a target="_new" href={link} rel="noopener">{t("myplaceinfo.website")}</a> */}
             </div>}
         </div>
       );
