@@ -68,6 +68,7 @@ class Legend extends Component {
 
         const { t } = this.props;
 
+
         return (
             <div id={"lgn" + item.idLayer}>
                 {this.returnImage(item)}

@@ -286,8 +286,10 @@ class MapComponent extends Component {
       if (feature.properties.name) {
         place_name = feature.properties.name
       }
-      else
-        {place_name = feature.properties.label;}
+      else if (feature.properties.label) { place_name = feature.properties.label; }
+      else if (feature.properties.nom_du_musee) {
+        place_name = feature.properties.nom_du_musee;
+      }
       if (["parcsjardins", "localproductshop", "craftmanshop", "marches", "exposition", "musique", "children", "videsgreniers"].includes(feature.layer.id))
       {
         let lng = this.props.languageSet;
@@ -299,8 +301,8 @@ class MapComponent extends Component {
         else{
           place_name = feature.properties.label_en;
         }
-
       }
+
 
        
 
@@ -405,6 +407,7 @@ class MapComponent extends Component {
         if (isVisible === 'visible') { 
           // set 'visibility' to 'none'
           this.map.setLayoutProperty(layerSelector[key].source, 'visibility', 'none');
+          // this.removeLegendItem(layerSelector[key].source);
           // set Empty Data to sources
           if (["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance",
             "monumentsnationaux", "patrimoinemondialenfrance"].includes(layerSelector[key].source)) {
@@ -437,6 +440,10 @@ class MapComponent extends Component {
     // var color;
     var legendItem = {};
     legendItem.idLayer = idLayer;
+
+    let itemId = "lgn" + idLayer;
+    var item = document.getElementById(itemId);
+    if (item !== null) {return;}
 
     if (mapLayer.type === "symbol") {
       legendItem.symbolColor = mapLayer.paint._values["text-color"].value.value;
@@ -551,7 +558,7 @@ class MapComponent extends Component {
       // 'poi-parks-scalerank3',
       // 'poi-scalerank4',
       // 'poi-parks-scalerank4',
-      "france-wiki2-dw4zq5",
+      "FranceWiki",
       "museesFrance",
       "plusBeauxVillagesDeFrance",
       "patrimoinemondialenfrance",

@@ -26,15 +26,24 @@ function RenderUrl(props) {
 }
 
 function RenderAddress(props) {
+  let street_address, postal_code, address_locality = null;
   if (props.info.street_address || props.info.postal_code) {
-    return (
-      <div className="addressPopup">
-        {props.info.street_address}<br />
-        {props.info.postal_code}{" "}{props.info.address_locality}
-      </div>
-    );
+    street_address = props.info.street_address;
+    postal_code = props.info.postal_code;
+    address_locality = props.info.address_locality;
   }
-  return null;
+  else if (props.info.adr || props.info.cp) {
+    street_address = props.info.adr;
+    postal_code = props.info.cp;
+    address_locality = props.info.ville;
+  }
+
+  return (
+    <div className="addressPopup">
+      {street_address}<br />
+      {postal_code}{" "}{address_locality}
+    </div>
+  );
 }
 
 function RenderDateTime(props) {
@@ -108,9 +117,9 @@ class MyPlaceInfo extends Component {
           info.abstract = this.props.info.properties.abstract_en;
           info.label = this.props.info.properties.label_en;
           break;
-          default:
-            info.abstract = this.props.info.properties.abstract_en;
-            info.label = this.props.info.properties.label_en;
+        default:
+          info.abstract = this.props.info.properties.abstract_en;
+          info.label = this.props.info.properties.label_en;
 
       }
     }
@@ -135,11 +144,11 @@ class MyPlaceInfo extends Component {
               <div className="titleText">
                 <a target="_new" href={info.link} className="titleText" rel="noopener">{info.label}</a><br />
               </div>
-            <div className="btn-close" aria-label="Close">
-              <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.hidePopup()}>
-                <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
-              </IconButton>
-            </div>
+              <div className="btn-close" aria-label="Close">
+                <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.hidePopup()}>
+                  <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
+                </IconButton>
+              </div>
               {/* <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.hidePopup()}><span aria-hidden="true">&times;</span></button> */}
               <div className="hvrbox">
                 <img src={info.thumbnail} className="picturePoppup hvrbox-layer_bottom" alt={info.label} title={info.label} />
@@ -168,18 +177,18 @@ class MyPlaceInfo extends Component {
       return (
         <div>
           {popupActive &&
-            <div className="mapboxgl-popupup  popPupStyle">
+            <div className="mapboxgl-popupup popPupStyle">
               <div className="baseText">
                 {/* <div className="baseInfo"> */}
                 <div className="titleText">
                   <HomeIcon style={styles} alt={layerId} title={layerId} />
                   {info.label}
                 </div>
-              <div className="btn-close" aria-label="Close">
-                <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.hidePopup()}>
-                  <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
-                </IconButton>
-              </div>
+                <div className="btn-close" aria-label="Close">
+                  <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.hidePopup()}>
+                    <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
+                  </IconButton>
+                </div>
                 <div className="introtext">
                   <div className="abstractPopup">
                     {info.abstract}
@@ -209,11 +218,11 @@ class MyPlaceInfo extends Component {
                   <HomeIcon style={styles} alt={layerId} title={layerId} />
                   {info.label}
                 </div>
-              <div className="btn-close" aria-label="Close">
-                <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.hidePopup()}>
-                  <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
-                </IconButton>
-              </div>
+                <div className="btn-close" aria-label="Close">
+                  <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.hidePopup()}>
+                    <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
+                  </IconButton>
+                </div>
                 <div className="introtext">
                   <div className="abstractPopup">
                     {info.abstract}
@@ -229,39 +238,39 @@ class MyPlaceInfo extends Component {
       );
     }
 
-    if ("liste-et-localisation-des-mus-5iczl9".includes(layerId)) {
+    if ("museesFrance".includes(layerId)) {
       var link = null;
       if (info.sitweb) {
+        // <a target="_blank" href={props.url} className="urlPopup" rel="noopener">{props.url}</a><br />
         link = info.sitweb.includes("http://") ? info.sitweb : "http://" + info.sitweb;
       }
       return (
         <div>
           {popupActive &&
             <div className="mapboxgl-popupup popPupStyle">
-              <div className="baseText">
-                <div className="titleText">
-                  {info.label}<br />
-                </div>
+            <div className="baseText">
+              <div className="titleText">
+                <HomeIcon style={styles} alt={layerId} title={layerId} />
+                {info.nom_du_musee}
+              </div>
               <div className="btn-close" aria-label="Close">
                 <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.hidePopup()}>
                   <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
                 </IconButton>
               </div>
-                {/* <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.hidePopup()}><span aria-hidden="true">&times;</span></button> */}
-                <div className="introtext">
-                  {info.adr}<br />
-                  {info.cp}{" "}{info.ville}<br />
-                  {"Ouverture:"}<br />
+              <div className="introtext">
+                  {t("myplaceinfo.openingHours")}<br />
                   {info.periode_ouverture}
+                  <RenderUrl url={link} />
+                  <RenderAddress info={info} />
                 </div>
               </div>
-              <a target="_new" href={link} rel="noopener">{t("myplaceinfo.website")}</a>
             </div>}
         </div>
       );
     }
 
-    if ("france-wiki2-dw4zq5".includes(layerId)) {
+    if ("FranceWiki".includes(layerId)) {
       var other_Tags = info.other_tags;
       var startWikidata = other_Tags.indexOf("wikidata");
       startWikidata = other_Tags.indexOf("=>", startWikidata + 1) + 3;
@@ -290,10 +299,10 @@ class MyPlaceInfo extends Component {
                   {wikipedia}<br />
                 </div>
                 <div className="btn-close" aria-label="Close">
-              <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.hidePopup()}>
-                <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
-              </IconButton>
-            </div>
+                  <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.hidePopup()}>
+                    <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
+                  </IconButton>
+                </div>
                 {/* <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.hidePopup()}><span aria-hidden="true">&times;</span></button> */}
                 <div className="introtext">
                   {wikidata}<br />
@@ -318,11 +327,11 @@ class MyPlaceInfo extends Component {
                   <div className="titleText">
                     {info.label}
                   </div>
-                <div className="btn-close" aria-label="Close">
-                  <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.hidePopup()}>
-                    <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
-                  </IconButton>
-                </div>
+                  <div className="btn-close" aria-label="Close">
+                    <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.hidePopup()}>
+                      <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
+                    </IconButton>
+                  </div>
                   {/* <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.hidePopup()}><span aria-hidden="true">&times;</span></button> */}
                   <div className="introtext">
                     <div className="abstractPopup">

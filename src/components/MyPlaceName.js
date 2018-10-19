@@ -11,6 +11,9 @@ class MyPlaceName extends Component {
       else if (typeof (this.props.location.properties.label_fr) !== "undefined") {
         parts = this.props.location.properties.label_fr.split(', ');
       }
+      else if (typeof (this.props.location.properties.nom_du_musee) !== "undefined") {
+        parts = this.props.location.properties.nom_du_musee.split(', ');
+      }
 
       else if (typeof (this.props.location.properties.name) !== "undefined") 
       { 
