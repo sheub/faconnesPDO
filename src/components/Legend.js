@@ -12,6 +12,8 @@ import Star15_33BAAB from '../assets/Star15_33BAAB.svg'; // Museums // museesFra
 import Square15_4AA52C from '../assets/Square15_4AA52C.svg'; // parcsjardins 
 import Square15_E8EF1F from '../assets/Square15_E8EF1F.svg'; // localpropshop
 import Square15_EE8568 from '../assets/Square15_EE8568.svg'; // craftmanShop
+import Square15_318CE7 from '../assets/Square15_318CE7.svg'; // OTFrance
+import Square15_6B0D0D from '../assets/Square15_6B0D0D.svg'; // WineCelar
 
 
 class Legend extends Component {
@@ -45,6 +47,12 @@ class Legend extends Component {
                 break;
             case "craftmanshop":
                 img = <img src={Square15_EE8568} alt="" className='legend-key' />
+                break;
+            case "WineCelar":
+                img = <img src={Square15_6B0D0D} alt="" className='legend-key' />
+                break;
+            case "OTFrance":
+                img = <img src={Square15_318CE7} alt="" className='legend-key' />
                 break;
             case "marches":
             case "exposition":

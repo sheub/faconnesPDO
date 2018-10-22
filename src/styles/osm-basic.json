@@ -1315,6 +1315,58 @@
     }
   },
   {
+    "id": "WineCelar",
+    "type": "symbol",
+    "source": "localTips",
+    "source-layer": "WineCelar",
+    "layout": {
+      "visibility": "none",
+      "icon-image": "square-15-6B0D0D",
+      "icon-allow-overlap":true,
+      "icon-size": {
+        "stops": [
+          [
+            0,
+            0.7
+          ],
+          [
+            10,
+            1
+          ]
+        ]
+      }
+    },
+    "paint": {
+      "text-color": "#6B0D0D"
+    }
+  },
+  {
+    "id": "OTFrance",
+    "type": "symbol",
+    "source": "localTips",
+    "source-layer": "OTFrance",
+    "layout": {
+      "visibility": "none",
+      "icon-image": "square-15-318CE7",
+      "icon-allow-overlap":true,
+      "icon-size": {
+        "stops": [
+          [
+            0,
+            0.7
+          ],
+          [
+            10,
+            1
+          ]
+        ]
+      }
+    },
+    "paint": {
+      "text-color": "#318CE7"
+    }
+  },
+  {
     "id": "exposition",
     "type": "circle",
     "source": "localEvents",

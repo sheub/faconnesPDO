@@ -17,7 +17,6 @@ import LanguageIcon from "@material-ui/icons/Language";
 import PropTypes from "prop-types";
 
 import "./css/App.css";
-// import "./css/mdIcons.css";
 
 const styles = (theme) => ({
 

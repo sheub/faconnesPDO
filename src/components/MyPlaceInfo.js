@@ -119,7 +119,9 @@ class MyPlaceInfo extends Component {
       "musique",
       "children",
       "marches",
-      "videsgreniers"].includes(layerId)) {
+      "videsgreniers",
+      "OTFrance",
+      "WineCelar"].includes(layerId)) {
       const lang = this.props.i18n.language;
       switch (lang) {
         case "fr":
@@ -186,7 +188,9 @@ class MyPlaceInfo extends Component {
     if ([
       "parcsjardins",
       "localproductshop",
-      "craftmanshop"].includes(layerId)) {
+      "craftmanshop",
+      "WineCelar",
+      "OTFrance"].includes(layerId)) {
       return (
         <div>
           {popupActive &&

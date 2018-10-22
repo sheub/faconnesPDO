@@ -38,13 +38,16 @@ import Star15_19766E from '../assets/Star15_19766E.svg'; // grandsSites
 import Square15_4AA52C from '../assets/Square15_4AA52C.svg'; // parcsJardins
 import Square15_E8EF1F from '../assets/Square15_E8EF1F.svg'; // localpropshop
 import Square15_EE8568 from '../assets/Square15_EE8568.svg'; // craftmanShop
+import Square15_318CE7 from '../assets/Square15_318CE7.svg'; // OTFrance
+import Square15_6B0D0D from '../assets/Square15_6B0D0D.svg'; // WineCelar
+
 
 import Footer from "./Footer.js"
 import MyDatePicker from "./MyDatePicker";
 
 
 import "./css/App.css";
-import "./css/mdIcons.css";
+// import "./css/mdIcons.css";
 
 function HomeIcon(props) {
   return (
@@ -127,6 +130,8 @@ const layerSelector = {
   ParcsJardins: /parcsjardins/,
   LocalProdShop: /localproductshop/,
   CraftmanShop: /craftmanshop/,
+  WineCelar: /WineCelar/,
+  OTFrance: /OTFrance/,
   Exposition: /exposition/,
   Musique: /musique/,
   Children: /children/,
@@ -347,8 +352,24 @@ class MyDrawer extends Component {
                         </InputLabel>
                         <ListItemSecondaryAction>
                         <img src={Square15_EE8568} alt={t("drawer.craftmanShop")} className={classes.icon}/>
-                        
-                          {/* <HomeIcon className={classes.icon} style={{ color: "#ee8568" }} alt={t("drawer.craftmanShop")} title={t("drawer.craftmanShop")} /> */}
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                      <ListItem key={"WineCelar"} dense button className={classes.listItem}>
+                        <Checkbox tabIndex={-1} checked={this.state.visibility["WineCelar"]} onChange={this._onVisibilityChange.bind(this, "WineCelar")} value="true" color="default" aria-label="WineCelarCheckbox" htmlFor="WineCelarListItemText" id="WineCelarCheckbox" disableRipple />
+                        <InputLabel htmlFor="WineCelarCheckbox" id="WineCelarListItemText" primary={"WineCelar"} title={t("drawer.winecelar")}>
+                          {t("drawer.winecelar")}
+                        </InputLabel>
+                        <ListItemSecondaryAction>
+                        <img src={Square15_6B0D0D} alt={t("drawer.winecelar")} className={classes.icon}/>
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                      <ListItem key={"OTFrance"} dense button className={classes.listItem}>
+                        <Checkbox tabIndex={-1} checked={this.state.visibility["OTFrance"]} onChange={this._onVisibilityChange.bind(this, "OTFrance")} value="true" color="default" aria-label="OTFranceCheckbox" htmlFor="OTFranceListItemText" id="OTFranceCheckbox" disableRipple />
+                        <InputLabel htmlFor="OTFranceCheckbox" id="OTFranceListItemText" primary={"OTFrance"} title={t("drawer.OTFrance")}>
+                          {t("drawer.OTFrance")}
+                        </InputLabel>
+                        <ListItemSecondaryAction>
+                        <img src={Square15_318CE7} alt={t("drawer.OTFrance")} className={classes.icon}/>
                         </ListItemSecondaryAction>
                       </ListItem>
                     </List>

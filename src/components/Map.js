@@ -61,7 +61,7 @@ class MapComponent extends Component {
       container: 'map',
       style: style,
       center: [2, 46.5],
-      zoom: 5,
+      zoom: 4,
       minZoom: 2,
       maxZoom: 21,
       maxBounds: [-15.06, 34.07, 24.32, 55.11],
@@ -290,7 +290,7 @@ class MapComponent extends Component {
       else if (feature.properties.nom_du_musee) {
         place_name = feature.properties.nom_du_musee;
       }
-      if (["parcsjardins", "localproductshop", "craftmanshop", "marches", "exposition", "musique", "children", "videsgreniers"].includes(feature.layer.id))
+      if (["parcsjardins", "localproductshop", "craftmanshop", "WineCelar", "OTFrance", "marches", "exposition", "musique", "children", "videsgreniers"].includes(feature.layer.id))
       {
         let lng = this.props.languageSet;
         if(lng === 'fr')
@@ -386,6 +386,8 @@ class MapComponent extends Component {
       ParcsJardins: /parcsjardins/,
       LocalProdShop: /localproductshop/,
       CraftmanShop: /craftmanshop/,
+      WineCelar: /WineCelar/,
+      OTFrance: /OTFrance/,
       Exposition: /exposition/,
       Musique: /musique/,
       Children: /children/,
@@ -568,6 +570,8 @@ class MapComponent extends Component {
       "parcsjardins",
       "localproductshop",
       "craftmanshop",
+      "WineCelar",
+      "OTFrance",
       "exposition",
       "musique",
       "children",

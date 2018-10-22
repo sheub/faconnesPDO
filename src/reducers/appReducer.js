@@ -41,6 +41,8 @@ const defaultAppState = {
     ParcsJardins: false,
     LocalProdShop: false,
     CraftmanShop: false,
+    WineCelar: false,
+    OTFrance: false,
     Exposition: false,
     Musique: false,
     Children: false,
