@@ -51,7 +51,7 @@
     font-size: 14px;
     white-space: normal;
     color: grey;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Lucida Grande";
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Helvetica", "Arial", "Lucida Grande", sans-serif;
     letter-spacing: -1px;
 }
 
@@ -59,7 +59,7 @@
     font-size: 14px;
     color: #68635C;
     text-transform: capitalize;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Lucida Grande";
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Helvetica", "Arial", "Lucida Grande", sans-serif;
     padding-bottom: 6px;
 }
 
@@ -149,13 +149,15 @@
 
 .mapboxgl-popupup {
     position: absolute;
-    margin-top: 8px;
-    left: 0;
+    margin-top: 10px;
+    /* left: 0;
+    right: 248px; */
+    width: 240px;
     background-color: #FFF;
     height: auto;
     line-height: normal;
     margin-bottom: 10px;
-    border-radius: 5px;
+    border-radius: 0px;
     box-shadow: 0px 0px 8px -3px #000;
     transition-duration: 1s;
 }
@@ -170,6 +172,7 @@
 .btn-icon {
     height: 18px;
     width: 18px;
+    z-index: 1;
 }
 
 

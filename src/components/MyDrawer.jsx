@@ -47,7 +47,6 @@ import MyDatePicker from "./MyDatePicker";
 
 
 import "./css/App.css";
-// import "./css/mdIcons.css";
 
 function HomeIcon(props) {
   return (
@@ -84,8 +83,11 @@ const styles = (theme) => ({
   },
 
   drawerPaper: {
-    height: "100vh",
-    position: "relative",
+    // height: "100vh",
+    minHeight: "100vh",
+    position: "absolut",
+    top: "0",
+    left: "0",
     whiteSpace: "nowrap",
     display: "flex",
     paddingBottom: "100px",
@@ -105,7 +107,6 @@ const styles = (theme) => ({
   },
   collapses: {
     overflowY: "auto",
-
   },
 
   icon: {
@@ -230,7 +231,6 @@ class MyDrawer extends Component {
   render() {
     const { classes } = this.props;
     const { visibility} = this.state;
-
 
     return (
       <I18n ns="translations">
@@ -470,6 +470,7 @@ const mapDispatchToProps = (dispatch) => {
     triggerMapUpdate: (v) => dispatch(triggerMapUpdate(v))
   };
 };
+
 export { MyDrawer };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(MyDrawer));

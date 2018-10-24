@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import Map from "./Map";
 import MyDrawer from "./MyDrawer";
 import Search from "./Search";
+import ListVue from "./ListVue";
 import Directions from "./Directions";
 import { setStateFromURL } from "../actions/index";
 
@@ -31,6 +32,7 @@ class App extends Component {
                 ? <Directions />
                 : <Search />
             }
+            <ListVue listVueActive={this.props.listVueActive} listVueItems={this.props.listVueItems}/>
           </div>
         </div>
       </div>
@@ -39,6 +41,8 @@ class App extends Component {
 }
 
 App.propTypes = {
+  listVueItems: PropTypes.array,
+  listVueActive: PropTypes.bool,
   mode: PropTypes.string,
   route: PropTypes.object,
   routeStatus: PropTypes.string,
@@ -48,6 +52,8 @@ App.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
+    listVueItems: state.app.listVueItems,
+    listVueActive: state.app.listVueActive,
     mode: state.app.mode,
     route: state.app.route,
     routeStatus: state.app.routeStatus,

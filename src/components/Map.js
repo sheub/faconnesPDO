@@ -9,7 +9,7 @@ import turfBboxPolygon from "@turf/bbox-polygon";
 import turfBuffer from "@turf/buffer";
 import turfDistance from "@turf/distance";
 import {setLanguage} from "../utils/openmaptiles-language";
-import Legend from "./Legend";
+// import Legend from "./Legend";
 
 
 import {push} from "react-router-redux";
@@ -49,7 +49,7 @@ class MapComponent extends Component {
       <div>
         <div id="map"></div>
         {/* <div className='map-overlay' id='legend'></div> */}
-        <Legend legendItems={this.props.legendItems}/>
+        {/* <Legend legendItems={this.props.legendItems}/> */}
       </div>
     );
   }
@@ -63,7 +63,7 @@ class MapComponent extends Component {
       center: [2, 46.5],
       zoom: 4,
       minZoom: 2,
-      maxZoom: 21,
+      maxZoom: 20,
       maxBounds: [-15.06, 34.07, 24.32, 55.11],
 
     });
@@ -241,6 +241,7 @@ class MapComponent extends Component {
   }
 
   onUp(e) {
+    
     if (!this.state.isDragging) return;
 
     this.map.getCanvas().style.cursor = '';
@@ -273,7 +274,7 @@ class MapComponent extends Component {
       }
 
 
-      /*Prepare data for Detailinfo*/
+      /*Prepare data for detailInfo*/
       var paintColor = null;
       if ("paint" in feature.layer) {
         if(typeof(feature.layer.paint["circle-color"])!== "undefined")
@@ -282,14 +283,12 @@ class MapComponent extends Component {
             paintColor = feature.layer.paint["text-color"];
           }
       }
+
       let place_name = null;
-      if (feature.properties.name) {
-        place_name = feature.properties.name
-      }
+      if (feature.properties.name) { place_name = feature.properties.name }
       else if (feature.properties.label) { place_name = feature.properties.label; }
-      else if (feature.properties.nom_du_musee) {
-        place_name = feature.properties.nom_du_musee;
-      }
+      else if (feature.properties.nom_du_musee) { place_name = feature.properties.nom_du_musee; }
+
       if (["parcsjardins", "localproductshop", "craftmanshop", "WineCelar", "OTFrance", "marches", "exposition", "musique", "children", "videsgreniers"].includes(feature.layer.id))
       {
         let lng = this.props.languageSet;
@@ -301,10 +300,30 @@ class MapComponent extends Component {
         else{
           place_name = feature.properties.label_en;
         }
+      }       
+
+      let listVueActive = false;
+
+      if (features.length > 1) {
+
+        listVueActive = true;
+        this.props.setStateValue("listVueActive", true);
+        this.props.setStateValue("listVueItems", features);
+      }
+      else {
+        listVueActive = false;
+        this.props.setStateValue("listVueActive", false);
       }
 
-
-       
+      let infoItem = {};
+      infoItem.place_name = place_name;
+      infoItem.properties = feature.properties;
+      infoItem.geometry = feature.geometry;
+      infoItem.layerId = feature.layer.id;
+      infoItem.paintColor = paintColor;
+      infoItem.listVueActive = listVueActive;
+      infoItem.popupActive = true;
+      this.props.setStateValue("infoPopup", infoItem);
 
       /**Call setStateValue */
       if (key && place_name) {
@@ -315,7 +334,8 @@ class MapComponent extends Component {
           'geometry': feature.geometry,
           'layerId': feature.layer.id,
           "paintColor": paintColor,
-          "popupActive": true
+          "popupActive": true,
+          "listVueActive": listVueActive
         });
         this.props.triggerMapUpdate();
       }
@@ -399,7 +419,7 @@ class MapComponent extends Component {
     Object.keys(this.props.visibility).forEach(key => {
       if (this.props.visibility[key]) {
         this.map.setLayoutProperty(layerSelector[key].source, 'visibility', 'visible');
-        this.addLegendItem(layerSelector[key].source);
+        // this.addLegendItem(layerSelector[key].source);
         if (["grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(layerSelector[key].source)) {
           this.loadJsonData(layerSelector[key].source);
         }
@@ -429,7 +449,7 @@ class MapComponent extends Component {
 
     } else {
       this.map.setLayoutProperty(toggleLayerVisibility, 'visibility', 'visible');
-      this.addLegendItem(toggleLayerVisibility);
+      // this.addLegendItem(toggleLayerVisibility);
       if( ["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(toggleLayerVisibility)){
         this.loadJsonData(toggleLayerVisibility);        
       }
@@ -439,13 +459,11 @@ class MapComponent extends Component {
   addLegendItem(idLayer) {
 
     let mapLayer = this.map.getLayer(idLayer);
-    // var color;
     var legendItem = {};
     legendItem.idLayer = idLayer;
 
-    let itemId = "lgn" + idLayer;
-    var item = document.getElementById(itemId);
-    if (item !== null) {return;}
+    let obj = this.props.listVueItems.find(x => x.idLayer === idLayer);
+    if (typeof (obj) !== "undefined") {return;}
 
     if (mapLayer.type === "symbol") {
       legendItem.symbolColor = mapLayer.paint._values["text-color"].value.value;
@@ -455,18 +473,37 @@ class MapComponent extends Component {
     }
 
     let items = legendItem;
-    if (typeof (this.props.legendItems) !== "undefined") { items = this.props.legendItems.concat([legendItem]); }
+    if (typeof (this.props.listVueItems) !== "undefined") { items = this.props.listVueItems.concat([legendItem]); }
 
-    this.props.setStateValue("legendItems", items);
+          /**Call setStateValue */
+          
+    this.props.setStateValue("listVueActive", true);
+    this.props.setStateValue("listVueItems", items);
+
+    this.props.setStateValue("popupActive", false);
+    // this.props.triggerMapUpdate();
+
   }
 
   removeLegendItem(idLayer) {
-    var legend = document.getElementById('legend');
-    let itemId = "lgn" + idLayer;
-    var item = document.getElementById(itemId);
-    if (item !== null) {
-      legend.removeChild(item);
+
+    let obj = this.props.listVueItems.find(x => x.idLayer === idLayer);
+    if (typeof (obj) === "undefined") {return;}
+    var index = this.props.listVueItems.indexOf(obj);
+    if (index !== -1) 
+    {
+      let items = this.props.listVueItems;
+      items.splice(index, 1);
+      this.props.setStateValue("listVueItems", items);
+      this.props.triggerMapUpdate();
     }
+
+    // var legend = document.getElementById('legend');
+    // let itemId = "lgn" + idLayer;
+    // var item = document.getElementById(itemId);
+    // if (item !== null) {
+    //   legend.removeChild(item);
+    // }
   }
 
   setEmptyData(dataStr){
@@ -476,6 +513,7 @@ class MapComponent extends Component {
   });
 
   }
+  
   loadJsonData(dataStr) {
 
     let baseDataUrl;
@@ -593,8 +631,9 @@ MapComponent.propTypes = {
   getRoute: PropTypes.func,
   languageSet: PropTypes.string,
   legendItems: PropTypes.array,
+  listVueItems: PropTypes.array,
+  listVueActive: PropTypes.bool,
   map: PropTypes.object,
-  mapStyle: PropTypes.string,
   modality: PropTypes.string,
   mode: PropTypes.string,
   moveOnLoad: PropTypes.bool,
@@ -624,12 +663,13 @@ const mapStateToProps = (state) => {
     center: state.app.mapCoords.slice(0, 2),
     directionsFrom: state.app.directionsFrom,
     directionsTo: state.app.directionsTo,
-    mapStyle: state.app.mapStyle,
     toggleLayerVisibility: state.app.toggleLayerVisibility,
     dateFrom: state.app.dateFrom,
     dateTo: state.app.dateTo,
     languageSet: state.app.languageSet,
-    legendItems: state.app.legendItems,
+    // legendItems: state.app.legendItems,
+    listVueItems: state.app.listVueItems,
+    listVueActive: state.app.listVueActive,
     modality: state.app.modality,
     mode: state.app.mode,
     needMapRepan: state.app.needMapRepan,

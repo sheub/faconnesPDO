@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { translate } from "react-i18next";
 import SvgIcon from "@material-ui/core/SvgIcon";
 import IconButton from '@material-ui/core/IconButton';
@@ -17,13 +18,15 @@ function HomeIcon(props) {
 
 function RenderUrl(props) {
   const { t, info } = props.props;
-  // const t = translate.t;
+
   var link = null;
+  // layer museesFrance
   if (info.properties.sitweb) {
     // <a target="_blank" href={props.url} className="urlPopup" rel="noopener">{props.url}</a><br />
     if(!info.properties.sitweb.includes(" "))
       {link = info.properties.sitweb.includes("http://") ? info.properties.sitweb : "http://" + info.properties.sitweb;}
   }
+  // other layers
   else{
     link = info.properties.url;
   }
@@ -62,7 +65,6 @@ function RenderAddress(props) {
 function RenderDateTime(props) {
   const { t, info } = props.props;
   const lng = props.props.i18n.language;
-  //let info = props.info.properties;
 
   if (info.properties.valid_from) {
     let eventStart = new Date(info.properties.valid_from);
@@ -95,21 +97,48 @@ function RenderDateTime(props) {
 
 class MyPlaceInfo extends Component {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      popupActive: this.props.info.popupActive,
+      infoPopup: this.props.info,
+    };
+  }
+
 
   hidePopup() {
-    this.props.info.popupActive = false;
-    this.forceUpdate();
+    this.setState({ popupActive: false });
+
+  }
+  displayPopup() {
+    this.setState({ popupActive: true });
+  }
+
+  componentWillReceiveProps(props) {
+    this.setState({ infoPopup: props.infoPopup})
+    this.setState({ popupActive: props.infoPopup.popupActive })
   }
 
   render() {
 
     const { t } = this.props;
 
-    let popupActive = this.props.info.popupActive;
-    const layerId = this.props.info.layerId;
-    const paintColor = this.props.info.paintColor;
+    let popupActive = this.state.popupActive;
+    
+    const layerId = this.state.infoPopup.layerId;
+    const paintColor = this.state.infoPopup.paintColor;
+    let listVueActive = this.state.infoPopup.listVueActive;
+    // {this.props.children(this.state.popupActive)}
 
-    let info = this.props.info.properties;
+    // move the popup on the left if the list is display
+    let stylePop = listVueActive ? {right: "248px"} : {left: 0};
+    // let stylePop = true ? {right: "248px"} : {left: 0};
+
+
+
+
+    let info = this.state.infoPopup.properties;
 
     if ([
       "parcsjardins",
@@ -125,17 +154,16 @@ class MyPlaceInfo extends Component {
       const lang = this.props.i18n.language;
       switch (lang) {
         case "fr":
-          info.abstract = this.props.info.properties.abstract_fr;
-          info.label = this.props.info.properties.label_fr;
+          info.abstract = info.abstract_fr;
+          info.label = info.label_fr;
           break;
         case "en":
-          info.abstract = this.props.info.properties.abstract_en;
-          info.label = this.props.info.properties.label_en;
+          info.abstract = info.abstract_en;
+          info.label = info.label_en;
           break;
         default:
-          info.abstract = this.props.info.properties.abstract_en;
-          info.label = this.props.info.properties.label_en;
-
+          info.abstract = info.abstract_en;
+          info.label = info.label_en;
       }
     }
 
@@ -155,7 +183,7 @@ class MyPlaceInfo extends Component {
       return (
         <div>
           {popupActive &&
-            <div className="mapboxgl-popupup popPupStyle">
+            <div className="mapboxgl-popupup popPupStyle" style={stylePop}>
               <div className="titleText">
                 <a target="_new" href={info.link} className="titleText" rel="noopener">{info.label}</a><br />
               </div>
@@ -194,7 +222,7 @@ class MyPlaceInfo extends Component {
       return (
         <div>
           {popupActive &&
-            <div className="mapboxgl-popupup popPupStyle">
+            <div className="mapboxgl-popupup popPupStyle" style={stylePop}>
               <div className="baseText">
                 {/* <div className="baseInfo"> */}
                 <div className="titleText">
@@ -228,7 +256,7 @@ class MyPlaceInfo extends Component {
       return (
         <div>
           {popupActive &&
-            <div className="mapboxgl-popupup popPupStyle">
+            <div className="mapboxgl-popupup popPupStyle" style={stylePop}>
               {/* <div className="baseInfo"> */}
               <div className="baseText">
                 <div className="titleText">
@@ -260,7 +288,7 @@ class MyPlaceInfo extends Component {
       return (
         <div>
           {popupActive &&
-            <div className="mapboxgl-popupup popPupStyle">
+            <div className="mapboxgl-popupup popPupStyle" style={stylePop}>
             <div className="baseText">
               <div className="titleText">
                 <HomeIcon style={styles} alt={layerId} title={layerId} />
@@ -308,7 +336,7 @@ class MyPlaceInfo extends Component {
       return (
         <div>
           {popupActive &&
-            <div className="mapboxgl-popupup popPupStyle">
+            <div className="mapboxgl-popupup popPupStyle" style={stylePop}>
               <div className="baseText">
                 <div className="titleText">
                   {wikipedia}<br />
@@ -336,7 +364,7 @@ class MyPlaceInfo extends Component {
       return (
         <div>
           {popupActive &&
-            <div className="mapboxgl-popupup  popPupStyle">
+            <div className="mapboxgl-popupup popPupStyle" style={stylePop}>
               <div className="baseText">
                 <div className="baseInfo">
                   <div className="titleText">
@@ -372,14 +400,18 @@ class MyPlaceInfo extends Component {
       placeInfo: "place-info absolute top bg-white w-full w420-mm shadow-darken25 flex-parent flex-parent--column",
     };
   }
-
 }
 
 MyPlaceInfo.propTypes = {
-  clickDirections: PropTypes.func,
-  info: PropTypes.object,
+  infoPopup: PropTypes.object,
   languageSet: PropTypes.string,
 };
 
+const mapStateToProps = (state) => {
+  return {
+    infoPopup: state.app.infoPopup,
+  }
+}
 
-export default translate("translations")(MyPlaceInfo);
+
+export default connect(mapStateToProps)(translate("translations")(MyPlaceInfo));
