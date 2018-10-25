@@ -13,6 +13,7 @@
     z-index: 1301;
     padding: 12px;
     overflow-y: auto;
+    /* overflow-x: hidden; */
 }
 
 .btn-close-impressum {
@@ -27,30 +28,31 @@
 
 @media screen and (max-width: 600px) {
     .impressumContainer {
-        margin: 8px 8px 8px 8px;
+        margin: 0 4px 0 0;
     }
 }
 
-@media screen and (min-width: "1200px") {
-    .container {
-        max-width: "1140px";
+@media screen and (max-width: "1200px") {
+    .impressumContainer {
+        max-width: 1140px;
     }
 }
 
-@media screen and (min-width: 992px) {
-    .container {
+@media screen and (max-width: 992px) {
+    .impressumContainer {
         max-width: 960px;
     }
 }
 
-@media screen and (min-width: 768px) {
-    .container {
+@media screen and (max-width: 768px) {
+    .impressumContainer {
         max-width: 720px;
     }
 }
 
-@media (min-width: 576px) {
-    .container {
+@media (max-width: 576px) {
+    .impressumContainer {
         max-width: 540px;
+        left: 6px;
     }
 }

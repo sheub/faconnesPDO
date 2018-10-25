@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { translate } from "react-i18next";
 import { connect } from "react-redux";
 import { triggerMapUpdate, setStateValue } from "../actions/index";
+import turfDistance from "@turf/distance";
 
 
 
@@ -39,7 +40,7 @@ const styles = theme => ({
         flexDirection: "column",
         height: "33vh",
     },
-    
+
     listRoot: {
         width: '100%',
         backgroundColor: "white",
@@ -47,7 +48,7 @@ const styles = theme => ({
         position: 'relative',
         overflowY: 'auto',
         overflowX: 'hidden',
-        flex: 1,                
+        flex: 1,
     },
 
     listItemClass: {
@@ -70,10 +71,10 @@ const styles = theme => ({
         letterSpacing: "-0.3px",
     },
 
-    listItemIconClass: { 
+    listItemIconClass: {
         marginRight: "3px",
         marginLeft: "-16px",
-        verticalAlign: "top" 
+        verticalAlign: "top"
     },
 
 });
@@ -163,11 +164,14 @@ class ListVue extends React.Component {
         // this.props.triggerMapUpdate();
     }
 
-    ListVueMainItem(item, index) {
+    ListVueMainItem(item, index, coorOnClick) {
 
         // const { t } = this.props;
         const lang = this.props.i18n.language;
         const { classes } = this.props;
+        var distance = turfDistance(coorOnClick, item.geometry.coordinates);
+        distance = (distance.toFixed(2)).toString();
+
 
         let info = {};
         if ([
@@ -185,26 +189,34 @@ class ListVue extends React.Component {
             switch (lang) {
                 case "fr":
                     info.label = item.properties.label_fr;
-                    info.address = item.properties.street_address;
-
+                    info.address = item.properties.address_locality;
                     break;
+
                 case "en":
                     info.label = item.properties.label_en;
-                    info.address = item.properties.street_address;
+                    info.address = item.properties.address_locality;
                     break;
+
                 default:
                     info.label = item.properties.label_en;
-                    info.address = item.properties.street_address;
+                    info.address = item.properties.address_locality;
             }
         }
-        else{
+        else {
             info.label = item.properties.label;
-            info.address = <a target="_new" href={item.properties.link} rel="noopener">&rarr; Wikipedia</a>
+            info.address = "";//<a target="_new" href={item.properties.link} rel="noopener">&rarr; Wikipedia</a>
+        }
+        if (info.address !== "")
+        {
+            info.address = info.address + ", " + distance.concat(" kms");
+        }
+        else{
+            info.address = distance.concat(" kms");
         }
 
         return (
 
-            <ListItem button onClick={this.handleClick.bind(this, index)} style={{ paddingRight: "16px", cursor:"default" }} aria-label={info.label} >
+            <ListItem button onClick={this.handleClick.bind(this, index)} style={{ paddingRight: "16px", cursor: "default" }} aria-label={info.label} >
                 <ListItemIcon className={classes.listItemIconClass}>
                     {this.returnImage(item)}
                 </ListItemIcon>
@@ -215,9 +227,10 @@ class ListVue extends React.Component {
 
 
     render() {
-        const items = this.props.listVueItems;
         const { classes } = this.props;
         let listVueActive = this.props.listVueActive;
+        const items = this.props.listVueItems;
+        let coorOnClick = this.props.coorOnClick;
 
         if ((typeof (items) !== "undefined") && items.length) {
             return (
@@ -234,7 +247,7 @@ class ListVue extends React.Component {
                             <div className={classes.listItemClass} id='listItem'>
                                 {
                                     items.map((member, index) => {
-                                        return this.ListVueMainItem(member, index);
+                                        return this.ListVueMainItem(member, index, coorOnClick);
                                     })
                                 }
                             </div>
@@ -255,16 +268,18 @@ class ListVue extends React.Component {
 
 ListVue.propTypes = {
     classes: PropTypes.object.isRequired,
-    listVueActive: PropTypes.bool,
-    setStateValue: PropTypes.func,
-    listVueItems: PropTypes.array,
     infoPopup: PropTypes.object,
-    triggerMapUpdate: PropTypes.func,
+    coorOnClick: PropTypes.array,
+    listVueActive: PropTypes.bool,
+    listVueItems: PropTypes.array,
     setInfoPopup: PropTypes.func,
+    setStateValue: PropTypes.func,
+    triggerMapUpdate: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
     return {
+        // coorOnClick: state.app.coorOnClick,
         listVueActive: state.app.listVueActive,
         infoPopup: state.app.infoPopup,
     };

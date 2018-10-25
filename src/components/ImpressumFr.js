@@ -17,13 +17,13 @@ class Impressum extends Component {
 
     getImpressumComponent() {
         return <div className="impressumContainer">
-            <div >
+        <div>
             <div className="btn-close-impressum" aria-label="Close">
               <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.handleClose()}>
                 <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
               </IconButton>
             </div>
-                {/* <button type="button" className="btn-close-impressum" data-dismiss="alert" aria-label="Close" onClick={() => this.handleClose()}><span aria-hidden="true">&times;</span></button> */}
+
                 <h1>INFORMATIONS LÉGALES :</h1>
                 <h2>1. PRÉSENTATION DU SITE.</h2>
                 <br />
@@ -63,7 +63,7 @@ class Impressum extends Component {
                 
                 <h2>3. DESCRIPTION DES SERVICES FOURNIS.</h2>
                 <p>
-                Le site lieuxdits.de a pour objet de fournir une information touristique et locale en France metropolitaine.
+                    Le site lieuxdits.de a pour objet de fournir une information touristique et locale en France metropolitaine.
                     Zoestha s’efforce de fournir sur le site lieuxdits.de des informations aussi précises que possible. Toutefois, il ne pourra être tenu responsable des omissions, des inexactitudes et des carences dans la mise à jour, qu’elles soient de son fait ou du fait des tiers partenaires qui lui fournissent ces informations.
     
                     Tous les informations indiquées sur le site lieuxdits.de sont données à titre indicatif, et sont susceptibles d’évoluer. Par ailleurs, les renseignements figurant sur le site lieuxdits.de ne sont pas exhaustifs. Ils sont donnés sous réserve de modifications ayant été apportées depuis leur mise en ligne.
@@ -99,35 +99,34 @@ class Impressum extends Component {
                 
                 <h2>7. GESTION DES DONNÉES PERSONNELLES.</h2>
                 <p>
-                
-                Conformément aux dispositions de la loi n° 78-17 du 6 janvier 1978 relative à l'informatique, aux fichiers et aux libertés, aucune information personnelle 
-                n'est collectée ou cédée à des tiers.
-               
-                Le site n'est pas déclaré à la CNIL car il ne recueille pas d'informations personnelles.
-
+                    Conformément aux dispositions de la loi n° 78-17 du 6 janvier 1978 relative à l'informatique, aux fichiers et aux libertés, aucune information personnelle
+                    n'est collectée ou cédée à des tiers.
+                    Le site n'est pas déclaré à la CNIL car il ne recueille pas d'informations personnelles.
                 </p>
                 <br />
 
                 <h2>8.  UTILISATION DE TÉMOINS DE CONNEXION (« COOKIES »)</h2>
                 <p>
                     Lors de la consultation du lieuxdits.de, des témoins de connexions, dits « cookies », sont déposés sur votre ordinateur, votre mobile ou votre tablette.
-                    Ces cookies permettent essentiellement à lieuxdits.de :</p>
+                    Ces cookies permettent essentiellement à lieuxdits.de :
+                </p>
                     <ul>
                     <li>d'afficher, lors de votre première visite, le bandeau signalant la présence de cookies et la faculté que vous avez de les accepter ou de les refuser ;</li>
                     <li>d'établir des mesures statistiques de fréquentation et d'utilisation du site. Pour information, le tiers émetteur, Mapbox Inc, est également soumis
                          à la loi informatique et libertés</li>
                     </ul>
-                    <p>
+                
+                <p>
                     L’utilisateur peut configurer son navigateur pour refuser l’installation des cookies :
-                    
-                    Sous Internet Explorer : onglet outil (pictogramme en forme de rouage en haut a droite) / options internet. Cliquez sur Confidentialité et 
+
+                    Sous Internet Explorer : onglet outil (pictogramme en forme de rouage en haut a droite) / options internet. Cliquez sur Confidentialité et
                     choisissez Bloquer tous les cookies. Validez sur Ok.
                     Sous Firefox : en haut de la fenêtre du navigateur, cliquez sur le bouton Firefox, puis aller dans l'onglet Options. Cliquer sur l'onglet Vie privée.
                      Paramétrez les Règles de conservation sur : utiliser les paramètres personnalisés pour l'historique. Enfin décochez-la pour désactiver les cookies.
                     Sous Safari : Cliquez en haut à droite du navigateur sur le pictogramme de menu (symbolisé par un rouage). Sélectionnez Paramètres. Cliquez sur Afficher
                      les paramètres avancés. Dans la section "Confidentialité", cliquez sur Paramètres de contenu. Dans la section "Cookies", vous pouvez bloquer les cookies.
-                    Sous Chrome : Cliquez en haut à droite du navigateur sur le pictogramme de menu (symbolisé par trois lignes horizontales). Sélectionnez Paramètres. 
-                    Cliquez sur Afficher les paramètres avancés. Dans la section "Confidentialité", cliquez sur préférences. Dans l'onglet "Confidentialité", 
+                    Sous Chrome : Cliquez en haut à droite du navigateur sur le pictogramme de menu (symbolisé par trois lignes horizontales). Sélectionnez Paramètres.
+                    Cliquez sur Afficher les paramètres avancés. Dans la section "Confidentialité", cliquez sur préférences. Dans l'onglet "Confidentialité",
                     vous pouvez bloquer les cookies.
                 </p>
                 <br />
@@ -149,11 +148,11 @@ class Impressum extends Component {
                     Die Betreiber dieser Seiten behalten sich ausdrücklich vor, im Fall der unverlangten Zusendung von Werbeinformationen, etwa durch Spam-Mails,
                      rechtliche Schritte einzuleiten.
                      </p> */}
-            </div>
         </div>
+    </div>
     }
     render() {
-        return ReactDOM.createPortal(this.getImpressumComponent(), document.getElementById('mapCont'));
+        return ReactDOM.createPortal(this.getImpressumComponent(), document.getElementById('map'));
     }
 }
 export default Impressum;

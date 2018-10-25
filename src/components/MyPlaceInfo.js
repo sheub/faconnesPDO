@@ -5,6 +5,19 @@ import { translate } from "react-i18next";
 import SvgIcon from "@material-ui/core/SvgIcon";
 import IconButton from '@material-ui/core/IconButton';
 
+import Star15_961313 from '../assets/Star15_961313.svg'; // villages // plusBeauxVillagesDeFrance
+import Star15_14222D from '../assets/Star15_14222D.svg'; // unesco // patrimoinemondialenfrance
+import Star15_4AA52C from '../assets/Star15_4AA52C.svg'; // gardens // jardinremarquable
+import Star15_19766E from '../assets/Star15_19766E.svg'; // grandsSites // grandSiteDeFrance
+import Star15_1F08A6 from '../assets/Star15_1F08A6.svg'; // monuments // monumentsnationaux
+import Star15_33BAAB from '../assets/Star15_33BAAB.svg'; // Museums // museesFrance
+
+import Square15_4AA52C from '../assets/Square15_4AA52C.svg'; // parcsjardins 
+import Square15_E8EF1F from '../assets/Square15_E8EF1F.svg'; // localpropshop
+import Square15_EE8568 from '../assets/Square15_EE8568.svg'; // craftmanShop
+import Square15_318CE7 from '../assets/Square15_318CE7.svg'; // OTFrance
+import Square15_6B0D0D from '../assets/Square15_6B0D0D.svg'; // WineCelar
+
 import "./css/PopupInfo.css";
 
 
@@ -106,11 +119,64 @@ class MyPlaceInfo extends Component {
     };
   }
 
+  returnImage(layerId) {
+    let img = null;
+    switch (layerId) {
+        case "plusBeauxVillagesDeFrance":
+            img = <img src={Star15_961313} alt="" className='legend-key' />
+            break;
+        case "patrimoinemondialenfrance":
+            img = <img src={Star15_14222D} alt="" className='legend-key' />
+            break;
+        case "jardinremarquable":
+            img = <img src={Star15_4AA52C} alt="" className='legend-key' />
+            break;
+        case "grandSiteDeFrance":
+            img = <img src={Star15_19766E} alt="" className='legend-key' />
+            break;
+        case "monumentsnationaux":
+            img = <img src={Star15_1F08A6} alt="" className='legend-key' />
+            break;
+        case "museesFrance":
+            img = <img src={Star15_33BAAB} alt="" className='legend-key' />
+            break;
+        case "parcsjardins":
+            img = <img src={Square15_4AA52C} alt="" className='legend-key' />
+            break;
+        case "localproductshop":
+            img = <img src={Square15_E8EF1F} alt="" className='legend-key' />
+            break;
+        case "craftmanshop":
+            img = <img src={Square15_EE8568} alt="" className='legend-key' />
+            break;
+        case "WineCelar":
+            img = <img src={Square15_6B0D0D} alt="" className='legend-key' />
+            break;
+        case "OTFrance":
+            img = <img src={Square15_318CE7} alt="" className='legend-key' />
+            break;
+        // case "marches":
+        // case "exposition":
+        // case "musique":
+        // case "children":
+        // case "videsgreniers":
+        //     img = <span className="dot" style={{ backgroundColor: item.layer.paint["circle-color"] }}></span>
+        //     break;
+  
+        default:
+            img = null;
+            break;
+    }
+  
+    return img;
+  
+  };
 
   hidePopup() {
     this.setState({ popupActive: false });
 
   }
+
   displayPopup() {
     this.setState({ popupActive: true });
   }
@@ -129,14 +195,15 @@ class MyPlaceInfo extends Component {
     const layerId = this.state.infoPopup.layerId;
     const paintColor = this.state.infoPopup.paintColor;
     let listVueActive = this.state.infoPopup.listVueActive;
-    // {this.props.children(this.state.popupActive)}
 
     // move the popup on the left if the list is display
+    
     let stylePop = listVueActive ? {right: "248px"} : {left: 0};
-    // let stylePop = true ? {right: "248px"} : {left: 0};
-
-
-
+    
+    if(listVueActive && (window.innerWidth < 576)){
+      let topPos = document.documentElement.clientHeight * 0.36 + 21;
+      stylePop  = {left: 0, top: topPos }
+    }
 
     let info = this.state.infoPopup.properties;
 
@@ -185,6 +252,7 @@ class MyPlaceInfo extends Component {
           {popupActive &&
             <div className="mapboxgl-popupup popPupStyle" style={stylePop}>
               <div className="titleText">
+                {this.returnImage(layerId)}
                 <a target="_new" href={info.link} className="titleText" rel="noopener">{info.label}</a><br />
               </div>
               <div className="btn-close" aria-label="Close">
@@ -192,7 +260,6 @@ class MyPlaceInfo extends Component {
                   <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
                 </IconButton>
               </div>
-              {/* <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.hidePopup()}><span aria-hidden="true">&times;</span></button> */}
               <div className="hvrbox">
                 <img src={info.thumbnail} className="picturePoppup hvrbox-layer_bottom" alt={info.label} title={info.label} />
                 <div className="hvrbox-layer_top hvrbox-layer_slideup">
@@ -224,9 +291,8 @@ class MyPlaceInfo extends Component {
           {popupActive &&
             <div className="mapboxgl-popupup popPupStyle" style={stylePop}>
               <div className="baseText">
-                {/* <div className="baseInfo"> */}
                 <div className="titleText">
-                  <HomeIcon style={styles} alt={layerId} title={layerId} />
+                  {this.returnImage(layerId)}
                   {info.label}
                 </div>
                 <div className="btn-close" aria-label="Close">
@@ -241,7 +307,6 @@ class MyPlaceInfo extends Component {
                   <RenderUrl props={this.props} />
                   <RenderAddress info={info} />
                 </div>
-                {/* </div> */}
               </div>
             </div>}
         </div>
@@ -257,7 +322,6 @@ class MyPlaceInfo extends Component {
         <div>
           {popupActive &&
             <div className="mapboxgl-popupup popPupStyle" style={stylePop}>
-              {/* <div className="baseInfo"> */}
               <div className="baseText">
                 <div className="titleText">
                   <HomeIcon style={styles} alt={layerId} title={layerId} />
@@ -301,7 +365,6 @@ class MyPlaceInfo extends Component {
               </div>
               <div className="introtext">
               <div className="abstractPopup">
-                  {/* {t("myplaceinfo.openingHours")}<br /> */}
                   {info.periode_ouverture}
                   <RenderUrl props={this.props} />
                   <RenderAddress info={info} />
@@ -375,7 +438,6 @@ class MyPlaceInfo extends Component {
                       <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
                     </IconButton>
                   </div>
-                  {/* <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close" onClick={() => this.hidePopup()}><span aria-hidden="true">&times;</span></button> */}
                   <div className="introtext">
                     <div className="abstractPopup">
                       {info.context}

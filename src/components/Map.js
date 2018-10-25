@@ -241,7 +241,7 @@ class MapComponent extends Component {
   }
 
   onUp(e) {
-    
+
     if (!this.state.isDragging) return;
 
     this.map.getCanvas().style.cursor = '';
@@ -307,6 +307,7 @@ class MapComponent extends Component {
       if (features.length > 1) {
 
         listVueActive = true;
+        this.props.setStateValue("coorOnClick", [e.lngLat["lng"], e.lngLat["lat"]]);
         this.props.setStateValue("listVueActive", true);
         this.props.setStateValue("listVueItems", features);
       }
@@ -350,29 +351,28 @@ class MapComponent extends Component {
       this.props.setUserLocation(geometry.coordinates);
       if (this.props.moveOnLoad) this.moveTo(geometry, 6);
     };
-
-    // Create scale control
-    if (window.innerWidth > 320) {
-      const scaleControl = new mapboxgl.ScaleControl({
-        maxWidth: 80,
-        unit: 'metric'
-      });
-      this.map.addControl(scaleControl, 'bottom-left');
-
-      this.map.addControl(new mapboxgl.NavigationControl(), "bottom-left");
-    }
-
+    
     // Create geolocation control
     const geolocateControl = new mapboxgl.GeolocateControl();
     geolocateControl.on('geolocate', setGeolocation);
     this.map.addControl(geolocateControl, 'bottom-left');
 
+    // Create scale control
+    if (window.innerWidth > 320 && !(('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0))) {
+      const scaleControl = new mapboxgl.ScaleControl({
+        maxWidth: 80,
+        unit: 'metric'
+      });
+
+      this.map.addControl(scaleControl, 'bottom-left');
+      this.map.addControl(new mapboxgl.NavigationControl(), "bottom-left");
+    }
+
     // Set event listeners
     this.map.on('click', (e) => this.onClick(e));
-
-    this.map.on('mousemove', (e) => {
+    this.map.on('mousemove', (e) =>
+    {
       var features = this.map.queryRenderedFeatures(e.point, { layers: this.selectableLayers });
-
       if (features.length) {
         this.map.getCanvas().style.cursor = 'pointer';
       } 
@@ -390,7 +390,6 @@ class MapComponent extends Component {
     });
 
     this.initLayerVisibility();
-
     // Final update if the original state has some data
     this.props.triggerMapUpdate();
   }
@@ -419,8 +418,7 @@ class MapComponent extends Component {
     Object.keys(this.props.visibility).forEach(key => {
       if (this.props.visibility[key]) {
         this.map.setLayoutProperty(layerSelector[key].source, 'visibility', 'visible');
-        // this.addLegendItem(layerSelector[key].source);
-        if (["grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(layerSelector[key].source)) {
+        if (["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(layerSelector[key].source)) {
           this.loadJsonData(layerSelector[key].source);
         }
       } else {
@@ -429,7 +427,6 @@ class MapComponent extends Component {
         if (isVisible === 'visible') { 
           // set 'visibility' to 'none'
           this.map.setLayoutProperty(layerSelector[key].source, 'visibility', 'none');
-          // this.removeLegendItem(layerSelector[key].source);
           // set Empty Data to sources
           if (["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance",
             "monumentsnationaux", "patrimoinemondialenfrance"].includes(layerSelector[key].source)) {
@@ -458,45 +455,43 @@ class MapComponent extends Component {
 
   addLegendItem(idLayer) {
 
-    let mapLayer = this.map.getLayer(idLayer);
-    var legendItem = {};
-    legendItem.idLayer = idLayer;
+    // let mapLayer = this.map.getLayer(idLayer);
+    // var legendItem = {};
+    // legendItem.idLayer = idLayer;
 
-    let obj = this.props.listVueItems.find(x => x.idLayer === idLayer);
-    if (typeof (obj) !== "undefined") {return;}
+    // let obj = this.props.listVueItems.find(x => x.idLayer === idLayer);
+    // if (typeof (obj) !== "undefined") {return;}
 
-    if (mapLayer.type === "symbol") {
-      legendItem.symbolColor = mapLayer.paint._values["text-color"].value.value;
-    }
-    if (mapLayer.type === "circle") {
-      legendItem.symbolColor = mapLayer.paint._values["circle-color"].value.value;
-    }
+    // if (mapLayer.type === "symbol") {
+    //   legendItem.symbolColor = mapLayer.paint._values["text-color"].value.value;
+    // }
+    // if (mapLayer.type === "circle") {
+    //   legendItem.symbolColor = mapLayer.paint._values["circle-color"].value.value;
+    // }
 
-    let items = legendItem;
-    if (typeof (this.props.listVueItems) !== "undefined") { items = this.props.listVueItems.concat([legendItem]); }
+    // let items = legendItem;
+    // if (typeof (this.props.listVueItems) !== "undefined") { items = this.props.listVueItems.concat([legendItem]); }
 
-          /**Call setStateValue */
-          
-    this.props.setStateValue("listVueActive", true);
-    this.props.setStateValue("listVueItems", items);
-
-    this.props.setStateValue("popupActive", false);
-    // this.props.triggerMapUpdate();
+    // /**Call setStateValue */
+    
+    // this.props.setStateValue("listVueActive", true);
+    // this.props.setStateValue("listVueItems", items);
+    // this.props.setStateValue("popupActive", false);
 
   }
 
   removeLegendItem(idLayer) {
 
-    let obj = this.props.listVueItems.find(x => x.idLayer === idLayer);
-    if (typeof (obj) === "undefined") {return;}
-    var index = this.props.listVueItems.indexOf(obj);
-    if (index !== -1) 
-    {
-      let items = this.props.listVueItems;
-      items.splice(index, 1);
-      this.props.setStateValue("listVueItems", items);
-      this.props.triggerMapUpdate();
-    }
+    // let obj = this.props.listVueItems.find(x => x.idLayer === idLayer);
+    // if (typeof (obj) === "undefined") {return;}
+    // var index = this.props.listVueItems.indexOf(obj);
+    // if (index !== -1) 
+    // {
+    //   let items = this.props.listVueItems;
+    //   items.splice(index, 1);
+    //   this.props.setStateValue("listVueItems", items);
+    //   this.props.triggerMapUpdate();
+    // }
 
     // var legend = document.getElementById('legend');
     // let itemId = "lgn" + idLayer;
@@ -623,6 +618,7 @@ class MapComponent extends Component {
 MapComponent.propTypes = {
   accessToken: PropTypes.string,
   center: PropTypes.array,
+  coorOnClick: PropTypes.array,
   dateFrom: PropTypes.number,
   dateTo: PropTypes.number,
   directionsFrom: PropTypes.object,
@@ -670,6 +666,7 @@ const mapStateToProps = (state) => {
     // legendItems: state.app.legendItems,
     listVueItems: state.app.listVueItems,
     listVueActive: state.app.listVueActive,
+    coorOnClick:  state.app.coorOnClick,
     modality: state.app.modality,
     mode: state.app.mode,
     needMapRepan: state.app.needMapRepan,

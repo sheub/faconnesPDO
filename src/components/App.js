@@ -32,7 +32,7 @@ class App extends Component {
                 ? <Directions />
                 : <Search />
             }
-            <ListVue listVueActive={this.props.listVueActive} listVueItems={this.props.listVueItems}/>
+            <ListVue listVueActive={this.props.listVueActive} listVueItems={this.props.listVueItems} coorOnClick={this.props.coorOnClick} />
           </div>
         </div>
       </div>
@@ -41,8 +41,9 @@ class App extends Component {
 }
 
 App.propTypes = {
-  listVueItems: PropTypes.array,
   listVueActive: PropTypes.bool,
+  listVueItems: PropTypes.array,
+  coorOnClick: PropTypes.array,
   mode: PropTypes.string,
   route: PropTypes.object,
   routeStatus: PropTypes.string,
@@ -52,8 +53,9 @@ App.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    listVueItems: state.app.listVueItems,
     listVueActive: state.app.listVueActive,
+    listVueItems: state.app.listVueItems,
+    coorOnClick: state.app.coorOnClick,
     mode: state.app.mode,
     route: state.app.route,
     routeStatus: state.app.routeStatus,

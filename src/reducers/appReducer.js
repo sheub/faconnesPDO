@@ -34,7 +34,7 @@ const defaultAppState = {
   visibility: {
     Museum: false,
     Villages: false,
-    Unesco: true,
+    Unesco: false,
     Jardins: false,
     GSF: false,
     MN: false,
@@ -47,7 +47,7 @@ const defaultAppState = {
     Musique: false,
     Children: false,
     Marches: false,
-    VidesGreniers: false
+    VidesGreniers: true
   },
   dateFrom: 0,
   dateTo: 0,
@@ -56,7 +56,8 @@ const defaultAppState = {
   listVueItems: [],
   popupActive: false,
   infoPopup: null,
-  listVueActive: false
+  listVueActive: false,
+  coorOnClick: []
 };
 
 const appReducer = (state = defaultAppState, action) => {
