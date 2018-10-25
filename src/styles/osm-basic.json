@@ -12,12 +12,12 @@
     "localEvents": {
       "type": "vector",
       "tiles": ["https://faconnes.de/tiles/localEvents/{z}/{x}/{y}.pbf"],
-      "maxzoom": 6
+      "maxzoom": 5
     },
     "localTips": {
       "type": "vector",
       "tiles": ["https://faconnes.de/tiles/localTips/{z}/{x}/{y}.pbf"],
-      "maxzoom": 6
+      "maxzoom": 5
     },
     "museesFrance": {
       "type": "vector",
@@ -839,6 +839,7 @@
       "id": "patrimoinemondialenfrance",
       "type": "symbol",
       "source": "patrimoinemondialenfrance",
+	  "maxzoom": 20,
       "layout": {
         "visibility": "none",
         "icon-image": "star-15-14222D",
@@ -851,6 +852,7 @@
       "id": "plusBeauxVillagesDeFrance",
       "type": "symbol",
       "source": "plusBeauxVillagesDeFrance",
+	  "maxzoom": 20,
       "layout": {
         "visibility": "none",
         "icon-image": "star-15-961313",
@@ -863,6 +865,7 @@
       "id": "jardinremarquable",
       "type": "symbol",
       "source": "jardinremarquable",
+	  "maxzoom": 20,
       "layout": {
         "visibility": "none",
         "icon-image": "star-15-4AA52C",
@@ -875,6 +878,7 @@
       "id": "grandSiteDeFrance",
       "type": "symbol",
       "source": "grandSiteDeFrance",
+	  "maxzoom": 20,
       "layout": {
         "visibility": "none",
         "icon-image": "star-15-19766E",
@@ -888,6 +892,7 @@
       "type": "symbol",
       "source": "museesFrance",
       "source-layer": "listeetlocalisationdesmuseesdefrance",
+	  "maxzoom": 20,
       "layout": {
         "visibility": "none",
         "icon-image": "star-15-33BAAB",
@@ -900,6 +905,7 @@
       "id": "monumentsnationaux",
       "type": "symbol",
       "source": "monumentsnationaux",
+	  "maxzoom": 20,
       "layout": {
         "visibility": "none",
         "icon-image": "star-15-1F08A6",
@@ -914,6 +920,7 @@
       "type": "symbol",
       "source": "localTips",
       "source-layer": "localProductShop",
+	  "maxzoom": 20,
       "layout": {
         "visibility": "none",
         "icon-image": "square-15-E8EF1F",
@@ -929,6 +936,7 @@
       "type": "symbol",
       "source": "localTips",
       "source-layer": "craftmanShop",
+	  "maxzoom": 20,
       "layout": {
         "visibility": "none",
         "icon-image": "square-15-EE8568",
@@ -942,6 +950,7 @@
       "type": "symbol",
       "source": "localTips",
       "source-layer": "ParcsJardins",
+	  "maxzoom": 20,
       "layout": {
         "visibility": "none",
         "icon-image": "square-15-4AA52C",
@@ -955,6 +964,7 @@
       "type": "symbol",
       "source": "localTips",
       "source-layer": "WineCelar",
+	  "maxzoom": 20,
       "layout": {
         "visibility": "none",
         "icon-image": "square-15-6B0D0D",
@@ -968,6 +978,7 @@
       "type": "symbol",
       "source": "localTips",
       "source-layer": "OTFrance",
+	  "maxzoom": 20,
       "layout": {
         "visibility": "none",
         "icon-image": "square-15-318CE7",
@@ -981,6 +992,7 @@
       "type": "circle",
       "source": "localEvents",
       "source-layer": "exposition",
+	  "maxzoom": 20,
       "layout": {"visibility": "none"},
       "paint": {"circle-radius": 4, "circle-color": "#E12E0E"}
     },
@@ -989,6 +1001,7 @@
       "type": "circle",
       "source": "localEvents",
       "source-layer": "musique",
+	  "maxzoom": 20,
       "layout": {"visibility": "none"},
       "paint": {"circle-radius": 4, "circle-color": "#A52C56"}
     },
@@ -997,6 +1010,7 @@
       "type": "circle",
       "source": "localEvents",
       "source-layer": "children",
+	  "maxzoom": 20,
       "layout": {"visibility": "none"},
       "paint": {"circle-radius": 4, "circle-color": "#15178A"}
     },
@@ -1005,6 +1019,7 @@
       "type": "circle",
       "source": "localEvents",
       "source-layer": "marches",
+	  "maxzoom": 20,
       "layout": {"visibility": "none"},
       "paint": {"circle-radius": 4, "circle-color": "#4AA52C"}
     },
@@ -1013,6 +1028,7 @@
       "type": "circle",
       "source": "localEvents",
       "source-layer": "videsGreniers",
+	  "maxzoom": 20,
       "layout": {"visibility": "none"},
       "paint": {"circle-radius": 4, "circle-color": "#007CBF"}
     },
