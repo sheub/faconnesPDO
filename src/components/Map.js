@@ -18,7 +18,7 @@ import {
   setUserLocation,
   triggerMapUpdate,
   getRoute,
-  getReverseGeocode,
+  // getReverseGeocode,
   resetStateKeys
 } from "../actions/index";
 
@@ -418,7 +418,8 @@ class MapComponent extends Component {
     Object.keys(this.props.visibility).forEach(key => {
       if (this.props.visibility[key]) {
         this.map.setLayoutProperty(layerSelector[key].source, 'visibility', 'visible');
-        if (["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(layerSelector[key].source)) {
+        if (["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", 
+        "monumentsnationaux", "patrimoinemondialenfrance"].includes(layerSelector[key].source)) {
           this.loadJsonData(layerSelector[key].source);
         }
       } else {
@@ -623,7 +624,7 @@ MapComponent.propTypes = {
   dateTo: PropTypes.number,
   directionsFrom: PropTypes.object,
   directionsTo: PropTypes.object,
-  getReverseGeocode: PropTypes.func,
+  // getReverseGeocode: PropTypes.func,
   getRoute: PropTypes.func,
   languageSet: PropTypes.string,
   legendItems: PropTypes.array,
@@ -686,7 +687,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getReverseGeocode: (key, coordinates, accessToken) => dispatch(getReverseGeocode(key, coordinates, accessToken)),
+    // getReverseGeocode: (key, coordinates, accessToken) => dispatch(getReverseGeocode(key, coordinates, accessToken)),
     getRoute: (directionsFrom, directionsTo, modality, accessToken) => dispatch(getRoute(directionsFrom, directionsTo, modality, accessToken)),
     pushHistory: (url) => dispatch(push(url)),
     setStateValue: (key, value) => dispatch(setStateValue(key, value)),

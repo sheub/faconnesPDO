@@ -43,12 +43,12 @@ export const getPlaceInfo = (wikidataId) => ({
   id: wikidataId
 });
 
-export const getReverseGeocode = (key, coordinates, accessToken) => ({
-  type: 'GET_REVERSE_GEOCODE',
-  key,
-  coordinates,
-  accessToken
-});
+// export const getReverseGeocode = (key, coordinates, accessToken) => ({
+//   type: 'GET_REVERSE_GEOCODE',
+//   key,
+//   coordinates,
+//   accessToken
+// });
 
 // export const setContextMenu = (coordinates, position) => ({
 //   type: 'SET_CONTEXT_MENU',
