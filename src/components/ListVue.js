@@ -100,6 +100,19 @@ class ListVue extends React.Component {
         // this.props.setInfoPopup(infoItem);
         // this.props.setStateValue("popupActive", false);
         this.props.setStateValue("infoPopup", infoItem);
+              
+      
+        this.props.setStateValue("searchLocation", {
+          'type': 'Feature',
+          'place_name': infoItem.place_name,
+          'properties': infoItem.properties,
+          'geometry': infoItem.geometry,
+          'layerId': infoItem.layerId,
+          "paintColor": infoItem.paintColor,
+          "popupActive": true,
+          "listVueActive": true
+        });
+        this.props.triggerMapUpdate();
 
 
 
@@ -232,10 +245,14 @@ class ListVue extends React.Component {
         const items = this.props.listVueItems;
         let coorOnClick = this.props.coorOnClick;
 
+        let styleListVue  = {zIndex: 0 };
+        if (!listVueActive) {
+            styleListVue = { zIndex: -1, height:0 };
+          }
+
         if ((typeof (items) !== "undefined") && items.length) {
             return (
-                <div className={classes.listContainer}>
-                    {listVueActive &&
+                <div className={classes.listContainer} style={styleListVue}>
                         <List dense={true} className={classes.listRoot} component="div" disablePadding
                             subheader={<ListSubheader component="div">{items.length} Attractions</ListSubheader>}
                         >
@@ -252,7 +269,6 @@ class ListVue extends React.Component {
                                 }
                             </div>
                         </List>
-                    }
                 </div>
             )
         }
@@ -272,6 +288,7 @@ ListVue.propTypes = {
     coorOnClick: PropTypes.array,
     listVueActive: PropTypes.bool,
     listVueItems: PropTypes.array,
+    searchLocation: PropTypes.object,
     setInfoPopup: PropTypes.func,
     setStateValue: PropTypes.func,
     triggerMapUpdate: PropTypes.func,
@@ -282,6 +299,7 @@ const mapStateToProps = (state) => {
         // coorOnClick: state.app.coorOnClick,
         listVueActive: state.app.listVueActive,
         infoPopup: state.app.infoPopup,
+        searchLocation: state.app.searchLocation,
     };
 };
 

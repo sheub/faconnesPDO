@@ -8,7 +8,6 @@ const defaultAppState = {
   // Map updates
   needMapUpdate: false,
   needMapRepan: false,
-  needMapRestyle: false,
   needMapToggleLayer: false,
   needMapActualizeLanguage: false,
 

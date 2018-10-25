@@ -9,8 +9,6 @@ import turfBboxPolygon from "@turf/bbox-polygon";
 import turfBuffer from "@turf/buffer";
 import turfDistance from "@turf/distance";
 import {setLanguage} from "../utils/openmaptiles-language";
-// import Legend from "./Legend";
-
 
 import {push} from "react-router-redux";
 import {
@@ -135,7 +133,8 @@ class MapComponent extends Component {
     if (this.props.needMapRepan) {
       // Search mode
       if (this.props.mode === 'search') {
-        this.moveTo(this.props.searchLocation);
+        this.moveTo(this.props.searchLocation, 11);
+        this.queryAndRenderFeatures(this.props.searchLocation);
       }
 
       // Directions mode
@@ -177,7 +176,7 @@ class MapComponent extends Component {
       this.filterByDate(this.props.dateFrom, this.props.dateTo);
     }
 
-    this.props.setStateValue('needMapRestyle', false);
+
     this.props.setStateValue('needMapToggleLayer', false);
     this.props.setStateValue('needMapFilterByDate', false);
     this.props.setStateValue('needMapActualizeLanguage', false);
@@ -273,7 +272,6 @@ class MapComponent extends Component {
         key = 'directionsTo';
       }
 
-
       /*Prepare data for detailInfo*/
       var paintColor = null;
       if ("paint" in feature.layer) {
@@ -340,6 +338,70 @@ class MapComponent extends Component {
         });
         this.props.triggerMapUpdate();
       }
+    }
+  }
+
+  queryAndRenderFeatures(location){
+    
+    var pointLocation = this.map.project(location.geometry.coordinates)
+    var bbox = [[pointLocation.x - 5, pointLocation.y - 5], [pointLocation.x + 5, pointLocation.y + 5]];
+    var features = this.map.queryRenderedFeatures(bbox, { layers: this.selectableLayers });
+
+    if (features.length) {
+      // We have a selected feature
+      var feature = features[0];
+
+      /*Prepare data for detailInfo*/
+      var paintColor = null;
+      if ("paint" in feature.layer) {
+        if(typeof(feature.layer.paint["circle-color"])!== "undefined")
+          {paintColor = feature.layer.paint["circle-color"];}
+          else if(typeof(feature.layer.paint["text-color"])!== "undefined"){
+            paintColor = feature.layer.paint["text-color"];
+          }
+      }
+
+      let place_name = null;
+      if (feature.properties.name) { place_name = feature.properties.name }
+      else if (feature.properties.label) { place_name = feature.properties.label; }
+      else if (feature.properties.nom_du_musee) { place_name = feature.properties.nom_du_musee; }
+
+      if (["parcsjardins", "localproductshop", "craftmanshop", "WineCelar", "OTFrance", "marches", "exposition", "musique", "children", "videsgreniers"].includes(feature.layer.id))
+      {
+        let lng = this.props.languageSet;
+        if(lng === 'fr')
+        {
+          place_name = feature.properties.label_fr;
+
+        }
+        else{
+          place_name = feature.properties.label_en;
+        }
+      }
+
+      let listVueActive = false;
+
+      if (features.length > 1) {
+
+        listVueActive = true;
+        this.props.setStateValue("coorOnClick", [location.geometry.coordinates[0], location.geometry.coordinates[1]]);
+        this.props.setStateValue("listVueActive", true);
+        this.props.setStateValue("listVueItems", features);
+      }
+      else {
+        listVueActive = false;
+        this.props.setStateValue("listVueActive", false);
+      }
+
+      let infoItem = {};
+      infoItem.place_name = place_name;
+      infoItem.properties = feature.properties;
+      infoItem.geometry = feature.geometry;
+      infoItem.layerId = feature.layer.id;
+      infoItem.paintColor = paintColor;
+      infoItem.listVueActive = listVueActive;
+      infoItem.popupActive = true;
+      this.props.setStateValue("infoPopup", infoItem);
     }
   }
 
@@ -624,7 +686,6 @@ MapComponent.propTypes = {
   dateTo: PropTypes.number,
   directionsFrom: PropTypes.object,
   directionsTo: PropTypes.object,
-  // getReverseGeocode: PropTypes.func,
   getRoute: PropTypes.func,
   languageSet: PropTypes.string,
   legendItems: PropTypes.array,
@@ -635,7 +696,6 @@ MapComponent.propTypes = {
   mode: PropTypes.string,
   moveOnLoad: PropTypes.bool,
   needMapRepan: PropTypes.bool,
-  needMapRestyle: PropTypes.bool,
   needMapToggleLayer: PropTypes.bool,
   needMapFilterByDate: PropTypes.bool,
   needMapActualizeLanguage: PropTypes.bool,
@@ -664,14 +724,12 @@ const mapStateToProps = (state) => {
     dateFrom: state.app.dateFrom,
     dateTo: state.app.dateTo,
     languageSet: state.app.languageSet,
-    // legendItems: state.app.legendItems,
     listVueItems: state.app.listVueItems,
     listVueActive: state.app.listVueActive,
     coorOnClick:  state.app.coorOnClick,
     modality: state.app.modality,
     mode: state.app.mode,
     needMapRepan: state.app.needMapRepan,
-    needMapRestyle: state.app.needMapRestyle,
     needMapToggleLayer: state.app.needMapToggleLayer,
     needMapActualizeLanguage: state.app.needMapActualizeLanguage,
     needMapFilterByDate: state.app.needMapFilterByDate,    
@@ -687,7 +745,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    // getReverseGeocode: (key, coordinates, accessToken) => dispatch(getReverseGeocode(key, coordinates, accessToken)),
     getRoute: (directionsFrom, directionsTo, modality, accessToken) => dispatch(getRoute(directionsFrom, directionsTo, modality, accessToken)),
     pushHistory: (url) => dispatch(push(url)),
     setStateValue: (key, value) => dispatch(setStateValue(key, value)),
