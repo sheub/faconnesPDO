@@ -2,13 +2,15 @@ import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Map from "./Map";
-
 import { setStateFromURL } from "../actions/index";
+
+import "./css/assembly.css";
 
 const MyDrawer = React.lazy(() => import("./MyDrawer"));
 const ListVue = React.lazy(() => import("./ListVue"));
 const Search = React.lazy(() => import("./Search"));// import Search from "./Search";
 const Directions = React.lazy(() => import("./Directions"));
+
 
 class App extends Component {
 
@@ -25,7 +27,6 @@ class App extends Component {
     return (
 
       <div className="root">
-        {/* <MyDrawer /> */}
         <React.Suspense fallback={<div> Loading Marvelous...</div>}>
           <MyDrawer />
         </React.Suspense>

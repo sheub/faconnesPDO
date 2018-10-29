@@ -1,29 +1,24 @@
-/* @font-face {
-    font-family: "Caslon";
-    font-style: normal;
-    font-weight: 400;
-    src: local("ACaslonPro-Regular"), url(./../fonts/Caslon/ACaslonPro-Regular.otf) format("otf");
-} */
-
 @font-face {
     font-family: "Caslon";
     font-style: normal;
     font-weight: 700;
-    src: local("ACaslonPro-Bold"), url(./../fonts/Caslon/ACaslonPro-Bold.otf) format("otf");
+    src: local("ACaslonPro-Bold"),url(./../fonts/Caslon/ACaslonPro-Bold.otf) format("otf")
+}
+
+.baseInfo,.baseText {
+    padding-left: 3px;
+    padding-right: 3px
 }
 
 .baseText {
     margin-left: 6px;
     margin-bottom: 6px;
     margin-top: 6px;
-    padding-left: 3px;
-    padding-right: 3px;
-    color: black;
+    color: #000
 }
+
 .baseInfo {
-    padding-left: 3px;
-    padding-right: 3px;
-    width: 100%;
+    width: 100%
 }
 
 .titleText {
@@ -32,126 +27,120 @@
     font-weight: 700;
     font-size: 20px;
     text-decoration: none;
-    color: black;
-    margin: 4px 31px 10px 2px; 
+    color: #000;
+    margin: 4px 31px 10px 2px
 }
 
 .introtext {
     white-space: normal;
     max-height: 26vh;
-    overflow-y: auto;
+    overflow-y: auto
 }
 
 .abstractPopup {
     margin-bottom: 12px;
-    white-space: normal;
+    white-space: normal
+}
+
+.addressPopup,.datePopup {
+    font-size: 14px;
+    font-family: system-ui,-apple-system,BlinkMacSystemFont,"Helvetica Neue","Helvetica","Arial","Lucida Grande",sans-serif
 }
 
 .addressPopup {
-    font-size: 14px;
     white-space: normal;
-    color: grey;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Helvetica", "Arial", "Lucida Grande", sans-serif;
     letter-spacing: -1px;
+    color: gray
 }
 
 .datePopup {
-    font-size: 14px;
-    color: #68635C;
+    color: #68635c;
     text-transform: capitalize;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Helvetica", "Arial", "Lucida Grande", sans-serif;
-    padding-bottom: 6px;
+    padding-bottom: 6px
 }
 
 .urlPopup {
-    color: #CC0000;
+    color: #c00;
     margin-bottom: 6px;
     text-decoration: none;
-    letter-spacing: -1px;
+    letter-spacing: -1px
 }
 
 .popPupStyle {
-    padding: 0;
+    padding: 0
 }
 
 .mapboxgl-popupup {
     position: absolute;
     margin-top: 10px;
-    /* left: 0;
-    right: 248px; */
     width: 240px;
-    background-color: #FFF;
-    /* height: auto; */
+    background-color: #fff;
     max-height: 66vh;
     overflow-y: auto;
     overflow-x: hidden;
     line-height: normal;
     margin-bottom: 10px;
-    border-radius: 0px;
-    box-shadow: 0px 0px 8px -3px #000;
-    transition-duration: 1s;
+    border-radius: 0;
+    box-shadow: 0 0 8px -3px #000;
+    transition-duration: 1s
 }
 
 .btn-close {
-	position: absolute;
-	top: -4px;
-	right: -4px;
-	cursor: pointer;
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    cursor: pointer
 }
 
 .btn-icon {
     height: 18px;
     width: 18px;
-    z-index: 1;
+    z-index: 1
 }
 
-
-@media only screen and (max-width : 320px) {
+@media only screen and (max-width:320px) {
     .baseText {
         width: 100%;
-        margin-left: 0;
+        margin-left: 0
     }
 }
 
 .picturePoppup {
     width: 100%;
-    padding-top: 3px;
+    padding-top: 3px
 }
 
 .hvrbox .hvrbox-layer_slideup {
     -moz-transform: translateY(10px);
     -webkit-transform: translateY(10px);
     -ms-transform: translateY(10px);
-    transform: translateY(10px);
+    transform: translateY(10px)
 }
 
-.hvrbox:hover .hvrbox-layer_slideup,
-.hvrbox.active .hvrbox-layer_slideup {
+.hvrbox.active .hvrbox-layer_slideup,.hvrbox:hover .hvrbox-layer_slideup {
     -moz-transform: translateY(0);
     -webkit-transform: translateY(0);
     -ms-transform: translateY(0);
-    transform: translateY(0);
+    transform: translateY(0)
 }
 
-.hvrbox,
-.hvrbox * {
-    box-sizing: border-box;
+.hvrbox,.hvrbox * {
+    box-sizing: border-box
 }
 
 .hvrbox {
     position: relative;
     display: inline-block;
     overflow: hidden;
-    max-width: 100%;
-    height: auto;
+    height: auto
 }
 
-.hvrbox img {
-    max-width: 100%;
+.hvrbox,.hvrbox img {
+    max-width: 100%
 }
 
 .hvrbox .hvrbox-layer_bottom {
-    display: block;
+    display: block
 }
 
 .hvrbox .hvrbox-layer_top {
@@ -162,26 +151,25 @@
     bottom: 0;
     width: 100%;
     height: 26px;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0,0,0,.6);
     color: #fff;
     padding: 4px;
-    -moz-transition: all 0.4s ease-in-out 0s;
-    -webkit-transition: all 0.4s ease-in-out 0s;
-    -ms-transition: all 0.4s ease-in-out 0s;
-    transition: all 0.4s ease-in-out 0s;
+    -moz-transition: all .4s ease-in-out 0s;
+    -webkit-transition: all .4s ease-in-out 0s;
+    -ms-transition: all .4s ease-in-out 0s;
+    transition: all .4s ease-in-out 0s
 }
 
-.hvrbox:hover .hvrbox-layer_top,
-.hvrbox.active .hvrbox-layer_top {
-    opacity: 1;
+.hvrbox.active .hvrbox-layer_top,.hvrbox:hover .hvrbox-layer_top {
+    opacity: 1
 }
 
 .hvrbox .hvrbox-text a {
     font-size: 12px;
     text-decoration: none;
-    color: silver;
+    color: silver
 }
 
 .hvrbox.active .hvrbox-text_mobile {
-    display: block;
+    display: block
 }

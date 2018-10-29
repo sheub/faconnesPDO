@@ -1,57 +1,31 @@
 
 .App {
-  text-align: center;
+  text-align: center
 }
 
+/* Set small scrollbar */
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 5px
 }
 
-/* Track */
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #f1f1f1
 }
 
-/* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #14222D;
+  background: #14222d
 }
 
-/* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+  background: #555
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width:480px) {
   .mapboxgl-popup-content {
       max-width: 250px;
-      position:absolute; 
-      top:0;
-      bottom:0;
+      position: absolute;
+      top: 0;
+      bottom: 0
   }
 }
 
@@ -59,39 +33,32 @@
   position: absolute;
   bottom: 0;
   right: 0;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255,255,255,.8);
   margin-right: 10px;
   overflow: auto;
-  border-radius: 3px;
+  border-radius: 3px
 }
 
-#legend {
-  padding: 10px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  line-height: 18px;
-  height: fit-content;
-  margin-bottom: 24px;
-  width:  fit-content;
+.dot,.legend-key {
+  display: inline-block
 }
 
-.legend-key {
-  display: inline-block;
-}
 .dot {
   height: 12px;
   width: 12px;
   border-radius: 50%;
-  display: inline-block;
   margin-right: 6px;
-  margin-left: 5px;
+  margin-left: 5px
 }
 
-@media only screen and (max-width: 640px) {
+@media only screen and (max-width:640px) {
   #legend {
-    margin-bottom: 39px;
+      margin-bottom: 39px
   }
 }
 
-@media only screen and (max-width: 480px) {
-  #legend { display: none;}
+@media only screen and (max-width:480px) {
+  #legend {
+      display: none
+  }
 }
