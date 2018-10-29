@@ -4,6 +4,7 @@ import { translate } from "react-i18next";
 import MuiPickersUtilsProvider from "material-ui-pickers/utils/MuiPickersUtilsProvider";
 import DatePicker from "material-ui-pickers/DatePicker";
 import DateFnsUtils from "material-ui-pickers/utils/date-fns-utils";
+
 import frLocale from "date-fns/locale/fr";
 import format from 'date-fns/format';
 

@@ -1029,7 +1029,7 @@
       "source": "localEvents",
       "source-layer": "videsGreniers",
 	  "maxzoom": 20,
-      "layout": {"visibility": "none"},
+      "layout": {"visibility": "visible"},
       "paint": {"circle-radius": 4, "circle-color": "#007CBF"}
     },
     {

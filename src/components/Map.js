@@ -3,20 +3,19 @@ import React, {Component} from "react";
 import { translate } from "react-i18next";
 
 import {connect} from "react-redux";
+import {push} from "react-router-redux";
+
 import mapboxgl from "mapbox-gl/dist/mapbox-gl";
 import turfBbox from "@turf/bbox";
-import turfBboxPolygon from "@turf/bbox-polygon";
-import turfBuffer from "@turf/buffer";
-import turfDistance from "@turf/distance";
 import {setLanguage} from "../utils/openmaptiles-language";
 
-import {push} from "react-router-redux";
+import { defaultAppState } from "../reducers/appReducer";
+
 import {
   setStateValue,
   setUserLocation,
   triggerMapUpdate,
   getRoute,
-  // getReverseGeocode,
   resetStateKeys
 } from "../actions/index";
 
@@ -46,8 +45,6 @@ class MapComponent extends Component {
       // <div id='map' className='viewport-full'>
       <div>
         <div id="map"></div>
-        {/* <div className='map-overlay' id='legend'></div> */}
-        {/* <Legend legendItems={this.props.legendItems}/> */}
       </div>
     );
   }
@@ -133,7 +130,10 @@ class MapComponent extends Component {
     if (this.props.needMapRepan) {
       // Search mode
       if (this.props.mode === 'search') {
-        this.moveTo(this.props.searchLocation, 11);
+        import('../utils/moveTo')
+        .then((moveTo) => {
+          moveTo.moveTo(this.map, this.props.searchLocation, 11);
+        });
         this.queryAndRenderFeatures(this.props.searchLocation);
       }
 
@@ -141,19 +141,29 @@ class MapComponent extends Component {
       if (this.props.mode === 'directions') {
         if (this.props.route) {
           const bbox = turfBbox(this.props.route.geometry);
-          this.moveTo({ bbox: bbox });
+          import('../utils/moveTo')
+          .then((moveTo) => {
+            moveTo.moveTo(this.map, { bbox: bbox });
+          });
 
         } else if (this.props.directionsTo && this.props.directionsFrom) {
           const bbox = turfBbox({
             type: 'FeatureCollection',
             features: [this.props.directionsFrom, this.props.directionsTo]
           });
-          this.moveTo({ bbox: bbox });
+          import('../utils/moveTo')
+          .then((moveTo) => {
+            moveTo.moveTo(this.map, { bbox: bbox });
+          });
 
         } else {
           // Whichever exists
-          this.moveTo(this.props.directionsTo);
-          this.moveTo(this.props.directionsFrom);
+          import('../utils/moveTo')
+          .then((moveTo) => {
+            moveTo.moveTo(this.map, this.props.directionsTo);
+            moveTo.moveTo(this.map, this.props.directionsFrom);
+          });
+
         }
       }
     }
@@ -181,25 +191,6 @@ class MapComponent extends Component {
     this.props.setStateValue('needMapFilterByDate', false);
     this.props.setStateValue('needMapActualizeLanguage', false);
 
-  }
-
-  moveTo(location, zoom) {
-    if (!location) return;
-    if (location.bbox) { // We have a bbox to fit to
-      const distance = turfDistance([location.bbox[0], location.bbox[1]], [location.bbox[2], location.bbox[3]]);
-      const buffered = turfBuffer(turfBboxPolygon(location.bbox), distance / 2, 'kilometers');
-      const bbox = turfBbox(buffered);
-      try {
-        this.map.fitBounds(bbox, { linear: true });
-      } catch (e) {
-        this.map.fitBounds(location.bbox, { linear: true });
-      }
-    } else { // We just have a point
-      this.map.easeTo({
-        center: location.geometry.coordinates,
-        zoom: zoom || 16
-      });
-    }
   }
 
   onMove(e) {
@@ -411,7 +402,12 @@ class MapComponent extends Component {
       const geometry = { type: 'Point', coordinates: [data.coords.longitude, data.coords.latitude] };
       this.map.getSource('geolocation').setData(geometry);
       this.props.setUserLocation(geometry.coordinates);
-      if (this.props.moveOnLoad) this.moveTo(geometry, 6);
+      if (this.props.moveOnLoad) {// moveTo(this.map, geometry, 6);
+      import('../utils/moveTo') // moveTo function dynamic import
+      .then((moveTo) => {
+        moveTo.moveTo(this.map, geometry, 6);         
+      });
+    }
     };
     
     // Create geolocation control
@@ -451,9 +447,13 @@ class MapComponent extends Component {
       this.props.setStateValue('mapCoords', [center.lng, center.lat, zoom]);
     });
 
-    this.initLayerVisibility();
-    // Final update if the original state has some data
-    this.props.triggerMapUpdate();
+    const DefaultState = defaultAppState;
+
+    if(JSON.stringify(this.props.visibility) !== JSON.stringify(DefaultState.visibility)){
+      this.initLayerVisibility();
+      // Final update if the original state has some data
+      this.props.triggerMapUpdate();
+    }
   }
 
   initLayerVisibility(){
@@ -505,63 +505,12 @@ class MapComponent extends Component {
     var visibility = this.map.getLayoutProperty(toggleLayerVisibility, 'visibility');
     if (visibility === 'visible') {
       this.map.setLayoutProperty(toggleLayerVisibility, 'visibility', 'none');
-      this.removeLegendItem(toggleLayerVisibility);
-
     } else {
       this.map.setLayoutProperty(toggleLayerVisibility, 'visibility', 'visible');
-      // this.addLegendItem(toggleLayerVisibility);
       if( ["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(toggleLayerVisibility)){
         this.loadJsonData(toggleLayerVisibility);        
       }
     }
-  }
-
-  addLegendItem(idLayer) {
-
-    // let mapLayer = this.map.getLayer(idLayer);
-    // var legendItem = {};
-    // legendItem.idLayer = idLayer;
-
-    // let obj = this.props.listVueItems.find(x => x.idLayer === idLayer);
-    // if (typeof (obj) !== "undefined") {return;}
-
-    // if (mapLayer.type === "symbol") {
-    //   legendItem.symbolColor = mapLayer.paint._values["text-color"].value.value;
-    // }
-    // if (mapLayer.type === "circle") {
-    //   legendItem.symbolColor = mapLayer.paint._values["circle-color"].value.value;
-    // }
-
-    // let items = legendItem;
-    // if (typeof (this.props.listVueItems) !== "undefined") { items = this.props.listVueItems.concat([legendItem]); }
-
-    // /**Call setStateValue */
-    
-    // this.props.setStateValue("listVueActive", true);
-    // this.props.setStateValue("listVueItems", items);
-    // this.props.setStateValue("popupActive", false);
-
-  }
-
-  removeLegendItem(idLayer) {
-
-    // let obj = this.props.listVueItems.find(x => x.idLayer === idLayer);
-    // if (typeof (obj) === "undefined") {return;}
-    // var index = this.props.listVueItems.indexOf(obj);
-    // if (index !== -1) 
-    // {
-    //   let items = this.props.listVueItems;
-    //   items.splice(index, 1);
-    //   this.props.setStateValue("listVueItems", items);
-    //   this.props.triggerMapUpdate();
-    // }
-
-    // var legend = document.getElementById('legend');
-    // let itemId = "lgn" + idLayer;
-    // var item = document.getElementById(itemId);
-    // if (item !== null) {
-    //   legend.removeChild(item);
-    // }
   }
 
   setEmptyData(dataStr){

@@ -88,8 +88,9 @@ const theme = createMuiTheme({
       '"Segoe UI Symbol"',
     ].join(","),
   },
-});
 // font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+});
+
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
@@ -100,4 +101,5 @@ ReactDOM.render(
   </Provider>,
   document.getElementById("root")
 );
+
 registerServiceWorker();

@@ -324,7 +324,6 @@ class MyPlaceInfo extends Component {
       "videsgreniers"].includes(layerId)) {
       return (
         <div>
-
             <div className="mapboxgl-popupup popPupStyle" style={stylePop}>
               <div className="baseText">
                 <div className="titleText">
@@ -345,7 +344,6 @@ class MyPlaceInfo extends Component {
                   <RenderAddress info={info} />
                 </div>
               </div>
-
             </div>
         </div>
       );

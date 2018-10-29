@@ -4,13 +4,45 @@ import {connect} from 'react-redux';
 import Geocoder from './Geocoder';
 import MyPlaceName from './MyPlaceName';
 import CloseButton from './CloseButton';
-import RoutePanel from './RoutePanel';
 import ModalityButtons from './ModalityButtons';
 import MyLocation from './MyLocation';
 import swapDirectionsIcon from '../assets/swapDirections.svg';
 import {triggerMapUpdate, setDirectionsLocation, setStateValue, resetStateKeys} from '../actions/index';
+import RoutePanel from './RoutePanel';
+
 
 class Directions extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.RenderPanel = this.RenderPanel.bind(this);
+  }
+
+
+  RenderPanel(props) {
+    if (props) {
+      const directionProps = this.props;
+      (async () => {
+        try {
+          const RoutePanelModule = await import("./RoutePanel");
+          // The module exports default `RoutePanel`.
+          return <RoutePanelModule.default {...directionProps} />;
+        } catch (error) {
+          console.log(error.message);
+        }
+        // import('./RoutePanel')
+        //   .then((RoutePanel) => {
+        //     return <RoutePanel.RoutePanel props={this.props} />
+        //   });
+      })();
+    }
+    else {
+      return null;
+    }
+  }
+  
+
   render() {
     return (
       <div id='directions'>
@@ -112,9 +144,12 @@ class Directions extends Component {
         }
 
         {
-          (this.props.route || this.props.routeStatus === 'pending' || this.props.routeStatus === 'error')
-          ? <RoutePanel/>
-          : null
+                    (this.props.route || this.props.routeStatus === 'pending' || this.props.routeStatus === 'error')
+                    ? <RoutePanel/>
+                    : null
+          // (this.props.route || this.props.routeStatus === 'pending' || this.props.routeStatus === 'error')
+          //   ? this.RenderPanel(this.props.route || this.props.routeStatus === 'pending' || this.props.routeStatus === 'error')
+          //   : null
         }
       </div>
     );

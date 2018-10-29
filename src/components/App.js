@@ -2,11 +2,13 @@ import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Map from "./Map";
-import MyDrawer from "./MyDrawer";
-import Search from "./Search";
-import ListVue from "./ListVue";
-import Directions from "./Directions";
+
 import { setStateFromURL } from "../actions/index";
+
+const MyDrawer = React.lazy(() => import("./MyDrawer"));
+const ListVue = React.lazy(() => import("./ListVue"));
+const Search = React.lazy(() => import("./Search"));// import Search from "./Search";
+const Directions = React.lazy(() => import("./Directions"));
 
 class App extends Component {
 
@@ -23,16 +25,25 @@ class App extends Component {
     return (
 
       <div className="root">
-        <MyDrawer />
+        {/* <MyDrawer /> */}
+        <React.Suspense fallback={<div> Loading Marvelous...</div>}>
+          <MyDrawer />
+        </React.Suspense>
         <div id="mapCont">
           <Map moveOnLoad={moveOnLoad} />
           <div className="relative fr m12 w240 flex-parent flex-parent--column">
             {
               (this.props.mode === "directions")
-                ? <Directions />
-                : <Search />
+                ? <React.Suspense fallback={<div> Loading Directions...</div>}>
+                  <Directions />
+                </React.Suspense>
+                : <React.Suspense fallback={<div> Loading Search...</div>}>
+                  <Search />
+                </React.Suspense>
             }
-            <ListVue listVueActive={this.props.listVueActive} listVueItems={this.props.listVueItems} coorOnClick={this.props.coorOnClick} />
+            <React.Suspense fallback={<div> </div>}>
+              <ListVue listVueActive={this.props.listVueActive} listVueItems={this.props.listVueItems} coorOnClick={this.props.coorOnClick} />
+            </React.Suspense>
           </div>
         </div>
       </div>

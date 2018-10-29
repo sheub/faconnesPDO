@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import cheapRuler from 'cheap-ruler';
 import isEqual from 'lodash/isEqual';
-import {AreaChart, Area, YAxis} from 'recharts';
+import ChartsArea from "../utils/charts"
 
 class RouteElevation extends Component {
   constructor(props) {
@@ -14,38 +14,48 @@ class RouteElevation extends Component {
   }
 
   render() {
+    
     switch (this.state.status) {
-    case 'pending':
-      return <div className='loading--s'/>;
+      case 'pending':
+        return <div className='loading--s' />;
 
-    case 'ok': {
-      let upsAndDowns = this.upsAndDowns();
-      if (upsAndDowns[0] < 20 && upsAndDowns[1] < 20) {
-        return (
-          <div className='txt-s color-darken50 px24 pb6'>
-            <svg className='icon inline-block align-middle'><use xlinkHref='#icon-arrow-up'></use></svg>{upsAndDowns[0]}m -
-            <svg className='icon inline-block align-middle'><use xlinkHref='#icon-arrow-down'></use></svg>{upsAndDowns[1]}m -
-            mostly flat
-          </div>
-        );
-      } else {
-        return (
-          <div>
-            <div className='txt-s color-darken50 px24'>
+      case 'ok': {
+        let upsAndDowns = this.upsAndDowns();
+        if (upsAndDowns[0] < 20 && upsAndDowns[1] < 20) {
+          return (
+            <div className='txt-s color-darken50 px24 pb6'>
               <svg className='icon inline-block align-middle'><use xlinkHref='#icon-arrow-up'></use></svg>{upsAndDowns[0]}m -
-              <svg className='icon inline-block align-middle'><use xlinkHref='#icon-arrow-down'></use></svg>{upsAndDowns[1]}m
-            </div>
-            <AreaChart width={240} margin={{top: 0, right: 12, left: 12, bottom: 12}} height={100} data={this.state.elevations.map(e => ({e: Math.max(e, 0)}))}>
-              <YAxis orientation="right"/>
-              <Area type="monotone" dataKey="e" stroke="#2abaf7" fill='#2abaf7' fillOpacity={0.5} strokeWidth={2} dot={null} />
-            </AreaChart>
+            <svg className='icon inline-block align-middle'><use xlinkHref='#icon-arrow-down'></use></svg>{upsAndDowns[1]}m -
+                  mostly flat
           </div>
-        );
+          );
+        } else {
+          let dataElevations = this.state.elevations.map(e => ({ e: Math.max(e, 0) }));
+          // (async () => {
+          //   try {
+          //     const ChartsArea = await import("../utils/charts");
+          //     // The module exports default `ChartsArea`.
+          //     // const A = <ChartsArea.default upsAndDowns={upsAndDowns} data={dataElevations} />;
+          //     return null;//<ChartsArea.default upsAndDowns={upsAndDowns} data={dataElevations} />;
+          //   } catch (error) {
+          //     console.log(error.message);
+          //     return null;
+          //   }
+          // })();
+          // import('../utils/charts')
+          //   .then(({ ChartsArea }) => {
+              //  const A = <ChartsArea upsAndDowns={upsAndDowns} data={dataElevations} />;
+              return <ChartsArea upsAndDowns={upsAndDowns} data={dataElevations} />;
+            // })
+            // .catch(err => {
+            //   return null;// console.log(err)
+            // });
+        }
       }
-    }
+      // break;
 
-    default:
-      return null;
+      default:
+        return null;
     }
   }
 

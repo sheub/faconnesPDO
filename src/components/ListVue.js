@@ -5,8 +5,6 @@ import { connect } from "react-redux";
 import { triggerMapUpdate, setStateValue } from "../actions/index";
 import turfDistance from "@turf/distance";
 
-
-
 import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
