@@ -82,7 +82,7 @@
     margin-bottom: 10px;
     border-radius: 0;
     box-shadow: 0 0 8px -3px #000;
-    transition-duration: 1s
+    /* transition-duration: 1s */
 }
 
 .btn-close {

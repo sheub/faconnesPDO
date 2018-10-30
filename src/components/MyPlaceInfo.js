@@ -36,11 +36,10 @@ function RenderUrl(props) {
   // layer museesFrance
   if (info.properties.sitweb) {
     // <a target="_blank" href={props.url} className="urlPopup" rel="noopener">{props.url}</a><br />
-    if(!info.properties.sitweb.includes(" "))
-      {link = info.properties.sitweb.includes("http://") ? info.properties.sitweb : "http://" + info.properties.sitweb;}
+    if (!info.properties.sitweb.includes(" ")) { link = info.properties.sitweb.includes("http://") ? info.properties.sitweb : "http://" + info.properties.sitweb; }
   }
   // other layers
-  else{
+  else {
     link = info.properties.url;
   }
 
@@ -122,54 +121,54 @@ class MyPlaceInfo extends Component {
   returnImage(layerId) {
     let img = null;
     switch (layerId) {
-        case "plusBeauxVillagesDeFrance":
-            img = <img src={Star15_961313} alt="" className='legend-key' />
-            break;
-        case "patrimoinemondialenfrance":
-            img = <img src={Star15_14222D} alt="" className='legend-key' />
-            break;
-        case "jardinremarquable":
-            img = <img src={Star15_4AA52C} alt="" className='legend-key' />
-            break;
-        case "grandSiteDeFrance":
-            img = <img src={Star15_19766E} alt="" className='legend-key' />
-            break;
-        case "monumentsnationaux":
-            img = <img src={Star15_1F08A6} alt="" className='legend-key' />
-            break;
-        case "museesFrance":
-            img = <img src={Star15_33BAAB} alt="" className='legend-key' />
-            break;
-        case "parcsjardins":
-            img = <img src={Square15_4AA52C} alt="" className='legend-key' />
-            break;
-        case "localproductshop":
-            img = <img src={Square15_E8EF1F} alt="" className='legend-key' />
-            break;
-        case "craftmanshop":
-            img = <img src={Square15_EE8568} alt="" className='legend-key' />
-            break;
-        case "WineCelar":
-            img = <img src={Square15_6B0D0D} alt="" className='legend-key' />
-            break;
-        case "OTFrance":
-            img = <img src={Square15_318CE7} alt="" className='legend-key' />
-            break;
-        // case "marches":
-        // case "exposition":
-        // case "musique":
-        // case "children":
-        // case "videsgreniers":
-        //     img = <span className="dot" style={{ backgroundColor: item.layer.paint["circle-color"] }}></span>
-        //     break;
-  
-        default:
-            img = null;
-            break;
+      case "plusBeauxVillagesDeFrance":
+        img = <img src={Star15_961313} alt="" className='legend-key' />
+        break;
+      case "patrimoinemondialenfrance":
+        img = <img src={Star15_14222D} alt="" className='legend-key' />
+        break;
+      case "jardinremarquable":
+        img = <img src={Star15_4AA52C} alt="" className='legend-key' />
+        break;
+      case "grandSiteDeFrance":
+        img = <img src={Star15_19766E} alt="" className='legend-key' />
+        break;
+      case "monumentsnationaux":
+        img = <img src={Star15_1F08A6} alt="" className='legend-key' />
+        break;
+      case "museesFrance":
+        img = <img src={Star15_33BAAB} alt="" className='legend-key' />
+        break;
+      case "parcsjardins":
+        img = <img src={Square15_4AA52C} alt="" className='legend-key' />
+        break;
+      case "localproductshop":
+        img = <img src={Square15_E8EF1F} alt="" className='legend-key' />
+        break;
+      case "craftmanshop":
+        img = <img src={Square15_EE8568} alt="" className='legend-key' />
+        break;
+      case "WineCelar":
+        img = <img src={Square15_6B0D0D} alt="" className='legend-key' />
+        break;
+      case "OTFrance":
+        img = <img src={Square15_318CE7} alt="" className='legend-key' />
+        break;
+      // case "marches":
+      // case "exposition":
+      // case "musique":
+      // case "children":
+      // case "videsgreniers":
+      //     img = <span className="dot" style={{ backgroundColor: item.layer.paint["circle-color"] }}></span>
+      //     break;
+
+      default:
+        img = null;
+        break;
     }
-  
+
     return img;
-  
+
   };
 
   hidePopup() {
@@ -182,7 +181,7 @@ class MyPlaceInfo extends Component {
   }
 
   componentWillReceiveProps(props) {
-    this.setState({ infoPopup: props.infoPopup})
+    this.setState({ infoPopup: props.infoPopup })
     this.setState({ popupActive: props.infoPopup.popupActive })
   }
 
@@ -190,17 +189,17 @@ class MyPlaceInfo extends Component {
 
     const { t } = this.props;
 
-    let popupActive = this.state.popupActive;    
+    let popupActive = this.state.popupActive;
     const layerId = this.state.infoPopup.layerId;
     const paintColor = this.state.infoPopup.paintColor;
     let listVueActive = this.state.infoPopup.listVueActive;
 
     // move the popup on the left if the list is display
-    let stylePop = listVueActive ? {right: "248px", zIndex: 0} : {left: 0, zIndex: 0};
-    
-    if(listVueActive && (window.innerWidth < 576)){
+    let stylePop = listVueActive ? { right: "248px", zIndex: 0 } : { left: 0, zIndex: 0 };
+
+    if (listVueActive && (window.innerWidth < 576)) {
       let topPos = document.documentElement.clientHeight * 0.36 + 21;
-      stylePop  = {left: 0, top: topPos, zIndex: 0 }
+      stylePop = { left: 0, top: topPos, zIndex: 0 }
     }
 
     // use zIndex: -1 to hide the infowindow behind the map intead of norender
@@ -208,7 +207,7 @@ class MyPlaceInfo extends Component {
     if (!popupActive) {
       stylePop = { zIndex: -1 };
     }
-    
+
     let info = this.state.infoPopup.properties;
 
     if ([
@@ -253,33 +252,33 @@ class MyPlaceInfo extends Component {
 
       return (
         <div>
-          
-            <div className="mapboxgl-popupup popPupStyle" style={stylePop}>
-              <div className="titleText">
-                {this.returnImage(layerId)}
-                <a target="_new" href={info.link} className="titleText" rel="noopener">{info.label}</a><br />
-              </div>
-              <div className="btn-close" aria-label="Close">
-                <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.hidePopup()}>
-                  <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
-                </IconButton>
-              </div>
-              <div className="hvrbox">
-                <img src={info.thumbnail} className="picturePoppup hvrbox-layer_bottom" alt={info.label} title={info.label} />
-                <div className="hvrbox-layer_top hvrbox-layer_slideup">
-                  <div className="hvrbox-text">&copy;  &nbsp;
+
+          <div className="mapboxgl-popupup popPupStyle" style={stylePop}>
+            <div className="titleText">
+              {this.returnImage(layerId)}
+              <a target="_new" href={info.link} className="titleText" rel="noopener">{info.label}</a><br />
+            </div>
+            <div className="btn-close" aria-label="Close">
+              <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.hidePopup()}>
+                <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
+              </IconButton>
+            </div>
+            <div className="hvrbox">
+              <img src={info.thumbnail} className="picturePoppup hvrbox-layer_bottom" alt={info.label} title={info.label} />
+              <div className="hvrbox-layer_top hvrbox-layer_slideup">
+                <div className="hvrbox-text">&copy;  &nbsp;
                 <a target="_new" href={info.thumbnail} rel="noopener">Wikipedia contributors</a>&thinsp; &#8209; &thinsp;
                 <a target="_new" href="https://creativecommons.org/licenses/by-sa/3.0/" rel="noopener">CC BY-SA</a>
-                  </div>
-                </div>
-              </div>
-              <div className="baseText">
-                <div className="abstractPopup">
-                  {info.abstract}<br />
-                  <a target="_new" href={info.link} rel="noopener">&rarr; Wikipedia</a>
                 </div>
               </div>
             </div>
+            <div className="baseText">
+              <div className="abstractPopup">
+                {info.abstract}<br />
+                <a target="_new" href={info.link} rel="noopener">&rarr; Wikipedia</a>
+              </div>
+            </div>
+          </div>
         </div>
       );
     }
@@ -293,26 +292,26 @@ class MyPlaceInfo extends Component {
       return (
         <div>
 
-            <div className="mapboxgl-popupup popPupStyle" style={stylePop}>
-              <div className="baseText">
-                <div className="titleText">
-                  {this.returnImage(layerId)}
-                  {info.label}
+          <div className="mapboxgl-popupup popPupStyle" style={stylePop}>
+            <div className="baseText">
+              <div className="titleText">
+                {this.returnImage(layerId)}
+                {info.label}
+              </div>
+              <div className="btn-close" aria-label="Close">
+                <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.hidePopup()}>
+                  <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
+                </IconButton>
+              </div>
+              <div className="introtext">
+                <div className="abstractPopup">
+                  {info.abstract}
                 </div>
-                <div className="btn-close" aria-label="Close">
-                  <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.hidePopup()}>
-                    <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
-                  </IconButton>
-                </div>
-                <div className="introtext">
-                  <div className="abstractPopup">
-                    {info.abstract}
-                  </div>
-                  <RenderUrl props={this.props} />
-                  <RenderAddress info={info} />
-                </div>
+                <RenderUrl props={this.props} />
+                <RenderAddress info={info} />
               </div>
             </div>
+          </div>
         </div>
       );
     }
@@ -324,27 +323,27 @@ class MyPlaceInfo extends Component {
       "videsgreniers"].includes(layerId)) {
       return (
         <div>
-            <div className="mapboxgl-popupup popPupStyle" style={stylePop}>
-              <div className="baseText">
-                <div className="titleText">
-                  <HomeIcon style={styles} alt={layerId} title={layerId} />
-                  {info.label}
+          <div className="mapboxgl-popupup popPupStyle" style={stylePop}>
+            <div className="baseText">
+              <div className="titleText">
+                <HomeIcon style={styles} alt={layerId} title={layerId} />
+                {info.label}
+              </div>
+              <div className="btn-close" aria-label="Close">
+                <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.hidePopup()}>
+                  <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
+                </IconButton>
+              </div>
+              <div className="introtext">
+                <div className="abstractPopup">
+                  {info.abstract}
                 </div>
-                <div className="btn-close" aria-label="Close">
-                  <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.hidePopup()}>
-                    <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
-                  </IconButton>
-                </div>
-                <div className="introtext">
-                  <div className="abstractPopup">
-                    {info.abstract}
-                  </div>
-                  <RenderDateTime props={this.props} />
-                  <RenderUrl props={this.props} />
-                  <RenderAddress info={info} />
-                </div>
+                <RenderDateTime props={this.props} />
+                <RenderUrl props={this.props} />
+                <RenderAddress info={info} />
               </div>
             </div>
+          </div>
         </div>
       );
     }
@@ -353,26 +352,26 @@ class MyPlaceInfo extends Component {
 
       return (
         <div>
-            <div className="mapboxgl-popupup popPupStyle" style={stylePop}>
-              <div className="baseText">
-                <div className="titleText">
-                  <HomeIcon style={styles} alt={layerId} title={layerId} />
-                  {info.nom_du_musee}
-                </div>
-                <div className="btn-close" aria-label="Close">
-                  <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.hidePopup()}>
-                    <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
-                  </IconButton>
-                </div>
-                <div className="introtext">
-                  <div className="abstractPopup">
-                    {info.periode_ouverture}
-                    <RenderUrl props={this.props} />
-                    <RenderAddress info={info} />
-                  </div>
+          <div className="mapboxgl-popupup popPupStyle" style={stylePop}>
+            <div className="baseText">
+              <div className="titleText">
+                <HomeIcon style={styles} alt={layerId} title={layerId} />
+                {info.nom_du_musee}
+              </div>
+              <div className="btn-close" aria-label="Close">
+                <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.hidePopup()}>
+                  <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
+                </IconButton>
+              </div>
+              <div className="introtext">
+                <div className="abstractPopup">
+                  {info.periode_ouverture}
+                  <RenderUrl props={this.props} />
+                  <RenderAddress info={info} />
                 </div>
               </div>
             </div>
+          </div>
         </div>
       );
     }
@@ -427,26 +426,26 @@ class MyPlaceInfo extends Component {
       // popupActive = this.props.isActive;
       return (
         <div>
-            <div className="mapboxgl-popupup popPupStyle" style={stylePop}>
-              <div className="baseText">
-                {/* <div className="baseInfo"> */}
-                  <div className="titleText">
-                    {info.label}
-                  </div>
-                  <div className="btn-close" aria-label="Close">
-                    <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.hidePopup()}>
-                      <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
-                    </IconButton>
-                  </div>
-                  <div className="introtext">
-                    <div className="abstractPopup">
-                      {info.context}
-                    </div>
-                    {t("postcode")} : {info.postcode}<br />
-                  </div>
-                {/* </div> */}
+          <div className="mapboxgl-popupup popPupStyle" style={stylePop}>
+            <div className="baseText">
+              {/* <div className="baseInfo"> */}
+              <div className="titleText">
+                {info.label}
               </div>
+              <div className="btn-close" aria-label="Close">
+                <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.hidePopup()}>
+                  <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
+                </IconButton>
+              </div>
+              <div className="introtext">
+                <div className="abstractPopup">
+                  {info.context}
+                </div>
+                {t("postcode")} : {info.postcode}<br />
+              </div>
+              {/* </div> */}
             </div>
+          </div>
         </div>
       );
     }

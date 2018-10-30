@@ -55,7 +55,7 @@ class MapComponent extends Component {
     const map = new mapboxgl.Map({
       container: 'map',
       style: style,
-      center: [2, 46.5],
+      center: [2, 45.5],
       zoom: 4,
       minZoom: 2,
       maxZoom: 20,

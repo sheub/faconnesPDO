@@ -11,9 +11,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
-
 import IconButton from '@material-ui/core/IconButton';
-// import IconLaunch from '@material-ui/core/IconLaunch';
 
 import Star15_961313 from '../assets/Star15_961313.svg'; // villages // plusBeauxVillagesDeFrance
 import Star15_14222D from '../assets/Star15_14222D.svg'; // unesco // patrimoinemondialenfrance
@@ -55,11 +53,13 @@ const styles = theme => ({
         right: 0,
         left: 0,
     },
+    
     btnClose: {
         position: "absolute",
-        top: "-4px",
-        right: "-4px",
+        top: "46px",
+        right: "0px",
         cursor: "pointer",
+        zIndex: 2,
     },
 
     blockWithText: {
@@ -94,21 +94,18 @@ class ListVue extends React.Component {
         infoItem.place_name = this.props.listVueItems[index].properties.label_en;
         infoItem.popupActive = true;
 
-        // this.setState({ infoPopup: infoItem });
-        // this.props.setInfoPopup(infoItem);
-        // this.props.setStateValue("popupActive", false);
         this.props.setStateValue("infoPopup", infoItem);
-              
-      
+
+
         this.props.setStateValue("searchLocation", {
-          'type': 'Feature',
-          'place_name': infoItem.place_name,
-          'properties': infoItem.properties,
-          'geometry': infoItem.geometry,
-          'layerId': infoItem.layerId,
-          "paintColor": infoItem.paintColor,
-          "popupActive": true,
-          "listVueActive": true
+            'type': 'Feature',
+            'place_name': infoItem.place_name,
+            'properties': infoItem.properties,
+            'geometry': infoItem.geometry,
+            'layerId': infoItem.layerId,
+            "paintColor": infoItem.paintColor,
+            "popupActive": true,
+            "listVueActive": true
         });
         this.props.triggerMapUpdate();
 
@@ -172,17 +169,14 @@ class ListVue extends React.Component {
 
     hideListVue() {
         this.props.setStateValue("listVueActive", false);
-        // this.props.triggerMapUpdate();
     }
 
     ListVueMainItem(item, index, coorOnClick) {
 
-        // const { t } = this.props;
         const lang = this.props.i18n.language;
         const { classes } = this.props;
         var distance = turfDistance(coorOnClick, item.geometry.coordinates);
         distance = (distance.toFixed(2)).toString();
-
 
         let info = {};
         if ([
@@ -217,11 +211,10 @@ class ListVue extends React.Component {
             info.label = item.properties.label;
             info.address = "";//<a target="_new" href={item.properties.link} rel="noopener">&rarr; Wikipedia</a>
         }
-        if (info.address !== "")
-        {
+        if (info.address !== "") {
             info.address = info.address + ", " + distance.concat(" kms");
         }
-        else{
+        else {
             info.address = distance.concat(" kms");
         }
 
@@ -243,30 +236,31 @@ class ListVue extends React.Component {
         const items = this.props.listVueItems;
         let coorOnClick = this.props.coorOnClick;
 
-        let styleListVue  = {zIndex: 0 };
+        let styleListVue = { zIndex: 0 };
         if (!listVueActive) {
-            styleListVue = { zIndex: -1, height:0 };
-          }
+            styleListVue = { zIndex: -1, height: 0 };
+        }
 
         if ((typeof (items) !== "undefined") && items.length) {
             return (
                 <div className={classes.listContainer} style={styleListVue}>
-                        <List dense={true} className={classes.listRoot} component="div" disablePadding
-                            subheader={<ListSubheader component="div">{items.length} Attractions</ListSubheader>}
-                        >
-                            <div className="btn-close" aria-label="Close">
+                                        <div className={classes.btnClose} aria-label="Close">
                                 <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.hideListVue()}>
                                     <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
                                 </IconButton>
                             </div>
-                            <div className={classes.listItemClass} id='listItem'>
-                                {
-                                    items.map((member, index) => {
-                                        return this.ListVueMainItem(member, index, coorOnClick);
-                                    })
-                                }
-                            </div>
-                        </List>
+                    <List dense={true} className={classes.listRoot} component="div" disablePadding
+                        subheader={<ListSubheader component="div">{items.length} Attractions</ListSubheader>}
+                    >
+    
+                        <div className={classes.listItemClass} id='listItem'>
+                            {
+                                items.map((member, index) => {
+                                    return this.ListVueMainItem(member, index, coorOnClick);
+                                })
+                            }
+                        </div>
+                    </List>
                 </div>
             )
         }
