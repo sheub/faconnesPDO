@@ -6,7 +6,7 @@ import MyPlaceName from './MyPlaceName';
 import xhr from 'xhr';
 
 /**
- * Geocoder component: connects to Mapbox.com Geocoding API
+ * Geocoder component: connects to endpoint: 'https://api-adresse.data.gouv.fr
  * and provides an autocompleting interface for finding locations.
  */
 class Geocoder extends Component {
@@ -182,7 +182,7 @@ Geocoder.defaultProps = {
   endpoint: 'https://api-adresse.data.gouv.fr',
   inputPosition: 'top',
   inputPlaceholder: 'Search',
-  source: 'mapbox.places',
+  source: 'api-adresse.data.gouv.fr',
   bbox: '',
   types: '',
   onSuggest: function () {},

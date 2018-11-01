@@ -23,9 +23,6 @@ const styles = (theme) => ({
     root: {
         flexGrow: 1,
     },
-    // grow: {
-    //     flexGrow: 1,
-    // },
 
     appBar: {
         zIndex: theme.zIndex.drawer + 1,

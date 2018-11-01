@@ -7,8 +7,8 @@ import {push} from "react-router-redux";
 
 import mapboxgl from "mapbox-gl/dist/mapbox-gl";
 import turfBbox from "@turf/bbox";
-import {setLanguage} from "../utils/openmaptiles-language";
 
+import {setLanguage} from "../utils/openmaptiles-language";
 import { defaultAppState } from "../reducers/appReducer";
 
 import {
@@ -402,7 +402,8 @@ class MapComponent extends Component {
       const geometry = { type: 'Point', coordinates: [data.coords.longitude, data.coords.latitude] };
       this.map.getSource('geolocation').setData(geometry);
       this.props.setUserLocation(geometry.coordinates);
-      if (this.props.moveOnLoad) {// moveTo(this.map, geometry, 6);
+      
+      if (this.props.moveOnLoad) {
       import('../utils/moveTo') // moveTo function dynamic import
       .then((moveTo) => {
         moveTo.moveTo(this.map, geometry, 6);         

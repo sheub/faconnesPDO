@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import Map from "./Map";
 import { setStateFromURL } from "../actions/index";
 
-import "./css/assembly.css";
+import "./css/myAssembly.css";
 
 const MyDrawer = React.lazy(() => import("./MyDrawer"));
 const ListVue = React.lazy(() => import("./ListVue"));

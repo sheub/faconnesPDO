@@ -100,7 +100,7 @@ class Search extends Component {
       main: " h42 w240 bg-white shadow-darken25 flex-parent flex-parent--row flex-parent--space-between-main",
       icon: "absolute flex-parent flex-parent--center-cross flex-parent--center-main w42 h42",
       input: "input px42 h42 border--transparent",
-      results: "w420-mm results bg-white shadow-darken25 mt6 border-darken10"
+      results: "w240-mm results bg-white shadow-darken25 mt6 border-darken10"
     };
   }
 }
