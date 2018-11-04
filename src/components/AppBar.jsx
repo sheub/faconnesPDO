@@ -16,7 +16,7 @@ import Menu from "@material-ui/core/Menu";
 import LanguageIcon from "@material-ui/icons/Language";
 import PropTypes from "prop-types";
 
-import "./css/App.css";
+import "./App.css";
 
 const styles = (theme) => ({
 

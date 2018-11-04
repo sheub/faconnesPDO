@@ -253,15 +253,16 @@ class MapComponent extends Component {
       var feature = features[0];
 
       let key;
-      if (this.props.mode === 'search') {
+      // if (this.props.mode === 'search') {
         this.props.resetStateKeys(['placeInfo']);
         key = 'searchLocation';
-      } else if (!this.props.directionsFrom) {
-        key = 'directionsFrom';
-      } else {
-        this.props.resetStateKeys(['route', 'searchLocation']);
-        key = 'directionsTo';
-      }
+      // }
+      //  else if (!this.props.directionsFrom) {
+      //   key = 'directionsFrom';
+      // } else {
+      //   this.props.resetStateKeys(['route', 'searchLocation']);
+      //   key = 'directionsTo';
+      // }
 
       /*Prepare data for detailInfo*/
       var paintColor = null;

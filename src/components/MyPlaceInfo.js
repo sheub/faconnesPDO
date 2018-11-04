@@ -18,7 +18,7 @@ import Square15_EE8568 from '../assets/Square15_EE8568.svg'; // craftmanShop
 import Square15_318CE7 from '../assets/Square15_318CE7.svg'; // OTFrance
 import Square15_6B0D0D from '../assets/Square15_6B0D0D.svg'; // WineCelar
 
-import "./css/PopupInfo.css";
+import "./PopupInfo.css";
 
 
 function HomeIcon(props) {
@@ -113,7 +113,7 @@ class MyPlaceInfo extends Component {
     super(props);
 
     this.state = {
-      popupActive: this.props.info.popupActive,
+      popupActive: this.props.isActive,
       infoPopup: this.props.info,
     };
   }
@@ -182,12 +182,15 @@ class MyPlaceInfo extends Component {
 
   componentWillReceiveProps(props) {
     this.setState({ infoPopup: props.infoPopup })
-    this.setState({ popupActive: props.infoPopup.popupActive })
+    this.setState({ popupActive: props.isActive })
   }
 
   render() {
 
     const { t } = this.props;
+
+    if(typeof(this.state.infoPopup) === "undefined" || this.state.infoPopup === null)
+    {return null;}
 
     let popupActive = this.state.popupActive;
     const layerId = this.state.infoPopup.layerId;

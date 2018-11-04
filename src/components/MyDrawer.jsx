@@ -46,7 +46,7 @@ import Footer from "./Footer.js"
 import MyDatePicker from "./MyDatePicker";
 
 
-import "./css/App.css";
+import "./App.css";
 
 function HomeIcon(props) {
   return (

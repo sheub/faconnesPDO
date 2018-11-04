@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ReactDOM from 'react-dom';
 import IconButton from '@material-ui/core/IconButton';
-import "./css/Impressum.css";
+import "./Impressum.css";
 
 class About extends Component {
 

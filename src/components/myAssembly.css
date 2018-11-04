@@ -1,3 +1,7 @@
+[data-assembly-focus-control] :focus {
+    outline: 0
+}
+
 .input--border-gray,
 .textarea--border-gray {
     border-color: #666
@@ -354,6 +358,7 @@
 .input--border-transparent,
 .textarea--border-transparent {
     border-color: transparent
+    
 }
 
 .input--border-transparent:focus,
@@ -821,7 +826,7 @@ input:disabled+.switch {
 
 .px48 {
     padding-left: 48px !important;
-    padding-right: 48px !important
+    /* padding-right: 48px !important */
 }
 
 .h36 {
@@ -906,7 +911,9 @@ input:disabled+.switch {
 }
 
 .border--transparent {
-    border-color: transparent !important
+    border-color: transparent !important;
+    border: none
+
 }
 
 .wmax42 {
@@ -990,10 +997,9 @@ input:disabled+.switch {
     box-shadow: 0 0 10px 2px rgba(0, 0, 0, .25) !important
 }
 
-.border--transparent-on-active.is-active,
-.border--transparent-on-active.is-active:hover,
-.border--transparent-on-hover:hover {
-    border-color: transparent !important
+.border--transparent-on-active.is-active,.border--transparent-on-active.is-active:hover,.border--transparent-on-hover:hover {
+    border-color: transparent !important;
+    border-width: 0
 }
 
 @media screen and (min-width:640px) {

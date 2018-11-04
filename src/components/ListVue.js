@@ -27,7 +27,7 @@ import Square15_318CE7 from '../assets/Square15_318CE7.svg'; // OTFrance
 import Square15_6B0D0D from '../assets/Square15_6B0D0D.svg'; // WineCelar
 
 
-import "./css/PopupInfo.css";
+import "./PopupInfo.css";
 
 const styles = theme => ({
 
@@ -56,7 +56,7 @@ const styles = theme => ({
     
     btnClose: {
         position: "absolute",
-        top: "46px",
+        top: "-4px",
         right: "0px",
         cursor: "pointer",
         zIndex: 2,
@@ -97,21 +97,18 @@ class ListVue extends React.Component {
         this.props.setStateValue("infoPopup", infoItem);
 
 
-        this.props.setStateValue("searchLocation", {
-            'type': 'Feature',
-            'place_name': infoItem.place_name,
-            'properties': infoItem.properties,
-            'geometry': infoItem.geometry,
-            'layerId': infoItem.layerId,
-            "paintColor": infoItem.paintColor,
-            "popupActive": true,
-            "listVueActive": true
-        });
+        // this.props.setStateValue("searchLocation", {
+        //     'type': 'Feature',
+        //     'place_name': infoItem.place_name,
+        //     'properties': infoItem.properties,
+        //     'geometry': infoItem.geometry,
+        //     'layerId': infoItem.layerId,
+        //     "paintColor": infoItem.paintColor,
+        //     "popupActive": true,
+        //     "listVueActive": true
+        // });
         this.props.triggerMapUpdate();
 
-
-
-        // return <MyPlaceInfo info={infoItem} isActive={true} />
     }
 
     returnImage(item) {
@@ -244,15 +241,16 @@ class ListVue extends React.Component {
         if ((typeof (items) !== "undefined") && items.length) {
             return (
                 <div className={classes.listContainer} style={styleListVue}>
-                                        <div className={classes.btnClose} aria-label="Close">
-                                <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.hideListVue()}>
-                                    <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
-                                </IconButton>
-                            </div>
+
                     <List dense={true} className={classes.listRoot} component="div" disablePadding
-                        subheader={<ListSubheader component="div">{items.length} Attractions</ListSubheader>}
+                        subheader={<ListSubheader component="div"> {items.length} Attractions
+                                                <div className={classes.btnClose} aria-label="Close">
+                            <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.hideListVue()}>
+                                <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
+                            </IconButton>
+                        </div></ListSubheader>}
+                        
                     >
-    
                         <div className={classes.listItemClass} id='listItem'>
                             {
                                 items.map((member, index) => {

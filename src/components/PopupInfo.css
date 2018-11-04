@@ -2,7 +2,7 @@
     font-family: "Caslon";
     font-style: normal;
     font-weight: 700;
-    src: local("ACaslonPro-Bold"),url(./../fonts/Caslon/ACaslonPro-Bold.otf) format("otf")
+    src: local("ACaslonPro-Bold"),url(./fonts/Caslon/ACaslonPro-Bold.otf) format("otf")
 }
 
 .baseInfo,.baseText {

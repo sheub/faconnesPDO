@@ -8,8 +8,8 @@ import ModalityButtons from './ModalityButtons';
 import MyLocation from './MyLocation';
 import swapDirectionsIcon from '../assets/swapDirections.svg';
 import {triggerMapUpdate, setDirectionsLocation, setStateValue, resetStateKeys} from '../actions/index';
-import RoutePanel from './RoutePanel';
-
+// import RoutePanel from './RoutePanel';
+const RoutePanel = React.lazy(() => import("./RoutePanel"));
 
 class Directions extends Component {
 
@@ -136,17 +136,20 @@ class Directions extends Component {
 
         {
           this.showUserLocation()
-          ? <MyLocation
-            onClick={() => this.setUserLocationDirections()}
-            userLocation={this.props.userLocation}
-          />
-          : null
+            ? <MyLocation
+              onClick={() => this.setUserLocationDirections()}
+              userLocation={this.props.userLocation}
+            />
+            : null
         }
 
         {
-                    (this.props.route || this.props.routeStatus === 'pending' || this.props.routeStatus === 'error')
-                    ? <RoutePanel/>
-                    : null
+          (this.props.route || this.props.routeStatus === 'pending' || this.props.routeStatus === 'error')
+            ?
+            <React.Suspense fallback={<div> </div>}>
+              <RoutePanel />
+            </React.Suspense>
+            : null
           // (this.props.route || this.props.routeStatus === 'pending' || this.props.routeStatus === 'error')
           //   ? this.RenderPanel(this.props.route || this.props.routeStatus === 'pending' || this.props.routeStatus === 'error')
           //   : null

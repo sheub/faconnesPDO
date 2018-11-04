@@ -4,12 +4,13 @@ import { connect } from "react-redux";
 import Map from "./Map";
 import { setStateFromURL } from "../actions/index";
 
-import "./css/myAssembly.css";
+import "./myAssembly.css";
 
 const MyDrawer = React.lazy(() => import("./MyDrawer"));
 const ListVue = React.lazy(() => import("./ListVue"));
 const Search = React.lazy(() => import("./Search"));// import Search from "./Search";
 const Directions = React.lazy(() => import("./Directions"));
+const MyPlaceInfo = React.lazy(() => import("./MyPlaceInfo"));
 
 
 class App extends Component {
@@ -42,6 +43,14 @@ class App extends Component {
                   <Search />
                 </React.Suspense>
             }
+             { (this.props.searchLocation && this.props.searchLocation.properties) ? 
+            <React.Suspense fallback={<div> </div>}>
+            <MyPlaceInfo info={this.props.searchLocation} isActive={true} />
+          </React.Suspense>
+            : null
+        }
+            {/*  */}
+            
             <React.Suspense fallback={<div> </div>}>
               <ListVue listVueActive={this.props.listVueActive} listVueItems={this.props.listVueItems} coorOnClick={this.props.coorOnClick} />
             </React.Suspense>
@@ -53,6 +62,7 @@ class App extends Component {
 }
 
 App.propTypes = {
+  searchLocation: PropTypes.object,
   listVueActive: PropTypes.bool,
   listVueItems: PropTypes.array,
   coorOnClick: PropTypes.array,
@@ -71,6 +81,7 @@ const mapStateToProps = (state) => {
     mode: state.app.mode,
     route: state.app.route,
     routeStatus: state.app.routeStatus,
+    searchLocation: state.app.searchLocation,
     url: state.router.location.pathname
   };
 };
