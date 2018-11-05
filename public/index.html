@@ -35,8 +35,7 @@
 </body>
 <style scoped>@import url("//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css");</style>
 <script async src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
-<!-- <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
-<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script> -->
+
 <script>
     window.addEventListener("load", function () {
         // Get language preferences
@@ -54,7 +53,7 @@
             }
         } else if (getLang === 'fr') {
             customContent = {
-                message: "En poursuivant votre navigation, vous acceptez le dépôt de cookies destinés à mesurer la fréquentation du site ainsi que des contenus animés et interactifs.",
+                message: "En poursuivant votre navigation, vous acceptez le dépôt de cookies destinés à mesurer la fréquentation du site ainsi que des contenus interactifs.",
                 //   link:     "En savoir plus",
                 dismiss: "Accepter",
                 //   href:     "http://website/Policy"
@@ -63,14 +62,16 @@
         window.cookieconsent.initialise({
             palette: {
                 popup: {
-                    background: "#edeff5",
-                    text: "#838391"
+                    background: "#252e39",
+                    text: "#fff"
                 },
                 button: {
-                    background: "#4b81e8",
+                    background: "#14a7d0",
 
                 }
             },
+            theme: "classic",
+            position: "bottom-right",            
             content: customContent
         })
     })
@@ -95,7 +96,7 @@
         s.parentNode.insertBefore(g, s);
     })();
 </script>
-<link async defer rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 <!-- End Matomo Code -->
 

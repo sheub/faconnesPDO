@@ -18,17 +18,18 @@ i18n
     fallbackLng: 'en',
 
     // have a common namespace used around the full app
-    ns: ['translations'],
+    ns: ["translations"],
     defaultNS: 'translations',
 
-    debug: false,
+    debug: true,
 
     interpolation: {
-      escapeValue: false, // not needed for react!!
+      escapeValue: false // react already safes from xss
     },
+
     backend: {
-        loadPath: baseDataUrl + '/locales/{{lng}}/{{ns}}.json'
-      },
+      loadPath: baseDataUrl + '/locales/{{lng}}/{{ns}}.json'
+    },
 
     react: {
       wait: true,
@@ -38,5 +39,7 @@ i18n
     }
   });
 
+// load additional namespaces after initialization
+// i18n.loadNamespaces('about', (err, t) => { /* ... */ });
 
 export default i18n;

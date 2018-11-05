@@ -111,6 +111,7 @@ class MyAppBar extends Component {
                                 aria-haspopup="true"
                                 onClick={this.handleMenu}
                                 color="inherit"
+                                aria-label="Select Language"
                             >
                                 <LanguageIcon />
                             </IconButton>
@@ -149,11 +150,11 @@ const mapStateToProps = (state) => {
         languageSet: state.app.languageSet,
         needMapActualizeLanguage: state.app.needMapActualizeLanguage
     };
-  };
-  const mapDispatchToProps = (dispatch) => {
+};
+const mapDispatchToProps = (dispatch) => {
     return {
-      setStateValues: (obj) => dispatch(setStateValues(obj)),
-      triggerMapUpdate: (v) => dispatch(triggerMapUpdate(v))
+        setStateValues: (obj) => dispatch(setStateValues(obj)),
+        triggerMapUpdate: (v) => dispatch(triggerMapUpdate(v))
     };
-  };
+};
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(translate("translations")(MyAppBar)));

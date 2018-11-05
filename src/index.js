@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import _ from "lodash";
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import createHistory from "history/createBrowserHistory";
 import { Route } from "react-router";
@@ -12,94 +11,109 @@ import urlTinkerer from "./middlewares/urlTinkerer";
 import reducers from "./reducers/index";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import registerServiceWorker from "./registerServiceWorker";
-
 import App from "./components/App";
+import "./i18n";
 
 import "./index.css";
 
-import "./i18n";
+function doTheRest(initialState, localStorage)
+ {
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+  // Create history and router middleware
+  const history = createHistory();
+  const routerMid = routerMiddleware(history);
+
+  let store = createStore(
+    combineReducers({
+      ...reducers,
+      router: routerReducer
+    }),
+    initialState,
+    composeEnhancers(applyMiddleware(apiCaller, urlTinkerer, routerMid))
+  );
+
+  // Store subscription that will keep the persisted state in local storage in sync with the state.
+  store.subscribe(() => {
+    const state = store.getState();
+    const keys = ["app.userLocation", "app.mapCoords", "app.visibility"];
+    const persistedState = {};
+    import("lodash")
+      .then((_) => {
+        keys.forEach((key) => {
+
+          var val = _.get(state, key);
+          if (val) _.set(persistedState, key, val);
+        });
+
+        localStorage.setItem("persistedState", JSON.stringify(persistedState));
+      });
+  });
+
+  const theme = createMuiTheme({
+
+    palette:
+    {
+      primary: {
+        main: "#14222D",
+      },
+      secondary: {
+        main: "#9CB2C0",
+      }
+    },
+
+    typography: {
+      useNextVariants: true,
+      //   fontFamily: ["Open Sans", "sans-serif",
+      // ].join(","),
+      // Use the system font instead of the default Roboto font.
+      fontFamily: [
+        "-apple-system",
+        "BlinkMacSystemFont",
+        '"Segoe UI"',
+        'Roboto',
+        '"Helvetica Neue"',
+        'Arial',
+        'sans-serif',
+        '"Apple Color Emoji"',
+        '"Segoe UI Emoji"',
+        '"Segoe UI Symbol"',
+      ].join(","),
+    },
+    // font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  });
+
+  ReactDOM.render(
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        <MuiThemeProvider theme={theme}>
+          <Route path="*" component={App} />
+        </MuiThemeProvider>
+      </ConnectedRouter>
+    </Provider>,
+    document.getElementById("root")
+  );
+}
+
 
 // Read persisted state from the local storage and put that in the initial state.
 var persistedS = localStorage.getItem("persistedState") ? JSON.parse(localStorage.getItem("persistedState")) : {};
 const languageSet = localStorage.getItem("i18nextLng") ? localStorage.getItem("i18nextLng") : "en";
-if(typeof(persistedS) !== "undefined" && typeof(persistedS.app) !== "undefined")
+if (typeof (persistedS) !== "undefined" && typeof (persistedS.app) !== "undefined")
   persistedS.app.languageSet = languageSet;
 
 
 // const persistedState = localStorage.getItem("persistedState") ? JSON.parse(localStorage.getItem("persistedState")) : {};
-const persistedState = persistedS ? persistedS : {};
-
-const initialState = _.merge({}, defaultState, persistedState);
-
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-// Create history and router middleware
-const history = createHistory();
-const routerMid = routerMiddleware(history);
-
-let store = createStore(
-  combineReducers({
-    ...reducers,
-    router: routerReducer
-  }),
-  initialState,
-  composeEnhancers(applyMiddleware(apiCaller, urlTinkerer, routerMid))
-);
-
-// Store subscription that will keep the persisted state in local storage in sync with the state.
-store.subscribe(() => {
-  const state = store.getState();
-  const keys = ["app.userLocation", "app.mapCoords", "app.visibility"];
-  const persistedState = {};
-  keys.forEach((key) => {
-    var val = _.get(state, key);
-    if (val) _.set(persistedState, key, val);
-  });
-  localStorage.setItem("persistedState", JSON.stringify(persistedState));
-});
-
-const theme = createMuiTheme({
-
-  palette:
-  {
-    primary: {
-      main: "#14222D",
-    },
-    secondary: {
-      main: "#9CB2C0",
-    }
-  },
-
-  typography: {
-    useNextVariants: true,
-  //   fontFamily: ["Open Sans", "sans-serif",
-  // ].join(","),
-          // Use the system font instead of the default Roboto font.
-    fontFamily: [
-      "-apple-system",
-      "BlinkMacSystemFont",
-      '"Segoe UI"',
-      'Roboto',
-      '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(","),
-  },
-// font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-});
-
-ReactDOM.render(
-  <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <MuiThemeProvider theme={theme}>
-        <Route path="*" component={App} />
-      </MuiThemeProvider>
-    </ConnectedRouter>
-  </Provider>,
-  document.getElementById("root")
-);
+let initialState = defaultState;
+if (typeof (persistedS) !== "undefined" && typeof (persistedS.app) !== "undefined") {
+  import("lodash")
+    .then((_) => {
+      initialState = _.merge({}, defaultState, persistedS);
+      doTheRest(initialState, localStorage);
+    });
+}
+else{
+  doTheRest(initialState, localStorage);
+}
 
 registerServiceWorker();
