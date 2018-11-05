@@ -21,11 +21,54 @@ class About extends Component {
                 </div>
 
                 <Trans ns={'about'}>
-                The faconnes de
+                    <h1><strong>About faconnes</strong></h1>
                 </Trans>
                 <Trans ns={'about'}>
-                title
+                    The faconnes de
                 </Trans>
+                <br /><br />
+                <Trans ns={'about'}>
+                    <strong>Presentations of the headings</strong>
+                </Trans>
+
+                <div>
+                    <Trans ns={'about'}>
+                        <h2><strong>Beautifful Villages</strong></h2>
+                    </Trans>
+                    <Trans ns={'about'}>
+                        Villages belonging to the association <i>Plus beaux villages de France</i>
+                    </Trans>
+                </div>
+
+                <div>
+                    <Trans ns={'about'}>
+                        <h2><strong>Unesco</strong></h2> Site inscribed on unesco's World Heritage List
+                    </Trans>
+                </div>
+                <Trans ns={'about'}>
+                    <h2><strong>Museum</strong></h2>
+                </Trans>
+
+                <Trans ns={'about'}>
+                    <h2><strong>Remarkable Gardens</strong></h2> The label <i>Remarkable Garden</i> is issued by the French Ministry of Culture with the assistance of the Conseil national des parcs et jardins (the list presented is not exhaustive)
+                </Trans>
+                <Trans ns={'about'}>
+                    <h2><strong>Grands Sites</strong></h2>
+                </Trans>
+                <Trans ns={'about'}>
+                    <h2><strong>National Monuments</strong></h2>
+                </Trans>
+                <br />
+                <div style={{marginTop:"7px"}}>
+                    <Trans ns={'about'}>
+                        The data presented
+                    </Trans>
+                    <Trans ns={'about'}>
+                        They are updated daily
+                </Trans>
+                </div>
+
+
             </div>
         </div>
 

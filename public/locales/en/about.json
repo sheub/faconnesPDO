@@ -1,4 +1,19 @@
 {
-    "The faconnes de": "The faconnes.de website brings together local and tourist data from several sources available under open license and makes them available to the user in the form of an interactive map. Presentations of the headings",
-    "title": "France Discovery"
+    "<0><0>About faconnes</0></0>": "<0><0>About faconnes</0></0>",
+    "The faconnes de": "The faconnes.de website brings together local and tourist data from several sources available under open license and makes them available to the user in the form of an interactive map.",
+    "<0>Presentations of the headings</0>": "Presentations of the headings",
+    "<0><0>Beautifful Villages</0></0>": "<0><0>Beautifful Villages</0></0>",
+    "Villages belonging to the association <1>Plus beaux villages de France</1>": "Villages belonging to the association <1>Plus beaux villages de France.</1>",
+    "<0><0>Unesco</0></0> Site inscribed on unesco's World Heritage List": "<0><0>Unesco</0></0> Site inscribed on unesco's World Heritage List",
+    "<0><0>Museum</0></0>": "<0><0>Museum</0></0> List of museums in France as at 31.12.2017<br /> Postal contact information (Address, City, CP), Telephone, Website, Annual closing, Opening period, Night days. <br /> Data set available on the website <a target='_new' href='https://www.data.gouv.fr/en/datasets/liste-et-localisation-des-musees-de-france/#_' rel='noopener'>data.gouv.fr/</a>",
+    "<0><0>Remarkable Gardens</0></0> The label <2>Remarkable Garden</2> is issued by the French Ministry of Culture with the assistance of the Conseil national des parcs et jardins (the list presented is not exhaustive)": "<0><0>Remarkable Gardens</0></0> The label <2> Remarkable Garden</2> is issued by the French Ministry of Culture with the assistance of the Conseil national des parcs et jardins (the list presented is not exhaustive)",
+    "<0><0>_FR_Remarkable Gardens</0></0> Le label <2>Jardin remarquable</2> est délivré par le ministère de la Culture français avec le concours du Conseil national des parcs et jardins (la liste présentéeest non exhaustive)": "<0><0>Jardins Remarquables<0><0> Le label <2>Jardin remarquable</2> est délivré par le ministère de la Culture français avec le concours du Conseil national des parcs et jardins (la liste présentéeest non exhaustive)",
+    "<0><0>_FR_Grands Sites</0></0>":"<0><0>Grands Sites</0></0> Le label <i>Grand Site de France</i> est décerné par le ministère de la Transition écologique et solidaire. Il vise à promouvoir la bonne conservation et la mise en valeur des sites naturels classés français de grande notoriété et de très forte fréquentation. La liste de faconnes.de présente également les membres du réseau <i>Grand Site de France</i> n'ayant pas encore recu le label.",
+    "<0><0>_FR_National Monuments</0></0>": "<0><0>Monuments Nationaux</0></0>Édifice géré par le Centre des Monuments Nationaux qui ouvre à la visite près de 100 monuments propriétés de l'état",
+    "<0><0>Grands Sites</0></0>":"<0><0>Grands Sites</0></0> The <i>Grand Site de France</i> label is awarded by the Ministry of Ecological and Solidarity Transition. It aims to promote the proper conservation and enhancement of natural sites classified as French sites of high notoriety and very high visitor numbers. The list of faconnes.de also presents the members of the network <i>Grand Site de France</i> who have not yet received the label.",
+    "<0><0>National Monuments</0></0>": "<0><0>National Monuments</0></0>Building managed by the National Monuments Centre, which opens to visitors nearly 100 monuments owned by the State", 
+    "The data presented": "The data presented in the headings <i>Parks and Gardens</i>, <i>Local trade</i>, <i>Craft workshop</i> as well as all the headings of the group <strong>Agenda</strong> (<i>Exhibitions, Music and Shows</i>, <i>Children's Corner</i>, <i>Markets</i>, and <i>Vide-greniers</i>) come from the DataTourism platform",
+    "They are updated daily": "They are updated daily"
+
+
 }

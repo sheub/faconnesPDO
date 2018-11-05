@@ -247,7 +247,7 @@ class MyDrawer extends Component {
                   </div>
                   <Divider />
 
-                  <ul>
+                  {/* <ul> */}
                     <ListItem button onClick={this.handleClick} aria-label="Open Culture et Patrimoine" id="ButtonCultureHeritage">
                       <ListSubheader style={{ color: "black", fontSize: "16px" }} title={t("drawer.main1Title")}> {t("drawer.main1")} </ListSubheader>
                       {this.state.list1Open ? <ExpandLess className={classes.expandIcons} /> : <ExpandMore className={classes.expandIcons} />}
@@ -435,7 +435,7 @@ class MyDrawer extends Component {
                       </List>
                     </Collapse>
 
-                  </ul>
+                  {/* </ul> */}
                   <Divider />
                   <Footer />
                 </Drawer>
