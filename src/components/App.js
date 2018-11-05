@@ -43,17 +43,20 @@ class App extends Component {
                   <Search />
                 </React.Suspense>
             }
-             { (this.props.searchLocation && this.props.searchLocation.properties) ? 
-            <React.Suspense fallback={<div> </div>}>
-            <MyPlaceInfo info={this.props.searchLocation} isActive={true} />
-          </React.Suspense>
-            : null
-        }
-            {/*  */}
-            
-            <React.Suspense fallback={<div> </div>}>
-              <ListVue listVueActive={this.props.listVueActive} listVueItems={this.props.listVueItems} coorOnClick={this.props.coorOnClick} />
-            </React.Suspense>
+            {(this.props.searchLocation && this.props.searchLocation.properties) ?
+              <React.Suspense fallback={<div> </div>}>
+                <MyPlaceInfo info={this.props.searchLocation} isActive={true} />
+              </React.Suspense>
+              : null
+            }
+
+            {(this.props.listVueActive && this.props.listVueItems) ?
+              <React.Suspense fallback={<div> </div>}>
+                <ListVue listVueActive={this.props.listVueActive} listVueItems={this.props.listVueItems} coorOnClick={this.props.coorOnClick} />
+              </React.Suspense>
+              : null
+            }
+
           </div>
         </div>
       </div>
