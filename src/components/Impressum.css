@@ -24,6 +24,12 @@
    line-height: 14px
 }
 
+.btn-icon {
+    height: 18px;
+    width: 18px;
+    z-index: 1
+}
+
 @media screen and (max-width:600px) {
    .impressumContainer {
        margin: 0 4px 0 0

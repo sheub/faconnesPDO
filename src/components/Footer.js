@@ -2,8 +2,11 @@ import React, { Component } from "react";
 import { I18n } from 'react-i18next';
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import Impressum from "./ImpressumFr.js"
+
 import About from "./About.js"
+const Impressum = React.lazy(() => import("./ImpressumFr.js"));
+//import Impressum from "./ImpressumFr.js"
+
 
 
 const styles = (theme) => ({
@@ -26,6 +29,8 @@ const styles = (theme) => ({
     fontSize: "12px",
     paddingLeft: "4px",
     marginBottom: "9px",
+    cursor: "pointer",
+    display: "inline-block",
   }
 })
 
@@ -81,12 +86,15 @@ class Footer extends Component {
             <div className={classes.root}>
               <div>
                 <div className={classes.footerStyle}>
-                  <Typography variant="h6" className={classes.fontStyle} onClick={() => this._onClickAbout()} style={{ cursor: "pointer", display: "inline-block" }}> {t("about")} |</Typography>
-                  <Typography variant="h6" className={classes.fontStyle} onClick={() => this._onClick()} style={{ cursor: "pointer", display: "inline-block" }}> {t("legalNotice")}</Typography>
-                  <Typography variant="h6" className={classes.fontStyle} >&copy;Zoestha UG </Typography>
+                  <Typography variant="h6" className={classes.fontStyle} onClick={() => this._onClickAbout()}> {t("about")} |</Typography>
+                  <Typography variant="h6" className={classes.fontStyle} onClick={() => this._onClick()}> {t("legalNotice")}</Typography>
+                  <Typography variant="h6" className={classes.fontStyle} style={{cursor: "default", display: "block" }} >&copy;Zoestha UG </Typography>
                 </div>
                 {this.state.showImpressum ?
-                  <Impressum handleClose={this.handleClose} /> : null
+                  <React.Suspense fallback={<div> </div>}>
+                    <Impressum handleClose={this.handleClose} />
+                  </React.Suspense>
+                  : null
                 }
 
                 {this.state.showAbout ?
