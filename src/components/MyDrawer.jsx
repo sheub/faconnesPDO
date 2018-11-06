@@ -43,7 +43,7 @@ import Square15_6B0D0D from '../assets/Square15_6B0D0D.svg'; // WineCelar
 
 
 import Footer from "./Footer.js"
-import MyDatePicker from "./MyDatePicker";
+// import MyDatePicker from "./MyDatePicker";
 
 
 import "./App.css";
@@ -151,8 +151,8 @@ class MyDrawer extends Component {
       list1Open: false,
       listLoisirOpen: false,
       listAgendaOpen: false,
-      dateFrom: new Date(), //Today
-      dateTo: new Date() // Today plus one day
+      // dateFrom: new Date(), //Today
+      // dateTo: new Date() // Today plus one day
 
     };
   }
@@ -180,40 +180,40 @@ class MyDrawer extends Component {
     this.setState((state) => ({ listAgendaOpen: !state.listAgendaOpen }));
   };
 
-  handleDateChange = (date) => {
+  // handleDateChange = (date) => {
 
-    let tempDate = this.state.dateTo;
-    if (this.state.dateTo < date) {
+  //   let tempDate = this.state.dateTo;
+  //   if (this.state.dateTo < date) {
 
-      this.setState({
-        dateFrom: date,
-        dateTo: date
-      });
-      tempDate = date;
-    }
-    else {
-      this.setState({ dateFrom: date });
-    }
+  //     this.setState({
+  //       dateFrom: date,
+  //       dateTo: date
+  //     });
+  //     tempDate = date;
+  //   }
+  //   else {
+  //     this.setState({ dateFrom: date });
+  //   }
 
-    this.props.setStateValues({
-      dateFrom: Date.parse(date),
-      dateTo: Date.parse(tempDate),
-      needMapFilterByDate: true
-    });
+  //   this.props.setStateValues({
+  //     dateFrom: Date.parse(date),
+  //     dateTo: Date.parse(tempDate),
+  //     needMapFilterByDate: true
+  //   });
 
-    this.props.triggerMapUpdate();
-  }
+  //   this.props.triggerMapUpdate();
+  // }
 
-  handleDateToChange = (date) => {
-    this.setState({ dateTo: date });
+  // handleDateToChange = (date) => {
+  //   this.setState({ dateTo: date });
 
-    this.props.setStateValues({
-      dateFrom: Date.parse(this.state.dateFrom),
-      dateTo: Date.parse(date),
-      needMapFilterByDate: true
-    });
-    this.props.triggerMapUpdate();
-  }
+  //   this.props.setStateValues({
+  //     dateFrom: Date.parse(this.state.dateFrom),
+  //     dateTo: Date.parse(date),
+  //     needMapFilterByDate: true
+  //   });
+  //   this.props.triggerMapUpdate();
+  // }
 
   _onVisibilityChange(name, event) {
 
@@ -324,26 +324,13 @@ class MyDrawer extends Component {
 
                     <Collapse in={this.state.listLoisirOpen} timeout="auto" unmountOnExit className={classes.collapses}>
                       <List>
-                        <ListItem key={"ParcsJardins"} dense button className={classes.listItem}>
-                          <Checkbox tabIndex={-1} checked={this.state.visibility["ParcsJardins"]} onChange={this._onVisibilityChange.bind(this, "ParcsJardins")} value="true" color="default" aria-label="ParcsJardinsCheckbox" htmlFor="ParcsJardinsListItemText" id="ParcsJardinsCheckbox" disableRipple />
-                          <InputLabel htmlFor="ParcsJardinsCheckbox" id="ParcsJardinsListItemText" primary={"ParcsJardins"} title={t("drawer.parcsJardins")}>
-                            {t("drawer.parcsJardins")}
-                          </InputLabel>
-                          <ListItemSecondaryAction>
-                            <img src={Square15_4AA52C} alt={t("drawer.parcsJardins")} className={classes.icon} />
-                          </ListItemSecondaryAction>
-                        </ListItem>
-
                         <ListItem key={"LocalProdShop"} dense button className={classes.listItem}>
                           <Checkbox tabIndex={-1} checked={this.state.visibility["LocalProdShop"]} onChange={this._onVisibilityChange.bind(this, "LocalProdShop")} value="true" color="default" aria-label="LocalProdShopCheckbox" htmlFor="LocalProdShopListItemText" id="LocalProdShopCheckbox" disableRipple />
                           <InputLabel htmlFor="LocalProdShopCheckbox" id="LocalProdShopListItemText" primary={"LocalProdShop"} title={t("drawer.localpropshop")}>
                             {t("drawer.localpropshop")}
                           </InputLabel>
                           <ListItemSecondaryAction>
-
                             <img src={Square15_E8EF1F} alt={t("drawer.localpropshop")} className={classes.icon} />
-
-                            {/* <HomeIcon className={classes.icon} style={{ color: "#E8EF1F" }} alt={t("drawer.localpropshop")} title={t("drawer.localpropshop")} /> */}
                           </ListItemSecondaryAction>
                         </ListItem>
                         <ListItem key={"CraftmanShop"} dense button className={classes.listItem}>
@@ -364,6 +351,24 @@ class MyDrawer extends Component {
                             <img src={Square15_6B0D0D} alt={t("drawer.winecelar")} className={classes.icon} />
                           </ListItemSecondaryAction>
                         </ListItem>
+                        <ListItem key={"Marches"} dense button className={classes.listItem}>
+                          <Checkbox tabIndex={-1} checked={this.state.visibility["Marches"]} onChange={this._onVisibilityChange.bind(this, "Marches")} value="true" color="default" aria-label="MarchesCheckbox" htmlFor="MarchesListItemText" id="MarchesCheckbox" disableRipple />
+                          <InputLabel htmlFor="MarchesCheckbox" id="MarchesListItemText" primary={"Marches"} title={t("drawer.markets")}>
+                            {t("drawer.markets")}
+                          </InputLabel>
+                          <ListItemSecondaryAction>
+                            <HomeIcon className={classes.icon} style={{ color: "#4AA52C" }} alt={t("drawer.markets")} title={t("drawer.markets")} />
+                          </ListItemSecondaryAction>
+                        </ListItem>
+                        <ListItem key={"VidesGreniers"} dense button className={classes.listItem}>
+                          <Checkbox tabIndex={-1} checked={this.state.visibility["VidesGreniers"]} onChange={this._onVisibilityChange.bind(this, "VidesGreniers")} value="true" color="default" aria-label="VidesGreniersCheckbox" htmlFor="VidesGreniersListItemText" id="VidesGreniersCheckbox" disableRipple />
+                          <InputLabel htmlFor="VidesGreniersCheckbox" id="VidesGreniersListItemText" primary={"VidesGreniers"} title={t("drawer.fleaMarket")}>
+                            {t("drawer.fleaMarket")}
+                          </InputLabel>
+                          <ListItemSecondaryAction>
+                            <HomeIcon className={classes.icon} style={{ color: "#007CBF" }} title={t("drawer.fleaMarket")} />
+                          </ListItemSecondaryAction>
+                        </ListItem>
                         <ListItem key={"OTFrance"} dense button className={classes.listItem}>
                           <Checkbox tabIndex={-1} checked={this.state.visibility["OTFrance"]} onChange={this._onVisibilityChange.bind(this, "OTFrance")} value="true" color="default" aria-label="OTFranceCheckbox" htmlFor="OTFranceListItemText" id="OTFranceCheckbox" disableRipple />
                           <InputLabel htmlFor="OTFranceCheckbox" id="OTFranceListItemText" primary={"OTFrance"} title={t("drawer.OTFrance")}>
@@ -382,8 +387,18 @@ class MyDrawer extends Component {
                     </ListItem>
                     <Collapse in={this.state.listAgendaOpen} timeout="auto" unmountOnExit className={classes.collapses}>
                       <List>
-                        <ListItem style={{ backgroundColor: "#ECEDED", paddingLeft: "17px", paddingRight: "17px" }}>
+                        {/* <ListItem style={{ backgroundColor: "#ECEDED", paddingLeft: "17px", paddingRight: "17px" }}>
                           <MyDatePicker t={t} i18n={i18n} state={this.state} dateChange={this.handleDateChange.bind(this)} dateToChange={this.handleDateToChange.bind(this)} />
+                        </ListItem> */}
+
+                        <ListItem key={"ParcsJardins"} dense button className={classes.listItem}>
+                          <Checkbox tabIndex={-1} checked={this.state.visibility["ParcsJardins"]} onChange={this._onVisibilityChange.bind(this, "ParcsJardins")} value="true" color="default" aria-label="ParcsJardinsCheckbox" htmlFor="ParcsJardinsListItemText" id="ParcsJardinsCheckbox" disableRipple />
+                          <InputLabel htmlFor="ParcsJardinsCheckbox" id="ParcsJardinsListItemText" primary={"ParcsJardins"} title={t("drawer.parcsJardins")}>
+                            {t("drawer.parcsJardins")}
+                          </InputLabel>
+                          <ListItemSecondaryAction>
+                            <img src={Square15_4AA52C} alt={t("drawer.parcsJardins")} className={classes.icon} />
+                          </ListItemSecondaryAction>
                         </ListItem>
 
                         <ListItem key={"Exposition"} dense button className={classes.listItem}>
@@ -414,24 +429,7 @@ class MyDrawer extends Component {
                             <HomeIcon className={classes.icon} style={{ color: "#15178A" }} alt={t("drawer.childrensCorner")} title={t("drawer.childrensCorner")} />
                           </ListItemSecondaryAction>
                         </ListItem>
-                        <ListItem key={"Marches"} dense button className={classes.listItem}>
-                          <Checkbox tabIndex={-1} checked={this.state.visibility["Marches"]} onChange={this._onVisibilityChange.bind(this, "Marches")} value="true" color="default" aria-label="MarchesCheckbox" htmlFor="MarchesListItemText" id="MarchesCheckbox" disableRipple />
-                          <InputLabel htmlFor="MarchesCheckbox" id="MarchesListItemText" primary={"Marches"} title={t("drawer.markets")}>
-                            {t("drawer.markets")}
-                          </InputLabel>
-                          <ListItemSecondaryAction>
-                            <HomeIcon className={classes.icon} style={{ color: "#4AA52C" }} alt={t("drawer.markets")} title={t("drawer.markets")} />
-                          </ListItemSecondaryAction>
-                        </ListItem>
-                        <ListItem key={"VidesGreniers"} dense button className={classes.listItem}>
-                          <Checkbox tabIndex={-1} checked={this.state.visibility["VidesGreniers"]} onChange={this._onVisibilityChange.bind(this, "VidesGreniers")} value="true" color="default" aria-label="VidesGreniersCheckbox" htmlFor="VidesGreniersListItemText" id="VidesGreniersCheckbox" disableRipple />
-                          <InputLabel htmlFor="VidesGreniersCheckbox" id="VidesGreniersListItemText" primary={"VidesGreniers"} title={t("drawer.fleaMarket")}>
-                            {t("drawer.fleaMarket")}
-                          </InputLabel>
-                          <ListItemSecondaryAction>
-                            <HomeIcon className={classes.icon} style={{ color: "#007CBF" }} title={t("drawer.fleaMarket")} />
-                          </ListItemSecondaryAction>
-                        </ListItem>
+
                       </List>
                     </Collapse>
 

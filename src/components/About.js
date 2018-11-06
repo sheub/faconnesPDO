@@ -23,10 +23,15 @@ class About extends Component {
                 <Trans ns={'about'}>
                     <h1><strong>About faconnes</strong></h1>
                 </Trans>
+
                 <Trans ns={'about'}>
                     The faconnes de
                 </Trans>
-                <br /><br />
+                <br />
+                <Trans ns={'about'}>
+                Information from three categories is provided
+                </Trans>
+                <br />
                 <Trans ns={'about'}>
                     <strong>Presentations of the headings</strong>
                 </Trans>
