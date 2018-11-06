@@ -18,8 +18,7 @@
    position: absolute;
    top: 0;
    right: 0;
-   cursor: pointer;
-   margin: 6px;
+   cursor: pointer;   
    font-size: 22px;
    line-height: 14px
 }

@@ -35,3 +35,5 @@ src/styles/style - Copy.json
 src/styles/style-basic-ori.json
 /src/styles/osm-basic_backup.json
 /src/styles/style_ben.json
+/src/components/assembly.css
+/src/components/mapbox-gl.css
