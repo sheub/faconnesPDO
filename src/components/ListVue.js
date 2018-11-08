@@ -75,6 +75,11 @@ const styles = theme => ({
         verticalAlign: "top"
     },
 
+    ListItemStyle: {
+        paddingRight: "16px",
+        cursor: "default" 
+    },
+
 });
 
 class ListVue extends React.Component {
@@ -97,16 +102,17 @@ class ListVue extends React.Component {
         this.props.setStateValue("infoPopup", infoItem);
 
 
-        // this.props.setStateValue("searchLocation", {
-        //     'type': 'Feature',
-        //     'place_name': infoItem.place_name,
-        //     'properties': infoItem.properties,
-        //     'geometry': infoItem.geometry,
-        //     'layerId': infoItem.layerId,
-        //     "paintColor": infoItem.paintColor,
-        //     "popupActive": true,
-        //     "listVueActive": true
-        // });
+        // Update the searchLocation so that the marker is jumping from position to position
+        this.props.setStateValue("searchLocation", {
+            'type': 'Feature',
+            'place_name': infoItem.place_name,
+            'properties': infoItem.properties,
+            'geometry': infoItem.geometry,
+            'layerId': infoItem.layerId,
+            "paintColor": infoItem.paintColor,
+            "popupActive": true,
+            "listVueActive": true
+        });
         this.props.triggerMapUpdate();
 
     }
@@ -217,7 +223,7 @@ class ListVue extends React.Component {
 
         return (
 
-            <ListItem button onClick={this.handleClick.bind(this, index)} style={{ paddingRight: "16px", cursor: "default" }} aria-label={info.label} >
+            <ListItem button key={"listItem" + index} className={classes.ListItemStyle} onClick={this.handleClick.bind(this, index)} aria-label={info.label} >
                 <ListItemIcon className={classes.listItemIconClass}>
                     {this.returnImage(item)}
                 </ListItemIcon>
@@ -243,17 +249,21 @@ class ListVue extends React.Component {
                 <div className={classes.listContainer} style={styleListVue}>
 
                     <List dense={true} className={classes.listRoot} component="div" disablePadding
-                        subheader={<ListSubheader component="div"> {items.length} Attractions
-                                                <div className={classes.btnClose} aria-label="Close">
-                            <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.hideListVue()}>
-                                <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
-                            </IconButton>
-                        </div></ListSubheader>}
+                        subheader={
+                            <ListSubheader component="div"> {items.length} Attractions
+                                <div className={classes.btnClose} aria-label="Close">
+                                    <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.hideListVue()}>
+                                        <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
+                                    </IconButton>
+                                </div>
+                                </ListSubheader>
+                        }
                         
                     >
-                        <div className={classes.listItemClass} id='listItem'>
+                        <div className={classes.listItemClass}>
                             {
                                 items.map((member, index) => {
+                                    console.log(index);
                                     return this.ListVueMainItem(member, index, coorOnClick);
                                 })
                             }

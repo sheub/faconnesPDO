@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ReactDOM from 'react-dom';
 import IconButton from '@material-ui/core/IconButton';
-import { Trans } from 'react-i18next';
+import { I18n, Trans } from 'react-i18next';
 
 import "./Impressum.css";
 
@@ -11,7 +11,7 @@ class About extends Component {
         this.props.handleClose();
     }
 
-    getAboutComponent() {
+    getAboutComponent(t) {
         return <div className="impressumContainer">
             <div>
                 <div className="btn-close-impressum" aria-label="Close">
@@ -29,9 +29,14 @@ class About extends Component {
                 </Trans>
                 <br />
                 <Trans ns={'about'}>
-                Information from three categories is provided
+                    Information from three categories is provided
                 </Trans>
                 <br />
+                <ul className="list-about" >
+                    <li><strong>{t("LandscapeCulture")} </strong> {t("LandscapeCulture1")}</li>
+                    <li><strong>{t("LocalMarketsShops")} </strong> {t("LocalMarketsShops1")}</li>
+                    <li><strong>{t("EventsLeisure")} </strong> {t("EventsLeisure1")}</li>
+                </ul>
                 <Trans ns={'about'}>
                     <strong>Presentations of the headings</strong>
                 </Trans>
@@ -54,9 +59,10 @@ class About extends Component {
                     <h2><strong>Museum</strong></h2>
                 </Trans>
 
-                <Trans ns={'about'}>
+                <h2><strong>{t("RemarkableGardens")}</strong></h2> {t("RemarkableGardens1")}
+                {/* <Trans ns={'about'}>
                     <h2><strong>Remarkable Gardens</strong></h2> The label <i>Remarkable Garden</i> is issued by the French Ministry of Culture with the assistance of the Conseil national des parcs et jardins (the list presented is not exhaustive)
-                </Trans>
+                </Trans> */}
                 <Trans ns={'about'}>
                     <h2><strong>Grands Sites</strong></h2>
                 </Trans>
@@ -64,7 +70,7 @@ class About extends Component {
                     <h2><strong>National Monuments</strong></h2>
                 </Trans>
                 <br />
-                <div style={{marginTop:"7px"}}>
+                <div style={{ marginTop: "7px" }}>
                     <Trans ns={'about'}>
                         The data presented
                     </Trans>
@@ -79,7 +85,13 @@ class About extends Component {
 
     }
     render() {
-        return ReactDOM.createPortal(this.getAboutComponent(), document.getElementById('map'));
+
+        return <I18n ns="about">
+            {
+                (t) => (
+                    ReactDOM.createPortal(this.getAboutComponent(t), document.getElementById('map')))
+            }
+        </I18n>
     }
 }
 export default About;

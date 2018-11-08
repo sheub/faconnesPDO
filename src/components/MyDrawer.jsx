@@ -253,7 +253,7 @@ class MyDrawer extends Component {
                       {this.state.list1Open ? <ExpandLess className={classes.expandIcons} /> : <ExpandMore className={classes.expandIcons} />}
                     </ListItem>
                     <Collapse in={this.state.list1Open} timeout="auto" unmountOnExit className={classes.collapses}>
-                      <List>
+                      <List dense={true}>
                         <ListItem key={"Villages"} dense button className={classes.listItem}>
                           <Checkbox tabIndex={-1} checked={visibility["Villages"]} onChange={this._onVisibilityChange.bind(this, "Villages")} value="true" color="default" aria-label="VillagesCheckbox" htmlFor="VillagesListItemText" id="VillagesCheckbox" disableRipple />
                           <InputLabel htmlFor="VillagesCheckbox" id="VillagesListItemText" primary={"Villages"} title={t("drawer.villagesTitle")}>
@@ -324,8 +324,8 @@ class MyDrawer extends Component {
 
                     <Collapse in={this.state.listLoisirOpen} timeout="auto" unmountOnExit className={classes.collapses}>
                       <List>
-                        <ListItem key={"LocalProdShop"} dense button className={classes.listItem}>
-                          <Checkbox tabIndex={-1} checked={this.state.visibility["LocalProdShop"]} onChange={this._onVisibilityChange.bind(this, "LocalProdShop")} value="true" color="default" aria-label="LocalProdShopCheckbox" htmlFor="LocalProdShopListItemText" id="LocalProdShopCheckbox" disableRipple />
+                        <ListItem key={"LocalProdShop"} button className={classes.listItem}>
+                          <Checkbox tabIndex={-1} checked={this.state.visibility["LocalProdShop"]} onChange={this._onVisibilityChange.bind(this, "LocalProdShop")} value="true" color="default" aria-label="LocalProdShopCheckbox" htmlFor="LocalProdShopListItemText" id="LocalProdShopCheckbox" disableRipple />                         
                           <InputLabel htmlFor="LocalProdShopCheckbox" id="LocalProdShopListItemText" primary={"LocalProdShop"} title={t("drawer.localpropshop")}>
                             {t("drawer.localpropshop")}
                           </InputLabel>
@@ -335,7 +335,7 @@ class MyDrawer extends Component {
                         </ListItem>
                         <ListItem key={"CraftmanShop"} dense button className={classes.listItem}>
                           <Checkbox tabIndex={-1} checked={this.state.visibility["CraftmanShop"]} onChange={this._onVisibilityChange.bind(this, "CraftmanShop")} value="true" color="default" aria-label="CraftmanShopCheckbox" htmlFor="CraftmanShopListItemText" id="CraftmanShopCheckbox" disableRipple />
-                          <InputLabel htmlFor="CraftmanShopCheckbox" id="CraftmanShopListItemText" primary={"CraftmanShop"} title={t("drawer.craftmanShop")}>
+                          <InputLabel shrink={true} margin="dense" htmlFor="CraftmanShopCheckbox" id="CraftmanShopListItemText" primary={"CraftmanShop"} title={t("drawer.craftmanShop")}>
                             {t("drawer.craftmanShop")}
                           </InputLabel>
                           <ListItemSecondaryAction>
@@ -387,9 +387,6 @@ class MyDrawer extends Component {
                     </ListItem>
                     <Collapse in={this.state.listAgendaOpen} timeout="auto" unmountOnExit className={classes.collapses}>
                       <List>
-                        {/* <ListItem style={{ backgroundColor: "#ECEDED", paddingLeft: "17px", paddingRight: "17px" }}>
-                          <MyDatePicker t={t} i18n={i18n} state={this.state} dateChange={this.handleDateChange.bind(this)} dateToChange={this.handleDateToChange.bind(this)} />
-                        </ListItem> */}
 
                         <ListItem key={"ParcsJardins"} dense button className={classes.listItem}>
                           <Checkbox tabIndex={-1} checked={this.state.visibility["ParcsJardins"]} onChange={this._onVisibilityChange.bind(this, "ParcsJardins")} value="true" color="default" aria-label="ParcsJardinsCheckbox" htmlFor="ParcsJardinsListItemText" id="ParcsJardinsCheckbox" disableRipple />

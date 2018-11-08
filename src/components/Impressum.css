@@ -1,26 +1,26 @@
 .impressumContainer {
-   position: absolute;
-   top: 12px;
-   left: 286px;
-   background-color: #fff;
-   max-height: 100%;
-   margin: 0 10px 0 0;
-   -webkit-box-shadow: 0 0 8px -3px #000;
-   box-shadow: 0 0 8px -3px #000;
-   transition-Duration: 1s;
-   color: #212529;
-   z-index: 1301;
-   padding: 12px;
-   overflow-y: auto
+    position: absolute;
+    top: 12px;
+    left: 286px;
+    background-color: #fff;
+    max-height: 100%;
+    margin: 0 10px 0 0;
+    -webkit-box-shadow: 0 0 8px -3px #000;
+    box-shadow: 0 0 8px -3px #000;
+    transition-Duration: 1s;
+    color: #212529;
+    z-index: 1301;
+    padding: 12px;
+    overflow-y: auto
 }
 
 .btn-close-impressum {
-   position: absolute;
-   top: 0;
-   right: 0;
-   cursor: pointer;   
-   font-size: 22px;
-   line-height: 14px
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    font-size: 22px;
+    line-height: 14px
 }
 
 .btn-icon {
@@ -29,33 +29,39 @@
     z-index: 1
 }
 
+.list-about {
+    list-style-type: disc;
+    margin-left: 24px;
+    margin-bottom: 6px;
+}
+
 @media screen and (max-width:600px) {
-   .impressumContainer {
-       margin: 0 4px 0 0
-   }
+    .impressumContainer {
+        margin: 0 4px 0 0
+    }
 }
 
 @media screen and (max-width:1200px) {
-   .impressumContainer {
-       max-width: 1140px
-   }
+    .impressumContainer {
+        max-width: 1140px
+    }
 }
 
 @media screen and (max-width:992px) {
-   .impressumContainer {
-       max-width: 960px
-   }
+    .impressumContainer {
+        max-width: 960px
+    }
 }
 
 @media screen and (max-width:768px) {
-   .impressumContainer {
-       max-width: 720px
-   }
+    .impressumContainer {
+        max-width: 720px
+    }
 }
 
 @media (max-width:576px) {
-   .impressumContainer {
-       max-width: 540px;
-       left: 6px
-   }
+    .impressumContainer {
+        max-width: 540px;
+        left: 6px
+    }
 }

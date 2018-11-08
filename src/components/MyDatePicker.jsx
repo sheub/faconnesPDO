@@ -21,8 +21,12 @@ class LocalizedUtils extends DateFnsUtils {
     }
 }
 const powderBlue = "#b0e0e6";
+const otherbackgroundColor = "#345f874";
 
 const materialTheme = createMuiTheme({
+    typography: {
+        useNextVariants: true,
+      },
 
     palette:
     {
@@ -69,7 +73,7 @@ class MyDatePicker extends Component {
 
             <MuiThemeProvider theme={materialTheme}>
                 <div>
-                    <div style={{ backgroundColor: "#345874", width: "50%", padding: "6px", float: "left" }} >
+                    <div style={{ backgroundColor: otherbackgroundColor, width: "50%", padding: "6px", float: "left" }} >
                         <MuiPickersUtilsProvider utils={LocalUtils} locale={localParam} >
                             <DatePicker
                                 style={{ maxWidth: "100%", textAlign: "center" }}
@@ -83,7 +87,7 @@ class MyDatePicker extends Component {
                         </MuiPickersUtilsProvider>
                     </div>
 
-                    <div style={{ backgroundColor: "#345874", color: "thenardBlue", width: "50%", padding: "6px", float: "right" }}>
+                    <div style={{ backgroundColor: otherbackgroundColor, width: "50%", padding: "6px", float: "right" }}>
                         <MuiPickersUtilsProvider utils={LocalUtils} locale={localParam}>
                             <DatePicker
                                 label={t("drawer.lastuntil")}

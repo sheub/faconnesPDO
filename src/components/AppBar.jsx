@@ -83,36 +83,36 @@ class MyAppBar extends Component {
 
         let tempDate = this.state.dateTo;
         if (this.state.dateTo < date) {
-    
-          this.setState({
-            dateFrom: date,
-            dateTo: date
-          });
-          tempDate = date;
+
+            this.setState({
+                dateFrom: date,
+                dateTo: date
+            });
+            tempDate = date;
         }
         else {
-          this.setState({ dateFrom: date });
+            this.setState({ dateFrom: date });
         }
-    
+
         this.props.setStateValues({
-          dateFrom: Date.parse(date),
-          dateTo: Date.parse(tempDate),
-          needMapFilterByDate: true
+            dateFrom: Date.parse(date),
+            dateTo: Date.parse(tempDate),
+            needMapFilterByDate: true
         });
-    
+
         this.props.triggerMapUpdate();
-      }
-    
-      handleDateToChange = (date) => {
+    }
+
+    handleDateToChange = (date) => {
         this.setState({ dateTo: date });
-    
+
         this.props.setStateValues({
-          dateFrom: Date.parse(this.state.dateFrom),
-          dateTo: Date.parse(date),
-          needMapFilterByDate: true
+            dateFrom: Date.parse(this.state.dateFrom),
+            dateTo: Date.parse(date),
+            needMapFilterByDate: true
         });
         this.props.triggerMapUpdate();
-      }
+    }
 
     render() {
         const { open, classes, t, i18n } = this.props;
@@ -141,9 +141,12 @@ class MyAppBar extends Component {
                         <IconButton color="inherit" aria-label="Open drawer" onClick={this.handleDrawerOpen} className={classNames(classes.menuButton, open && classes.menuButtonHidden)}>
                             <MenuIcon />
                         </IconButton>
-                        <Typography variant="h6" color="inherit" noWrap className={classes.title}>
-                            {t("title")}
-                        </Typography>
+                        {
+                            (window.innerWidth > 700)
+                                ? <Typography variant="h6" color="inherit" noWrap className={classes.title}>
+                                    {t("title")}
+                                </Typography> : null
+                        }
 
                         <MyDatePicker t={t} i18n={i18n} state={this.state} dateChange={this.handleDateChange.bind(this)} dateToChange={this.handleDateToChange.bind(this)} />
 
