@@ -47,10 +47,10 @@ const styles = (theme) => ({
   appBar: {
     position: "absolute",
   },
-  menuButton: {
-    marginLeft: 12,
-    marginRight: 36
-  },
+  // menuButton: {
+  //   marginLeft: 12,
+  //   marginRight: 36
+  // },
 
   title: {
     flexGrow: 0
@@ -92,9 +92,9 @@ const styles = (theme) => ({
     position: "absolute",
     right: "12px"
   },
+
   listItemStyle: {
     cursor: "default",
-
   },
 
 });
@@ -165,13 +165,11 @@ class MyDrawer extends Component {
     } else {
       newChecked.splice(currentIndex, 1);
     }
-
     this.setState({
       checked: newChecked,
     });
 
     const visibility = { ...this.props.visibility, [value]: event.target.checked };
-
     this.props.setStateValues({
       toggleLayerVisibility: layerSelector[value].source,
       visibility: visibility,
@@ -183,7 +181,6 @@ class MyDrawer extends Component {
 
   render() {
     const { classes } = this.props;
-
     return (
       <I18n ns="translations">
         {
@@ -212,7 +209,7 @@ class MyDrawer extends Component {
                             disableRipple
                           />
                           <ListItemText primary={t("drawer." + value)} />
-                          <ListItemSecondaryAction>
+                          <ListItemSecondaryAction className={classes.listItemStyle}>
                             <IconButton aria-label="Comments">
                               {returnImage(layerSelector[value].source)}
                             </IconButton>
@@ -236,7 +233,7 @@ class MyDrawer extends Component {
                             disableRipple
                           />
                           <ListItemText primary={t("drawer." + value)} />
-                          <ListItemSecondaryAction>
+                          <ListItemSecondaryAction className={classes.listItemStyle}>
                             <IconButton aria-label="Comments">
                               {returnImage(layerSelector[value].source)}
                             </IconButton>
@@ -260,7 +257,7 @@ class MyDrawer extends Component {
                             disableRipple
                           />
                           <ListItemText primary={t("drawer." + value)} />
-                          <ListItemSecondaryAction>
+                          <ListItemSecondaryAction className={classes.listItemStyle}>
                             <IconButton aria-label="Comments">
                               {returnImage(layerSelector[value].source)}
                             </IconButton>
