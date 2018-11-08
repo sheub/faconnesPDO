@@ -12,19 +12,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import IconButton from '@material-ui/core/IconButton';
-
-import Star15_961313 from '../assets/Star15_961313.svg'; // villages // plusBeauxVillagesDeFrance
-import Star15_14222D from '../assets/Star15_14222D.svg'; // unesco // patrimoinemondialenfrance
-import Star15_4AA52C from '../assets/Star15_4AA52C.svg'; // gardens // jardinremarquable
-import Star15_19766E from '../assets/Star15_19766E.svg'; // grandsSites // grandSiteDeFrance
-import Star15_1F08A6 from '../assets/Star15_1F08A6.svg'; // monuments // monumentsnationaux
-import Star15_33BAAB from '../assets/Star15_33BAAB.svg'; // Museums // museesFrance
-
-import Square15_4AA52C from '../assets/Square15_4AA52C.svg'; // parcsjardins 
-import Square15_E8EF1F from '../assets/Square15_E8EF1F.svg'; // localpropshop
-import Square15_EE8568 from '../assets/Square15_EE8568.svg'; // craftmanShop
-import Square15_318CE7 from '../assets/Square15_318CE7.svg'; // OTFrance
-import Square15_6B0D0D from '../assets/Square15_6B0D0D.svg'; // WineCelar
+import {returnImage} from "../utils/displayUtils";
 
 
 import "./PopupInfo.css";
@@ -117,59 +105,6 @@ class ListVue extends React.Component {
 
     }
 
-    returnImage(item) {
-        let img = null;
-        switch (item.layer.id) {
-            case "plusBeauxVillagesDeFrance":
-                img = <img src={Star15_961313} alt="" className='legend-key' />
-                break;
-            case "patrimoinemondialenfrance":
-                img = <img src={Star15_14222D} alt="" className='legend-key' />
-                break;
-            case "jardinremarquable":
-                img = <img src={Star15_4AA52C} alt="" className='legend-key' />
-                break;
-            case "grandSiteDeFrance":
-                img = <img src={Star15_19766E} alt="" className='legend-key' />
-                break;
-            case "monumentsnationaux":
-                img = <img src={Star15_1F08A6} alt="" className='legend-key' />
-                break;
-            case "museesFrance":
-                img = <img src={Star15_33BAAB} alt="" className='legend-key' />
-                break;
-            case "parcsjardins":
-                img = <img src={Square15_4AA52C} alt="" className='legend-key' />
-                break;
-            case "localproductshop":
-                img = <img src={Square15_E8EF1F} alt="" className='legend-key' />
-                break;
-            case "craftmanshop":
-                img = <img src={Square15_EE8568} alt="" className='legend-key' />
-                break;
-            case "WineCelar":
-                img = <img src={Square15_6B0D0D} alt="" className='legend-key' />
-                break;
-            case "OTFrance":
-                img = <img src={Square15_318CE7} alt="" className='legend-key' />
-                break;
-            case "marches":
-            case "exposition":
-            case "musique":
-            case "children":
-            case "videsgreniers":
-                img = <span className="dot" style={{ backgroundColor: item.layer.paint["circle-color"] }}></span>
-                break;
-
-            default:
-                img = null;
-                break;
-        }
-
-        return img;
-
-    };
-
     hideListVue() {
         this.props.setStateValue("listVueActive", false);
     }
@@ -225,7 +160,7 @@ class ListVue extends React.Component {
 
             <ListItem button key={"listItem" + index} className={classes.ListItemStyle} onClick={this.handleClick.bind(this, index)} aria-label={info.label} >
                 <ListItemIcon className={classes.listItemIconClass}>
-                    {this.returnImage(item)}
+                    {returnImage(item.layer.id)}
                 </ListItemIcon>
                 <ListItemText className={classes.blockWithText} primary={info.label} secondary={info.address} />
             </ListItem>
@@ -263,7 +198,6 @@ class ListVue extends React.Component {
                         <div className={classes.listItemClass}>
                             {
                                 items.map((member, index) => {
-                                    console.log(index);
                                     return this.ListVueMainItem(member, index, coorOnClick);
                                 })
                             }
