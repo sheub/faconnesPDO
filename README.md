@@ -1,6 +1,8 @@
 # Marvelous Map
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/466da5fcedf84f879484ddbf66adfb94)](https://www.codacy.com/app/sheub/marvelous-map?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=sheub/marvelous-map&amp;utm_campaign=Badge_Grade)
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/c742a7145e954de0bbe4869e5428e5d8)](https://app.codacy.com/app/sheub/marvelous-map?utm_source=github.com&utm_medium=referral&utm_content=sheub/marvelous-map&utm_campaign=Badge_Grade_Dashboard)
+
 [An interactive map of France with local tourism infos](https://faconnes.de)
 
 
