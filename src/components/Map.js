@@ -459,37 +459,20 @@ class MapComponent extends Component {
   }
 
   initLayerVisibility(){
-    const layerSelector = {
-      Museum: /museesFrance/,
-      Villages: /plusBeauxVillagesDeFrance/,
-      Unesco: /patrimoinemondialenfrance/, // This is the Layer id
-      Jardins: /jardinremarquable/,
-      GSF: /grandSiteDeFrance/,
-      MN: /monumentsnationaux/,
-      ParcsJardins: /parcsjardins/,
-      LocalProdShop: /localproductshop/,
-      CraftmanShop: /craftmanshop/,
-      WineCelar: /WineCelar/,
-      OTFrance: /OTFrance/,
-      Exposition: /exposition/,
-      Musique: /musique/,
-      Children: /children/,
-      Marches: /marches/,
-      VidesGreniers: /videsgreniers/
-    };
 
-
-    Object.keys(this.props.visibility).forEach(key => {
+    import("../utils/displayUtils")
+    .then(({ layerSelector } ) => {
+      Object.keys(this.props.visibility).forEach(key => {
       if (this.props.visibility[key]) {
         this.map.setLayoutProperty(layerSelector[key].source, 'visibility', 'visible');
-        if (["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", 
-        "monumentsnationaux", "patrimoinemondialenfrance"].includes(layerSelector[key].source)) {
+        if (["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance",
+          "monumentsnationaux", "patrimoinemondialenfrance"].includes(layerSelector[key].source)) {
           this.loadJsonData(layerSelector[key].source);
         }
       } else {
-        if( typeof (layerSelector[key]) === "undefined") return;
+        if (typeof (layerSelector[key]) === "undefined") return;
         let isVisible = this.map.getLayoutProperty(layerSelector[key].source, 'visibility');
-        if (isVisible === 'visible') { 
+        if (isVisible === 'visible') {
           // set 'visibility' to 'none'
           this.map.setLayoutProperty(layerSelector[key].source, 'visibility', 'none');
           // set Empty Data to sources
@@ -499,7 +482,8 @@ class MapComponent extends Component {
           }
         }
       }
-    });
+    });});
+
   }
 
   toggleLayerVisibility(toggleLayerVisibility) {

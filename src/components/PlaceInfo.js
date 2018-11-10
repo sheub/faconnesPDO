@@ -86,7 +86,7 @@ class PlaceInfo extends Component {
           <div className={this.styles.icon}>
             <svg className='icon my-blue'><use xlinkHref='#icon-globe'></use></svg>
           </div>
-          <a href={claim[0]} target='_blank' className='txt-truncate'>{claim[0]}</a>
+          <a href={claim[0]} target="_blank" className="txt-truncate" rel="noopener noreferrer">{claim[0]}</a>
         </div>
       );
     } else return null;

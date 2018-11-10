@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { translate } from "react-i18next";
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
+import { MuiPickersUtilsProvider, DatePicker } from "material-ui-pickers";
 
-import MuiPickersUtilsProvider from "material-ui-pickers/utils/MuiPickersUtilsProvider";
-import DatePicker from "material-ui-pickers/DatePicker";
-import DateFnsUtils from "material-ui-pickers/utils/date-fns-utils";
-
+import { withStyles } from "@material-ui/core/styles";
+import DateFnsUtils from "@date-io/date-fns";
 import frLocale from "date-fns/locale/fr";
 import format from 'date-fns/format';
 
@@ -20,13 +19,14 @@ class LocalizedUtils extends DateFnsUtils {
         return format(date, 'MM do', { locale: this.locale });
     }
 }
+
 const powderBlue = "#b0e0e6";
 const otherbackgroundColor = "#345f874";
 
 const materialTheme = createMuiTheme({
     typography: {
         useNextVariants: true,
-      },
+    },
 
     palette:
     {
@@ -50,15 +50,33 @@ const materialTheme = createMuiTheme({
                 color: powderBlue,
             },
         },
-
+        MuiPickersCalendar: {
+            transitionContainer: {
+                minHeight: 180,
+            },
+        },
+        MuiPickersModal: {
+            dialog:{
+            width: "310px",
+            minHeight: 355,
+            },
+        },
     },
 });
 
+const styles = (theme) => ({
+    containersClass: {
+        backgroundColor: otherbackgroundColor,
+        width: "50%",
+        padding: "6px"
+    },
 
+});
 
 class MyDatePicker extends Component {
 
     render() {
+        const { classes } = this.props;
         const { t, i18n } = this.props;
         const { dateFrom, dateTo } = this.props.state;
 
@@ -73,7 +91,7 @@ class MyDatePicker extends Component {
 
             <MuiThemeProvider theme={materialTheme}>
                 <div>
-                    <div style={{ backgroundColor: otherbackgroundColor, width: "50%", padding: "6px", float: "left" }} >
+                <div className={classes.containersClass} style={{ float: "left" }} >
                         <MuiPickersUtilsProvider utils={LocalUtils} locale={localParam} >
                             <DatePicker
                                 style={{ maxWidth: "100%", textAlign: "center" }}
@@ -87,7 +105,7 @@ class MyDatePicker extends Component {
                         </MuiPickersUtilsProvider>
                     </div>
 
-                    <div style={{ backgroundColor: otherbackgroundColor, width: "50%", padding: "6px", float: "right" }}>
+                    <div className={classes.containersClass} style={{ float: "right" }}>
                         <MuiPickersUtilsProvider utils={LocalUtils} locale={localParam}>
                             <DatePicker
                                 label={t("drawer.lastuntil")}
@@ -104,4 +122,4 @@ class MyDatePicker extends Component {
         );
     }
 }
-export default translate("translations")(MyDatePicker);
+export default withStyles(styles)(translate("translations")(MyDatePicker));

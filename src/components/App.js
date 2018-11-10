@@ -3,10 +3,11 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Map from "./Map";
 import { setStateFromURL } from "../actions/index";
+import MyDrawer from "./MyDrawer";
 
 import "./myAssembly.css";
 
-const MyDrawer = React.lazy(() => import("./MyDrawer"));
+// const MyDrawer = React.lazy(() => import("./MyDrawer"));
 const ListVue = React.lazy(() => import("./ListVue"));
 const Search = React.lazy(() => import("./Search"));// import Search from "./Search";
 const Directions = React.lazy(() => import("./Directions"));
@@ -28,9 +29,9 @@ class App extends Component {
     return (
 
       <div className="root">
-        <React.Suspense fallback={<div> Loading Marvelous...</div>}>
+        {/* <React.Suspense fallback={<div> Loading Marvelous...</div>}> */}
           <MyDrawer />
-        </React.Suspense>
+        {/* </React.Suspense> */}
         <div id="mapCont">
           <Map moveOnLoad={moveOnLoad} />
           <div className="relative fr m12 w240 flex-parent flex-parent--column">

@@ -19,6 +19,26 @@ const ChildrenColor = "#15178A";
 const MarchesColor = "#4AA52C";
 const VideGreniers = "#007CBF";
 
+// Layer id patterns by category
+const layerSelector = {
+    Museum: /museesFrance/,
+    Villages: /plusBeauxVillagesDeFrance/,
+    Unesco: /patrimoinemondialenfrance/, // This is the Layer id
+    Jardins: /jardinremarquable/,
+    GSF: /grandSiteDeFrance/,
+    MN: /monumentsnationaux/,
+    ParcsJardins: /parcsjardins/,
+    LocalProdShop: /localproductshop/,
+    CraftmanShop: /craftmanshop/,
+    WineCelar: /WineCelar/,
+    OTFrance: /OTFrance/,
+    Exposition: /exposition/,
+    Musique: /musique/,
+    Children: /children/,
+    Marches: /marches/,
+    VidesGreniers: /videsgreniers/
+  };
+  
 
 function returnImage(layerId) {
     let img = null;
@@ -81,4 +101,4 @@ function returnImage(layerId) {
 
 };
 
-export { returnImage };
+export { returnImage, layerSelector };

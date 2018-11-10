@@ -24,7 +24,7 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 import Collapse from "@material-ui/core/Collapse";
 
 import ListSubheader from "@material-ui/core/ListSubheader";
-import { returnImage } from "../utils/displayUtils";
+import { returnImage, layerSelector } from "../utils/displayUtils";
 
 import Footer from "./Footer.js"
 
@@ -37,6 +37,7 @@ const styles = (theme) => ({
   root: {
     float: "left"
   },
+
   toolbarIcon: {
     display: "flex",
     alignItems: "center",
@@ -44,13 +45,10 @@ const styles = (theme) => ({
     padding: "0 8px",
     ...theme.mixins.toolbar
   },
+
   appBar: {
     position: "absolute",
   },
-  // menuButton: {
-  //   marginLeft: 12,
-  //   marginRight: 36
-  // },
 
   title: {
     flexGrow: 0
@@ -99,37 +97,24 @@ const styles = (theme) => ({
 
 });
 
-// Layer id patterns by category
-const layerSelector = {
-  Museum: /museesFrance/,
-  Villages: /plusBeauxVillagesDeFrance/,
-  Unesco: /patrimoinemondialenfrance/, // This is the Layer id
-  Jardins: /jardinremarquable/,
-  GSF: /grandSiteDeFrance/,
-  MN: /monumentsnationaux/,
-  ParcsJardins: /parcsjardins/,
-  LocalProdShop: /localproductshop/,
-  CraftmanShop: /craftmanshop/,
-  WineCelar: /WineCelar/,
-  OTFrance: /OTFrance/,
-  Exposition: /exposition/,
-  Musique: /musique/,
-  Children: /children/,
-  Marches: /marches/,
-  VidesGreniers: /videsgreniers/
-};
 
 class MyDrawer extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      visibility: props.visibility,
 
-      open: true, // Drawer opened per Default
+    // Get all visible layers to set the checkboxes
+    var filtered = Object.keys(props.visibility).filter(function (key) {
+      return props.visibility[key]
+    });
+
+    this.state = {
+
+      visibility: props.visibility,
+      open: (window.innerWidth > 320), // true if windowSize > 320 (Drawer opened per Default)
       list1Open: false,
       listLoisirOpen: false,
       listAgendaOpen: false,
-      checked: ["VidesGreniers"],
+      checked: filtered,
 
     };
   }
@@ -155,29 +140,31 @@ class MyDrawer extends Component {
     this.setState((state) => ({ listAgendaOpen: !state.listAgendaOpen }));
   };
 
-  handleToggle(value, event) {
+  handleToggle(value) {
     const { checked } = this.state;
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
 
+    let visibilityTemp = { ...this.props.visibility };
     if (currentIndex === -1) {
       newChecked.push(value);
+      visibilityTemp = { ...this.props.visibility, [value]: true };
     } else {
       newChecked.splice(currentIndex, 1);
+      visibilityTemp = { ...this.props.visibility, [value]: false };
     }
     this.setState({
       checked: newChecked,
     });
 
-    const visibility = { ...this.props.visibility, [value]: event.target.checked };
+
     this.props.setStateValues({
       toggleLayerVisibility: layerSelector[value].source,
-      visibility: visibility,
+      visibility: visibilityTemp,
       needMapToggleLayer: true
     });
     this.props.triggerMapUpdate();
   };
-
 
   render() {
     const { classes } = this.props;
@@ -210,9 +197,7 @@ class MyDrawer extends Component {
                           />
                           <ListItemText primary={t("drawer." + value)} />
                           <ListItemSecondaryAction className={classes.listItemStyle}>
-                            <IconButton aria-label="Comments">
-                              {returnImage(layerSelector[value].source)}
-                            </IconButton>
+                            {returnImage(layerSelector[value].source)}
                           </ListItemSecondaryAction>
                         </ListItem>
                       ))}
@@ -234,14 +219,13 @@ class MyDrawer extends Component {
                           />
                           <ListItemText primary={t("drawer." + value)} />
                           <ListItemSecondaryAction className={classes.listItemStyle}>
-                            <IconButton aria-label="Comments">
-                              {returnImage(layerSelector[value].source)}
-                            </IconButton>
+                            {returnImage(layerSelector[value].source)}
                           </ListItemSecondaryAction>
                         </ListItem>
                       ))}
                     </List>
                   </Collapse>
+
                   <Divider light />
                   <ListItem button onClick={this.handleClickListAgendaOpen} aria-label="Open Agenda" id="ButtonAgenda" style={{ backgroundColor: "white" }}>
                     <ListSubheader title={t("drawer.main3")} style={{ color: "black", fontSize: "16px" }}>{t("drawer.main3")}</ListSubheader>
@@ -258,9 +242,7 @@ class MyDrawer extends Component {
                           />
                           <ListItemText primary={t("drawer." + value)} />
                           <ListItemSecondaryAction className={classes.listItemStyle}>
-                            <IconButton aria-label="Comments">
-                              {returnImage(layerSelector[value].source)}
-                            </IconButton>
+                            {returnImage(layerSelector[value].source)}
                           </ListItemSecondaryAction>
                         </ListItem>
                       ))}
@@ -276,7 +258,6 @@ class MyDrawer extends Component {
     );
   }
 }
-
 
 MyDrawer.propTypes = {
   classes: PropTypes.object.isRequired,

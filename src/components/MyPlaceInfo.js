@@ -35,7 +35,7 @@ function RenderUrl(props) {
   if (link) {
     return (
       <div className="urlPopup">
-        <a target="_blank" href={link} className="urlPopup" rel="noopener">{t("myplaceinfo.urlDisplay")}</a><br />
+        <a target="_blank" href={link} className="urlPopup" rel="noopener noreferrer">{t("myplaceinfo.urlDisplay")}</a><br />
       </div>);
   }
   return null;
