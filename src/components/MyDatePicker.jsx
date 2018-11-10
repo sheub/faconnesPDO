@@ -64,7 +64,7 @@ const materialTheme = createMuiTheme({
     },
 });
 
-const styles = (theme) => ({
+const styles = () => ({
     containersClass: {
         backgroundColor: otherbackgroundColor,
         width: "50%",

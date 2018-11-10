@@ -1,29 +1,25 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { I18n } from "react-i18next";
-
 import { triggerMapUpdate, setStateValues } from "../actions/index";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-
 import classNames from "classnames";
-import Drawer from "@material-ui/core/Drawer";
-import MyAppBar from "./AppBar";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import Drawer from "@material-ui/core/Drawer";
+import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import Checkbox from "@material-ui/core/Checkbox";
-
+import IconButton from "@material-ui/core/IconButton";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import Collapse from "@material-ui/core/Collapse";
-
 import ListSubheader from "@material-ui/core/ListSubheader";
+
 import { returnImage, layerSelector } from "../utils/displayUtils";
 
 import Footer from "./Footer.js"
@@ -110,7 +106,6 @@ class MyDrawer extends Component {
     this.state = {
 
       visibility: props.visibility,
-      open: (window.innerWidth > 320), // true if windowSize > 320 (Drawer opened per Default)
       list1Open: false,
       listLoisirOpen: false,
       listAgendaOpen: false,
@@ -119,14 +114,11 @@ class MyDrawer extends Component {
     };
   }
 
-  handleDrawerOpen = () => {
-    this.setState({ open: true });
-  };
 
   handleDrawerClose = () => {
-    this.setState({ open: false });
+    this.props.open = false;
+    // this.setState({ open: false });
   };
-
 
   handleClick = () => {
     this.setState(state => ({ list1Open: !state.list1Open }));
@@ -157,7 +149,6 @@ class MyDrawer extends Component {
       checked: newChecked,
     });
 
-
     this.props.setStateValues({
       toggleLayerVisibility: layerSelector[value].source,
       visibility: visibilityTemp,
@@ -174,10 +165,11 @@ class MyDrawer extends Component {
           (t) => (
             <React.Fragment>
               <div className={classes.root}>
-                <MyAppBar open={this.state.open} handleDrawerOpen={this.handleDrawerOpen} />
-                <Drawer variant="persistent" anchor='left' classes={{ paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose) }} open={this.state.open}>
+                {/* <MyAppBar open={this.state.open} handleDrawerOpen={this.handleDrawerOpen} /> */}
+                
+                <Drawer variant="persistent" anchor='left' classes={{ paper: classNames(classes.drawerPaper, !this.props.open && classes.drawerPaperClose) }} open={this.props.open}>
                   <div className={classes.toolbarIcon}>
-                    <IconButton onClick={this.handleDrawerClose} aria-label="Close drawer">
+                    <IconButton onClick={ () => this.props.handleDrawerClose()} aria-label="Close drawer">
                       <ChevronLeftIcon />
                     </IconButton>
                   </div>
@@ -261,8 +253,6 @@ class MyDrawer extends Component {
 
 MyDrawer.propTypes = {
   classes: PropTypes.object.isRequired,
-  dateFrom: PropTypes.number,
-  dateTo: PropTypes.number,
   setStateValues: PropTypes.func,
   toggleLayerVisibility: PropTypes.string,
   triggerMapUpdate: PropTypes.func,
@@ -271,8 +261,6 @@ MyDrawer.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    dateFrom: state.app.dateFrom,
-    dateTo: state.app.dateTo,
     toggleLayerVisibility: state.app.toggleLayerVisibility,
     visibility: state.app.visibility
   };

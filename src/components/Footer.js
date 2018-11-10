@@ -5,11 +5,9 @@ import Typography from "@material-ui/core/Typography";
 
 import About from "./About.js"
 const Impressum = React.lazy(() => import("./ImpressumFr.js"));
-//import Impressum from "./ImpressumFr.js"
 
 
-
-const styles = (theme) => ({
+const styles = () => ({
   footerStyle: {
     textAlign: "center",
     color: "white",
@@ -33,7 +31,6 @@ const styles = (theme) => ({
     display: "inline-block",
   }
 })
-
 
 class Footer extends Component {
   constructor(props) {

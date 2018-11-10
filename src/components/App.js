@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Map from "./Map";
 import { setStateFromURL } from "../actions/index";
-import MyDrawer from "./MyDrawer";
+import AppbarDrawer from "./AppbarDrawer";
 
 import "./myAssembly.css";
 
@@ -30,7 +30,7 @@ class App extends Component {
 
       <div className="root">
         {/* <React.Suspense fallback={<div> Loading Marvelous...</div>}> */}
-          <MyDrawer />
+          <AppbarDrawer />
         {/* </React.Suspense> */}
         <div id="mapCont">
           <Map moveOnLoad={moveOnLoad} />
