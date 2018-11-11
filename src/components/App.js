@@ -7,9 +7,8 @@ import AppbarDrawer from "./AppbarDrawer";
 
 import "./myAssembly.css";
 
-// const MyDrawer = React.lazy(() => import("./MyDrawer"));
 const ListVue = React.lazy(() => import("./ListVue"));
-const Search = React.lazy(() => import("./Search"));// import Search from "./Search";
+const Search = React.lazy(() => import("./Search"));
 const Directions = React.lazy(() => import("./Directions"));
 const MyPlaceInfo = React.lazy(() => import("./MyPlaceInfo"));
 
@@ -29,9 +28,7 @@ class App extends Component {
     return (
 
       <div className="root">
-        {/* <React.Suspense fallback={<div> Loading Marvelous...</div>}> */}
           <AppbarDrawer />
-        {/* </React.Suspense> */}
         <div id="mapCont">
           <Map moveOnLoad={moveOnLoad} />
           <div className="relative fr m12 w240 flex-parent flex-parent--column">

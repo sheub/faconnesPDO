@@ -42,13 +42,6 @@ const styles = (theme) => ({
     ...theme.mixins.toolbar
   },
 
-  appBar: {
-    position: "absolute",
-  },
-
-  title: {
-    flexGrow: 0
-  },
 
   drawerPaper: {
     // height: "100vh",
@@ -77,10 +70,6 @@ const styles = (theme) => ({
     overflowY: "auto",
   },
 
-  icon: {
-    width: 25,
-    color: "#ff0000",
-  },
 
   expandIcons: {
     position: "absolute",

@@ -51,12 +51,10 @@ const styles = (theme) => ({
     menuButtonHidden: {
         display: "none"
     },
-    title: {
+    titleClass: {
         flexGrow: 1
     },
-    icon: {
-        width: 25
-    },
+
 
 });
 
@@ -145,7 +143,7 @@ class MyAppBar extends Component {
                         </IconButton>
                         {
                             (window.innerWidth > 700)
-                                ? <Typography variant="h6" color="inherit" noWrap className={classes.title}>
+                                ? <Typography variant="h6" color="inherit" noWrap className={classes.titleClass}>
                                     {t("title")}
                                 </Typography> : null
                         }
