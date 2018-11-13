@@ -1,11 +1,7 @@
 # Marvelous Map
 
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/c742a7145e954de0bbe4869e5428e5d8)](https://app.codacy.com/app/sheub/marvelous-map?utm_source=github.com&utm_medium=referral&utm_content=sheub/marvelous-map&utm_campaign=Badge_Grade_Dashboard)
-
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/sheub/marvelous-map/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/sheub/marvelous-map/?branch=master)
-
-[![Build Status](https://scrutinizer-ci.com/g/sheub/marvelous-map/badges/build.png?b=master)](https://scrutinizer-ci.com/g/sheub/marvelous-map/build-status/master)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/c742a7145e954de0bbe4869e5428e5d8)](https://app.codacy.com/app/sheub/marvelous-map?utm_source=github.com&utm_medium=referral&utm_content=sheub/marvelous-map&utm_campaign=Badge_Grade_Dashboard) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/sheub/marvelous-map/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/sheub/marvelous-map/?branch=master) [![Build Status](https://scrutinizer-ci.com/g/sheub/marvelous-map/badges/build.png?b=master)](https://scrutinizer-ci.com/g/sheub/marvelous-map/build-status/master)
 
 [An interactive map of France with local tourism infos](https://faconnes.de)
 
@@ -31,14 +27,6 @@ The geocoding is delivered with https://adresse.data.gouv.fr/api
 
 The directions are powered by the [Directions Traffic API](https://www.mapbox.com/api-documentation/#directions).
 
-### Do it yourself!
-
-Create a `.env` file at the root that contains the following variables:
-
-```sh
-REACT_APP_MAPBOX_TOKEN=<your access token>
-PUBLIC_URL=https://<your base url>
-```
 
 ### Icons and sprites
 
