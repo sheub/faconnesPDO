@@ -19,7 +19,6 @@ The summary:
 - [React](https://facebook.github.io/react/)
 - [Redux](http://redux.js.org/)
 - [Mapbox GL JS](https://www.mapbox.com/mapbox-gl-js/api/)
-- [Assembly.css](https://www.mapbox.com/assembly/)
 - [Mapbox Directions API](https://www.mapbox.com/api-documentation/#directions)
 - [Wikidata SDK](https://github.com/maxlath/wikidata-sdk)
 
