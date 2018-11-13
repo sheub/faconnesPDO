@@ -134,7 +134,6 @@ const appReducer = (state = defaultAppState, action) => {
       return Object.assign({}, state, {
         routeStatus: 'error'
       });
-
     }
 
     case 'SET_STATE_FROM_URL': {
