@@ -8,10 +8,9 @@
 
 ------
 
-## Building a map 
+## Map rendering 
 
 ![Marvelous](https://github.com/sheub/marvelous-map/blob/master/marvelous_map.png)
-### Why this project?
 
 
 ### Tech
@@ -25,7 +24,7 @@ The summary:
 
 The geocoding is delivered with https://adresse.data.gouv.fr/api
 
-The directions are powered by the [Directions Traffic API](https://www.mapbox.com/api-documentation/#directions).
+The direction and elevation are powered by the [Directions Traffic API](https://www.mapbox.com/api-documentation/#directions).
 
 
 ### Icons and sprites
