@@ -1,14 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { createStore, applyMiddleware, compose, combineReducers } from "redux";
-import createHistory from "history/createBrowserHistory";
+import { createStore, applyMiddleware, compose } from "redux";
+import { createBrowserHistory } from 'history';
 import { Route } from "react-router";
-import { ConnectedRouter, routerReducer, routerMiddleware } from "react-router-redux";
-import { defaultState } from "./reducers/index";
+import { ConnectedRouter, routerMiddleware } from "connected-react-router";
+
+
 import apiCaller from "./middlewares/apiCaller";
 import urlTinkerer from "./middlewares/urlTinkerer";
-import reducers from "./reducers/index";
+import rootReducer from "./reducers/index";
+import { defaultState } from "./reducers/index";
+
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import registerServiceWorker from "./registerServiceWorker";
 import App from "./components/App";
@@ -21,16 +24,16 @@ function doTheRest(initialState, localStorage)
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
   // Create history and router middleware
-  const history = createHistory();
+  const history = createBrowserHistory();
   const routerMid = routerMiddleware(history);
 
   let store = createStore(
-    combineReducers({
-      ...reducers,
-      router: routerReducer
-    }),
+    rootReducer(history),
     initialState,
-    composeEnhancers(applyMiddleware(apiCaller, urlTinkerer, routerMid))
+    composeEnhancers(
+      applyMiddleware(
+       routerMiddleware(history), // for dispatching history actions
+        apiCaller, urlTinkerer, routerMid))
   );
 
   // Store subscription that will keep the persisted state in local storage in sync with the state.
@@ -87,7 +90,7 @@ function doTheRest(initialState, localStorage)
     <Provider store={store}>
       <ConnectedRouter history={history}>
         <MuiThemeProvider theme={theme}>
-          <Route path="*" component={App} />
+          <Route path="/" component={App} />
         </MuiThemeProvider>
       </ConnectedRouter>
     </Provider>,

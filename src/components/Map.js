@@ -3,7 +3,7 @@ import React, {Component} from "react";
 import { translate } from "react-i18next";
 
 import {connect} from "react-redux";
-import {push} from "react-router-redux";
+import {push} from "connected-react-router";
 
 import mapboxgl from "mapbox-gl/dist/mapbox-gl";
 import turfBbox from "@turf/bbox";

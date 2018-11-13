@@ -40,6 +40,6 @@ i18n
   });
 
 // load additional namespaces after initialization
-i18n.loadNamespaces('about', (err, t) => { /* ... */ });
+i18n.loadNamespaces('about');
 
 export default i18n;

@@ -27,6 +27,7 @@
     "@turf/distance": "^4.7.3",
     "blueimp-md5": "^2.7.0",
     "cheap-ruler": "^2.5.1",
+    "connected-react-router": "^5.0.1",
     "date-fns": "^2.0.0-alpha.21",
     "history": "^4.7.2",
     "i18next": "^11.10.2",

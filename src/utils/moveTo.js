@@ -5,7 +5,7 @@ import turfDistance from "@turf/distance";
 
 
 function moveTo(map, location, zoom) {
-    if (!location) return;
+    if (!location) {return};
     if (location.bbox) { // We have a bbox to fit to
       const distance = turfDistance([location.bbox[0], location.bbox[1]], [location.bbox[2], location.bbox[3]]);
       const buffered = turfBuffer(turfBboxPolygon(location.bbox), distance / 2, 'kilometers');

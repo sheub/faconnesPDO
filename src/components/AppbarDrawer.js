@@ -1,7 +1,6 @@
 import React from "react";
 import MyAppBar from "./AppBar";
 
-// import "./App.css";
 
 const MyDrawer = React.lazy(() => import("./MyDrawer"));
 
