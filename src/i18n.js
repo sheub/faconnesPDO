@@ -41,5 +41,7 @@ i18n
 
 // load additional namespaces after initialization
 i18n.loadNamespaces('about');
+i18n.loadNamespaces('legal');
+
 
 export default i18n;

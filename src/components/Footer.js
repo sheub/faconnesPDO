@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { I18n } from 'react-i18next';
-import { withStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
+import {Typography, withStyles } from "@material-ui/core/";
 
-import About from "./About.js"
-const Impressum = React.lazy(() => import("./ImpressumFr.js"));
+const About = React.lazy(() => import("./About.js"));
+const Impressum = React.lazy(() => import("./Impressum.js"));
 
 
 const styles = () => ({
@@ -78,7 +77,7 @@ class Footer extends Component {
     return (
       <I18n ns="translations">
         {
-          (t, { i18n }) => (
+          (t) => (
 
             <div className={classes.root}>
               <div>
@@ -95,7 +94,10 @@ class Footer extends Component {
                 }
 
                 {this.state.showAbout ?
-                  <About handleClose={this.handleClose} /> : null
+                <React.Suspense fallback={<div> </div>}>
+                  <About handleClose={this.handleClose} />
+                  </React.Suspense>
+                   : null
                 }
               </div>
             </div>

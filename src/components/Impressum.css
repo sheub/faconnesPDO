@@ -29,11 +29,14 @@
     z-index: 1
 }
 
-.list-about {
+.list-about, ul {
     list-style-type: disc;
     margin-left: 24px;
     margin-bottom: 6px;
 }
+/* ul{
+    list-style: circle;
+} */
 
 @media screen and (max-width:600px) {
     .impressumContainer {

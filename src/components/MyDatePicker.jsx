@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { translate } from "react-i18next";
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
+import { MuiThemeProvider, createMuiTheme, withStyles} from '@material-ui/core';
 import { MuiPickersUtilsProvider, DatePicker } from "material-ui-pickers";
 
-import { withStyles } from "@material-ui/core/styles";
 import DateFnsUtils from "@date-io/date-fns";
 import frLocale from "date-fns/locale/fr";
 import format from 'date-fns/format';
+import "./fonts/MI/style.css";
 
 
 class LocalizedUtilsFR extends DateFnsUtils {
@@ -22,7 +22,6 @@ class LocalizedUtils extends DateFnsUtils {
 
 const powderBlue = "#b0e0e6";
 const otherbackgroundColor = "#345f874";
-
 const materialTheme = createMuiTheme({
     typography: {
         useNextVariants: true,
