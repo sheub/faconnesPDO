@@ -23,16 +23,17 @@ const styles = theme => ({
         display: "flex",
         flexDirection: "column",
         height: "33vh",
+        marginTop: "7px",
+        boxShadow: "0 0 10px 2px rgba(0, 0, 0, .25)",
     },
 
     listRoot: {
         width: '100%',
         backgroundColor: "white",
-        marginTop: "7px",
         position: 'relative',
         overflowY: 'auto',
         overflowX: 'hidden',
-        flex: 1,
+        flex: 1,        
     },
 
     listItemClass: {
@@ -53,7 +54,6 @@ const styles = theme => ({
     blockWithText: {
         overflow: "hidden",
         padding: 0,
-        // userSelect: "all",
         letterSpacing: "-0.3px",
     },
 

@@ -34,9 +34,16 @@
     margin-left: 24px;
     margin-bottom: 6px;
 }
-/* ul{
-    list-style: circle;
-} */
+
+.icon-impressum {
+    color: #000;
+    font-size: 16px;
+    vertical-align: -3px;
+}
+
+a {
+    text-decoration: none;
+}
 
 @media screen and (max-width:600px) {
     .impressumContainer {

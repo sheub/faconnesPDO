@@ -14,7 +14,8 @@
     margin-left: 6px;
     margin-bottom: 6px;
     margin-top: 6px;
-    color: #000
+    color: #000;
+    max-height: 100%;
 }
 
 .baseInfo {
@@ -33,7 +34,7 @@
 
 .introtext {
     white-space: normal;
-    max-height: 26vh;
+    /* max-height: 26vh; */
     overflow-y: auto
 }
 
@@ -72,16 +73,17 @@
 
 .mapboxgl-popupup {
     position: absolute;
-    margin-top: 10px;
-    width: 240px;
+    margin-top: 7px;
+    width: 100%;
     background-color: #fff;
-    max-height: 66vh;
+    max-height: 33vh;
     overflow-y: auto;
     overflow-x: hidden;
     line-height: normal;
     margin-bottom: 10px;
     border-radius: 0;
-    box-shadow: 0 0 8px -3px #000;
+    box-shadow: 0 0 10px 2px rgba(0, 0, 0, .25);
+    /* box-shadow: 0 0 8px -3px #000; */
     /* transition-duration: 1s */
 }
 
@@ -137,7 +139,7 @@
 }
 
 .hvrbox,.hvrbox img {
-    max-width: 100%
+    width: 100%
 }
 
 .hvrbox .hvrbox-layer_bottom {

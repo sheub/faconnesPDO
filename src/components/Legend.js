@@ -7,14 +7,11 @@ class Legend extends Component {
 
     LegendItem(item) {
 
-
         const { t } = this.props;
-
 
         return (
             <div id={"lgn" + item.idLayer}>
                 {returnImage(item.idLayer)}
-                {/* {this.returnImage(item)} */}
                 <span id={"lgnSpan" + item.idLayer} style={{ color: item.symbolColor }}>
                     {t("maplayerids." + item.idLayer)}
                 </span>

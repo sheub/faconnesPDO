@@ -97,10 +97,10 @@ class Search extends Component {
 
   get styles() {
     return {
-      main: " h42 w240 bg-white shadow-darken25 flex-parent flex-parent--row flex-parent--space-between-main",
+      main: " h42 bg-white shadow-darken25 flex-parent flex-parent--row flex-parent--space-between-main",
       icon: "absolute flex-parent flex-parent--center-cross flex-parent--center-main w42 h42",
       input: "input px42 h42 border--transparent",
-      results: "w240-mm results bg-white shadow-darken25 mt6 border-darken10"
+      results: "results bg-white shadow-darken25 mt6 border-darken10"
     };
   }
 }

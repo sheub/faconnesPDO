@@ -35,7 +35,8 @@
 }
 
 .dot,.legend-key {
-  display: inline-block
+  display: inline-block;
+  vertical-align: text-bottom;  
 }
 
 .dot {

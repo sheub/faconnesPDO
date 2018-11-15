@@ -25,13 +25,14 @@ class App extends Component {
       .filter(e => e.startsWith("+") || e.startsWith("@"))
       .length;
 
+    let styleSearch = (window.innerWidth > 340) ? { width: "240px", margin: "12px" } : { width: "100%", margin: 0  };
     return (
 
       <div className="root">
           <AppbarDrawer />
         <div id="mapCont">
           <Map moveOnLoad={moveOnLoad} />
-          <div className="relative fr m12 w240 flex-parent flex-parent--column">
+          <div className="relative fr m12 w240 flex-parent flex-parent--column" style={styleSearch}>
             {
               (this.props.mode === "directions")
                 ? <React.Suspense fallback={<div> Loading Directions...</div>}>

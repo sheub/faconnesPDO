@@ -137,8 +137,10 @@ class MyPlaceInfo extends Component {
     let stylePop = listVueActive ? { right: "248px", zIndex: 0 } : { left: 0, zIndex: 0 };
 
     if (listVueActive && (window.innerWidth < 576)) {
-      let topPos = document.documentElement.clientHeight * 0.36 + 21;
-      stylePop = { left: 0, top: topPos, zIndex: 0 }
+      // let topPos = document.documentElement.clientHeight * 0.36 + 21;
+      let topPos = 42 + 6 + window.innerHeight * 0.33;
+      let heightWin = window.innerHeight - topPos - 42 - 48;
+      stylePop = { maxHeight: heightWin, left: 0, top: topPos, zIndex: 2 }
     }
 
     // use zIndex: -1 to hide the infowindow behind the map intead of norender

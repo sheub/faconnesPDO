@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import ReactDOM from 'react-dom';
 import IconButton from '@material-ui/core/IconButton';
-import {Email, ContactMail, ContactPhone} from "@material-ui/icons";
+import { Email, ContactMail, ContactPhone } from "@material-ui/icons";
 
 import { I18n } from 'react-i18next';
-
 import "./Impressum.css";
+
 class Impressum extends Component {
 
     handleClose() {
@@ -14,23 +14,23 @@ class Impressum extends Component {
 
     getImpressumComponent(t) {
         return <div className="impressumContainer">
-        <div>
-            <div className="btn-close-impressum" aria-label="Close">
-              <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.handleClose()}>
-                <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
-              </IconButton>
-            </div>
+            <div>
+                <div className="btn-close-impressum" aria-label="Close">
+                    <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.handleClose()}>
+                        <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
+                    </IconButton>
+                </div>
 
                 <h1>{t("title")}</h1>
                 <h2>{t("H2_1")}</h2>
                 <br />
                 <strong>{t("Prop")}</strong> {t("Zoestha UG (haftungsbeschränkt)")}<br />
-                <ContactMail style={{ color: "black", fontSize: "16px", verticalAlign: "-3px" }} /> Fockestr. 23
+                <ContactMail className="icon-impressum" /> Fockestr. 23
                         <br /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;04275 Leipzig
                         <br />
-                <Email style={{ color: "black", fontSize: "16px", verticalAlign: "-3px" }} /> info@zoestha.de
+                <Email className="icon-impressum" /> info@zoestha.de
                     <br />
-                <ContactPhone style={{ color: "black", fontSize: "16px", verticalAlign: "-3px" }} /> 49. 341. 2384083
+                <ContactPhone className="icon-impressum" /> 49. 341. 2384083
                 <p>{t("Geschäftsführer")} Sébastien Barré
                     <br /> Registergericht: Leipzig, HRB 32943
                     <br /> Ust-IdNr: DE308957906
@@ -46,8 +46,8 @@ class Impressum extends Component {
                 <br />
 
                 <h2>{t("H2_2")}</h2>
-                    <p>{t("utilisation")} </p><br />
-                
+                <p>{t("utilisation")} </p><br />
+
                 <h2>{t("H2_3")}</h2>
                 <p>{t("Le_site")}</p>
                 <p>{t("Toutes_les")}</p>
@@ -59,13 +59,13 @@ class Impressum extends Component {
                 <p>{t("Sauf_mention")}</p>
                 <p>{t("Les_données")}</p>
                 <p>{t("Les_données2")}
-                <a href="https://www.etalab.gouv.fr/wp-content/uploads/2017/04/ETALAB-Licence-Ouverte-v2.0.pdf" rel="noopener"> pdf</a>
+                    <a target="_blank" rel="noopener noreferrer" href="https://www.etalab.gouv.fr/wp-content/uploads/2017/04/ETALAB-Licence-Ouverte-v2.0.pdf"> pdf</a>
                 </p><br />
 
                 <h2>{t("H2_6")}</h2>
 
                 <p>{t("Zoestha2")}</p>
-                <p>{t("Zoestha3")}</p>    
+                <p>{t("Zoestha3")}</p>
 
                 <br />
                 <h2>{t("H2_7")}</h2>
@@ -78,7 +78,7 @@ class Impressum extends Component {
                     <li>{t("dafficher")}</li>
                     <li>{t("détablir")}</li>
                 </ul>
-            
+
                 <p>{t("Lutilisateur")}</p>
                 <ul>
                     <li>{t("Sous Internet Explorer")}</li>
@@ -87,8 +87,8 @@ class Impressum extends Component {
                     <li>{t("Sous Chrome")}</li>
                 </ul>
                 <br />
+            </div>
         </div>
-    </div>
     }
     render() {
 
@@ -96,9 +96,9 @@ class Impressum extends Component {
             {
                 (t) => (
                     ReactDOM.createPortal(this.getImpressumComponent(t), document.getElementById('map'))
-            )
-}
-    </I18n>
+                )
+            }
+        </I18n>
     }
 }
 export default Impressum;
