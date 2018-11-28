@@ -117,6 +117,7 @@ class ListVue extends React.Component {
         distance = (distance.toFixed(2)).toString();
 
         let info = {};
+        info.address = "";
         if ([
             "parcsjardins",
             "localproductshop",
@@ -128,27 +129,36 @@ class ListVue extends React.Component {
             "videsgreniers",
             "OTFrance",
             "WineCelar"].includes(item.layer.id)) {
-
-            switch (lang) {
-                case "fr":
-                    info.label = item.properties.label_fr;
-                    info.address = item.properties.address_locality;
-                    break;
-
-                case "en":
-                    info.label = item.properties.label_en;
-                    info.address = item.properties.address_locality;
-                    break;
-
-                default:
-                    info.label = item.properties.label_en;
-                    info.address = item.properties.address_locality;
+                info.address = item.properties.address_locality;
             }
+
+        switch (lang) {
+            case "fr":
+                if (typeof (item.properties.label_fr) !== 'undefined')
+                    info.label = item.properties.label_fr;
+                else
+                    info.label = item.properties.label_en;
+                break;
+        
+            case "en":
+                if (typeof (item.properties.label_en) !== 'undefined')
+                    info.label = item.properties.label_en;
+                else
+                    info.label = item.properties.label_fr;
+                break;
+
+            default:
+                if (typeof (item.properties.label_en) !== 'undefined')
+                    info.label = item.properties.label_en;
+                else
+                    info.label = item.properties.label_fr;
+                break;
         }
-        else {
-            info.label = item.properties.label;
-            info.address = "";//<a target="_new" href={item.properties.link} rel="noopener">&rarr; Wikipedia</a>
-        }
+
+        // else {
+        //     info.label = item.properties.label;
+        //     info.address = "";//<a target="_new" href={item.properties.link} rel="noopener">&rarr; Wikipedia</a>
+        // }
         if (info.address !== "") {
             info.address = info.address + ", " + distance.concat(" kms");
         }

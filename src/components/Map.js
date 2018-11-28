@@ -19,7 +19,7 @@ import {
   resetStateKeys
 } from "../actions/index";
 
-import style from "../styles/osm-basic.json";
+import style from "../styles/osm-bright.json";
 // Set the sprite URL in the style. It has to be a full, absolute URL.
 let spriteUrl;
 if (process.env.NODE_ENV === "production") {
@@ -465,10 +465,10 @@ class MapComponent extends Component {
       Object.keys(this.props.visibility).forEach(key => {
       if (this.props.visibility[key]) {
         this.map.setLayoutProperty(layerSelector[key].source, 'visibility', 'visible');
-        if (["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance",
-          "monumentsnationaux", "patrimoinemondialenfrance"].includes(layerSelector[key].source)) {
-          this.loadJsonData(layerSelector[key].source);
-        }
+        // if (["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance",
+        //   "patrimoinemondialenfrance"].includes(layerSelector[key].source)) {
+        //   this.loadJsonData(layerSelector[key].source);
+        // }
       } else {
         if (typeof (layerSelector[key]) === "undefined") return;
         let isVisible = this.map.getLayoutProperty(layerSelector[key].source, 'visibility');
@@ -476,10 +476,10 @@ class MapComponent extends Component {
           // set 'visibility' to 'none'
           this.map.setLayoutProperty(layerSelector[key].source, 'visibility', 'none');
           // set Empty Data to sources
-          if (["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance",
-            "monumentsnationaux", "patrimoinemondialenfrance"].includes(layerSelector[key].source)) {
-            this.setEmptyData(layerSelector[key].source);
-          }
+          // if (["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance",
+          //   "patrimoinemondialenfrance"].includes(layerSelector[key].source)) {
+          //   this.setEmptyData(layerSelector[key].source);
+          // }
         }
       }
     });});
@@ -493,9 +493,9 @@ class MapComponent extends Component {
       this.map.setLayoutProperty(toggleLayerVisibility, 'visibility', 'none');
     } else {
       this.map.setLayoutProperty(toggleLayerVisibility, 'visibility', 'visible');
-      if( ["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(toggleLayerVisibility)){
-        this.loadJsonData(toggleLayerVisibility);        
-      }
+      // if( ["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "patrimoinemondialenfrance"].includes(toggleLayerVisibility)){
+      //   this.loadJsonData(toggleLayerVisibility);        
+      // }
     }
   }
 
@@ -521,7 +521,7 @@ class MapComponent extends Component {
     };
     var lng = this.props.languageSet;
 
-    if (["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(dataStr) && lng === 'fr') {
+    if (["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "patrimoinemondialenfrance"].includes(dataStr) && lng === 'fr') {
       AllData = {
         patrimoinemondialenfrance: "Patrimoine_Mondial_en_France.geojson",
         monumentsnationaux: "Monuments_Nationaux.geojson",
@@ -530,7 +530,7 @@ class MapComponent extends Component {
         plusBeauxVillagesDeFrance: "Plus_Beaux_Villages_de_France.geojson",
       }
     } else
-      if (["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "monumentsnationaux", "patrimoinemondialenfrance"].includes(dataStr) && lng === 'en') {
+      if (["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "patrimoinemondialenfrance"].includes(dataStr) && lng === 'en') {
         AllData = {
           patrimoinemondialenfrance: "Patrimoine_Mondial_en_France_en.geojson",
           monumentsnationaux: "Monuments_Nationaux_en.geojson",

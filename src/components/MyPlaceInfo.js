@@ -152,6 +152,11 @@ class MyPlaceInfo extends Component {
     let info = this.state.infoPopup.properties;
 
     if ([
+      "plusBeauxVillagesDeFrance",
+      "patrimoinemondialenfrance",
+      "jardinremarquable",
+      "grandSiteDeFrance",
+      "monumentsnationaux",
       "parcsjardins",
       "localproductshop",
       "craftmanshop",
@@ -165,16 +170,16 @@ class MyPlaceInfo extends Component {
       const lang = this.props.i18n.language;
       switch (lang) {
         case "fr":
-          info.abstract = info.abstract_fr;
-          info.label = info.label_fr;
+          info.abstract = info.abstract_fr ? info.abstract_fr : info.abstract_en;
+          info.label = info.label_fr ? info.label_fr : info.label_en;
           break;
         case "en":
-          info.abstract = info.abstract_en;
-          info.label = info.label_en;
+          info.abstract = info.abstract_en ? info.abstract_en : info.abstract_fr;
+          info.label = info.label_en ? info.label_en : info.label_fr;
           break;
         default:
-          info.abstract = info.abstract_en;
-          info.label = info.label_en;
+          info.abstract = info.abstract_en ? info.abstract_en : info.abstract_fr;
+          info.label = info.label_en ? info.label_en : info.label_fr;
       }
     }
 
@@ -190,6 +195,18 @@ class MyPlaceInfo extends Component {
       "jardinremarquable",
       "grandSiteDeFrance",
       "monumentsnationaux"].includes(layerId)) {
+
+      const lang = this.props.i18n.language;
+      switch (lang) {
+        case "fr":
+          info.link = info.wikipedia_fr ? info.wikipedia_fr : info.wikipedia_en;
+          break;
+        case "en":
+          info.link = info.wikipedia_en ? info.wikipedia_en : info.wikipedia_fr;
+          break;
+        default:
+        info.link = info.wikipedia_en ? info.wikipedia_en : info.wikipedia_fr;
+      }
 
       return (
         <div>

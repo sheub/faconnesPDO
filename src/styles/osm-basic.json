@@ -12,12 +12,20 @@
     "localEvents": {
       "type": "vector",
       "tiles": ["https://faconnes.de/tiles/localEvents/{z}/{x}/{y}.pbf"],
-      "maxzoom": 5
+      "maxzoom": 12,
+      "minzoom":2
     },
     "localTips": {
       "type": "vector",
       "tiles": ["https://faconnes.de/tiles/localTips/{z}/{x}/{y}.pbf"],
-      "maxzoom": 5
+      "maxzoom": 12,
+      "minzoom":2
+    },
+    "wiki": {
+      "type": "vector",
+      "tiles": ["https://faconnes.de/tiles/wiki/{z}/{x}/{y}.pbf"],
+      "maxzoom": 12,
+      "minzoom":2
     },
     "museesFrance": {
       "type": "vector",
@@ -904,14 +912,13 @@
     {
       "id": "monumentsnationaux",
       "type": "symbol",
-      "source": "monumentsnationaux",
+      "source": "monumentsnationaux",      
 	  "maxzoom": 20,
       "layout": {
         "visibility": "none",
         "icon-image": "star-15-1F08A6",
         "icon-allow-overlap": true,
-        "icon-size": {"stops": [[0, 0.7], [10, 1]]},
-        "text-field": ""
+        "icon-size": {"stops": [[0, 0.7], [10, 1]]}
       },
       "paint": {"text-color": "#1F08A6"}
     },

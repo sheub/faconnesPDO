@@ -11,12 +11,20 @@
     "localEvents": {
       "type": "vector",
       "tiles": ["https://faconnes.de/tiles/localEvents/{z}/{x}/{y}.pbf"],
-      "maxzoom": 6
+      "maxzoom": 12,
+      "minzoom":2
     },
     "localTips": {
       "type": "vector",
       "tiles": ["https://faconnes.de/tiles/localTips/{z}/{x}/{y}.pbf"],
-      "maxzoom": 6
+      "maxzoom": 12,
+      "minzoom":2
+    },
+    "wiki": {
+      "type": "vector",
+      "tiles": ["https://faconnes.de/tiles/wiki/{z}/{x}/{y}.pbf"],
+      "maxzoom": 12,
+      "minzoom":2
     },
     "museesFrance": {
       "type": "vector",
@@ -28,9 +36,14 @@
       "tiles": ["https://faconnes.de/tiles/France_Highlight2/{z}/{x}/{y}.pbf"],
       "maxzoom": 5
     },
-    "France_Poi": {
+    "France_wiki2": {
       "type": "vector",
-      "tiles": ["https://faconnes.de/tiles/France_Poi/{z}/{x}/{y}.pbf"],
+      "tiles": ["https://faconnes.de/tiles/FranceWiki/{z}/{x}/{y}.pbf"],
+      "maxzoom": 3
+    },
+    "France_cycle_2": {
+      "type": "vector",
+      "tiles": ["https://faconnes.de/tiles/France_cycle_2/{z}/{x}/{y}.pbf"],
       "maxzoom": 2
     },
 
@@ -71,14 +84,6 @@
       "buffer": 0
     },
     "grandSiteDeFrance": {
-      "type": "geojson",
-      "data": {
-        "type": "FeatureCollection",
-        "features": []
-      },
-      "buffer": 0
-    },
-    "monumentsnationaux": {
       "type": "geojson",
       "data": {
         "type": "FeatureCollection",
@@ -5134,41 +5139,26 @@
       }
     },
     {
-      "id": "france-wiki2-dw4zq5",
+      "id": "FranceWiki",
       "type": "symbol",
-      "source": "France_Poi",
-      "source-layer": "France_Poi",
-      "minzoom": 12,
+      "source": "France_wiki2",
+      "source-layer": "FranceWiki",
       "layout": {
-        "visibility": "visible",
+        "visibility": "none",
         "text-field": "{name:latin}\n{name:nonlatin}",
-        "text-font": [
-          "Open Sans Regular"
-        ],
+        "text-font": ["Noto Sans Regular"],
         "icon-image": "star-11",
         "icon-size": 0.8,
         "text-max-width": 12,
         "text-offset": [0, 2],
-        "text-size": {
-          "stops": [
-            [
-              10,
-              11
-            ],
-            [
-              18,
-              13
-            ]
-          ]
-        }
+        "text-size": {"stops": [[10, 11], [18, 13]]}
       },
-      "paint": {
-        "text-color": "hsl(206, 38%, 13%)"
-      }
+      "paint": {"text-color": "hsl(206, 38%, 13%)"}
     },
     {
       "id": "patrimoinemondialenfrance",
-      "source": "patrimoinemondialenfrance",
+      "source": "wiki",
+      "source-layer": "patrimoinemondialenfrance",
       "type": "symbol",
       "layout": {
         "visibility": "none",
@@ -5192,7 +5182,8 @@
       }
     }, {
       "id": "plusBeauxVillagesDeFrance",
-      "source": "plusBeauxVillagesDeFrance",
+      "source": "wiki",
+      "source-layer": "plusBeauxVillagesDeFrance",
       "type": "symbol",
       "layout": {
         "visibility": "none",
@@ -5217,7 +5208,8 @@
     },
     {
       "id": "jardinremarquable",
-      "source": "jardinremarquable",
+      "source": "wiki",
+      "source-layer": "jardinremarquable",
       "type": "symbol",
       "layout": {
         "visibility": "none",
@@ -5243,7 +5235,8 @@
     {
       "id": "grandSiteDeFrance",
       "type": "symbol",
-      "source": "grandSiteDeFrance",
+      "source": "wiki",
+      "source-layer": "grandSiteDeFrance",
       "layout": {
         "visibility": "none",
         "icon-image": "star-15-19766E",
@@ -5293,7 +5286,8 @@
     }, {
       "id": "monumentsnationaux",
       "type": "symbol",
-      "source": "monumentsnationaux",
+      "source": "wiki",
+      "source-layer": "monumentsnationaux",
       "layout": {
         "visibility": "none",
         "icon-image": "star-15-1F08A6",
@@ -5397,6 +5391,34 @@
       }
     },
     {
+      "id": "WineCelar",
+      "type": "symbol",
+      "source": "localTips",
+      "source-layer": "WineCelar",
+	  "maxzoom": 20,
+      "layout": {
+        "visibility": "none",
+        "icon-image": "square-15-6B0D0D",
+        "icon-allow-overlap": true,
+        "icon-size": {"stops": [[0, 0.7], [10, 1]]}
+      },
+      "paint": {"text-color": "#6B0D0D"}
+    },
+    {
+      "id": "OTFrance",
+      "type": "symbol",
+      "source": "localTips",
+      "source-layer": "OTFrance",
+	  "maxzoom": 20,
+      "layout": {
+        "visibility": "none",
+        "icon-image": "square-15-318CE7",
+        "icon-allow-overlap": true,
+        "icon-size": {"stops": [[0, 0.7], [10, 1]]}
+      },
+      "paint": {"text-color": "#318CE7"}
+    },
+    {
       "id": "exposition",
       "type": "circle",
       "source": "localEvents",
@@ -5453,13 +5475,9 @@
       "type": "circle",
       "source": "localEvents",
       "source-layer": "videsGreniers",
-      "layout": {
-        "visibility": "none"
-      },
-      "paint": {
-        "circle-radius": 4,
-        "circle-color": "#007CBF"
-      }
+	  "maxzoom": 20,
+      "layout": {"visibility": "visible"},
+      "paint": {"circle-radius": 4, "circle-color": "#007CBF"}
     },
     {
       "id": "geolocation",
