@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { translate } from "react-i18next";
-import { MuiThemeProvider, createMuiTheme, withStyles} from '@material-ui/core';
+import { MuiThemeProvider, createMuiTheme, withStyles } from '@material-ui/core';
 import { MuiPickersUtilsProvider, DatePicker } from "material-ui-pickers";
 
 import DateFnsUtils from "@date-io/date-fns";
@@ -20,8 +20,6 @@ class LocalizedUtils extends DateFnsUtils {
     }
 }
 
-const powderBlue = "#b0e0e6";
-const otherbackgroundColor = "#345f874";
 const materialTheme = createMuiTheme({
     typography: {
         useNextVariants: true,
@@ -39,35 +37,30 @@ const materialTheme = createMuiTheme({
 
     overrides: {
 
-        MuiFormLabel: {
-            root: {
-                color: powderBlue,
-            },
-        },
-        MuiInputBase: {
-            input: {
-                color: powderBlue,
-            },
-        },
         MuiPickersCalendar: {
             transitionContainer: {
                 minHeight: 180,
             },
         },
         MuiPickersModal: {
-            dialog:{
-            width: "310px",
-            minHeight: 355,
+            dialog: {
+                width: "310px",
+                minHeight: 355,
             },
-        },
+        }
     },
 });
 
 const styles = () => ({
     containersClass: {
-        backgroundColor: otherbackgroundColor,
         width: "50%",
-        padding: "6px"
+        padding: "6px",
+        paddingBottom: 0
+
+    },
+    mainContainerClass: {
+        paddingRight: "24px",
+        paddingLeft: "24px",
     },
 
 });
@@ -89,10 +82,13 @@ class MyDatePicker extends Component {
         return (
 
             <MuiThemeProvider theme={materialTheme}>
-                <div>
-                <div className={classes.containersClass} style={{ float: "left" }} >
+                <div className={classes.mainContainerClass}>
+                    <div className={classes.containersClass} style={{ float: "left" }} >
                         <MuiPickersUtilsProvider utils={LocalUtils} locale={localParam} >
                             <DatePicker
+                                InputProps={{
+                                    disableUnderline: true,
+                                   }}
                                 style={{ maxWidth: "100%", textAlign: "center" }}
                                 label={t("drawer.startfrom")}
                                 value={dateFrom}
@@ -107,6 +103,9 @@ class MyDatePicker extends Component {
                     <div className={classes.containersClass} style={{ float: "right" }}>
                         <MuiPickersUtilsProvider utils={LocalUtils} locale={localParam}>
                             <DatePicker
+                                InputProps={{
+                                    disableUnderline: true,
+                                   }}
                                 label={t("drawer.lastuntil")}
                                 style={{ maxWidth: "100%", textAlign: "center" }}
                                 value={dateTo}

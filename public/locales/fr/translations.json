@@ -19,6 +19,8 @@
         "GSFTitle": "Grands Sites de France",
         "MN": "Monuments",
         "MNTitle": "Édifices gérés par le centre des monuments nationaux",
+        "FilterByDate": "filtrer par date",
+        "SelectCategories": "sélectionner catégories",
 
         "ParcsJardins": "Parcs & Jardins",
         "restaurants": "Restaurants",
@@ -33,7 +35,8 @@
         "VidesGreniers": "Vide-greniers",
         "startfrom": "À partir du",
         "lastuntil": "Jusqu'au",
-        "dateformat": "d MMM yyyy"
+        "dateformat_": "d MMM yyyy",
+        "dateformat": "dd-MM-yy"
     },
     "myplaceinfo": {
         "urlDisplay": "En savoir plus »",

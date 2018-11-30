@@ -19,6 +19,10 @@
         "GSFTitle": "Grands Sites de France",
         "MN": "National Monuments",
         "MNTitle": "National Monuments",
+        "FilterByDate": "filter by date",
+        "SelectCategories": "select categories",
+
+
         "ParcsJardins": "Parks für ein Picknick",
         "ParcsJardinsTitle": "Parks für ein Picknick",
         "restaurants": "Restaurants",
@@ -40,9 +44,11 @@
         "MarchesTitle": "große und kleine Wochenmärkte",
         "VidesGreniers": "Flohmärkte",
         "VidesGreniersTitle": "Flohmärkte",
-        "startfrom":"Start From",
-        "lastuntil": "Last until",
-        "dateformat": "MMM do, yyyy"
+        "startfrom":"From",
+        "lastuntil": "To",
+        "dateformat_": "MMM do, yyyy",
+        "dateformat": "dd/MM/yy"
+
         
     },
     "myplaceinfo":{
@@ -53,7 +59,7 @@
         "More": "More",
         "from": "From",
         "to": "To",
-        "le": "The"
+        "le": ""
     },
     "maplayerids": {
         "museesFrance": "Museums",

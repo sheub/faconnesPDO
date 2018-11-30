@@ -15,7 +15,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import LanguageIcon from "@material-ui/icons/Language";
 import PropTypes from "prop-types";
-import MyDatePicker from "./MyDatePicker";
+// import MyDatePicker from "./MyDatePicker";
 
 
 import "./App.css";
@@ -63,8 +63,8 @@ class MyAppBar extends Component {
     state = {
         anchorEl: null,
         languageSet: 'en',
-        dateFrom: new Date(), //Today
-        dateTo: new Date() // Today plus one day
+        // dateFrom: new Date(), //Today
+        // dateTo: new Date() // Today plus one day
     };
 
     handleDrawerOpen = () => {
@@ -79,40 +79,40 @@ class MyAppBar extends Component {
         this.setState({ anchorEl: null });
     };
 
-    handleDateChange = (date) => {
+    // handleDateChange = (date) => {
 
-        let tempDate = this.state.dateTo;
-        if (this.state.dateTo < date) {
+    //     let tempDate = this.state.dateTo;
+    //     if (this.state.dateTo < date) {
 
-            this.setState({
-                dateFrom: date,
-                dateTo: date
-            });
-            tempDate = date;
-        }
-        else {
-            this.setState({ dateFrom: date });
-        }
+    //         this.setState({
+    //             dateFrom: date,
+    //             dateTo: date
+    //         });
+    //         tempDate = date;
+    //     }
+    //     else {
+    //         this.setState({ dateFrom: date });
+    //     }
 
-        this.props.setStateValues({
-            dateFrom: Date.parse(date),
-            dateTo: Date.parse(tempDate),
-            needMapFilterByDate: true
-        });
+    //     this.props.setStateValues({
+    //         dateFrom: Date.parse(date),
+    //         dateTo: Date.parse(tempDate),
+    //         needMapFilterByDate: true
+    //     });
 
-        this.props.triggerMapUpdate();
-    }
+    //     this.props.triggerMapUpdate();
+    // }
 
-    handleDateToChange = (date) => {
-        this.setState({ dateTo: date });
+    // handleDateToChange = (date) => {
+    //     this.setState({ dateTo: date });
 
-        this.props.setStateValues({
-            dateFrom: Date.parse(this.state.dateFrom),
-            dateTo: Date.parse(date),
-            needMapFilterByDate: true
-        });
-        this.props.triggerMapUpdate();
-    }
+    //     this.props.setStateValues({
+    //         dateFrom: Date.parse(this.state.dateFrom),
+    //         dateTo: Date.parse(date),
+    //         needMapFilterByDate: true
+    //     });
+    //     this.props.triggerMapUpdate();
+    // }
 
     render() {
         const { open, classes, t, i18n } = this.props;
@@ -141,14 +141,19 @@ class MyAppBar extends Component {
                         <IconButton color="inherit" aria-label="Open drawer" onClick={this.handleDrawerOpen} className={classNames(classes.menuButton, open && classes.menuButtonHidden)}>
                             <MenuIcon />
                         </IconButton>
-                        {
+
+                        <Typography variant="h6" color="inherit" noWrap className={classes.titleClass}>
+                                    {t("title")}
+                        </Typography>
+
+                        {/* {
                             (window.innerWidth > 700)
                                 ? <Typography variant="h6" color="inherit" noWrap className={classes.titleClass}>
                                     {t("title")}
                                 </Typography> : null
-                        }
+                        } */}
 
-                        <MyDatePicker t={t} i18n={i18n} state={this.state} dateChange={this.handleDateChange.bind(this)} dateToChange={this.handleDateToChange.bind(this)} />
+                        {/* <MyDatePicker t={t} i18n={i18n} state={this.state} dateChange={this.handleDateChange.bind(this)} dateToChange={this.handleDateToChange.bind(this)} /> */}
 
                         <div>
                             <IconButton

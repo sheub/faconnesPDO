@@ -19,12 +19,15 @@ import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import Collapse from "@material-ui/core/Collapse";
 import ListSubheader from "@material-ui/core/ListSubheader";
+import Typography from "@material-ui/core/Typography";
 
 import { returnImage, layerSelector } from "../utils/displayUtils";
-
+import MyDatePicker from "./MyDatePicker";
 import Footer from "./Footer.js"
 
 import "./App.css";
+// import "./PopupInfo.css";
+
 
 const drawerWidth = 270;
 
@@ -35,6 +38,7 @@ const styles = (theme) => ({
   },
 
   toolbarIcon: {
+    // backgroundColor: "#EE2A39",
     display: "flex",
     alignItems: "center",
     justifyContent: "flex-end",
@@ -80,6 +84,21 @@ const styles = (theme) => ({
     cursor: "default",
   },
 
+  fontStyle: {      
+    // fontFamily: "Caslon",
+    fontVariant: "small-caps",
+    paddingLeft: "24px",
+    marginBottom: "6px",
+    marginTop: "8px",    
+    cursor: "default",
+    display: "inline-block",
+  },
+
+  datePickerBackground:{
+    backgroundColor: "#E5E5E5",
+    marginBottom: "12px",
+  },
+
 });
 
 
@@ -99,14 +118,49 @@ class MyDrawer extends Component {
       listLoisirOpen: false,
       listAgendaOpen: false,
       checked: filtered,
+      dateFrom: new Date(), //Today
+      dateTo: new Date() // Today plus one day
 
     };
   }
 
 
+  handleDateChange = (date) => {
+
+    let tempDate = this.state.dateTo;
+    if (this.state.dateTo < date) {
+      this.setState({
+        dateFrom: date,
+        dateTo: date
+      });
+      tempDate = date;
+    }
+    else {
+      this.setState({ dateFrom: date });
+    }
+
+    this.props.setStateValues({
+      dateFrom: Date.parse(date),
+      dateTo: Date.parse(tempDate),
+      needMapFilterByDate: true
+    });
+
+    this.props.triggerMapUpdate();
+  }
+
+  handleDateToChange = (date) => {
+    this.setState({ dateTo: date });
+
+    this.props.setStateValues({
+      dateFrom: Date.parse(this.state.dateFrom),
+      dateTo: Date.parse(date),
+      needMapFilterByDate: true
+    });
+    this.props.triggerMapUpdate();
+  }
+
   handleDrawerClose = () => {
     this.props.open = false;
-    // this.setState({ open: false });
   };
 
   handleClick = () => {
@@ -120,6 +174,7 @@ class MyDrawer extends Component {
   handleClickListAgendaOpen = () => {
     this.setState((state) => ({ listAgendaOpen: !state.listAgendaOpen }));
   };
+  
 
   handleToggle(value) {
     const { checked } = this.state;
@@ -147,22 +202,29 @@ class MyDrawer extends Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, i18n } = this.props;
+    // const { open, classes, t, i18n } = this.props;
     return (
       <I18n ns="translations">
         {
           (t) => (
             <React.Fragment>
               <div className={classes.root}>
-                {/* <MyAppBar open={this.state.open} handleDrawerOpen={this.handleDrawerOpen} /> */}
-                
                 <Drawer variant="persistent" anchor='left' classes={{ paper: classNames(classes.drawerPaper, !this.props.open && classes.drawerPaperClose) }} open={this.props.open}>
                   <div className={classes.toolbarIcon}>
                     <IconButton onClick={ () => this.props.handleDrawerClose()} aria-label="Close drawer">
                       <ChevronLeftIcon />
-                    </IconButton>
+                    </IconButton>                    
                   </div>
                   <Divider />
+                  <Typography variant="h6" className={classes.fontStyle}> {t("drawer.FilterByDate")}</Typography>
+                  <div className={classes.datePickerBackground}>
+                  <MyDatePicker t={t} i18n={i18n} state={this.state} dateChange={this.handleDateChange.bind(this)} dateToChange={this.handleDateToChange.bind(this)} />             
+                  </div>
+                  
+                  <Typography variant="h6" className={classes.fontStyle}> {t("drawer.SelectCategories")}</Typography>
+                  <Divider />
+
                   <ListItem button onClick={this.handleClick} aria-label="Open Culture et Patrimoine" id="ButtonCultureHeritage">
                     <ListSubheader style={{ color: "black", fontSize: "16px" }} title={t("drawer.main1Title")}> {t("drawer.main1")} </ListSubheader>
                     {this.state.list1Open ? <ExpandLess className={classes.expandIcons} /> : <ExpandMore className={classes.expandIcons} />}
