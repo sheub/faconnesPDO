@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ReactDOM from 'react-dom';
 import IconButton from '@material-ui/core/IconButton';
 import { I18n, Trans } from 'react-i18next';
+import Typography from '@material-ui/core/Typography';
 
 import "./Impressum.css";
 
@@ -21,7 +22,8 @@ class About extends Component {
                 </div>
 
                 <Trans ns={'about'}>
-                    <h1><strong>About faconnes</strong></h1>
+                    <Typography variant="h4" gutterBottom><strong>About faconnes</strong></Typography>
+
                 </Trans>
 
                 <Trans ns={'about'}>
@@ -38,48 +40,63 @@ class About extends Component {
                     <li><strong>{t("EventsLeisure")} </strong> {t("EventsLeisure1")}</li>
                 </ul>
                 <Trans ns={'about'}>
-                    <strong>Presentations of the headings</strong>
+                <Typography variant="h5" gutterBottom>Presentations of the headings</Typography>
                 </Trans>
 
-                <div>
+                <div className="list-about-headings">
+                    <div>
+                        <Trans ns={'about'}>
+                            <Typography variant="h6" gutterBottom>Beautifful Villages</Typography>
+                        </Trans>
+                        <Trans ns={'about'}>
+                            Villages belonging to the association <i>Plus beaux villages de France</i>
+                        </Trans>
+
+                        <Trans ns={'about'}>
+                            <Typography variant="h6" gutterBottom>Unesco</Typography> Site inscribed on unesco's World Heritage List
+                        </Trans>
+                    </div>
                     <Trans ns={'about'}>
-                        <h2><strong>Beautifful Villages</strong></h2>
+                        <Typography variant="h6" gutterBottom>Museum</Typography>
+                    </Trans>
+
+                    <Typography variant="h6" gutterBottom>{t("RemarkableGardens")}</Typography> {t("RemarkableGardens1")}
+
+                    <Trans ns={'about'}>
+                        <Typography variant="h6" gutterBottom>Grands Sites</Typography>
                     </Trans>
                     <Trans ns={'about'}>
-                        Villages belonging to the association <i>Plus beaux villages de France</i>
+                        <Typography variant="h6" gutterBottom>National Monuments</Typography>
                     </Trans>
+                    <br />
                 </div>
 
-                <div>
-                    <Trans ns={'about'}>
-                        <h2><strong>Unesco</strong></h2> Site inscribed on unesco's World Heritage List
-                    </Trans>
-                </div>
-                <Trans ns={'about'}>
-                    <h2><strong>Museum</strong></h2>
-                </Trans>
 
-                <h2><strong>{t("RemarkableGardens")}</strong></h2> {t("RemarkableGardens1")}
-                {/* <Trans ns={'about'}>
-                    <h2><strong>Remarkable Gardens</strong></h2> The label <i>Remarkable Garden</i> is issued by the French Ministry of Culture with the assistance of the Conseil national des parcs et jardins (the list presented is not exhaustive)
-                </Trans> */}
-                <Trans ns={'about'}>
-                    <h2><strong>Grands Sites</strong></h2>
-                </Trans>
-                <Trans ns={'about'}>
-                    <h2><strong>National Monuments</strong></h2>
-                </Trans>
-                <br />
                 <div style={{ marginTop: "7px" }}>
                     <Trans ns={'about'}>
-                        The data presented
+                        <Typography variant="h5" gutterBottom>DataTourism</Typography>
+                    </Trans>
+                    <Trans ns={'about'}>
+                        The data presented in the headings <i>Parks and Gardens</i>, <i>Local trade</i>, <i>Craft workshop</i> as well as all the headings of the group <strong>Agenda</strong> (<i>Exhibitions, Music and Shows</i>, <i>Children's Corner</i>, <i>Markets</i>, and <i>Vide-greniers</i>) come from the DataTourism platform
+                        {/* The data presented in the headings       <i>Parks &amp; Gardens</i>, <i>Local trade</i>,     <i>Craft workshop</i> as well as all the headings of the group <strong>Agenda</strong> (      <i>Exhibitions, Music &amp; Shows</i>,          <i>Children's Corner</i>, <i>Markets</i>, and <i>Vide-greniers</i>) come from the DataTourism platform.  */}
+                        {/* Les données présentées dans les rubriques <i>Parcs et Jardins</i>, <i>Commerce local</i>, <i>Atelier artisanal</i> ainsi que l'ensemble des rubriques du groupe <strong>Agenda</strong> (<i>Expositions, Musique et Spectacles</i>, <i>Children's Corner</i>, <i>Marchés</i>, et <i>Vide-greniers</i>) proviennent de la plateforme DATATourisme. Données originales téléchargées sur */}
+                    </Trans>
+                    <Trans ns={'about'}>
+                        <a target='_new' href='http://www.datatourisme.fr/les-acteurs/producteurs/' rel='noopener'>DataTourism_link</a>
                     </Trans>
                     <Trans ns={'about'}>
                         They are updated daily
-                </Trans>
+                    </Trans>
                 </div>
 
-
+                <div style={{ marginTop: "7px" }}>
+                    <Typography variant="h5" gutterBottom>Mise en cache des informations</Typography>
+                    
+                    <Trans ns={'about'}>
+                        Offline maps
+                    </Trans>
+                </div>
+                
             </div>
         </div>
 
