@@ -15,7 +15,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import LanguageIcon from "@material-ui/icons/Language";
 import PropTypes from "prop-types";
-// import MyDatePicker from "./MyDatePicker";
 
 
 import "./App.css";
@@ -28,9 +27,10 @@ const styles = (theme) => ({
 
     appBar: {
         zIndex: theme.zIndex.drawer - 1,
+        opacity: 0.85,
         transition: theme.transitions.create(["width", "margin"], {
             easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen
+            duration: theme.transitions.duration.leavingScreen            
         })
     },
 
@@ -63,8 +63,6 @@ class MyAppBar extends Component {
     state = {
         anchorEl: null,
         languageSet: 'en',
-        // dateFrom: new Date(), //Today
-        // dateTo: new Date() // Today plus one day
     };
 
     handleDrawerOpen = () => {
@@ -78,41 +76,6 @@ class MyAppBar extends Component {
     handleClose = () => {
         this.setState({ anchorEl: null });
     };
-
-    // handleDateChange = (date) => {
-
-    //     let tempDate = this.state.dateTo;
-    //     if (this.state.dateTo < date) {
-
-    //         this.setState({
-    //             dateFrom: date,
-    //             dateTo: date
-    //         });
-    //         tempDate = date;
-    //     }
-    //     else {
-    //         this.setState({ dateFrom: date });
-    //     }
-
-    //     this.props.setStateValues({
-    //         dateFrom: Date.parse(date),
-    //         dateTo: Date.parse(tempDate),
-    //         needMapFilterByDate: true
-    //     });
-
-    //     this.props.triggerMapUpdate();
-    // }
-
-    // handleDateToChange = (date) => {
-    //     this.setState({ dateTo: date });
-
-    //     this.props.setStateValues({
-    //         dateFrom: Date.parse(this.state.dateFrom),
-    //         dateTo: Date.parse(date),
-    //         needMapFilterByDate: true
-    //     });
-    //     this.props.triggerMapUpdate();
-    // }
 
     render() {
         const { open, classes, t, i18n } = this.props;

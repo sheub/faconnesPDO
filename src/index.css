@@ -15,7 +15,7 @@ body {
   left: 0;
   height: 100%
 }
-
+/* 
 #mapCont {
   top: 64px;
   height: auto
@@ -31,7 +31,7 @@ body {
   #mapCont {
       top: 48px
   }
-}
+} */
 
 .directions-input::-webkit-input-placeholder {
   color: rgba(255,255,255,.6)

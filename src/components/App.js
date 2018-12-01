@@ -25,7 +25,7 @@ class App extends Component {
       .filter(e => e.startsWith("+") || e.startsWith("@"))
       .length;
 
-    let styleSearch = (window.innerWidth > 340) ? { width: "240px", margin: "12px" } : { width: "100%", margin: 0  };
+    let styleSearch = (window.innerWidth > 340) ? { width: "240px", margin: "12px", marginTop: "74px" } : { width: "100%", margin: 0  };
     return (
 
       <div className="root">

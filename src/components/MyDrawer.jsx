@@ -203,7 +203,6 @@ class MyDrawer extends Component {
 
   render() {
     const { classes, i18n } = this.props;
-    // const { open, classes, t, i18n } = this.props;
     return (
       <I18n ns="translations">
         {
