@@ -28,6 +28,7 @@ const layerSelector = {
     GSF: /grandSiteDeFrance/,
     MN: /monumentsnationaux/,
     ParcsJardins: /parcsjardins/,
+    AiresJeux: /AiresJeux/,
     LocalProdShop: /localproductshop/,
     CraftmanShop: /craftmanshop/,
     WineCelar: /WineCelar/,
@@ -74,6 +75,9 @@ function returnImage(layerId) {
             img = <img src={Square15_6B0D0D} alt="" className='legend-key' />
             break;
         case "OTFrance":
+            img = <img src={Square15_318CE7} alt="" className='legend-key' />
+            break;
+        case "AiresJeux":
             img = <img src={Square15_318CE7} alt="" className='legend-key' />
             break;
         case "marches":

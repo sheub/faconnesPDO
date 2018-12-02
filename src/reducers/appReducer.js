@@ -38,6 +38,7 @@ const defaultAppState = {
     GSF: false,
     MN: false,
     ParcsJardins: false,
+    AiresJeux: false,
     LocalProdShop: false,
     CraftmanShop: false,
     WineCelar: false,

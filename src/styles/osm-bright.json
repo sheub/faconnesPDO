@@ -5417,6 +5417,19 @@
         "icon-size": {"stops": [[0, 0.7], [10, 1]]}
       },
       "paint": {"text-color": "#318CE7"}
+    },{
+      "id": "AiresJeux",
+      "type": "symbol",
+      "source": "localTips",
+      "source-layer": "AiresJeux",
+	  "maxzoom": 20,
+      "layout": {
+        "visibility": "none",
+        "icon-image": "square-15-318CE7",
+        "icon-allow-overlap": true,
+        "icon-size": {"stops": [[0, 0.7], [10, 1]]}
+      },
+      "paint": {"text-color": "#318CE7"}
     },
     {
       "id": "exposition",

@@ -25,6 +25,8 @@
 
         "ParcsJardins": "Parks für ein Picknick",
         "ParcsJardinsTitle": "Parks für ein Picknick",
+        "AiresJeux": "Playgrounds for children",
+        "AiresJeuxTitle": "Playgrounds for children",
         "restaurants": "Restaurants",
         "LocalProdShop": "Lokale Shops",
         "LocalProdShopTitle": "Lokale Shops",
@@ -46,8 +48,8 @@
         "VidesGreniersTitle": "Flohmärkte",
         "startfrom":"From",
         "lastuntil": "To",
-        "dateformat_": "MMM do, yyyy",
-        "dateformat": "dd/MM/yy"
+        "dateformat": "MMM do, yy",
+        "dateformat_": "dd/MM/yy"
 
         
     },

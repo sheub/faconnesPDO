@@ -128,6 +128,7 @@ class ListVue extends React.Component {
             "marches",
             "videsgreniers",
             "OTFrance",
+            "AiresJeux",
             "WineCelar"].includes(item.layer.id)) {
                 info.address = item.properties.address_locality;
             }

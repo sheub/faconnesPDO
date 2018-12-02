@@ -166,6 +166,7 @@ class MyPlaceInfo extends Component {
       "marches",
       "videsgreniers",
       "OTFrance",
+      "AiresJeux",
       "WineCelar"].includes(layerId)) {
       const lang = this.props.i18n.language;
       switch (lang) {
@@ -245,7 +246,8 @@ class MyPlaceInfo extends Component {
       "localproductshop",
       "craftmanshop",
       "WineCelar",
-      "OTFrance"].includes(layerId)) {
+      "OTFrance",
+      "AiresJeux"].includes(layerId)) {
       return (
         <div>
           <div className="mapboxgl-popupup popPupStyle" style={stylePop}>

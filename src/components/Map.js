@@ -279,7 +279,7 @@ class MapComponent extends Component {
       else if (feature.properties.label) { place_name = feature.properties.label; }
       else if (feature.properties.nom_du_musee) { place_name = feature.properties.nom_du_musee; }
 
-      if (["parcsjardins", "localproductshop", "craftmanshop", "WineCelar", "OTFrance", "marches", "exposition", "musique", "children", "videsgreniers"].includes(feature.layer.id))
+      if (["parcsjardins", "localproductshop", "craftmanshop", "WineCelar", "OTFrance", "AiresJeux", "marches", "exposition", "musique", "children", "videsgreniers"].includes(feature.layer.id))
       {
         let lng = this.props.languageSet;
         if(lng === 'fr')
@@ -358,7 +358,7 @@ class MapComponent extends Component {
       else if (feature.properties.label) { place_name = feature.properties.label; }
       else if (feature.properties.nom_du_musee) { place_name = feature.properties.nom_du_musee; }
 
-      if (["parcsjardins", "localproductshop", "craftmanshop", "WineCelar", "OTFrance", "marches", "exposition", "musique", "children", "videsgreniers"].includes(feature.layer.id))
+      if (["parcsjardins", "localproductshop", "craftmanshop", "WineCelar", "OTFrance", "AiresJeux", "marches", "exposition", "musique", "children", "videsgreniers"].includes(feature.layer.id))
       {
         let lng = this.props.languageSet;
         if(lng === 'fr')
@@ -603,6 +603,7 @@ class MapComponent extends Component {
       "craftmanshop",
       "WineCelar",
       "OTFrance",
+      "AiresJeux",
       "exposition",
       "musique",
       "children",

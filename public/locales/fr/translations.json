@@ -3,8 +3,8 @@
     "drawer": {
         "main1": "Culture & Patrimoine",
         "main1Title": "Richesses architecturales, naturelles et culturelles",
-        "main2": "Loisirs & Artisanat",
-        "main3": "Agenda",
+        "main2": "Marchés & Artisanat",
+        "main3": "Loisirs",
         "about": "À propos",
         "legalNotice": "Mentions Légales",
         "Villages": "Villages",
@@ -23,6 +23,8 @@
         "SelectCategories": "sélectionner catégories",
 
         "ParcsJardins": "Parcs & Jardins",
+        "AiresJeux": "Aires de Jeux",
+        "AiresJeuxTitle": "Aires de Jeux",
         "restaurants": "Restaurants",
         "LocalProdShop": "Commerce Local",
         "CraftmanShop": "Atelier artisanal",

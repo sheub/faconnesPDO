@@ -84,17 +84,17 @@ const styles = (theme) => ({
     cursor: "default",
   },
 
-  fontStyle: {      
+  fontStyle: {
     // fontFamily: "Caslon",
     fontVariant: "small-caps",
     paddingLeft: "24px",
     marginBottom: "6px",
-    marginTop: "8px",    
+    marginTop: "8px",
     cursor: "default",
     display: "inline-block",
   },
 
-  datePickerBackground:{
+  datePickerBackground: {
     backgroundColor: "#E5E5E5",
     marginBottom: "12px",
   },
@@ -174,7 +174,7 @@ class MyDrawer extends Component {
   handleClickListAgendaOpen = () => {
     this.setState((state) => ({ listAgendaOpen: !state.listAgendaOpen }));
   };
-  
+
 
   handleToggle(value) {
     const { checked } = this.state;
@@ -211,16 +211,16 @@ class MyDrawer extends Component {
               <div className={classes.root}>
                 <Drawer variant="persistent" anchor='left' classes={{ paper: classNames(classes.drawerPaper, !this.props.open && classes.drawerPaperClose) }} open={this.props.open}>
                   <div className={classes.toolbarIcon}>
-                    <IconButton onClick={ () => this.props.handleDrawerClose()} aria-label="Close drawer">
+                    <IconButton onClick={() => this.props.handleDrawerClose()} aria-label="Close drawer">
                       <ChevronLeftIcon />
-                    </IconButton>                    
+                    </IconButton>
                   </div>
                   <Divider />
                   <Typography variant="h6" className={classes.fontStyle}> {t("drawer.FilterByDate")}</Typography>
                   <div className={classes.datePickerBackground}>
-                  <MyDatePicker t={t} i18n={i18n} state={this.state} dateChange={this.handleDateChange.bind(this)} dateToChange={this.handleDateToChange.bind(this)} />             
+                    <MyDatePicker t={t} i18n={i18n} state={this.state} dateChange={this.handleDateChange.bind(this)} dateToChange={this.handleDateToChange.bind(this)} />
                   </div>
-                  
+
                   <Typography variant="h6" className={classes.fontStyle}> {t("drawer.SelectCategories")}</Typography>
                   <Divider />
 
@@ -275,7 +275,7 @@ class MyDrawer extends Component {
                   </ListItem>
                   <Collapse in={this.state.listAgendaOpen} timeout="auto" unmountOnExit className={classes.collapses}>
                     <List>
-                      {["ParcsJardins", "Exposition", "Musique", "Children"].map((value) => (
+                      {["ParcsJardins", "AiresJeux", "Exposition", "Musique", "Children"].map((value) => (
                         <ListItem key={value} role={undefined} dense button className={classes.listItemStyle} title={t("drawer." + value + "Title")} onClick={this.handleToggle.bind(this, value)}>
                           <Checkbox
                             checked={this.state.checked.indexOf(value) !== -1}
