@@ -86,9 +86,9 @@ function RenderDateTime(props) {
     else {
       return (
         <div className="datePopup">
-          {t("myplaceinfo.from")}: {eventStart.toLocaleDateString(lng, options)}
+          {t("myplaceinfo.from")} {eventStart.toLocaleDateString(lng, options)}
           <br />
-          {t("myplaceinfo.to")}: {eventEnd.toLocaleDateString(lng, options)}
+          {t("myplaceinfo.to")} {eventEnd.toLocaleDateString(lng, options)}
         </div>
       );
     }
