@@ -1,4 +1,5 @@
 module.exports = {
+	navigateFallbackWhitelist: [/^(?!.*\/analytics\/).*$/],
 	runtimeCaching: [
 		{
 			urlPattern: /^https:\/\/maps\.tilehosting\.com\/.*/,
@@ -6,8 +7,8 @@ module.exports = {
 			options: {
 				cache: {
 					name: 'mapTiles',
-					// Only cache requests for a week
-					maxAgeSeconds: 7 * 24 * 60 * 60,
+					// Only cache requests for a month
+					maxAgeSeconds: 7 * 24 * 60 * 60 * 4,
 				},
 			},
 		},
