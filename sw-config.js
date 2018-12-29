@@ -1,5 +1,5 @@
 module.exports = {
-	navigateFallbackWhitelist: [/^(?!.*\/analytics\/).*$/],
+	navigateFallbackWhitelist: [/^(?!.*analytics)/],
 	runtimeCaching: [
 		{
 			urlPattern: /^https:\/\/maps\.tilehosting\.com\/.*/,
@@ -28,4 +28,14 @@ module.exports = {
 			handler: 'cacheFirst',
 		}
 	],
+	staticFileGlobs:
+   [ './build/**/**.html',
+     './build/static/js/*.js',
+     './build/static/css/*.css',
+     './build/static/media/**',
+	 './build/locales/en/*.json',
+	 './build/locales/fr/*.json',
+	 './build/ico/*.png',
+	 ],
+  stripPrefix: './build'
 };
