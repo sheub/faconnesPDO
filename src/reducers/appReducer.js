@@ -20,6 +20,7 @@ const defaultAppState = {
   placeInfo: null,
   // User
   userLocation: null,
+  userFavoritePlaces:[],
   // Directions
   directionsFromString: '',
   directionsFrom: null,
@@ -57,7 +58,7 @@ const defaultAppState = {
   popupActive: false,
   infoPopup: null,
   listVueActive: false,
-  coorOnClick: []
+  coorOnClick: [],  
 };
 
 const appReducer = (state = defaultAppState, action) => {

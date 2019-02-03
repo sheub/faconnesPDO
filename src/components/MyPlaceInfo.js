@@ -5,6 +5,7 @@ import { translate } from "react-i18next";
 import SvgIcon from "@material-ui/core/SvgIcon";
 import IconButton from '@material-ui/core/IconButton';
 import {returnImage} from "../utils/displayUtils";
+import AddToMyPlaces from "./AddToMyPlaces";
 
 
 import "./PopupInfo.css";
@@ -270,6 +271,7 @@ class MyPlaceInfo extends Component {
               </div>
             </div>
           </div>
+          <AddToMyPlaces info ={this.state.infoPopup}/>
         </div>
       );
     }
@@ -301,6 +303,7 @@ class MyPlaceInfo extends Component {
                 <RenderAddress info={info} />
               </div>
             </div>
+              <AddToMyPlaces info ={this.state.infoPopup}/>
           </div>
         </div>
       );
@@ -329,6 +332,7 @@ class MyPlaceInfo extends Component {
                 </div>
               </div>
             </div>
+            <AddToMyPlaces/>
           </div>
         </div>
       );
