@@ -4,6 +4,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { translate } from "react-i18next";
 import AddLocationIcon from "@material-ui/icons/AddLocation";
+import Tooltip from '@material-ui/core/Tooltip';
+
 
 
 class AddToMyPlaces extends Component {
@@ -18,15 +20,18 @@ class AddToMyPlaces extends Component {
     }
 
     handleClickAddLocation = () => {
-        this.state.userFavoritePlaces.push(this.props.info);
+        var infoPlace = {properties: this.props.info.properties, geometry: this.props.info.geometry, paintColor: this.props.info.paintColor, layerId: this.props.info.layerId};
+        this.state.userFavoritePlaces.push(infoPlace);
     }
 
     render() {
         if (typeof (this.props.info) === "undefined" || this.props.info === null) { return null; }
 
         return (
-            <div style={{Ccursor:"pointer"}}>
-                <AddLocationIcon onClick={this.handleClickAddLocation.bind(this)}/>
+            <div>
+                <Tooltip title="Add this location to my favorites" aria-label="Add this location to my favorites">
+                    <AddLocationIcon style={{cursor:"pointer"}} color="secondary" onClick={this.handleClickAddLocation.bind(this)}/>
+                </Tooltip>
             </div>
         );
     }

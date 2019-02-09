@@ -39,7 +39,7 @@ function doTheRest(initialState, localStorage)
   // Store subscription that will keep the persisted state in local storage in sync with the state.
   store.subscribe(() => {
     const state = store.getState();
-    const keys = ["app.userLocation", "app.mapCoords", "app.visibility"];
+    const keys = ["app.userLocation", "app.mapCoords", "app.visibility", "app.userFavoritePlaces"];
     const persistedState = {};
     import("lodash")
       .then((_) => {

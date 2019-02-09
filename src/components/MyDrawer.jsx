@@ -27,6 +27,7 @@ import Footer from "./Footer.js"
 
 import "./App.css";
 // import "./PopupInfo.css";
+const ProfilePage = React.lazy(() => import("./ProfilePage.js"));
 
 
 const drawerWidth = 270;
@@ -119,11 +120,26 @@ class MyDrawer extends Component {
       listAgendaOpen: false,
       checked: filtered,
       dateFrom: new Date(), //Today
-      dateTo: new Date() // Today plus one day
-
+      dateTo: new Date(), // Today plus one day
+      showProfilePage: false,
     };
+
+    this._onClickProfilePage = this._onClickProfilePage.bind(this);
   }
 
+  _onClickProfilePage() {
+    if (!this.state.showProfilePage) {
+      this.setState({ showProfilePage: true });
+    }
+    else {
+      this.setState({ showProfilePage: false });
+    }
+  }
+  handleClose = () => {
+    this.setState({
+      showProfilePage: false,
+    });
+  }
 
   handleDateChange = (date) => {
 
@@ -209,6 +225,7 @@ class MyDrawer extends Component {
           (t) => (
             <React.Fragment>
               <div className={classes.root}>
+              
                 <Drawer variant="persistent" anchor='left' classes={{ paper: classNames(classes.drawerPaper, !this.props.open && classes.drawerPaperClose) }} open={this.props.open}>
                   <div className={classes.toolbarIcon}>
                     <IconButton onClick={() => this.props.handleDrawerClose()} aria-label="Close drawer">
@@ -291,6 +308,17 @@ class MyDrawer extends Component {
                     </List>
                   </Collapse>
                   <Divider />
+
+                  <div>
+                  <Typography onClick={() => this._onClickProfilePage()}> My Profile</Typography>
+                </div>
+                {this.state.showProfilePage ?
+                  <React.Suspense fallback={<div> </div>}>
+                    <ProfilePage handleClose={this.handleClose} />
+                  </React.Suspense>
+                  : null
+                }
+
                   <Footer />
                 </Drawer>
               </div>

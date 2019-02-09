@@ -237,6 +237,7 @@ class MyPlaceInfo extends Component {
                 <a target="_new" href={info.link} rel="noopener">&rarr; Wikipedia</a>
               </div>
             </div>
+            <AddToMyPlaces info ={this.state.infoPopup}/>
           </div>
         </div>
       );
