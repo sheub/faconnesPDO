@@ -71,6 +71,7 @@ function RenderDateTime(props) {
   if (info.properties.valid_from) {
     let eventStart = new Date(info.properties.valid_from);
     let eventEnd = new Date(info.properties.valid_through);
+
     let options = {
       weekday: "long",
       year: "numeric",
@@ -82,6 +83,7 @@ function RenderDateTime(props) {
       return (
         <div className="datePopup">
           {t("myplaceinfo.le")} {eventStart.toLocaleDateString(lng, options)}
+          {info.properties.start_time > 0 ? <p>À Partir de: {info.properties.start_time}, jusqu'a {info.properties.end_time}</p> : null } 
         </div>
       );
     else {
@@ -90,6 +92,7 @@ function RenderDateTime(props) {
           {t("myplaceinfo.from")} {eventStart.toLocaleDateString(lng, options)}
           <br />
           {t("myplaceinfo.to")} {eventEnd.toLocaleDateString(lng, options)}
+          {info.properties.start_time > 0 ? <p>À Partir de: {info.properties.start_time}, jusqu'a {info.properties.end_time}</p> : null } 
         </div>
       );
     }

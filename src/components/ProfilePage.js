@@ -17,6 +17,7 @@ import { withStyles } from "@material-ui/core/styles";
 import { I18n } from "react-i18next";
 import { connect } from "react-redux";
 import { translate } from "react-i18next";
+import isEqual from 'lodash/isEqual';
 
 
 import "./Impressum.css";
@@ -141,11 +142,12 @@ class ProfilePage extends Component {
     return null;
   }
 
-  handleClickAddLocation = () => {
-    var infoPlace = {properties: this.props.info.properties, geometry: this.props.info.geometry, paintColor: this.props.info.paintColor, layerId: this.props.info.layerId};
-    if (!(this.state.userFavoritePlaces.some(e => isEqual(e, infoPlace)))) {
-        this.state.userFavoritePlaces.push(infoPlace);
-      }
+  handleClickRemoveLocation = (infoPlace) => {
+    // var infoPlace = {properties: this.props.info.properties, geometry: this.props.info.geometry, paintColor: this.props.info.paintColor, layerId: this.props.info.layerId};
+    this.state.userFavoritePlaces.splice(this.state.userFavoritePlaces.findIndex(e => isEqual(e, infoPlace)), 1);
+    // if (!(this.state.userFavoritePlaces.some(e => isEqual(e, infoPlace)))) {
+    //     this.state.userFavoritePlaces.(infoPlace);
+    //   }
 }
 
   renderPlace(place, props, classes){
@@ -174,7 +176,7 @@ class ProfilePage extends Component {
 
     return(
 
-    <Grid item key={place} sm={6} md={4} lg={3}>
+    <Grid item key={info.label} sm={6} md={4} lg={3}>
     <Card className={classes.card}>
       <CardMedia
         className={classes.cardMedia}
@@ -188,19 +190,19 @@ class ProfilePage extends Component {
         <Typography>
         {info.abstract}
         </Typography>
-        <Typography>
+        <div>
         {this.RenderDateTime(t, lang, place.properties, classes)}
-        </Typography>
-        <Typography>
+        </div>
+        <div>
         {this.RenderAddress(place.properties, classes)}
-        </Typography>
+        </div>
       </CardContent>
       <CardActions>
         <Button size="small" color="primary">
           View
         </Button>
-        <Button size="small" color="primary">
-          Edit
+        <Button size="small" color="primary" onClick={() => this.handleClickRemoveLocation(place)}>
+          Delete
         </Button>
       </CardActions>
     </Card>
