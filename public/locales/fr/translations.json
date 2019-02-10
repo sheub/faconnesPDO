@@ -48,7 +48,8 @@
         "More": "More",
         "from": "Du",
         "to": "au",
-        "le": "Le"
+        "le": "Le",
+        "AddPlaceToFavorite":"Add this location to my favorites"
     },
     "maplayerids": {
         "museesFrance": "Musées",

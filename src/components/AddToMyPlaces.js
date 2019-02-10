@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { translate } from "react-i18next";
 import AddLocationIcon from "@material-ui/icons/AddLocation";
 import Tooltip from '@material-ui/core/Tooltip';
+import isEqual from 'lodash/isEqual';
 
 
 
@@ -21,7 +22,9 @@ class AddToMyPlaces extends Component {
 
     handleClickAddLocation = () => {
         var infoPlace = {properties: this.props.info.properties, geometry: this.props.info.geometry, paintColor: this.props.info.paintColor, layerId: this.props.info.layerId};
-        this.state.userFavoritePlaces.push(infoPlace);
+        if (!(this.state.userFavoritePlaces.some(e => isEqual(e, infoPlace)))) {
+            this.state.userFavoritePlaces.push(infoPlace);
+          }
     }
 
     render() {

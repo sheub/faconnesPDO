@@ -15,6 +15,8 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 
 import { I18n, Trans } from 'react-i18next';
+import { connect } from "react-redux";
+import { translate } from "react-i18next";
 
 
 import "./Impressum.css";
@@ -69,24 +71,32 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
 class ProfilePage extends Component {
 
-    handleClose() {
-        this.props.handleClose();
-    }
+  constructor(props) {
+    super(props);
 
-getProfilePage(t, props) {
-  const { classes } = props;
+    this.state = {
+      userFavoritePlaces: this.props.userFavoritePlaces,
+    };
+  }
 
-  return (
-    // <React.Fragment>
-    //   <CssBaseline />
+  handleClose() {
+    this.props.handleClose();
+  }
 
-    <div className="impressumContainer">
+  getProfilePage(t, props) {
+    const { classes } = props;
+
+    return (
+      // <React.Fragment>
+      //   <CssBaseline />
+
+      <div className="impressumContainer">
         {/* Hero unit */}
         <div className="btn-close-impressum" aria-label="Close">
-                    <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.handleClose()}>
-                        <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
-                    </IconButton>
-                </div>
+          <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.handleClose()}>
+            <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
+          </IconButton>
+        </div>
         <div className={classes.heroUnit}>
           <div className={classes.heroContent}>
             <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
@@ -147,21 +157,30 @@ getProfilePage(t, props) {
         </div>
       </div>
 
-  );
-}
-render() {
+    );
+  }
+  render() {
 
     return <I18n ns="about">
-        {
-            (t) => (
-                ReactDOM.createPortal(this.getProfilePage(t, this.props), document.getElementById('map')))
-        }
+      {
+        (t) => (
+          ReactDOM.createPortal(this.getProfilePage(t, this.props), document.getElementById('map')))
+      }
     </I18n>
-}
+  }
 }
 
 ProfilePage.propTypes = {
   classes: PropTypes.object.isRequired,
+  userFavoritePlaces: PropTypes.array,
+  languageSet: PropTypes.string,
 };
 
-export default withStyles(styles)(ProfilePage);
+
+const mapStateToProps = (state) => {
+  return {
+    userFavoritePlaces: state.app.userFavoritePlaces,
+  }
+}
+
+export default connect(mapStateToProps)(translate("translations")(withStyles(styles)(ProfilePage)));

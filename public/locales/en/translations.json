@@ -61,7 +61,8 @@
         "More": "More",
         "from": "From",
         "to": "To",
-        "le": ""
+        "le": "",
+        "AddPlaceToFavorite":"Add this location to my favorites"
     },
     "maplayerids": {
         "museesFrance": "Museums",
