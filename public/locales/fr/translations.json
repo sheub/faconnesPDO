@@ -49,6 +49,9 @@
         "from": "Du",
         "to": "au",
         "le": "Le",
+        "startTime": "À partir de",
+        "endTime": "jusqu'à",
+        "price":"Participation aux frais",
         "AddPlaceToFavorite":"Add this location to my favorites"
     },
     "maplayerids": {

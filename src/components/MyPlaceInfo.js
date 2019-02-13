@@ -58,9 +58,10 @@ function RenderAddress(props) {
 
   return (
     <div className="addressPopup">
-      {street_address}<br />
-      {postal_code}{" "}{address_locality}
-    </div>
+        {street_address}<br />
+        {postal_code}{" "}{address_locality}
+     </div>
+    
   );
 }
 
@@ -83,7 +84,7 @@ function RenderDateTime(props) {
       return (
         <div className="datePopup">
           {t("myplaceinfo.le")} {eventStart.toLocaleDateString(lng, options)}
-          {info.properties.start_time > 0 ? <p>À Partir de: {info.properties.start_time}, jusqu'a {info.properties.end_time}</p> : null } 
+          {info.properties.start_time !== 0 ? <p>{t("myplaceinfo.startTime")} {info.properties.start_time},<br /> {t("myplaceinfo.endTime")} {info.properties.end_time}</p> : null } 
         </div>
       );
     else {
@@ -92,7 +93,7 @@ function RenderDateTime(props) {
           {t("myplaceinfo.from")} {eventStart.toLocaleDateString(lng, options)}
           <br />
           {t("myplaceinfo.to")} {eventEnd.toLocaleDateString(lng, options)}
-          {info.properties.start_time > 0 ? <p>À Partir de: {info.properties.start_time}, jusqu'a {info.properties.end_time}</p> : null } 
+          {info.properties.start_time !== 0 ? <p>{t("myplaceinfo.startTime")} {info.properties.start_time} <br /> {t("myplaceinfo.endTime")} {info.properties.end_time}</p> : null } 
         </div>
       );
     }
@@ -272,6 +273,8 @@ class MyPlaceInfo extends Component {
                 </div>
                 <RenderUrl props={this.props} />
                 <RenderAddress info={info} />
+                {info.price !== 0 ? <p>{t("myplaceinfo.price")}{": "}{info.price} €</p> : null } 
+                {/* {t("myplaceinfo.price")}{": "}{info.price} € */}
               </div>
             </div>
           </div>
@@ -305,6 +308,7 @@ class MyPlaceInfo extends Component {
                 <RenderDateTime props={this.props} />
                 <RenderUrl props={this.props} />
                 <RenderAddress info={info} />
+                {info.price !== 0 ? <p>{t("myplaceinfo.price")}{": "}{info.price} €</p> : null } 
               </div>
             </div>
               <AddToMyPlaces info ={this.state.infoPopup}/>
@@ -333,6 +337,7 @@ class MyPlaceInfo extends Component {
                   {info.periode_ouverture}
                   <RenderUrl props={this.props} />
                   <RenderAddress info={info} />
+                  {info.price !== 0 ? <p>{t("myplaceinfo.price")}{": "}{info.price} €</p> : null } 
                 </div>
               </div>
             </div>
