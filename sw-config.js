@@ -14,7 +14,7 @@ module.exports = {
 		},
 		{
 			urlPattern: /^https:\/\/faconnes\.de\/tiles\/*/,
-			handler: 'cacheFirst',
+			handler: 'fastest',
 			options: {
 				cache: {
 					name: 'mapEvents',
