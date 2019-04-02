@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { I18n } from 'react-i18next';
+import { I18n } from "react-i18next";
 import {Typography, withStyles } from "@material-ui/core/";
 
 const About = React.lazy(() => import("./About.js"));
@@ -7,74 +7,74 @@ const Impressum = React.lazy(() => import("./Impressum.js"));
 
 
 const styles = () => ({
-  footerStyle: {
-    textAlign: "center",
-    color: "white",
-    position: "absolute",
-    bottom: 0,
-    display: "block",
-    width: "100%",
-    height: "100px",
-    paddingLeft: "30px",
-    paddingRight: "30px",
-    paddingTop: "30px",
-    boxSizing: "border-box"
-  },
+    footerStyle: {
+        textAlign: "center",
+        color: "white",
+        position: "absolute",
+        bottom: 0,
+        display: "block",
+        width: "100%",
+        height: "100px",
+        paddingLeft: "30px",
+        paddingRight: "30px",
+        paddingTop: "30px",
+        boxSizing: "border-box"
+    },
 
-  fontStyle: {
-    color: "#808080",
-    fontSize: "12px",
-    paddingLeft: "4px",
-    marginBottom: "9px",
-    cursor: "pointer",
-    display: "inline-block",
-  }
-})
+    fontStyle: {
+        color: "#808080",
+        fontSize: "12px",
+        paddingLeft: "4px",
+        marginBottom: "9px",
+        cursor: "pointer",
+        display: "inline-block",
+    }
+});
 
 class Footer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showImpressum: false,
-      showAbout: false,
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            showImpressum: false,
+            showAbout: false,
+        };
 
-    this._onClick = this._onClick.bind(this);
-    this._onClickAbout = this._onClickAbout.bind(this);
-    this.handleClose = this.handleClose.bind(this);
-  }
-
-  _onClick() {
-    if (!this.state.showImpressum) {
-      this.setState({ showImpressum: true });
-      this.setState({ showAbout: false });
+        this._onClick = this._onClick.bind(this);
+        this._onClickAbout = this._onClickAbout.bind(this);
+        this.handleClose = this.handleClose.bind(this);
     }
-    else {
-      this.setState({ showImpressum: false });
+
+    _onClick() {
+        if (!this.state.showImpressum) {
+            this.setState({ showImpressum: true });
+            this.setState({ showAbout: false });
+        }
+        else {
+            this.setState({ showImpressum: false });
+        }
     }
-  }
 
-  _onClickAbout() {
-    if (!this.state.showAbout) {
-      this.setState({ showAbout: true });
-      this.setState({ showImpressum: false });
+    _onClickAbout() {
+        if (!this.state.showAbout) {
+            this.setState({ showAbout: true });
+            this.setState({ showImpressum: false });
+        }
+        else {
+            this.setState({ showAbout: false });
+        }
     }
-    else {
-      this.setState({ showAbout: false });
+
+    handleClose = () => {
+        this.setState({
+            showImpressum: false,
+            showAbout: false,
+        });
     }
-  }
 
-  handleClose = () => {
-    this.setState({
-      showImpressum: false,
-      showAbout: false,
-    });
-  }
+    render() {
+        const { classes } = this.props;
 
-  render() {
-    const { classes } = this.props;
-
-    return (
+        return (
       <I18n ns="translations">
         {
           (t) => (
@@ -104,8 +104,8 @@ class Footer extends Component {
           )
         }
       </I18n>
-    );
-  }
+        );
+    }
 }
 
 export default withStyles(styles)(Footer);

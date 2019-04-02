@@ -1,11 +1,11 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import {RoutePanel} from './RoutePanel';
-import {bikeRoute, walkingRoute} from './fixtures/RoutePanel.fixtures.js';
+import React from "react";
+import renderer from "react-test-renderer";
+import {RoutePanel} from "./RoutePanel";
+import {bikeRoute, walkingRoute} from "./fixtures/RoutePanel.fixtures.js";
 
-it('bike route renders correctly', () => {
+it("bike route renders correctly", () => {
 
-  const component = renderer.create(
+    const component = renderer.create(
     <RoutePanel
       mapboxAccessToken='test'
       modality='bike'
@@ -14,13 +14,13 @@ it('bike route renders correctly', () => {
     />
   );
 
-  let tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
+    let tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
 });
 
-it('walking route renders correctly', () => {
+it("walking route renders correctly", () => {
 
-  const component = renderer.create(
+    const component = renderer.create(
     <RoutePanel
       mapboxAccessToken='test'
       modality='walk'
@@ -29,13 +29,13 @@ it('walking route renders correctly', () => {
     />
   );
 
-  let tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
+    let tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
 });
 
-it('pending route renders correctly', () => {
+it("pending route renders correctly", () => {
 
-  const component = renderer.create(
+    const component = renderer.create(
     <RoutePanel
       mapboxAccessToken='test'
       modality='walk'
@@ -44,13 +44,13 @@ it('pending route renders correctly', () => {
     />
   );
 
-  let tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
+    let tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
 });
 
-it('error route renders correctly', () => {
+it("error route renders correctly", () => {
 
-  const component = renderer.create(
+    const component = renderer.create(
     <RoutePanel
       mapboxAccessToken='test'
       modality='walk'
@@ -59,6 +59,6 @@ it('error route renders correctly', () => {
     />
   );
 
-  let tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
+    let tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
 });

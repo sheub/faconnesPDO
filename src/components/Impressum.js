@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import ReactDOM from 'react-dom';
-import IconButton from '@material-ui/core/IconButton';
+import ReactDOM from "react-dom";
+import IconButton from "@material-ui/core/IconButton";
 import { Email, ContactMail, ContactPhone } from "@material-ui/icons";
 
-import { I18n } from 'react-i18next';
+import { I18n } from "react-i18next";
 import "./Impressum.css";
 
 class Impressum extends Component {
@@ -88,17 +88,17 @@ class Impressum extends Component {
                 </ul>
                 <br />
             </div>
-        </div>
+        </div>;
     }
     render() {
 
         return <I18n ns="legal">
             {
                 (t) => (
-                    ReactDOM.createPortal(this.getImpressumComponent(t), document.getElementById('map'))
+                    ReactDOM.createPortal(this.getImpressumComponent(t), document.getElementById("map"))
                 )
             }
-        </I18n>
+        </I18n>;
     }
 }
 export default Impressum;

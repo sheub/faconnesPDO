@@ -16,7 +16,7 @@ class Legend extends Component {
                     {t("maplayerids." + item.idLayer)}
                 </span>
             </div>
-        )
+        );
     }
 
 
@@ -30,7 +30,7 @@ class Legend extends Component {
                             return this.LegendItem(member);
                         })
                     }
-                </div>)
+                </div>);
         }
         return null;
     }

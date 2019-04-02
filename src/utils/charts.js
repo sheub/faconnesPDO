@@ -1,5 +1,5 @@
-import React, {Component}  from 'react';
-import { AreaChart, Area, YAxis } from 'recharts';
+import React, {Component}  from "react";
+import { AreaChart, Area, YAxis } from "recharts";
 
 
 class ChartsArea extends Component {
@@ -18,7 +18,7 @@ class ChartsArea extends Component {
                     <Area type="monotone" dataKey="e" stroke="#2abaf7" fill='#2abaf7' fillOpacity={0.5} strokeWidth={2} dot={null} />
                 </AreaChart>
             </div>
-        )
+        );
     }
 }
 

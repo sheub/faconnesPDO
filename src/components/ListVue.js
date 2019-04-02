@@ -5,13 +5,13 @@ import { connect } from "react-redux";
 import { triggerMapUpdate, setStateValue } from "../actions/index";
 import turfDistance from "@turf/distance";
 
-import { withStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import IconButton from '@material-ui/core/IconButton';
+import { withStyles } from "@material-ui/core/styles";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListSubheader from "@material-ui/core/ListSubheader";
+import IconButton from "@material-ui/core/IconButton";
 import {returnImage} from "../utils/displayUtils";
 
 
@@ -28,11 +28,11 @@ const styles = theme => ({
     },
 
     listRoot: {
-        width: '100%',
+        width: "100%",
         backgroundColor: "white",
-        position: 'relative',
-        overflowY: 'auto',
-        overflowX: 'hidden',
+        position: "relative",
+        overflowY: "auto",
+        overflowX: "hidden",
         flex: 1,        
     },
 
@@ -92,14 +92,14 @@ class ListVue extends React.Component {
 
         // Update the searchLocation so that the marker is jumping from position to position
         this.props.setStateValue("searchLocation", {
-            'type': 'Feature',
-            'place_name': infoItem.place_name,
-            'properties': infoItem.properties,
-            'geometry': infoItem.geometry,
-            'layerId': infoItem.layerId,
-            "paintColor": infoItem.paintColor,
-            "popupActive": true,
-            "listVueActive": true
+            type: "Feature",
+            place_name: infoItem.place_name,
+            properties: infoItem.properties,
+            geometry: infoItem.geometry,
+            layerId: infoItem.layerId,
+            paintColor: infoItem.paintColor,
+            popupActive: true,
+            listVueActive: true
         });
         this.props.triggerMapUpdate();
 
@@ -130,30 +130,30 @@ class ListVue extends React.Component {
             "OTFrance",
             "AiresJeux",
             "WineCelar"].includes(item.layer.id)) {
-                info.address = item.properties.address_locality;
-            }
+            info.address = item.properties.address_locality;
+        }
 
         switch (lang) {
-            case "fr":
-                if (typeof (item.properties.label_fr) !== 'undefined')
-                    info.label = item.properties.label_fr;
-                else
+        case "fr":
+            if (typeof (item.properties.label_fr) !== "undefined")
+                info.label = item.properties.label_fr;
+            else
                     info.label = item.properties.label_en;
-                break;
+            break;
         
-            case "en":
-                if (typeof (item.properties.label_en) !== 'undefined')
-                    info.label = item.properties.label_en;
-                else
+        case "en":
+            if (typeof (item.properties.label_en) !== "undefined")
+                info.label = item.properties.label_en;
+            else
                     info.label = item.properties.label_fr;
-                break;
+            break;
 
-            default:
-                if (typeof (item.properties.label_en) !== 'undefined')
-                    info.label = item.properties.label_en;
-                else
+        default:
+            if (typeof (item.properties.label_en) !== "undefined")
+                info.label = item.properties.label_en;
+            else
                     info.label = item.properties.label_fr;
-                break;
+            break;
         }
 
         // else {
@@ -175,7 +175,7 @@ class ListVue extends React.Component {
                 </ListItemIcon>
                 <ListItemText className={classes.blockWithText} primary={info.label} secondary={info.address} />
             </ListItem>
-        )
+        );
     };
 
 
@@ -215,7 +215,7 @@ class ListVue extends React.Component {
                         </div>
                     </List>
                 </div>
-            )
+            );
         }
         return null;
     }

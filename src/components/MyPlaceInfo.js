@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { translate } from "react-i18next";
 import SvgIcon from "@material-ui/core/SvgIcon";
-import IconButton from '@material-ui/core/IconButton';
+import IconButton from "@material-ui/core/IconButton";
 import {returnImage} from "../utils/displayUtils";
 import AddToMyPlaces from "./AddToMyPlaces";
 
@@ -12,209 +12,209 @@ import "./PopupInfo.css";
 
 
 function HomeIcon(props) {
-  return (
+    return (
     <SvgIcon {...props}>
       <circle cx="10" cy="10" r="9" />
     </SvgIcon>
-  );
+    );
 }
 
 function RenderUrl(props) {
-  const { t, info } = props.props;
+    const { t, info } = props.props;
 
-  var link = null;
+    var link = null;
   // layer museesFrance
-  if (info.properties.sitweb) {
+    if (info.properties.sitweb) {
     // <a target="_blank" href={props.url} className="urlPopup" rel="noopener">{props.url}</a><br />
-    if (!info.properties.sitweb.includes(" ")) { link = info.properties.sitweb.includes("http://") ? info.properties.sitweb : "http://" + info.properties.sitweb; }
-  }
+        if (!info.properties.sitweb.includes(" ")) { link = info.properties.sitweb.includes("http://") ? info.properties.sitweb : "http://" + info.properties.sitweb; }
+    }
   // other layers
-  else {
-    link = info.properties.url;
-  }
+    else {
+        link = info.properties.url;
+    }
 
-  if (link) {
-    return (
+    if (link) {
+        return (
       <div className="urlPopup">
         <a target="_blank" href={link} className="urlPopup" rel="noopener noreferrer">{t("myplaceinfo.urlDisplay")}</a><br />
       </div>);
-  }
-  return null;
+    }
+    return null;
 }
 
 function RenderAddress(props) {
 
-  let street_address, postal_code, address_locality = null;
-  if (props.info.street_address || props.info.postal_code) {
-    street_address = props.info.street_address;
-    postal_code = props.info.postal_code;
-    address_locality = props.info.address_locality;
-  }
-  else if (props.info.adr || props.info.cp) {
-    street_address = props.info.adr;
-    postal_code = props.info.cp;
-    address_locality = props.info.ville;
-  }
+    let street_address, postal_code, address_locality = null;
+    if (props.info.street_address || props.info.postal_code) {
+        street_address = props.info.street_address;
+        postal_code = props.info.postal_code;
+        address_locality = props.info.address_locality;
+    }
+    else if (props.info.adr || props.info.cp) {
+        street_address = props.info.adr;
+        postal_code = props.info.cp;
+        address_locality = props.info.ville;
+    }
 
-  return (
+    return (
     <div className="addressPopup">
         {street_address}<br />
         {postal_code}{" "}{address_locality}
      </div>
     
-  );
+    );
 }
 
 function RenderDateTime(props) {
-  const { t, info } = props.props;
-  const lng = props.props.i18n.language;
+    const { t, info } = props.props;
+    const lng = props.props.i18n.language;
 
-  if (info.properties.valid_from) {
-    let eventStart = new Date(info.properties.valid_from);
-    let eventEnd = new Date(info.properties.valid_through);
+    if (info.properties.valid_from) {
+        let eventStart = new Date(info.properties.valid_from);
+        let eventEnd = new Date(info.properties.valid_through);
 
-    let options = {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric"
-    };
+        let options = {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+        };
 
-    if (eventStart.getDate() === eventEnd.getDate())
-      return (
+        if (eventStart.getDate() === eventEnd.getDate())
+            return (
         <div className="datePopup">
           {t("myplaceinfo.le")} {eventStart.toLocaleDateString(lng, options)}
           {info.properties.start_time !== 0 ? <p>{t("myplaceinfo.startTime")} {info.properties.start_time},<br /> {t("myplaceinfo.endTime")} {info.properties.end_time}</p> : null } 
         </div>
-      );
-    else {
-      return (
+            );
+        else {
+            return (
         <div className="datePopup">
           {t("myplaceinfo.from")} {eventStart.toLocaleDateString(lng, options)}
           <br />
           {t("myplaceinfo.to")} {eventEnd.toLocaleDateString(lng, options)}
           {info.properties.start_time !== 0 ? <p>{t("myplaceinfo.startTime")} {info.properties.start_time} <br /> {t("myplaceinfo.endTime")} {info.properties.end_time}</p> : null } 
         </div>
-      );
+            );
+        }
     }
-  }
-  return null;
+    return null;
 }
 
 class MyPlaceInfo extends Component {
 
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    this.state = {
-      popupActive: this.props.isActive,
-      infoPopup: this.props.info,
-    };
-  }
+        this.state = {
+            popupActive: this.props.isActive,
+            infoPopup: this.props.info,
+        };
+    }
 
 
-  hidePopup() {
-    this.setState({ popupActive: false });
-  }
+    hidePopup() {
+        this.setState({ popupActive: false });
+    }
 
-  displayPopup() {
-    this.setState({ popupActive: true });
-  }
+    displayPopup() {
+        this.setState({ popupActive: true });
+    }
 
-  componentWillReceiveProps(props) {
-    this.setState({ infoPopup: props.infoPopup })
-    this.setState({ popupActive: props.isActive })
-  }
+    componentWillReceiveProps(props) {
+        this.setState({ infoPopup: props.infoPopup });
+        this.setState({ popupActive: props.isActive });
+    }
 
-  render() {
+    render() {
 
-    const { t } = this.props;
+        const { t } = this.props;
 
-    if(typeof(this.state.infoPopup) === "undefined" || this.state.infoPopup === null)
+        if(typeof(this.state.infoPopup) === "undefined" || this.state.infoPopup === null)
     {return null;}
 
-    let popupActive = this.state.popupActive;
-    const layerId = this.state.infoPopup.layerId;
-    const paintColor = this.state.infoPopup.paintColor;
-    let listVueActive = this.state.infoPopup.listVueActive;
+        let popupActive = this.state.popupActive;
+        const layerId = this.state.infoPopup.layerId;
+        const paintColor = this.state.infoPopup.paintColor;
+        let listVueActive = this.state.infoPopup.listVueActive;
 
     // move the popup on the left if the list is display
-    let stylePop = listVueActive ? { right: "248px", zIndex: 0 } : { left: 0, zIndex: 0 };
+        let stylePop = listVueActive ? { right: "248px", zIndex: 0 } : { left: 0, zIndex: 0 };
 
-    if (listVueActive && (window.innerWidth < 576)) {
+        if (listVueActive && (window.innerWidth < 576)) {
       // let topPos = document.documentElement.clientHeight * 0.36 + 21;
-      let topPos = 42 + 6 + window.innerHeight * 0.33;
-      let heightWin = window.innerHeight - topPos - 42 - 48;
-      stylePop = { maxHeight: heightWin, left: 0, top: topPos, zIndex: 2 }
-    }
+            let topPos = 42 + 6 + window.innerHeight * 0.33;
+            let heightWin = window.innerHeight - topPos - 42 - 48;
+            stylePop = { maxHeight: heightWin, left: 0, top: topPos, zIndex: 2 };
+        }
 
     // use zIndex: -1 to hide the infowindow behind the map intead of norender
     // otherwize the infowindow invisible but is still there and catch all mouse action
-    if (!popupActive) {
-      stylePop = { zIndex: -1 };
-    }
+        if (!popupActive) {
+            stylePop = { zIndex: -1 };
+        }
 
-    let info = this.state.infoPopup.properties;
+        let info = this.state.infoPopup.properties;
 
-    if ([
-      "plusBeauxVillagesDeFrance",
-      "patrimoinemondialenfrance",
-      "jardinremarquable",
-      "grandSiteDeFrance",
-      "monumentsnationaux",
-      "parcsjardins",
-      "localproductshop",
-      "craftmanshop",
-      "exposition",
-      "musique",
-      "children",
-      "marches",
-      "videsgreniers",
-      "OTFrance",
-      "AiresJeux",
-      "WineCelar"].includes(layerId)) {
-      const lang = this.props.i18n.language;
-      switch (lang) {
-        case "fr":
-          info.abstract = info.abstract_fr ? info.abstract_fr : info.abstract_en;
-          info.label = info.label_fr ? info.label_fr : info.label_en;
-          break;
-        case "en":
-          info.abstract = info.abstract_en ? info.abstract_en : info.abstract_fr;
-          info.label = info.label_en ? info.label_en : info.label_fr;
-          break;
-        default:
-          info.abstract = info.abstract_en ? info.abstract_en : info.abstract_fr;
-          info.label = info.label_en ? info.label_en : info.label_fr;
-      }
-    }
+        if ([
+            "plusBeauxVillagesDeFrance",
+            "patrimoinemondialenfrance",
+            "jardinremarquable",
+            "grandSiteDeFrance",
+            "monumentsnationaux",
+            "parcsjardins",
+            "localproductshop",
+            "craftmanshop",
+            "exposition",
+            "musique",
+            "children",
+            "marches",
+            "videsgreniers",
+            "OTFrance",
+            "AiresJeux",
+            "WineCelar"].includes(layerId)) {
+            const lang = this.props.i18n.language;
+            switch (lang) {
+            case "fr":
+                info.abstract = info.abstract_fr ? info.abstract_fr : info.abstract_en;
+                info.label = info.label_fr ? info.label_fr : info.label_en;
+                break;
+            case "en":
+                info.abstract = info.abstract_en ? info.abstract_en : info.abstract_fr;
+                info.label = info.label_en ? info.label_en : info.label_fr;
+                break;
+            default:
+                info.abstract = info.abstract_en ? info.abstract_en : info.abstract_fr;
+                info.label = info.label_en ? info.label_en : info.label_fr;
+            }
+        }
 
-    const styles = {
-      width: "12",
-      verticalAlign: "middle",
-      marginRight: "3pt",
-      color: paintColor
-    };
+        const styles = {
+            width: "12",
+            verticalAlign: "middle",
+            marginRight: "3pt",
+            color: paintColor
+        };
 
-    if (["plusBeauxVillagesDeFrance",
-      "patrimoinemondialenfrance",
-      "jardinremarquable",
-      "grandSiteDeFrance",
-      "monumentsnationaux"].includes(layerId)) {
+        if (["plusBeauxVillagesDeFrance",
+            "patrimoinemondialenfrance",
+            "jardinremarquable",
+            "grandSiteDeFrance",
+            "monumentsnationaux"].includes(layerId)) {
 
-      const lang = this.props.i18n.language;
-      switch (lang) {
-        case "fr":
-          info.link = info.wikipedia_fr ? info.wikipedia_fr : info.wikipedia_en;
-          break;
-        case "en":
-          info.link = info.wikipedia_en ? info.wikipedia_en : info.wikipedia_fr;
-          break;
-        default:
-        info.link = info.wikipedia_en ? info.wikipedia_en : info.wikipedia_fr;
-      }
+            const lang = this.props.i18n.language;
+            switch (lang) {
+            case "fr":
+                info.link = info.wikipedia_fr ? info.wikipedia_fr : info.wikipedia_en;
+                break;
+            case "en":
+                info.link = info.wikipedia_en ? info.wikipedia_en : info.wikipedia_fr;
+                break;
+            default:
+                info.link = info.wikipedia_en ? info.wikipedia_en : info.wikipedia_fr;
+            }
 
-      return (
+            return (
         <div>
           <div className="mapboxgl-popupup popPupStyle" style={stylePop}>
             <div className="titleText">
@@ -244,17 +244,17 @@ class MyPlaceInfo extends Component {
             <AddToMyPlaces info ={this.state.infoPopup}/>
           </div>
         </div>
-      );
-    }
+            );
+        }
 
-    if ([
-      "parcsjardins",
-      "localproductshop",
-      "craftmanshop",
-      "WineCelar",
-      "OTFrance",
-      "AiresJeux"].includes(layerId)) {
-      return (
+        if ([
+            "parcsjardins",
+            "localproductshop",
+            "craftmanshop",
+            "WineCelar",
+            "OTFrance",
+            "AiresJeux"].includes(layerId)) {
+            return (
         <div>
           <div className="mapboxgl-popupup popPupStyle" style={stylePop}>
             <div className="baseText">
@@ -280,15 +280,15 @@ class MyPlaceInfo extends Component {
           </div>
           <AddToMyPlaces info ={this.state.infoPopup}/>
         </div>
-      );
-    }
+            );
+        }
 
-    if (["exposition",
-      "musique",
-      "children",
-      "marches",
-      "videsgreniers"].includes(layerId)) {
-      return (
+        if (["exposition",
+            "musique",
+            "children",
+            "marches",
+            "videsgreniers"].includes(layerId)) {
+            return (
         <div>
           <div className="mapboxgl-popupup popPupStyle" style={stylePop}>
             <div className="baseText">
@@ -314,12 +314,12 @@ class MyPlaceInfo extends Component {
               <AddToMyPlaces info ={this.state.infoPopup}/>
           </div>
         </div>
-      );
-    }
+            );
+        }
 
-    if ("museesFrance".includes(layerId)) {
+        if ("museesFrance".includes(layerId)) {
 
-      return (
+            return (
         <div>
           <div className="mapboxgl-popupup popPupStyle" style={stylePop}>
             <div className="baseText">
@@ -344,30 +344,30 @@ class MyPlaceInfo extends Component {
             <AddToMyPlaces/>
           </div>
         </div>
-      );
-    }
+            );
+        }
 
-    if ("FranceWiki".includes(layerId)) {
-      var other_Tags = info.other_tags;
-      var startWikidata = other_Tags.indexOf("wikidata");
-      startWikidata = other_Tags.indexOf("=>", startWikidata + 1) + 3;
-      let endWikidata = other_Tags.indexOf(",", startWikidata + 1) - 1;
+        if ("FranceWiki".includes(layerId)) {
+            var other_Tags = info.other_tags;
+            var startWikidata = other_Tags.indexOf("wikidata");
+            startWikidata = other_Tags.indexOf("=>", startWikidata + 1) + 3;
+            let endWikidata = other_Tags.indexOf(",", startWikidata + 1) - 1;
 
-      let wikidata = other_Tags.substring(startWikidata, endWikidata);
+            let wikidata = other_Tags.substring(startWikidata, endWikidata);
 
-      var startWikipedia = other_Tags.indexOf("wikipedia");
-      startWikipedia = other_Tags.indexOf("=>", startWikipedia + 1) + 3;
+            var startWikipedia = other_Tags.indexOf("wikipedia");
+            startWikipedia = other_Tags.indexOf("=>", startWikipedia + 1) + 3;
 
-      let endWikipedia = 0;
-      if (other_Tags.indexOf(",", startWikipedia + 1) > 0) {
-        endWikipedia = other_Tags.indexOf(",", startWikipedia + 1) - 1;
-      }
-      else { endWikipedia = other_Tags.length - 1; }
+            let endWikipedia = 0;
+            if (other_Tags.indexOf(",", startWikipedia + 1) > 0) {
+                endWikipedia = other_Tags.indexOf(",", startWikipedia + 1) - 1;
+            }
+            else { endWikipedia = other_Tags.length - 1; }
 
-      let wikipedia = other_Tags.substring(startWikipedia, endWikipedia);
+            let wikipedia = other_Tags.substring(startWikipedia, endWikipedia);
 
 
-      return (
+            return (
         <div>
           {popupActive &&
             <div className="mapboxgl-popupup popPupStyle" style={stylePop}>
@@ -389,13 +389,13 @@ class MyPlaceInfo extends Component {
               {/* <a target="_new" href={link} rel="noopener">{t("myplaceinfo.website")}</a> */}
             </div>}
         </div>
-      );
-    }
+            );
+        }
 
     // Case: geocoder result
-    if (info && this.props.info.geometry) {
+        if (info && this.props.info.geometry) {
       // popupActive = this.props.isActive;
-      return (
+            return (
         <div>
           <div className="mapboxgl-popupup popPupStyle" style={stylePop}>
             <div className="baseText">
@@ -418,32 +418,32 @@ class MyPlaceInfo extends Component {
             </div>
           </div>
         </div>
-      );
+            );
+        }
+        return null;
     }
-    return null;
-  }
 
-  get styles() {
-    return {
-      directionsIcon: "bg-white hmin42 wmin42 hmin48-mm wmin48-mm hmax42 wmax42 hmax48-mm wmax48-mm m6 m12-mm round-full shadow-darken10 cursor-pointer flex-parent flex-parent--center-main flex-parent--center-cross",
-      icon: "flex-parent flex-parent--center-cross flex-parent--center-main w42 h42",
-      infoRow: "h24 h36-mm py6 pr12 flex-parent flex-parent--row flex-parent--center-cross",
-      mainInfo: "p6 flex-child flex-child--grow flex-parent flex-parent--column flex-parent--center-main",
-      placeInfo: "place-info absolute top bg-white w-full w420-mm shadow-darken25 flex-parent flex-parent--column",
-    };
-  }
+    get styles() {
+        return {
+            directionsIcon: "bg-white hmin42 wmin42 hmin48-mm wmin48-mm hmax42 wmax42 hmax48-mm wmax48-mm m6 m12-mm round-full shadow-darken10 cursor-pointer flex-parent flex-parent--center-main flex-parent--center-cross",
+            icon: "flex-parent flex-parent--center-cross flex-parent--center-main w42 h42",
+            infoRow: "h24 h36-mm py6 pr12 flex-parent flex-parent--row flex-parent--center-cross",
+            mainInfo: "p6 flex-child flex-child--grow flex-parent flex-parent--column flex-parent--center-main",
+            placeInfo: "place-info absolute top bg-white w-full w420-mm shadow-darken25 flex-parent flex-parent--column",
+        };
+    }
 }
 
 MyPlaceInfo.propTypes = {
-  infoPopup: PropTypes.object,
-  languageSet: PropTypes.string,
+    infoPopup: PropTypes.object,
+    languageSet: PropTypes.string,
 };
 
 const mapStateToProps = (state) => {
-  return {
-    infoPopup: state.app.infoPopup,
-  }
-}
+    return {
+        infoPopup: state.app.infoPopup,
+    };
+};
 
 
 export default connect(mapStateToProps)(translate("translations")(MyPlaceInfo));

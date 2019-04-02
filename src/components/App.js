@@ -15,18 +15,18 @@ const MyPlaceInfo = React.lazy(() => import("./MyPlaceInfo"));
 
 class App extends Component {
 
-  componentWillMount() {
-    this.props.setStateFromURL();
-  }
+    componentWillMount() {
+        this.props.setStateFromURL();
+    }
 
-  render() {
-    var moveOnLoad = !this.props.url
+    render() {
+        var moveOnLoad = !this.props.url
       .split("/")
       .filter(e => e.startsWith("+") || e.startsWith("@"))
       .length;
 
-    let styleSearch = (window.innerWidth > 340) ? { width: "240px", margin: "12px", marginTop: "74px" } : { width: "100%", margin: 0  };
-    return (
+        let styleSearch = (window.innerWidth > 340) ? { width: "240px", margin: "12px", marginTop: "74px" } : { width: "100%", margin: 0  };
+        return (
 
       <div className="root">
           <AppbarDrawer />
@@ -59,39 +59,39 @@ class App extends Component {
           </div>
         </div>
       </div>
-    );
-  }
+        );
+    }
 }
 
 App.propTypes = {
-  searchLocation: PropTypes.object,
-  listVueActive: PropTypes.bool,
-  listVueItems: PropTypes.array,
-  coorOnClick: PropTypes.array,
-  mode: PropTypes.string,
-  route: PropTypes.object,
-  routeStatus: PropTypes.string,
-  setStateFromURL: PropTypes.func,
-  url: PropTypes.string
+    searchLocation: PropTypes.object,
+    listVueActive: PropTypes.bool,
+    listVueItems: PropTypes.array,
+    coorOnClick: PropTypes.array,
+    mode: PropTypes.string,
+    route: PropTypes.object,
+    routeStatus: PropTypes.string,
+    setStateFromURL: PropTypes.func,
+    url: PropTypes.string
 };
 
 const mapStateToProps = (state) => {
-  return {
-    listVueActive: state.app.listVueActive,
-    listVueItems: state.app.listVueItems,
-    coorOnClick: state.app.coorOnClick,
-    mode: state.app.mode,
-    route: state.app.route,
-    routeStatus: state.app.routeStatus,
-    searchLocation: state.app.searchLocation,
-    url: state.router.location.pathname
-  };
+    return {
+        listVueActive: state.app.listVueActive,
+        listVueItems: state.app.listVueItems,
+        coorOnClick: state.app.coorOnClick,
+        mode: state.app.mode,
+        route: state.app.route,
+        routeStatus: state.app.routeStatus,
+        searchLocation: state.app.searchLocation,
+        url: state.router.location.pathname
+    };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    setStateFromURL: () => dispatch(setStateFromURL())
-  };
+    return {
+        setStateFromURL: () => dispatch(setStateFromURL())
+    };
 };
 
 export default connect(
