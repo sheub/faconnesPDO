@@ -23,7 +23,7 @@ import Typography from "@material-ui/core/Typography";
 
 import { returnImage, layerSelector } from "../utils/displayUtils";
 import MyDatePicker from "./MyDatePicker";
-import Footer from "./Footer.js"
+import Footer from "./Footer.js";
 
 import "./App.css";
 // import "./PopupInfo.css";
@@ -118,6 +118,7 @@ class MyDrawer extends Component {
       list1Open: false,
       listLoisirOpen: false,
       listAgendaOpen: false,
+      listUsefullOpen: false,
       checked: filtered,
       dateFrom: new Date(), //Today
       dateTo: new Date(), // Today plus one day
@@ -189,6 +190,10 @@ class MyDrawer extends Component {
 
   handleClickListAgendaOpen = () => {
     this.setState((state) => ({ listAgendaOpen: !state.listAgendaOpen }));
+  };
+
+  handleClickListUsefullOpen = () => {
+    this.setState((state) => ({ listUsefullOpen: !state.listUsefullOpen }));
   };
 
 
@@ -263,6 +268,7 @@ class MyDrawer extends Component {
                     </List>
                   </Collapse>
                   <Divider light />
+
                   <ListItem button onClick={this.handleClickLoisirOpen} aria-label="Open Loisirs et Artisanat" id="ButtonLoisir">
                     <ListSubheader title={t("drawer.main2")} style={{ color: "black", fontSize: "16px" }}>{t("drawer.main2")}</ListSubheader>
                     {this.state.listLoisirOpen ? <ExpandLess className={classes.expandIcons} /> : <ExpandMore className={classes.expandIcons} />}
@@ -284,8 +290,8 @@ class MyDrawer extends Component {
                       ))}
                     </List>
                   </Collapse>
-
                   <Divider light />
+
                   <ListItem button onClick={this.handleClickListAgendaOpen} aria-label="Open Agenda" id="ButtonAgenda" style={{ backgroundColor: "white" }}>
                     <ListSubheader title={t("drawer.main3")} style={{ color: "black", fontSize: "16px" }}>{t("drawer.main3")}</ListSubheader>
                     {this.state.listAgendaOpen ? <ExpandLess className={classes.expandIcons} /> : <ExpandMore className={classes.expandIcons} />}
@@ -309,9 +315,32 @@ class MyDrawer extends Component {
                   </Collapse>
                   <Divider />
 
+                  <ListItem button onClick={this.handleClickListUsefullOpen} aria-label="Open Usefull facts" id="Button" style={{ backgroundColor: "white" }}>
+                    <ListSubheader title={t("drawer.main4")} style={{ color: "black", fontSize: "16px" }}>{t("drawer.main4")}</ListSubheader>
+                    {this.state.listUsefullOpen ? <ExpandLess className={classes.expandIcons} /> : <ExpandMore className={classes.expandIcons} />}
+                  </ListItem>
+                  <Collapse in={this.state.listUsefullOpen} timeout="auto" unmountOnExit className={classes.collapses}>
+                    <List>
+                      {["Toilets", "Baignades"].map((value) => (
+                        <ListItem key={value} role={undefined} dense button className={classes.listItemStyle} title={t("drawer." + value + "Title")} onClick={this.handleToggle.bind(this, value)}>
+                          <Checkbox
+                            checked={this.state.checked.indexOf(value) !== -1}
+                            tabIndex={-1}
+                            disableRipple
+                          />
+                          <ListItemText primary={t("drawer." + value)} />
+                          <ListItemSecondaryAction className={classes.listItemStyle}>
+                            {returnImage(layerSelector[value].source)}
+                          </ListItemSecondaryAction>
+                        </ListItem>
+                      ))}
+                    </List>
+                  </Collapse>
+                  <Divider />
+
                   <div>
-                  <Typography onClick={() => this._onClickProfilePage()}> My Profile</Typography>
-                </div>
+                    <Typography onClick={() => this._onClickProfilePage()}> My Profile</Typography>
+                  </div>
                 {this.state.showProfilePage ?
                   <React.Suspense fallback={<div> </div>}>
                     <ProfilePage handleClose={this.handleClose} />

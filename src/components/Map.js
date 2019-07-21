@@ -280,17 +280,25 @@ class MapComponent extends Component {
             else if (feature.properties.nom_du_musee) { place_name = feature.properties.nom_du_musee; }
 
             if (["parcsjardins", "localproductshop", "craftmanshop", "WineCelar", "OTFrance", "AiresJeux", "marches", "exposition", "musique", "children", "videsgreniers"].includes(feature.layer.id))
-      {
+            {
                 let lng = this.props.languageSet;
                 if(lng === "fr")
-        {
+                {
                     place_name = feature.properties.label_fr;
-
                 }
-                else{
+                else
+                {
                     place_name = feature.properties.label_en;
                 }
-            }       
+            }
+            if(["baignades"].includes(feature.layer.id))
+            {
+                place_name = feature.properties.Adresse;
+            }
+            if(["toilets"].includes(feature.layer.id))
+            {
+                place_name = "Toilets";
+            }
 
             let listVueActive = false;
 
@@ -359,16 +367,24 @@ class MapComponent extends Component {
             else if (feature.properties.nom_du_musee) { place_name = feature.properties.nom_du_musee; }
 
             if (["parcsjardins", "localproductshop", "craftmanshop", "WineCelar", "OTFrance", "AiresJeux", "marches", "exposition", "musique", "children", "videsgreniers"].includes(feature.layer.id))
-      {
+            {
                 let lng = this.props.languageSet;
                 if(lng === "fr")
-        {
+                {
                     place_name = feature.properties.label_fr;
-
                 }
-                else{
+                else
+                {
                     place_name = feature.properties.label_en;
                 }
+            }
+            if(["baignades"].includes(feature.layer.id))
+            {
+                place_name = feature.properties.Adresse;
+            }
+            if(["toilets"].includes(feature.layer.id))
+            {
+                place_name = "Toilets";
             }
 
             let listVueActive = false;
@@ -608,6 +624,8 @@ class MapComponent extends Component {
             "musique",
             "children",
             "marches",
+            "baignades",
+            "toilets",
             "videsgreniers"
         ];
     }

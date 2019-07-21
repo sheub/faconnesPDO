@@ -101,6 +101,12 @@ function RenderDateTime(props) {
     return null;
 }
 
+function ExtractOtherTags(info)
+{
+  var res = info.other_tags.split("=>");
+  return res;
+}
+
 class MyPlaceInfo extends Component {
 
     constructor(props) {
@@ -316,35 +322,75 @@ class MyPlaceInfo extends Component {
         </div>
             );
         }
-
-        if ("museesFrance".includes(layerId)) {
-
+        if (["baignades"].includes(layerId)) {
             return (
         <div>
           <div className="mapboxgl-popupup popPupStyle" style={stylePop}>
             <div className="baseText">
               <div className="titleText">
                 <HomeIcon style={styles} alt={layerId} title={layerId} />
-                {info.nom_du_musee}
+                {info.Adresse}
               </div>
               <div className="btn-close" aria-label="Close">
                 <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.hidePopup()}>
                   <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
                 </IconButton>
               </div>
-              <div className="introtext">
-                <div className="abstractPopup">
-                  {info.periode_ouverture}
-                  <RenderUrl props={this.props} />
-                  <RenderAddress info={info} />
-                  {info.price !== 0 ? <p>{t("myplaceinfo.price")}{": "}{info.price} €</p> : null } 
-                </div>
-              </div>
             </div>
-            <AddToMyPlaces/>
+              <AddToMyPlaces info ={this.state.infoPopup}/>
           </div>
         </div>
             );
+        }
+        if (["toilets"].includes(layerId)) {
+          return (
+            <div>
+              <div className="mapboxgl-popupup popPupStyle" style={stylePop}>
+                <div className="baseText">
+                  <div className="titleText">
+                    <HomeIcon style={styles} alt={layerId} title={layerId} />
+                    {t("drawer.ToiletsTitle")}
+                  </div>
+                  {/* {ExtractOtherTags(info)} */}
+                  <div className="btn-close" aria-label="Close">
+                    <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.hidePopup()}>
+                      <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
+                    </IconButton>
+                  </div>
+                </div>
+                  <AddToMyPlaces info ={this.state.infoPopup}/>
+              </div>
+            </div>
+          );
+      }
+
+        if ("museesFrance".includes(layerId)) {
+            return (
+            <div>
+              <div className="mapboxgl-popupup popPupStyle" style={stylePop}>
+                <div className="baseText">
+                  <div className="titleText">
+                    <HomeIcon style={styles} alt={layerId} title={layerId} />
+                    {info.nom_du_musee}
+                  </div>
+                  <div className="btn-close" aria-label="Close">
+                    <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.hidePopup()}>
+                      <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
+                    </IconButton>
+                  </div>
+                  <div className="introtext">
+                    <div className="abstractPopup">
+                      {info.periode_ouverture}
+                      <RenderUrl props={this.props} />
+                      <RenderAddress info={info} />
+                      {info.price !== 0 ? <p>{t("myplaceinfo.price")}{": "}{info.price} €</p> : null } 
+                    </div>
+                  </div>
+                </div>
+                <AddToMyPlaces/>
+              </div>
+            </div>
+          );
         }
 
         if ("FranceWiki".includes(layerId)) {

@@ -48,6 +48,8 @@ const defaultAppState = {
         Musique: false,
         Children: false,
         Marches: false,
+        Toilets: false,
+        Baignades: false,
         VidesGreniers: true
     },
     dateFrom: 0,

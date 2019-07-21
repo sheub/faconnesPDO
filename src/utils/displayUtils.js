@@ -37,6 +37,8 @@ const layerSelector = {
     Musique: /musique/,
     Children: /children/,
     Marches: /marches/,
+    Toilets: /toilets/,
+    Baignades: /baignades/,
     VidesGreniers: /videsgreniers/
 };
   
