@@ -51,11 +51,6 @@
       "tiles": ["https://faconnes.de/tiles/france_baignades/{z}/{x}/{y}.pbf"],
       "maxzoom": 2
     },
-    "france_departments": {
-      "type": "vector",
-      "tiles": ["https://faconnes.de/tiles/france_departments/{z}/{x}/{y}.pbf"],
-      "maxzoom": 2
-    },
     "france_toilets": {
       "type": "vector",
       "tiles": ["https://faconnes.de/tiles/france_toilets/{z}/{x}/{y}.pbf"],
@@ -5546,38 +5541,6 @@
           "stops": [[12, 3.5], [22, 180]]
           },
         "circle-color": "black"
-      }
-    },{
-      "id": "france_departments",
-      "type": "line",
-      "source": "france_departments",
-      "source-layer": "FRA_adm2",
-      "layout": {
-        "line-join": "round"
-      },
-      "paint": {
-        "line-color": "green",
-        "line-dasharray": [
-          0.5,
-          0.25
-        ],
-        "line-width": {
-          "base": 1.2,
-          "stops": [
-            [
-              15,
-              1
-            ],
-            [
-              16,
-              4
-            ],
-            [
-              20,
-              11
-            ]
-          ]
-        }
       }
     },
     {

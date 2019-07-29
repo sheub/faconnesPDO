@@ -142,7 +142,7 @@ class ListVue extends React.Component {
             break;
         
         case "en":
-            if (typeof (item.properties.label_en) !== "undefined")
+            if (typeof (item.properties.label_en) !== "undefined" && item.properties.label_en)
                 info.label = item.properties.label_en;
             else
                     info.label = item.properties.label_fr;

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { translate } from "react-i18next";
 import { MuiThemeProvider, createMuiTheme, withStyles } from '@material-ui/core';
-import { MuiPickersUtilsProvider, DatePicker } from "material-ui-pickers";
+import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 
 import DateFnsUtils from "@date-io/date-fns";
 import frLocale from "date-fns/locale/fr";
