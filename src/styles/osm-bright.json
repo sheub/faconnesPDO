@@ -118,7 +118,7 @@
       "buffer": 0
     }
   },
-  "sprite": "This is set at runtime in the Map component.",
+  "sprite": "https://openmaptiles.github.io/osm-bright-gl-style/sprite",
   "glyphs": "https://free.tilehosting.com/fonts/{fontstack}/{range}.pbf?key=pErAY63Zg9cVHhUnLbku",
   "layers": [{
       "id": "background",

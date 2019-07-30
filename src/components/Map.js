@@ -24,8 +24,10 @@ import style from "../styles/osm-bright.json";
 let spriteUrl;
 if (process.env.NODE_ENV === "production") {
     spriteUrl = process.env.PUBLIC_URL + "/sprite";
+    spriteUrl = "https://faconnes.de" + "/sprite";
 } else { // Dev server runs on port 3000
     spriteUrl = "http://localhost:3000/sprite";
+    // spriteUrl = "https://faconnes.de" + "/sprite";
 }
 style.sprite = spriteUrl;
 
