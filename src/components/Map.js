@@ -290,7 +290,7 @@ class MapComponent extends Component {
                 }
                 else
                 {
-                    place_name = feature.properties.label_en;
+                    place_name = feature.properties.label_en ? feature.properties.label_en : feature.properties.label_fr;
                 }
             }
             if(["baignades"].includes(feature.layer.id))
