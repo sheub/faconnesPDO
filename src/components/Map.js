@@ -24,7 +24,7 @@ import style from "../styles/osm-bright.json";
 let spriteUrl;
 if (process.env.NODE_ENV === "production") {
     spriteUrl = process.env.PUBLIC_URL + "/sprite";
-    spriteUrl = "https://faconnes.de" + "/sprite";
+    // spriteUrl = "https://faconnes.de" + "/sprite";
 } else { // Dev server runs on port 3000
     spriteUrl = "http://localhost:3000/sprite";
     // spriteUrl = "https://faconnes.de" + "/sprite";
@@ -70,14 +70,13 @@ class MapComponent extends Component {
         map.on("load", () => {
             this.onLoad();
         });
-
     }
 
     componentDidUpdate() {
 
         if (!this.props.needMapUpdate) return;
 
-    // Search mode
+        // Search mode
         if (this.props.mode === "search") {
             if (this.props.searchLocation) {
                 if (this.props.searchLocation.geometry) {
@@ -89,12 +88,12 @@ class MapComponent extends Component {
                 this.map.getSource("marker").setData(this.emptyData);
             }
 
-      // remove items specific to directions mode
+            // remove items specific to directions mode
             this.map.getSource("fromMarker").setData(this.emptyData);
             this.map.getSource("route").setData(this.emptyData);
         }
 
-    // Directions mode
+        // Directions mode
         if (this.props.mode === "directions") {
             if (this.props.directionsFrom) {
                 this.map.getSource("fromMarker").setData(this.props.directionsFrom.geometry);
@@ -114,39 +113,39 @@ class MapComponent extends Component {
                 this.map.getSource("route").setData(this.emptyData);
             }
 
-      // We have origin and destination but no route yet
+            // We have origin and destination but no route yet
             if (this.props.directionsFrom && this.props.directionsTo && this.props.route === null) {
-        // Do not retry when the previous request errored
+                // Do not retry when the previous request errored
                 if (this.props.routeStatus !== "error" && this.props.routeStatus !== "paused") {
-          // Trigger the API call to directions
+                    // Trigger the API call to directions
                     this.props.getRoute(
-            this.props.directionsFrom,
-            this.props.directionsTo,
-            this.props.modality,
-            this.props.accessToken
-          );
+                        this.props.directionsFrom,
+                        this.props.directionsTo,
+                        this.props.modality,
+                        this.props.accessToken
+                    );
                 }
             }
         }
 
         if (this.props.needMapRepan) {
-      // Search mode
+            // Search mode
             if (this.props.mode === "search") {
                 import("../utils/moveTo")
-        .then((moveTo) => {
-            moveTo.moveTo(this.map, this.props.searchLocation, 11);
-        });
+                .then((moveTo) => {
+                    moveTo.moveTo(this.map, this.props.searchLocation, 11);
+                });
                 this.queryAndRenderFeatures(this.props.searchLocation);
             }
 
-      // Directions mode
+            // Directions mode
             if (this.props.mode === "directions") {
                 if (this.props.route) {
                     const bbox = turfBbox(this.props.route.geometry);
                     import("../utils/moveTo")
-          .then((moveTo) => {
-              moveTo.moveTo(this.map, { bbox: bbox });
-          });
+                    .then((moveTo) => {
+                        moveTo.moveTo(this.map, { bbox: bbox });
+                    });
 
                 } else if (this.props.directionsTo && this.props.directionsFrom) {
                     const bbox = turfBbox({
@@ -154,18 +153,17 @@ class MapComponent extends Component {
                         features: [this.props.directionsFrom, this.props.directionsTo]
                     });
                     import("../utils/moveTo")
-          .then((moveTo) => {
-              moveTo.moveTo(this.map, { bbox: bbox });
-          });
+                    .then((moveTo) => {
+                        moveTo.moveTo(this.map, { bbox: bbox });
+                    });
 
                 } else {
-          // Whichever exists
+                    // Whichever exists
                     import("../utils/moveTo")
-          .then((moveTo) => {
-              moveTo.moveTo(this.map, this.props.directionsTo);
-              moveTo.moveTo(this.map, this.props.directionsFrom);
-          });
-
+                    .then((moveTo) => {
+                        moveTo.moveTo(this.map, this.props.directionsTo);
+                        moveTo.moveTo(this.map, this.props.directionsFrom);
+                    });
                 }
             }
         }
@@ -182,12 +180,11 @@ class MapComponent extends Component {
         if (this.props.needMapActualizeLanguage) {
             var lng = this.props.languageSet;
             setLanguage (this.map, style, lng, null);
-      // in setLanguage, we use the original style of the map
-      // -> It is necessary to switch and filter all visible layers again (quick hack, there is certainly a more efficient way)
+            // in setLanguage, we use the original style of the map
+            // -> It is necessary to switch and filter all visible layers again (quick hack, there is certainly a more efficient way)
             this.initLayerVisibility();
             this.filterByDate(this.props.dateFrom, this.props.dateTo);
         }
-
 
         this.props.setStateValue("needMapToggleLayer", false);
         this.props.setStateValue("needMapFilterByDate", false);
@@ -204,7 +201,7 @@ class MapComponent extends Component {
         var coords = [e.lngLat.lng, e.lngLat.lat];
         this.setState({ draggedCoords: coords });
 
-    // Set a UI indicator for dragging.
+        // Set a UI indicator for dragging.
         this.map.getCanvas().style.cursor = "grabbing";
 
         const geometry = {
@@ -238,11 +235,11 @@ class MapComponent extends Component {
 
         this.map.getCanvas().style.cursor = "";
 
-    // Unbind mouse events
+        // Unbind mouse events
         this.map.off("mousemove", this.state.mouseMoveFn);
 
         this.onceMove(e, "idle");
-        this.setState({isDragging: false, draggedLayer: "", draggedCoords: null});
+        this.setState({ isDragging: false, draggedLayer: "", draggedCoords: null });
     }
 
     onClick(e) {
@@ -251,38 +248,49 @@ class MapComponent extends Component {
         var features = this.map.queryRenderedFeatures(bbox, { layers: this.selectableLayers });
 
         if (features.length) {
-      // We have a selected feature
+            // We have a selected feature
             var feature = features[0];
 
             let key;
-      // if (this.props.mode === 'search') {
+            // if (this.props.mode === 'search') {
             this.props.resetStateKeys(["placeInfo"]);
             key = "searchLocation";
-      // }
-      //  else if (!this.props.directionsFrom) {
-      //   key = 'directionsFrom';
-      // } else {
-      //   this.props.resetStateKeys(['route', 'searchLocation']);
-      //   key = 'directionsTo';
-      // }
+            // }
+            //  else if (!this.props.directionsFrom) {
+            //   key = 'directionsFrom';
+            // } else {
+            //   this.props.resetStateKeys(['route', 'searchLocation']);
+            //   key = 'directionsTo';
+            // }
 
-      /*Prepare data for detailInfo*/
+            /*Prepare data for detailInfo*/
             var paintColor = null;
             if ("paint" in feature.layer) {
-                if(typeof(feature.layer.paint["circle-color"])!== "undefined")
-          {paintColor = feature.layer.paint["circle-color"];}
-                else if(typeof(feature.layer.paint["text-color"])!== "undefined"){
+                if (typeof (feature.layer.paint["circle-color"]) !== "undefined") {
+                    paintColor = feature.layer.paint["circle-color"];
+                }
+                else if (typeof (feature.layer.paint["text-color"]) !== "undefined") {
                     paintColor = feature.layer.paint["text-color"];
                 }
             }
 
             let place_name = null;
-            if (feature.properties.name) { place_name = feature.properties.name; }
-            else if (feature.properties.label) { place_name = feature.properties.label; }
-            else if (feature.properties.nom_du_musee) { place_name = feature.properties.nom_du_musee; }
+            // if (feature.properties.name) { place_name = feature.properties.name; }
+            // else if (feature.properties.label) { place_name = feature.properties.label; }
+            // else if (feature.properties.nom_du_musee) { place_name = feature.properties.nom_du_musee; }
 
-            if (["parcsjardins", "localproductshop", "craftmanshop", "WineCelar", "OTFrance", "AiresJeux", "marches", "exposition", "musique", "children", "videsgreniers"].includes(feature.layer.id))
-            {
+            // if (["parcsjardins",
+            //     "localproductshop",
+            //     "craftmanshop",
+            //     "WineCelar",
+            //     "OTFrance",
+            //     "AiresJeux",
+            //     "marches",
+            //     "exposition",
+            //     "musique",
+            //     "children",
+            //     "videsgreniers"].includes(feature.layer.id))
+            // {
                 let lng = this.props.languageSet;
                 if(lng === "fr")
                 {
@@ -292,7 +300,7 @@ class MapComponent extends Component {
                 {
                     place_name = feature.properties.label_en ? feature.properties.label_en : feature.properties.label_fr;
                 }
-            }
+            // }
             if(["baignades"].includes(feature.layer.id))
             {
                 place_name = feature.properties.Adresse;
@@ -326,7 +334,7 @@ class MapComponent extends Component {
             infoItem.popupActive = true;
             this.props.setStateValue("infoPopup", infoItem);
 
-      /**Call setStateValue */
+            /**Call setStateValue */
             if (key && place_name) {
                 this.props.setStateValue(key, {
                     type: "Feature",
@@ -350,15 +358,16 @@ class MapComponent extends Component {
         var features = this.map.queryRenderedFeatures(bbox, { layers: this.selectableLayers });
 
         if (features.length) {
-      // We have a selected feature
+            // We have a selected feature
             var feature = features[0];
 
-      /*Prepare data for detailInfo*/
+            /*Prepare data for detailInfo*/
             var paintColor = null;
             if ("paint" in feature.layer) {
-                if(typeof(feature.layer.paint["circle-color"])!== "undefined")
-          {paintColor = feature.layer.paint["circle-color"];}
-                else if(typeof(feature.layer.paint["text-color"])!== "undefined"){
+                if (typeof (feature.layer.paint["circle-color"]) !== "undefined") {
+                    paintColor = feature.layer.paint["circle-color"];
+                }
+                else if (typeof (feature.layer.paint["text-color"]) !== "undefined") {
                     paintColor = feature.layer.paint["text-color"];
                 }
             }
@@ -524,43 +533,43 @@ class MapComponent extends Component {
         });
 
     }
-  
-    loadJsonData(dataStr) {
 
-        let baseDataUrl;
-        if (process.env.NODE_ENV === "production") {
-            baseDataUrl = process.env.PUBLIC_URL + "/data/";
-        } else { // Dev server runs on port 3000
-            baseDataUrl = "http://localhost:3000/data/";
-        }
+    // loadJsonData(dataStr) {
+
+    //     let baseDataUrl;
+    //     if (process.env.NODE_ENV === "production") {
+    //         baseDataUrl = process.env.PUBLIC_URL + "/data/";
+    //     } else { // Dev server runs on port 3000
+    //         baseDataUrl = "http://localhost:3000/data/";
+    //     }
 
 
-        let AllData = {
-        };
-        var lng = this.props.languageSet;
+    //     let AllData = {
+    //     };
+    //     var lng = this.props.languageSet;
 
-        if (["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "patrimoinemondialenfrance"].includes(dataStr) && lng === "fr") {
-            AllData = {
-                patrimoinemondialenfrance: "Patrimoine_Mondial_en_France.geojson",
-                monumentsnationaux: "Monuments_Nationaux.geojson",
-                grandSiteDeFrance: "Grand_Site_de_France.geojson",
-                jardinremarquable: "Jardin_Remarquable.geojson",
-                plusBeauxVillagesDeFrance: "Plus_Beaux_Villages_de_France.geojson",
-            };
-        } else
-      if (["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "patrimoinemondialenfrance"].includes(dataStr) && lng === "en") {
-          AllData = {
-              patrimoinemondialenfrance: "Patrimoine_Mondial_en_France_en.geojson",
-              monumentsnationaux: "Monuments_Nationaux_en.geojson",
-              grandSiteDeFrance: "Grand_Site_de_France_en.geojson",
-              jardinremarquable: "Jardin_Remarquable_en.geojson",
-              plusBeauxVillagesDeFrance: "Plus_Beaux_Villages_de_France_en.geojson",
-          };
-      }
+    //     if (["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "patrimoinemondialenfrance"].includes(dataStr) && lng === "fr") {
+    //         AllData = {
+    //             patrimoinemondialenfrance: "Patrimoine_Mondial_en_France.geojson",
+    //             monumentsnationaux: "Monuments_Nationaux.geojson",
+    //             grandSiteDeFrance: "Grand_Site_de_France.geojson",
+    //             jardinremarquable: "Jardin_Remarquable.geojson",
+    //             plusBeauxVillagesDeFrance: "Plus_Beaux_Villages_de_France.geojson",
+    //         };
+    //     } else
+    //   if (["plusBeauxVillagesDeFrance", "jardinremarquable", "grandSiteDeFrance", "patrimoinemondialenfrance"].includes(dataStr) && lng === "en") {
+    //       AllData = {
+    //           patrimoinemondialenfrance: "Patrimoine_Mondial_en_France_en.geojson",
+    //           monumentsnationaux: "Monuments_Nationaux_en.geojson",
+    //           grandSiteDeFrance: "Grand_Site_de_France_en.geojson",
+    //           jardinremarquable: "Jardin_Remarquable_en.geojson",
+    //           plusBeauxVillagesDeFrance: "Plus_Beaux_Villages_de_France_en.geojson",
+    //       };
+    //   }
 
-        const marchesData = baseDataUrl + AllData[dataStr];
-        this.map.getSource(dataStr).setData(marchesData);
-    }
+    //     const marchesData = baseDataUrl + AllData[dataStr];
+    //     this.map.getSource(dataStr).setData(marchesData);
+    // }
 
     filterByDate(dateFrom, dateTo){
 
