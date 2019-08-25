@@ -60,6 +60,15 @@
     padding-bottom: 6px
 }
 
+.lastUpdatePopup {
+    color: #68635c;
+    padding-bottom: 6px;
+    padding-right: 6px;
+    float: right;
+    font-size: smaller;
+    font-family: system-ui,-apple-system,BlinkMacSystemFont,"Helvetica Neue","Helvetica","Arial","Lucida Grande",sans-serif
+}
+
 .urlPopup {
     color: #c00;
     margin-bottom: 6px;

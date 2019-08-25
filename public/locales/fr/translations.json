@@ -62,7 +62,8 @@
         "startTime": "À partir de",
         "endTime": "jusqu'à",
         "price":"Participation aux frais",
-        "AddPlaceToFavorite":"Add this location to my favorites"
+        "AddPlaceToFavorite":"Add this location to my favorites",
+        "lastUpdate":"Dernière mise à jour:"
     },
     "maplayerids": {
         "museesFrance": "Musées",

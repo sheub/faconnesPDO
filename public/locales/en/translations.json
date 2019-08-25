@@ -70,7 +70,8 @@
         "startTime": "Start Time",
         "endTime": "End Time",
         "price":"Entrance fee",
-        "AddPlaceToFavorite":"Add this location to my favorites"
+        "AddPlaceToFavorite":"Add this location to my favorites",
+        "lastUpdate":"Last update:"
     },
     "maplayerids": {
         "museesFrance": "Museums",

@@ -5450,7 +5450,10 @@
         "visibility": "none"
       },
       "paint": {
-        "circle-radius": 4,
+        "circle-radius": {
+          "base": 3,
+          "stops": [[12, 3.4], [22, 180]]
+          },
         "circle-color": "#E12E0E"
       }
     },
@@ -5463,7 +5466,10 @@
         "visibility": "none"
       },
       "paint": {
-        "circle-radius": 4,
+        "circle-radius": {
+          "base": 3,
+          "stops": [[12, 3.4], [22, 180]]
+          },
         "circle-color": "#A52C56"
       }
     },
@@ -5476,7 +5482,10 @@
         "visibility": "none"
       },
       "paint": {
-        "circle-radius": 4,
+        "circle-radius": {
+          "base": 3,
+          "stops": [[12, 3.4], [22, 180]]
+          },
         "circle-color": "#15178A"
       }
     },
@@ -5489,7 +5498,10 @@
         "visibility": "none"
       },
       "paint": {
-        "circle-radius": 4,
+        "circle-radius": {
+          "base": 3,
+          "stops": [[12, 3.4], [22, 180]]
+          },
         "circle-color": "#4AA52C"
       }
     },
@@ -5500,7 +5512,12 @@
       "source-layer": "videsGreniers",
 	  "maxzoom": 20,
       "layout": {"visibility": "visible"},
-      "paint": {"circle-radius": 4, "circle-color": "#007CBF"}
+      "paint": {
+        "circle-radius": {
+          "base": 3,
+          "stops": [[12, 3.4], [22, 180]]
+          },
+        "circle-color": "#007CBF"}
     },
     {
       "id": "baignades",

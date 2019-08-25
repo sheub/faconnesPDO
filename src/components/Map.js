@@ -571,20 +571,17 @@ class MapComponent extends Component {
     //     this.map.getSource(dataStr).setData(marchesData);
     // }
 
-    filterByDate(dateFrom, dateTo){
+    filterByDate(dateFrom, dateTo) {
+        if(dateTo !== dateFrom) {
 
-        if(dateTo)
-    {  
-            let filterTo = [">=", dateTo, ["number", ["get", "valid_from"]]];
-            let filterFrom = ["<=", dateFrom, ["number", ["get", "valid_from"]]];
+            let filterTo = ["<=", dateFrom, ["number", ["get", "valid_through"]]];
+            let filterFrom = [">", dateTo, ["number", ["get", "valid_from"]]];
             this.map.setFilter("musique", ["all", filterFrom, filterTo]);
             this.map.setFilter("exposition", ["all", filterFrom, filterTo]);
             this.map.setFilter("children", ["all", filterFrom, filterTo]);
             this.map.setFilter("videsgreniers", ["all", filterFrom, filterTo]);
             this.map.setFilter("marches", ["all", filterFrom, filterTo]);
-        }
-        else
-    {
+        } else {
             this.map.setFilter("musique", ["<=", dateFrom, ["number", ["get", "valid_from"]]]);
             this.map.setFilter("exposition", ["<=", dateFrom, ["number", ["get", "valid_from"]]]);
             this.map.setFilter("children", ["<=", dateFrom, ["number", ["get", "valid_from"]]]);

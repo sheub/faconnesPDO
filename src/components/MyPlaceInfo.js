@@ -100,6 +100,27 @@ function RenderDateTime(props) {
     }
     return null;
 }
+function RenderLastUpdate(props) {
+  const { t, info } = props.props;
+  const lng = props.props.i18n.language;
+
+  if (info.properties.last_update) {
+    let lastUpdate = new Date(info.properties.last_update);
+
+    let options = {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+    };
+    return (
+      <div className="lastUpdatePopup">
+        {t("myplaceinfo.lastUpdate")} {lastUpdate.toLocaleDateString(lng, options)}
+      </div>
+    );
+  }
+  return null;
+}
 
 function ExtractOtherTags(info)
 {
@@ -295,31 +316,32 @@ class MyPlaceInfo extends Component {
             "marches",
             "videsgreniers"].includes(layerId)) {
             return (
-        <div>
-          <div className="mapboxgl-popupup popPupStyle" style={stylePop}>
-            <div className="baseText">
-              <div className="titleText">
-                <HomeIcon style={styles} alt={layerId} title={layerId} />
-                {info.label}
-              </div>
-              <div className="btn-close" aria-label="Close">
-                <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.hidePopup()}>
-                  <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
-                </IconButton>
-              </div>
-              <div className="introtext">
-                <div className="abstractPopup">
-                  {info.abstract}
+              <div>
+                <div className="mapboxgl-popupup popPupStyle" style={stylePop}>
+                  <div className="baseText">
+                    <div className="titleText">
+                      <HomeIcon style={styles} alt={layerId} title={layerId} />
+                      {info.label}
+                    </div>
+                    <div className="btn-close" aria-label="Close">
+                      <IconButton aria-label="Close" data-dismiss="alert" onClick={() => this.hidePopup()}>
+                        <svg className="btn-icon"><use xlinkHref='#icon-close'></use></svg>
+                      </IconButton>
+                    </div>
+                    <div className="introtext">
+                      <div className="abstractPopup">
+                        {info.abstract}
+                      </div>
+                      <RenderDateTime props={this.props} />
+                      <RenderUrl props={this.props} />
+                      <RenderAddress info={info} />
+                      {info.price !== 0 ? <p>{t("myplaceinfo.price")}{": "}{info.price} €</p> : null }
+                    </div>
+                  </div>
+                    <AddToMyPlaces info ={this.state.infoPopup}/>
+                    <RenderLastUpdate props={this.props} />
                 </div>
-                <RenderDateTime props={this.props} />
-                <RenderUrl props={this.props} />
-                <RenderAddress info={info} />
-                {info.price !== 0 ? <p>{t("myplaceinfo.price")}{": "}{info.price} €</p> : null } 
               </div>
-            </div>
-              <AddToMyPlaces info ={this.state.infoPopup}/>
-          </div>
-        </div>
             );
         }
         if (["baignades"].includes(layerId)) {
