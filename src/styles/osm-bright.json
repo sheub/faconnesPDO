@@ -23,7 +23,7 @@
     "wiki": {
       "type": "vector",
       "tiles": ["https://faconnes.de/tiles/wiki/{z}/{x}/{y}.pbf"],
-      "maxzoom": 12,
+      "maxzoom": 6,
       "minzoom":2
     },
     "museesFrance": {
@@ -35,16 +35,6 @@
       "type": "vector",
       "tiles": ["https://faconnes.de/tiles/France_Highlight2/{z}/{x}/{y}.pbf"],
       "maxzoom": 5
-    },
-    "France_wiki2": {
-      "type": "vector",
-      "tiles": ["https://faconnes.de/tiles/FranceWiki/{z}/{x}/{y}.pbf"],
-      "maxzoom": 3
-    },
-    "France_cycle_2": {
-      "type": "vector",
-      "tiles": ["https://faconnes.de/tiles/France_cycle_2/{z}/{x}/{y}.pbf"],
-      "maxzoom": 2
     },
     "france_baignades": {
       "type": "vector",
@@ -5147,23 +5137,6 @@
         "fill-color": "hsl(209, 0%, 0%)",
         "fill-opacity": 0.33
       }
-    },
-    {
-      "id": "FranceWiki",
-      "type": "symbol",
-      "source": "France_wiki2",
-      "source-layer": "FranceWiki",
-      "layout": {
-        "visibility": "none",
-        "text-field": "{name:latin}\n{name:nonlatin}",
-        "text-font": ["Noto Sans Regular"],
-        "icon-image": "star-11",
-        "icon-size": 0.8,
-        "text-max-width": 12,
-        "text-offset": [0, 2],
-        "text-size": {"stops": [[10, 11], [18, 13]]}
-      },
-      "paint": {"text-color": "hsl(206, 38%, 13%)"}
     },
     {
       "id": "patrimoinemondialenfrance",

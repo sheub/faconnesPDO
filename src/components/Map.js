@@ -615,7 +615,7 @@ class MapComponent extends Component {
       // 'poi-parks-scalerank3',
       // 'poi-scalerank4',
       // 'poi-parks-scalerank4',
-            "FranceWiki",
+            // "FranceWiki",
             "museesFrance",
             "plusBeauxVillagesDeFrance",
             "patrimoinemondialenfrance",

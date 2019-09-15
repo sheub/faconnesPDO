@@ -266,6 +266,9 @@ class MyPlaceInfo extends Component {
               <div className="abstractPopup">
                 {info.abstract}<br />
                 <a target="_new" href={info.link} rel="noopener">&rarr; Wikipedia</a>
+                <RenderUrl props={this.props} />
+                {info.fullPrice !== 0 ? <p>{t("myplaceinfo.price")}{": "}{info.fullPrice} €</p> : null } 
+                {info.opening_hours !== 0 ? <p>{t("myplaceinfo.openingHours")}{": "}{info.opening_hours}</p> : null } 
               </div>
             </div>
             <AddToMyPlaces info ={this.state.infoPopup}/>
