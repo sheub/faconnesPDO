@@ -94,7 +94,7 @@ class MapComponent extends Component {
         }
 
         // Directions mode
-        if (this.props.mode === "directions") {
+        else if (this.props.mode === "directions") {
             if (this.props.directionsFrom) {
                 this.map.getSource("fromMarker").setData(this.props.directionsFrom.geometry);
             } else {

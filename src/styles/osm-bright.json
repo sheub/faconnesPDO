@@ -5214,33 +5214,32 @@
       "paint": {
         "text-color": "#4AA52C"
       }
-    },
-    {
-      "id": "grandSiteDeFrance",
-      "type": "symbol",
-      "source": "wiki",
-      "source-layer": "grandSiteDeFrance",
-      "layout": {
-        "visibility": "none",
-        "icon-image": "star-15-19766E",
-        "icon-allow-overlap":true,
-        "icon-size": {
-          "stops": [
-            [
-              0,
-              0.7
-            ],
-            [
-              10,
-              1
-            ]
-          ]
-        }
-      },
-      "paint": {
-        "text-color": "#19766E"
-      }
-    },
+    },{
+            "id": "grandSiteDeFrance",
+          "type": "symbol",
+          "source": "wiki",
+          "source-layer": "grandSiteDeFrance",
+          "layout": {
+            "visibility": "none",
+            "icon-image": "star-15-19766E",
+            "icon-allow-overlap":true,
+            "icon-size": {
+              "stops": [
+                [
+                  0,
+                  0.7
+                ],
+                [
+                  10,
+                  1
+                ]
+              ]
+            }
+          },
+          "paint": {
+            "text-color": "#19766E"
+          }
+        },
     {
       "id": "museesFrance",
       "type": "symbol",

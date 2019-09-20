@@ -174,8 +174,9 @@ function toUrl(props) {
     );
   }
   if (props.searchCoords) {
-    res.push("+" + props.searchCoords.map(e => e.toFixed(6)).join(","));
+    // res.push("+" + props.searchCoords.map(e => e.toFixed(6)).join(","));
   }
+
   if (props.searchPlace) {
     res.push("~" + encodeURI(props.searchPlace));
   }

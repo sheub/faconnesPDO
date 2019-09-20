@@ -363,10 +363,10 @@ MyDrawer.propTypes = {
   setStateValues: PropTypes.func,
   toggleLayerVisibility: PropTypes.string,
   triggerMapUpdate: PropTypes.func,
-  visibility: PropTypes.object,
+  visibility: PropTypes.object
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     toggleLayerVisibility: state.app.toggleLayerVisibility,
     visibility: state.app.visibility
