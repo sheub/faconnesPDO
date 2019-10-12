@@ -8,7 +8,7 @@
  */
 
 global $config;
-$config['serverTitle'] = 'Maps hosted with TileServer-php v2.0';
+// $config['serverTitle'] = 'Maps hosted with TileServer-php v2.0';
 $config['availableFormats'] = array('png', 'jpg', 'jpeg', 'gif', 'webp', 'pbf', 'hybrid');
 $config['dataRoot'] = '';
 //$config['template'] = 'template.php';
@@ -200,9 +200,11 @@ class Server
             $value = preg_replace('/(\\n)+/', '', $r['value']);
             $metadata[$r['name']] = addslashes($value);
         }
-        if (!array_key_exists('minzoom', $metadata)
-    || !array_key_exists('maxzoom', $metadata)
-    ) {
+        if (
+            !array_key_exists('minzoom', $metadata)
+            ||
+            !array_key_exists('maxzoom', $metadata)
+        ) {
             // autodetect minzoom and maxzoom
             $result = $this->db->query('select min(zoom_level) as min, max(zoom_level) as max from tiles');
             $resultdata = $result->fetchAll();
@@ -986,58 +988,58 @@ class Wmts extends Server
 
         header('Content-type: application/xml');
         echo '<?xml version="1.0" encoding="UTF-8" ?>
-<Capabilities xmlns="http://www.opengis.net/wmts/1.0" xmlns:ows="http://www.opengis.net/ows/1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gml="http://www.opengis.net/gml" xsi:schemaLocation="http://www.opengis.net/wmts/1.0 http://schemas.opengis.net/wmts/1.0/wmtsGetCapabilities_response.xsd" version="1.0.0">
-  <!-- Service Identification -->
-  <ows:ServiceIdentification>
-    <ows:Title>tileserverphp</ows:Title>
-    <ows:ServiceType>OGC WMTS</ows:ServiceType>
-    <ows:ServiceTypeVersion>1.0.0</ows:ServiceTypeVersion>
-  </ows:ServiceIdentification>
-  <!-- Operations Metadata -->
-  <ows:OperationsMetadata>
-    <ows:Operation name="GetCapabilities">
-      <ows:DCP>
-        <ows:HTTP>
-          <ows:Get xlink:href="' . $this->config['protocol'] . '://' . $this->config['baseUrls'][0] . '/wmts/1.0.0/WMTSCapabilities.xml">
-            <ows:Constraint name="GetEncoding">
-              <ows:AllowedValues>
-                <ows:Value>RESTful</ows:Value>
-              </ows:AllowedValues>
-            </ows:Constraint>
-          </ows:Get>
-          <!-- add KVP binding in 10.1 -->
-          <ows:Get xlink:href="' . $this->config['protocol'] . '://' . $this->config['baseUrls'][0] . '/wmts?">
-            <ows:Constraint name="GetEncoding">
-              <ows:AllowedValues>
-                <ows:Value>KVP</ows:Value>
-              </ows:AllowedValues>
-            </ows:Constraint>
-          </ows:Get>
-        </ows:HTTP>
-      </ows:DCP>
-    </ows:Operation>
-    <ows:Operation name="GetTile">
-      <ows:DCP>
-        <ows:HTTP>
-          <ows:Get xlink:href="' . $this->config['protocol'] . '://' . $this->config['baseUrls'][0] . '/wmts/">
-            <ows:Constraint name="GetEncoding">
-              <ows:AllowedValues>
-                <ows:Value>RESTful</ows:Value>
-              </ows:AllowedValues>
-            </ows:Constraint>
-          </ows:Get>
-          <ows:Get xlink:href="' . $this->config['protocol'] . '://' . $this->config['baseUrls'][0] . '/wmts?">
-            <ows:Constraint name="GetEncoding">
-              <ows:AllowedValues>
-                <ows:Value>KVP</ows:Value>
-              </ows:AllowedValues>
-            </ows:Constraint>
-          </ows:Get>
-        </ows:HTTP>
-      </ows:DCP>
-    </ows:Operation>
-  </ows:OperationsMetadata>
-  <Contents>';
+        <Capabilities xmlns="http://www.opengis.net/wmts/1.0" xmlns:ows="http://www.opengis.net/ows/1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gml="http://www.opengis.net/gml" xsi:schemaLocation="http://www.opengis.net/wmts/1.0 http://schemas.opengis.net/wmts/1.0/wmtsGetCapabilities_response.xsd" version="1.0.0">
+        <!-- Service Identification -->
+        <ows:ServiceIdentification>
+            <ows:Title>tileserverphp</ows:Title>
+            <ows:ServiceType>OGC WMTS</ows:ServiceType>
+            <ows:ServiceTypeVersion>1.0.0</ows:ServiceTypeVersion>
+        </ows:ServiceIdentification>
+        <!-- Operations Metadata -->
+        <ows:OperationsMetadata>
+            <ows:Operation name="GetCapabilities">
+            <ows:DCP>
+                <ows:HTTP>
+                <ows:Get xlink:href="' . $this->config['protocol'] . '://' . $this->config['baseUrls'][0] . '/wmts/1.0.0/WMTSCapabilities.xml">
+                    <ows:Constraint name="GetEncoding">
+                    <ows:AllowedValues>
+                        <ows:Value>RESTful</ows:Value>
+                    </ows:AllowedValues>
+                    </ows:Constraint>
+                </ows:Get>
+                <!-- add KVP binding in 10.1 -->
+                <ows:Get xlink:href="' . $this->config['protocol'] . '://' . $this->config['baseUrls'][0] . '/wmts?">
+                    <ows:Constraint name="GetEncoding">
+                    <ows:AllowedValues>
+                        <ows:Value>KVP</ows:Value>
+                    </ows:AllowedValues>
+                    </ows:Constraint>
+                </ows:Get>
+                </ows:HTTP>
+            </ows:DCP>
+            </ows:Operation>
+            <ows:Operation name="GetTile">
+            <ows:DCP>
+                <ows:HTTP>
+                <ows:Get xlink:href="' . $this->config['protocol'] . '://' . $this->config['baseUrls'][0] . '/wmts/">
+                    <ows:Constraint name="GetEncoding">
+                    <ows:AllowedValues>
+                        <ows:Value>RESTful</ows:Value>
+                    </ows:AllowedValues>
+                    </ows:Constraint>
+                </ows:Get>
+                <ows:Get xlink:href="' . $this->config['protocol'] . '://' . $this->config['baseUrls'][0] . '/wmts?">
+                    <ows:Constraint name="GetEncoding">
+                    <ows:AllowedValues>
+                        <ows:Value>KVP</ows:Value>
+                    </ows:AllowedValues>
+                    </ows:Constraint>
+                </ows:Get>
+                </ows:HTTP>
+            </ows:DCP>
+            </ows:Operation>
+        </ows:OperationsMetadata>
+        <Contents>';
 
         $customtileMatrixSets = '';
         $maxMercatorZoom = 18;
@@ -1074,22 +1076,22 @@ class Wmts extends Server
             }
 
             echo'
-    <Layer>
-      <ows:Title>' . $title . '</ows:Title>
-      <ows:Identifier>' . $basename . '</ows:Identifier>
-      <ows:WGS84BoundingBox crs="urn:ogc:def:crs:OGC:2:84">
-        <ows:LowerCorner>' . $bounds[0] . ' ' . $bounds[1] . '</ows:LowerCorner>
-        <ows:UpperCorner>' . $bounds[2] . ' ' . $bounds[3] . '</ows:UpperCorner>
-      </ows:WGS84BoundingBox>
-      <Style isDefault="true">
-        <ows:Identifier>default</ows:Identifier>
-      </Style>
-      <Format>' . $mime . '</Format>
-      <TileMatrixSetLink>
-        <TileMatrixSet>' . $tileMatrixSet . '</TileMatrixSet>
-      </TileMatrixSetLink>
-      <ResourceURL format="' . $mime . '" resourceType="tile" template="' . $resourceUrlTemplate . '"/>
-    </Layer>';
+        <Layer>
+        <ows:Title>' . $title . '</ows:Title>
+        <ows:Identifier>' . $basename . '</ows:Identifier>
+        <ows:WGS84BoundingBox crs="urn:ogc:def:crs:OGC:2:84">
+            <ows:LowerCorner>' . $bounds[0] . ' ' . $bounds[1] . '</ows:LowerCorner>
+            <ows:UpperCorner>' . $bounds[2] . ' ' . $bounds[3] . '</ows:UpperCorner>
+        </ows:WGS84BoundingBox>
+        <Style isDefault="true">
+            <ows:Identifier>default</ows:Identifier>
+        </Style>
+        <Format>' . $mime . '</Format>
+        <TileMatrixSetLink>
+            <TileMatrixSet>' . $tileMatrixSet . '</TileMatrixSet>
+        </TileMatrixSetLink>
+        <ResourceURL format="' . $mime . '" resourceType="tile" template="' . $resourceUrlTemplate . '"/>
+        </Layer>';
         }
 
         // Print custom TileMatrixSets
@@ -1104,8 +1106,8 @@ class Wmts extends Server
         echo $this->getWGS84TileMatrixSet();
 
         echo '</Contents>
-  <ServiceMetadataURL xlink:href="' . $this->config['protocol'] . '://' . $this->config['baseUrls'][0] . '/wmts/1.0.0/WMTSCapabilities.xml"/>
-</Capabilities>';
+        <ServiceMetadataURL xlink:href="' . $this->config['protocol'] . '://' . $this->config['baseUrls'][0] . '/wmts/1.0.0/WMTSCapabilities.xml"/>
+            </Capabilities>';
     }
 
     /**
