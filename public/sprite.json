@@ -2708,6 +2708,13 @@
     "x": 446,
     "y": 234
   },
+  "wave": {
+    "height": 8,
+    "pixelRatio": 1,
+    "width": 16,
+    "x": 361,
+    "y": 0
+  },
   "za-metropolitan-2": {
     "height": 14,
     "pixelRatio": 1,
