@@ -7,6 +7,12 @@
         "logout": "Logout",
         "signIn": "Anmelden"
     },
+    "register": {
+        "firstname": "Firstname",
+        "lastname": "Last Name",
+        "email": "email",
+        "password": "Password"
+    },
     "drawer": {
         "main1": "Landschaft & Kultur",
         "main1Title": "Landschaft & Kultur",

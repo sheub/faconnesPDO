@@ -8,6 +8,12 @@
         "signIn": "Sign In"
 
     },
+    "register": {
+        "firstname": "Prénom",
+        "lastname": "Nom",
+        "email": "Adresse courriel",
+        "password": "Mot de passe"
+    },
     "drawer": {
         "main1": "Culture & Patrimoine",
         "main1Title": "Richesses architecturales, naturelles et culturelles",

@@ -1,7 +1,8 @@
 import { checkTokenExists, setToken } from "../helpers/auth";
-import axios from 'axios';
+import axios from "axios";
 
 export const SET_USER_DATA = "SET_USER_DATA";
+export const GET_USER_DATA = "GET_USER_DATA";
 export const SET_AUTHENTICATED = "SET_AUTHENTICATED";
 
 const fetchUser = () => {
@@ -24,21 +25,26 @@ export const setUserData = user => ({
   user
 });
 
+export const getUserData = user => ({
+  type: "GET_USER_DATA",
+  user
+});
+
 export const setAuthenticated = authenticated => ({
   type: SET_AUTHENTICATED,
   authenticated
 });
 
-export const signInUser = dispatch => credentials => {
-
+export const signInUser = dispatch => async credentials => {
   var url = "http://localhost:8080/login";
-    if (process.env.NODE_ENV === "production") {
-      url = "/login";
-    } else {
-      url = "http://localhost:8080/login";
-    }
+  if (process.env.NODE_ENV === "production") {
+    url = "/login";
+  } else {
+    url = "http://localhost:8080/login";
+  }
 
-    return axios({
+  try {
+    const data = await axios({
       method: "post",
       url: url,
       headers: {
@@ -48,19 +54,18 @@ export const signInUser = dispatch => credentials => {
         email: credentials.email,
         password: credentials.password
       }
-    }).then((data) => {
-        setToken(data.token);
-        dispatch(setUserData(data));
-        dispatch(setAuthenticated(true));
-        return Promise.resolve(data);
-      }
-    ).catch(error => {
-      console.log(error); //<--- Go down one more stream
-      return Promise.reject(error);
-   });
+    });
+    setToken(data.token);
+    dispatch(setUserData(data));
+    dispatch(setAuthenticated(true));
+    return Promise.resolve(data);
+  } catch (error) {
+    console.log(error); //<--- Go down one more stream
+    return Promise.reject(error);
+  }
 };
 
-export const registerUser = dispatch => credentials => {
+export const registerUser = dispatch => async credentials => {
   var url = "/register";
   if (process.env.NODE_ENV === "production") {
     url = "/register";
@@ -74,28 +79,26 @@ export const registerUser = dispatch => credentials => {
       credentials.password;
   }
 
-  return axios
-    .post(url, credentials)
-    .then(({ data: { data, meta } }) => {
-      setToken(meta.token);
-      dispatch(setUserData(data));
-      dispatch(setAuthenticated(true));
-      return Promise.resolve({ data, meta });
-    })
-    .catch(error => {
-      console.log(error); //<--- Go down one more stream
-      return Promise.reject(error);
-    });
+  try {
+    const data = await axios.post(url, credentials);
+    setToken(data.token);
+    dispatch(setUserData(data));
+    dispatch(setAuthenticated(true));
+    return Promise.resolve(data);
+  } catch (error) {
+    console.log(error); //<--- Go down one more stream
+    return Promise.reject(error);
+  }
 };
 
 export function clearAuth(dispatch) {
   setToken(null);
   dispatch(setUserData(null));
   dispatch(setAuthenticated(false));
-};
+}
 
 export const logoutUser = dispatch => cb => {
-    return clearAuth(dispatch)
+  return clearAuth(dispatch);
 };
 
 // export const googleSignIn = credentials => dispatch => {
@@ -118,7 +121,6 @@ export const logoutUser = dispatch => cb => {
 //       return Promise.reject(error);
 //     });
 // };
-
 
 export const initAuthFromExistingToken = cb => dispatch => {
   checkTokenExists()

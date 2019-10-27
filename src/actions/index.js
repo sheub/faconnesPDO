@@ -55,16 +55,6 @@ export const getPlaceInfo = wikidataId => ({
 //   accessToken
 // });
 
-// export const setContextMenu = (coordinates, position) => ({
-//   type: 'SET_CONTEXT_MENU',
-//   coordinates,
-//   position
-// });
-
-// export const resetContextMenu = () => ({
-//   type: 'RESET_CONTEXT_MENU'
-// });
-
 export const setStateFromURL = () => ({
   type: "SET_STATE_FROM_URL"
 });
