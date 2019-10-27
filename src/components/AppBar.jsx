@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { NavLink, withRouter} from "react-router-dom";
 import { translate } from "react-i18next";
 import { triggerMapUpdate, setStateValues } from "../actions/index";
 
@@ -13,11 +14,30 @@ import { withStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
+import AccountCircle from "@material-ui/icons/AccountCircle";
 import LanguageIcon from "@material-ui/icons/Language";
 import PropTypes from "prop-types";
 
-
 import "./App.css";
+import { logoutUser } from "../actions/auth";
+
+const SignIn = React.lazy(() => import("../pages/auth/SignIn"));
+
+const ForwardNavLink = React.forwardRef((props, ref) => (
+  <NavLink {...props} innerRef={ref} />
+));
+
+
+const MyLinkToRegister = (props) => <ForwardNavLink to="/register" {...props} />;
+// const MyLinkToUserPage = (props) => <ForwardNavLink to="/profile/${this.state.user.id" {...props} />;
+const MyLinkToUserPage = (props) => <ForwardNavLink to="/profile/" {...props} />;
+const MyLinkToLogout = (props) => <ForwardNavLink to="/" {...props} />;
+
+export const DefaultTransition = React.forwardRef((props, ref) => (
+  <MenuItem {...props} ref={ref} />
+))
+
+
 
 const styles = (theme) => ({
 
@@ -45,7 +65,7 @@ const styles = (theme) => ({
         })
     },
     menuButton: {
-        marginLeft: 12,
+        marginLeft: 20,
         marginRight: 12
     },
     menuButtonHidden: {
@@ -55,35 +75,171 @@ const styles = (theme) => ({
         flexGrow: 1
     },
 
+    languageButtonClass: {
+      marginLeft: "auto"
+    },
+
+    sectionMobile: {
+        display: "flex",
+        [theme.breakpoints.up("md")]: {
+            display: "none",
+        },
+    },
+    sectionDesktop: {
+        display: "none",
+        [theme.breakpoints.up("md")]: {
+            display: "flex",
+            marginLeft: 0
+        },
+    },
+
 
 });
 
 const drawerWidth = 270;
+
 class MyAppBar extends Component {
     state = {
         anchorEl: null,
+        mobileMoreAnchorEl: null,
+        anchorelanguage: null,
         languageSet: 'en',
+        SignInFormVisible: false,
     };
+    
 
     handleDrawerOpen = () => {
         this.props.handleDrawerOpen();
     };
 
-    handleMenu = event => {
-        this.setState({ anchorEl: event.currentTarget });
+    handleMenuLanguage = event => {
+      this.setState({
+        anchorelanguage: event.currentTarget
+      });
+    };
+
+    handleCloseLanguage = () => {
+      this.setState({
+        anchorelanguage: null
+      });
+    };
+
+    // OpenClose Menu
+    handleProfileMenuOpen = (event) => {
+      this.setState({
+        anchorEl: event.currentTarget
+      });
+    };
+
+    // open SignIn
+    openSignIn = () => {
+        this.setState({
+          anchorEl: null,
+          SignInFormVisible: true
+        });
+        this.handleMobileMenuClose();
     };
 
     handleClose = () => {
+        this.setState({ 
+            anchorEl: null,
+            SignInFormVisible: false });
+    };
+
+    handleMenuClose = () => {
+        this.setState({
+          anchorEl: null
+        });
+        this.handleMobileMenuClose();
+    };
+
+    // OpenClose mobile menu
+    handleMobileMenuOpen = (event) => {
+        this.setState({ mobileMoreAnchorEl: event.currentTarget });
+    };
+
+    handleMobileMenuClose = () => {
+        this.setState({ mobileMoreAnchorEl: null });
+    };
+
+    handleLogout = () => {
+        this.props.logoutUser(() => this.props.history.push("/"));
         this.setState({ anchorEl: null });
+        this.handleMobileMenuClose();
     };
 
     render() {
-        const { open, classes, t, i18n } = this.props;
-        const { anchorEl } = this.state;
-        const openMenu = Boolean(anchorEl);
+
+      const { open, classes, auth, t, i18n } = this.props;
+      const { anchorEl, mobileMoreAnchorEl, anchorelanguage } = this.state;
+      const openMenuLanguage = Boolean(anchorelanguage);
+      const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+      const isMenuOpen = Boolean(anchorEl);
+
+        const renderMenu = (
+            <Menu
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right"
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right"
+                }}
+                open={isMenuOpen}
+                onClose={this.handleMenuClose}
+            >
+                {auth.authenticated ?
+                    <div>
+                        <MenuItem className="menuButton" component={MyLinkToUserPage} onClick={this.handleMenuClose}>
+                            My Profile
+                        </MenuItem>
+                        <MenuItem className="menuButton" component={MyLinkToLogout} onClick={this.handleLogout}>
+                            Logout
+                        </MenuItem>
+                    </div>
+                    : <div >
+                        <MenuItem className="menuButton" onClick={this.openSignIn}>{t("appbar.signIn")}</MenuItem>
+                        <MenuItem className="menuButton" component={MyLinkToRegister} onClick={this.handleMenuClose}>
+                            {t("appbar.register")}
+                        </MenuItem>
+                    </div>
+                }
+            </Menu>
+        );
+
+        const renderMobileMenu = (
+            <Menu
+                anchorEl={mobileMoreAnchorEl}
+                anchorOrigin={{ vertical: "top", horizontal: "right" }}
+                transformOrigin={{ vertical: "top", horizontal: "right" }}
+                open={isMobileMenuOpen}
+                onClose={this.handleMobileMenuClose}
+            >
+
+                <MenuItem onClick={this.handleProfileMenuOpen}>
+                    <div>
+                        <IconButton color="inherit">
+                            <AccountCircle />
+                        </IconButton>
+                        <MenuItem className="menuButton" component={MyLinkToUserPage} onClick={this.handleMenuClose}>
+                            {t("appbar.myProfile")}
+                        </MenuItem>
+                        <MenuItem className="menuButton" onClick={() => this.handleLogout()}>
+                            {t("appbar.logout")}
+                        </MenuItem>
+                    </div>
+                    {/* <p>Profile</p> */}
+                </MenuItem>
+            </Menu>
+        );
 
         const changeLanguage = (lng) => {
-            this.setState({ anchorEl: null, languageSet: lng });
+            this.setState({
+              anchorelanguage: null,
+              languageSet: lng
+            });
 
             this.props.setStateValues({
                 languageSet: lng,
@@ -93,81 +249,132 @@ class MyAppBar extends Component {
             i18n.changeLanguage(lng);
             this.props.triggerMapUpdate();
         }
+
         return (
+          <div className={classes.root}>
+            <CssBaseline />
 
-            <div className={classes.root}>
+            <AppBar
+              position="absolute"
+              className={classNames(
+                classes.appBar,
+                open && classes.appBarShift
+              )}
+            >
+              <Toolbar disableGutters={!open}>
+                <IconButton
+                  color="inherit"
+                  aria-label="Open drawer"
+                  onClick={this.handleDrawerOpen}
+                  className={classNames(
+                    classes.menuButton,
+                    open && classes.menuButtonHidden
+                  )}
+                >
+                  <MenuIcon />
+                </IconButton>
 
-                <CssBaseline />
+                <NavLink to="/" style={{ textDecoration: "none", color: "white" }}>
+                <Typography
+                  variant="h6"
+                  color="inherit"
+                  noWrap
+                  className={classes.titleClass}
+                >
+                  {t("title")}
+                </Typography>
 
-                <AppBar position="absolute" className={classNames(classes.appBar, open && classes.appBarShift)}>
-                    <Toolbar disableGutters={!open}>
-                        <IconButton color="inherit" aria-label="Open drawer" onClick={this.handleDrawerOpen} className={classNames(classes.menuButton, open && classes.menuButtonHidden)}>
-                            <MenuIcon />
-                        </IconButton>
+                </NavLink>
 
-                        <Typography variant="h6" color="inherit" noWrap className={classes.titleClass}>
-                                    {t("title")}
-                        </Typography>
+                {/* <div className={classes.sectionDesktop}> */}
+                <div className={classes.languageButtonClass}>
+                
+                  <IconButton
+                    aria-owns={isMenuOpen ? "material-appbar" : undefined}
+                    aria-haspopup="true"
+                    onClick={this.handleProfileMenuOpen}
+                    color="inherit"
+                  >
+                    <AccountCircle />                    
+                  </IconButton>
 
-                        {/* {
-                            (window.innerWidth > 700)
-                                ? <Typography variant="h6" color="inherit" noWrap className={classes.titleClass}>
-                                    {t("title")}
-                                </Typography> : null
-                        } */}
+                  <IconButton
+                    aria-owns={open ? "menu-appbar" : null}
+                    aria-haspopup="true"
+                    onClick={this.handleMenuLanguage}
+                    color="inherit"
+                    aria-label="Select Language"
+                  >
+                    <LanguageIcon />
+                  </IconButton>
 
-                        {/* <MyDatePicker t={t} i18n={i18n} state={this.state} dateChange={this.handleDateChange.bind(this)} dateToChange={this.handleDateToChange.bind(this)} /> */}
+                  <Menu
+                    id="menu-appbar"
+                    anchorEl={anchorelanguage}
+                    anchorOrigin={{
+                      vertical: "top",
+                      horizontal: "right"
+                    }}
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "right"
+                    }}
+                    open={openMenuLanguage}
+                    onClose={this.handleCloseLanguage}
+                  >
+                    <MenuItem onClick={() => changeLanguage("en")}>en</MenuItem>
+                    <MenuItem onClick={() => changeLanguage("fr")}>fr</MenuItem>
+                  </Menu>
+                </div>
 
-                        <div>
-                            <IconButton
-                                aria-owns={open ? "menu-appbar" : null}
-                                aria-haspopup="true"
-                                onClick={this.handleMenu}
-                                color="inherit"
-                                aria-label="Select Language"
-                            >
-                                <LanguageIcon />
-                            </IconButton>
-                            <Menu
-                                id="menu-appbar"
-                                anchorEl={anchorEl}
-                                anchorOrigin={{
-                                    vertical: "top",
-                                    horizontal: "right",
-                                }}
-                                transformOrigin={{
-                                    vertical: "top",
-                                    horizontal: "right",
-                                }}
-                                open={openMenu}
-                                onClose={this.handleClose}
-                            >
-                                <MenuItem onClick={() => changeLanguage("en")}>en</MenuItem>
-                                <MenuItem onClick={() => changeLanguage("fr")}>fr</MenuItem>
-                            </Menu>
-                        </div>
-                    </Toolbar>
-                </AppBar>
-            </div>
+              </Toolbar>
+            </AppBar>
+            {renderMenu}
+            {renderMobileMenu}
+            {this.state.SignInFormVisible ? (
+              <React.Suspense fallback={<div> </div>}>
+                <SignIn handleClose={this.handleClose} />
+              </React.Suspense>
+            ) : null}
+          </div>
         );
     }
 }
 AppBar.propTypes = {
+    // Auth
+    // auth: PropTypes.object.isRequired,
+    // logoutUser: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired,
+
+    // Others
     languageSet: PropTypes.string,
     needMapActualizeLanguage: PropTypes.bool,
     setStateValues: PropTypes.func,
     triggerMapUpdate: PropTypes.func,
 };
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+      setStateValues: (obj) => dispatch(setStateValues(obj)),
+      triggerMapUpdate: (v) => dispatch(triggerMapUpdate(v)),
+      // logoutUser: (obj) => dispatch(logoutUser(obj))
+      logoutUser: logoutUser(dispatch)
+  };
+};
+
+// function mapDispatchToProps(dispatch) {
+//   return {
+//       signIn: signInUser(dispatch)
+//   };
+// }
+
+
 const mapStateToProps = (state) => {
     return {
         languageSet: state.app.languageSet,
-        needMapActualizeLanguage: state.app.needMapActualizeLanguage
+        needMapActualizeLanguage: state.app.needMapActualizeLanguage,
+        auth: state.auth
     };
 };
-const mapDispatchToProps = (dispatch) => {
-    return {
-        setStateValues: (obj) => dispatch(setStateValues(obj)),
-        triggerMapUpdate: (v) => dispatch(triggerMapUpdate(v))
-    };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(translate("translations")(MyAppBar)));
+export default connect(mapStateToProps, mapDispatchToProps, null, 
+  {pure: false})(withRouter(withStyles(styles)(translate("translations")(MyAppBar))));

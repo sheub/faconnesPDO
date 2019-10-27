@@ -6,7 +6,7 @@ import SvgIcon from "@material-ui/core/SvgIcon";
 import IconButton from "@material-ui/core/IconButton";
 import { returnImage } from "../utils/displayUtils";
 import AddToMyPlaces from "./AddToMyPlaces";
-
+import './fonts/Caslon/ACaslonPro-Bold.otf'
 import "./PopupInfo.css";
 
 function HomeIcon(props) {

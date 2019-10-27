@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import React, { Component } from "react";
+import { BrowserRouter as Router, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import Map from "./Map";
 import { setStateFromURL } from "../actions/index";
@@ -28,6 +29,7 @@ class App extends Component {
         let styleSearch = (window.innerWidth > 340) ? { width: "240px", margin: "12px", marginTop: "74px" } : { width: "100%", margin: 0  };
         return (
 
+          <Router>
       <div className="root">
           <AppbarDrawer />
         <div id="mapCont">
@@ -59,6 +61,7 @@ class App extends Component {
           </div>
         </div>
       </div>
+      </Router>
         );
     }
 }

@@ -1,3 +1,5 @@
+
+
 export const setStateValue = (key, value) => ({
     type: "SET_STATE_VALUE",
     key,
@@ -42,6 +44,7 @@ export const getPlaceInfo = (wikidataId) => ({
     type: "GET_PLACE_INFO",
     id: wikidataId
 });
+
 
 // export const getReverseGeocode = (key, coordinates, accessToken) => ({
 //   type: 'GET_REVERSE_GEOCODE',

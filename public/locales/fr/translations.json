@@ -1,5 +1,13 @@
 {
     "title": "France découverte",
+    "appbar": {
+        "pricing": "Pricing",
+        "myProfile": "My Profil",
+        "register": "Register",
+        "logout": "Logout",
+        "signIn": "Sign In"
+
+    },
     "drawer": {
         "main1": "Culture & Patrimoine",
         "main1Title": "Richesses architecturales, naturelles et culturelles",

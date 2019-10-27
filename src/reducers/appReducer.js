@@ -1,4 +1,5 @@
 import polyline from "@mapbox/polyline";
+// import { SET_AUTHENTICATED, SET_USER_DATA } from "../actions/auth";
 
 const defaultAppState = {
   // Mapbox Access Token
@@ -61,6 +62,11 @@ const defaultAppState = {
     infoPopup: null,
     listVueActive: false,
     coorOnClick: [],  
+    // Default auth state
+    auth: {
+        user: null, 
+        authenticated: false
+    }
 };
 
 const appReducer = (state = defaultAppState, action) => {
@@ -143,6 +149,12 @@ const appReducer = (state = defaultAppState, action) => {
     case "SET_STATE_FROM_URL": {
         return state;
     }
+
+    // case SET_USER_DATA:
+    //     return Object.assign({}, state, { user: action.user });
+    //   case SET_AUTHENTICATED:
+    //     return Object.assign({}, state, { authenticated: action.authenticated });
+  
 
     default:
         return state;

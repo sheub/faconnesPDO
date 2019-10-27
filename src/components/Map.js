@@ -23,8 +23,8 @@ import style from "../styles/osm-bright.json";
 // Set the sprite URL in the style. It has to be a full, absolute URL.
 let spriteUrl;
 if (process.env.NODE_ENV === "production") {
-    spriteUrl = process.env.PUBLIC_URL + "/sprite";
-    // spriteUrl = "https://faconnes.de" + "/sprite";
+    // spriteUrl = process.env.PUBLIC_URL + "/sprite";
+    spriteUrl = "https://faconnes.de/sprite";
 } else { // Dev server runs on port 3000
     spriteUrl = "http://localhost:3000/sprite";
     // spriteUrl = "https://faconnes.de" + "/sprite";
