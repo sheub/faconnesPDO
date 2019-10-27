@@ -116,21 +116,7 @@ export function clearAuth(dispatch) {
 };
 
 export const logoutUser = dispatch => cb => {
-  // var url = "/logout";
-  // if (process.env.NODE_ENV === "production") {
-  //   url = "/logout";
-  // } else {
-  //   // Dev server runs on port 5000
-  //   url = "http://localhost:3000/logout";
-  // }
-  // const request = axios.post(url);
-
-  // return request.then(
     return clearAuth(dispatch)
-  //   cb(),
-  //   err => dispatch(clearAuth()),
-  //   cb()
-  // );
 };
 
 export const initAuthFromExistingToken = cb => dispatch => {
