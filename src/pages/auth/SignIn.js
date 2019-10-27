@@ -1,11 +1,9 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-
 import PropTypes from "prop-types";
+
 import { signInUser } from "../../actions/auth";
-import { getIntendedUrl } from "../../helpers/auth";
 import { destructServerErrors, hasError, getError } from "../../helpers/error";
 
 import Button from "@material-ui/core/Button";
@@ -18,7 +16,7 @@ import withMobileDialog from "@material-ui/core/withMobileDialog";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
 import withStyles from "@material-ui/core/styles/withStyles";
-const MyLinkToRegister = props => <Link to="/register" {...props} />;
+const Register = React.lazy(() => import("./Register"));
 
 const propTypes = {
   signInUser: PropTypes.func.isRequired,
@@ -50,7 +48,8 @@ class SignIn extends Component {
       email: "",
       password: "",
       errors: "",
-      open: true
+      open: true,
+      RegisterFormVisible: false
     };
   }
 
@@ -59,7 +58,6 @@ class SignIn extends Component {
   };
 
   signInSuccess() {
-    getIntendedUrl().then(url => this.props.history.push(url));
     this.setState({ open: false });
     this.handleClose();
   }
@@ -71,6 +69,16 @@ class SignIn extends Component {
       .then(response => this.signInSuccess())
       .catch(error => this.setState({ errors: destructServerErrors(error) }));
   }
+
+  // open SignIn
+  openRegister = () => {
+    this.setState({
+      anchorEl: null,
+      open: false,
+      RegisterFormVisible: true
+    });
+    // this.handleMobileMenuClose();
+  };
 
   handleInputChange(e) {
     this.setState({
@@ -94,75 +102,76 @@ class SignIn extends Component {
     const { fullScreen, classes } = this.props;
 
     return (
-      <Dialog
-        fullScreen={fullScreen}
-        open={this.state.open}
-        onClose={this.handleClose}
-        aria-labelledby="form-dialog-title"
-      >
-        <CssBaseline />
+      <div>
+        <Dialog
+          fullScreen={fullScreen}
+          open={this.state.open}
+          onClose={this.handleClose}
+          aria-labelledby="form-dialog-title"
+        >
+          <CssBaseline />
 
-        <form onSubmit={e => this.handleSubmit(e)} method="POST">
-          <DialogTitle id="form-dialog-title">Please Sign In</DialogTitle>
-          <DialogContent>
-            {/* E-mail textfield */}
-            <TextField
-              value={this.state.email}
-              onChange={e => this.handleInputChange(e)}
-              id="email"
-              type="email"
-              name="email"
-              errortext="Please Enter valid email"
-              required={true}
-              autoFocus
-              margin="dense"
-              label="Email Address"
-              fullWidth
-            />
-            {hasError(this.state.errors, "email") && (
-              <p className="text-red text-xs pt-2">
-                {getError(this.state.errors, "email")}
-              </p>
-            )}
+          <form onSubmit={e => this.handleSubmit(e)} method="POST">
+            <DialogTitle id="form-dialog-title">Please Sign In</DialogTitle>
+            <DialogContent>
+              {/* E-mail textfield */}
+              <TextField
+                value={this.state.email}
+                onChange={e => this.handleInputChange(e)}
+                id="email"
+                type="email"
+                name="email"
+                errortext="Please Enter valid email"
+                required={true}
+                autoFocus
+                margin="dense"
+                label="Email Address"
+                fullWidth
+              />
+              {hasError(this.state.errors, "email") && (
+                <p className="text-red text-xs pt-2">
+                  {getError(this.state.errors, "email")}
+                </p>
+              )}
 
-            {/* Password textfield */}
-            <TextField
-              value={this.state.password}
-              onChange={e => this.handleInputChange(e)}
-              type="password"
-              id="password"
-              name="password"
-              required={true}
-              margin="dense"
-              label="Password"
-              fullWidth
-            />
-          </DialogContent>
+              {/* Password textfield */}
+              <TextField
+                value={this.state.password}
+                onChange={e => this.handleInputChange(e)}
+                type="password"
+                id="password"
+                name="password"
+                required={true}
+                margin="dense"
+                label="Password"
+                fullWidth
+              />
+            </DialogContent>
 
-          <DialogActions>
-            {/* Register */}
-            <Button
-              type="submit"
-              variant="outlined"
-              color="primary"
-              className={classes.register}
-              component={MyLinkToRegister}
-            >
-              Register
-            </Button>
+            <DialogActions>
+              {/* Register */}
+              <Button
+                type="submit"
+                variant="outlined"
+                color="primary"
+                className={classes.register}
+                onClick={this.openRegister}
+              >
+                Register
+              </Button>
 
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Sign In
-            </Button>
-          </DialogActions>
-        </form>
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+              >
+                Sign In
+              </Button>
+            </DialogActions>
+          </form>
 
-        {/* <div className="p-4 text-grey-dark text-sm flex flex-col items-center">
+          {/* <div className="p-4 text-grey-dark text-sm flex flex-col items-center">
             <div>
               <span>Create a New Account? </span>
               <Link to="/register" className="no-underline text-grey-darker font-bold">Register</Link>
@@ -186,7 +195,13 @@ class SignIn extends Component {
               }
             />
           </div> */}
-      </Dialog>
+        </Dialog>
+        {this.state.RegisterFormVisible ? (
+          <React.Suspense fallback={<div> </div>}>
+            <Register handleClose={this.handleClose} />
+          </React.Suspense>
+        ) : null}
+      </div>
     );
   }
 }

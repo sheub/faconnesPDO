@@ -60,31 +60,10 @@ export const signInUser = dispatch => credentials => {
    });
 };
 
-// export const googleSignIn = credentials => dispatch => {
-//   var url = "/api/google/signin";
-//   if (process.env.NODE_ENV === "production") {
-//     url = "/api/google/signin";
-//   } else {
-//     // Dev server runs on port 5000
-//     url = "http://localhost:5000/api/google/signin";
-//   }
-//   return axios
-//     .post(url, credentials)
-//     .then(({ data: { data, meta } }) => {
-//       setToken(meta.token);
-//       dispatch(setUserData(data));
-//       dispatch(setAuthenticated(true));
-//       return Promise.resolve({ data, meta });
-//     })
-//     .catch(error => {
-//       return Promise.reject(error);
-//     });
-// };
-
-export const registerUser = credentials => dispatch => {
-  var url = "/api/register";
+export const registerUser = dispatch => credentials => {
+  var url = "/register";
   if (process.env.NODE_ENV === "production") {
-    url = "/api/register";
+    url = "/register";
   } else {
     // Dev server runs on port 3000
     // url = "http://localhost:5000/api/register";
@@ -118,6 +97,28 @@ export function clearAuth(dispatch) {
 export const logoutUser = dispatch => cb => {
     return clearAuth(dispatch)
 };
+
+// export const googleSignIn = credentials => dispatch => {
+//   var url = "/api/google/signin";
+//   if (process.env.NODE_ENV === "production") {
+//     url = "/api/google/signin";
+//   } else {
+//     // Dev server runs on port 5000
+//     url = "http://localhost:5000/api/google/signin";
+//   }
+//   return axios
+//     .post(url, credentials)
+//     .then(({ data: { data, meta } }) => {
+//       setToken(meta.token);
+//       dispatch(setUserData(data));
+//       dispatch(setAuthenticated(true));
+//       return Promise.resolve({ data, meta });
+//     })
+//     .catch(error => {
+//       return Promise.reject(error);
+//     });
+// };
+
 
 export const initAuthFromExistingToken = cb => dispatch => {
   checkTokenExists()

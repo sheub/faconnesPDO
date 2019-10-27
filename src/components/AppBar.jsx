@@ -22,13 +22,14 @@ import "./App.css";
 import { logoutUser } from "../actions/auth";
 
 const SignIn = React.lazy(() => import("../pages/auth/SignIn"));
+const Register = React.lazy(() => import("../pages/auth/Register"));
 
 const ForwardNavLink = React.forwardRef((props, ref) => (
   <NavLink {...props} innerRef={ref} />
 ));
 
 
-const MyLinkToRegister = (props) => <ForwardNavLink to="/register" {...props} />;
+// const MyLinkToRegister = (props) => <ForwardNavLink to="/register" {...props} />;
 // const MyLinkToUserPage = (props) => <ForwardNavLink to="/profile/${this.state.user.id" {...props} />;
 const MyLinkToUserPage = (props) => <ForwardNavLink to="/profile/" {...props} />;
 const MyLinkToLogout = (props) => <ForwardNavLink to="/" {...props} />;
@@ -105,6 +106,7 @@ class MyAppBar extends Component {
         anchorelanguage: null,
         languageSet: 'en',
         SignInFormVisible: false,
+        RegisterFormVisible: false
     };
     
 
@@ -139,11 +141,21 @@ class MyAppBar extends Component {
         });
         this.handleMobileMenuClose();
     };
+      // open SignIn
+      openRegister = () => {
+          this.setState({
+            anchorEl: null,
+            RegisterFormVisible: true
+          });
+          this.handleMobileMenuClose();
+      };
 
     handleClose = () => {
         this.setState({ 
             anchorEl: null,
-            SignInFormVisible: false });
+            SignInFormVisible: false,
+            RegisterFormVisible: false
+           });
     };
 
     handleMenuClose = () => {
@@ -200,8 +212,10 @@ class MyAppBar extends Component {
                         </MenuItem>
                     </div>
                     : <div >
-                        <MenuItem className="menuButton" onClick={this.openSignIn}>{t("appbar.signIn")}</MenuItem>
-                        <MenuItem className="menuButton" component={MyLinkToRegister} onClick={this.handleMenuClose}>
+                        <MenuItem className="menuButton" onClick={this.openSignIn}>
+                          {t("appbar.signIn")}
+                        </MenuItem>
+                        <MenuItem className="menuButton" onClick={this.openRegister}>
                             {t("appbar.register")}
                         </MenuItem>
                     </div>
@@ -336,6 +350,12 @@ class MyAppBar extends Component {
                 <SignIn handleClose={this.handleClose} />
               </React.Suspense>
             ) : null}
+            {this.state.RegisterFormVisible ? (
+              <React.Suspense fallback={<div> </div>}>
+                <Register handleClose={this.handleClose} />
+              </React.Suspense>
+            ) : null}
+            
           </div>
         );
     }
