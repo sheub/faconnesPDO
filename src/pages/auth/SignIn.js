@@ -4,18 +4,28 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import { signInUser } from "../../actions/auth";
-import { destructServerErrors, hasError, getError } from "../../helpers/error";
+import { 
+  destructServerErrors,
+  hasError,
+  getError
+} from "../../helpers/error";
 
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import withMobileDialog from "@material-ui/core/withMobileDialog";
-import CssBaseline from "@material-ui/core/CssBaseline";
-
+import {
+  Button,
+  TextField,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  withMobileDialog,
+  CssBaseline,
+  Grid,
+  Typography
+} from '@material-ui/core'
 import withStyles from "@material-ui/core/styles/withStyles";
+
+import FacebookIcon from '@material-ui/icons/Facebook';
+
 const Register = React.lazy(() => import("./Register"));
 
 const propTypes = {
@@ -25,10 +35,6 @@ const propTypes = {
 };
 
 const styles = theme => ({
-  checkbox: {
-    marginTop: theme.spacing(1),
-    marginLeft: theme.spacing(1)
-  },
   submit: {
     marginTop: theme.spacing(3),
     float: "right",
@@ -38,7 +44,21 @@ const styles = theme => ({
     marginTop: theme.spacing(3),
     float: "left",
     minWidth: "48px"
-  }
+  },
+  socialButtons: {
+    marginTop: theme.spacing(3),
+    marginLeft: theme.spacing(3)
+
+  },
+  socialIcon: {
+    marginRight: theme.spacing(1)
+  },
+  sugestion: {
+    marginTop: theme.spacing(2)
+  },
+  textField: {
+    marginTop: theme.spacing(2)
+  },
 });
 
 class SignIn extends Component {
@@ -60,7 +80,7 @@ class SignIn extends Component {
   signInSuccess() {
     this.setState({ open: false });
     this.handleClose();
-  }
+  };
 
   handleSubmit(e) {
     e.preventDefault();
@@ -68,9 +88,9 @@ class SignIn extends Component {
       .signIn(this.state)
       .then(response => this.signInSuccess())
       .catch(error => this.setState({ errors: destructServerErrors(error) }));
-  }
+  };
 
-  // open SignIn
+  // open Register
   openRegister = () => {
     this.setState({
       anchorEl: null,
@@ -88,7 +108,12 @@ class SignIn extends Component {
         ...{ [e.target.name]: "" }
       }
     });
-  }
+  };
+
+  handleSignIn = event => {
+    event.preventDefault();
+    // history.push('/');
+  };
 
   //   handleGoogleSignInSuccess(credentials) {
   //       this.props
@@ -111,10 +136,37 @@ class SignIn extends Component {
         >
           <CssBaseline />
 
+          <Grid
+                  className={classes.socialButtons}
+                  container
+                  spacing={2}
+                >
+                  <Grid item>
+                    <Button
+                      color="primary"
+                      onClick={this.handleSignIn}
+                      size="large"
+                      variant="contained"
+                    >
+                      <FacebookIcon className={classes.socialIcon} />
+                      Login with Facebook
+                    </Button>
+                  </Grid>
+                </Grid>
+                <Typography
+                  align="center"
+                  className={classes.sugestion}
+                  color="textSecondary"
+                  variant="body1"
+                >
+                  or login with email address
+                </Typography>
+
           <form onSubmit={e => this.handleSubmit(e)} method="POST">
             <DialogTitle id="form-dialog-title">Please Sign In</DialogTitle>
             <DialogContent>
               {/* E-mail textfield */}
+              {/* <Grid item xs={12}> */}
               <TextField
                 value={this.state.email}
                 onChange={e => this.handleInputChange(e)}
@@ -123,6 +175,7 @@ class SignIn extends Component {
                 name="email"
                 errortext="Please Enter valid email"
                 required={true}
+                variant="outlined"
                 autoFocus
                 margin="dense"
                 label="Email Address"
@@ -133,6 +186,7 @@ class SignIn extends Component {
                   {getError(this.state.errors, "email")}
                 </p>
               )}
+              {/* </Grid> */}
 
               {/* Password textfield */}
               <TextField
@@ -144,6 +198,7 @@ class SignIn extends Component {
                 required={true}
                 margin="dense"
                 label="Password"
+                variant="outlined"
                 fullWidth
               />
             </DialogContent>
@@ -171,30 +226,6 @@ class SignIn extends Component {
             </DialogActions>
           </form>
 
-          {/* <div className="p-4 text-grey-dark text-sm flex flex-col items-center">
-            <div>
-              <span>Create a New Account? </span>
-              <Link to="/register" className="no-underline text-grey-darker font-bold">Register</Link>
-            </div>
-
-            <div className="mt-2">
-              <strong>Help:</strong>{" "}
-              <Link
-                to="/forgot-password"
-                className="no-underline text-grey-dark text-xs"
-              >
-                Reset Password
-              </Link>
-            </div>
-          </div>
-
-          <div className="border rounded bg-white border-grey-light w-3/4 sm:w-1/2 lg:w-2/5 xl:w-1/4 px-8 py-4">
-            <GoogleSignIn
-              googleSignInSuccess={credentials =>
-                this.handleGoogleSignInSuccess(credentials)
-              }
-            />
-          </div> */}
         </Dialog>
         {this.state.RegisterFormVisible ? (
           <React.Suspense fallback={<div> </div>}>
