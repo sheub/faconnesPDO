@@ -156,7 +156,7 @@ class ProfilePage extends Component {
     const lang = props.i18n.language;
     const { t } = props;
 
-    var info = { abstract: "abstract", label: "label" };
+    var info = { abstract: "abstract", label: "label", property_id: place.properties.property_id };
     switch (lang) {
       case "fr":
         info.abstract = place.properties.abstract_fr
@@ -285,7 +285,6 @@ class ProfilePage extends Component {
               )}
             </Grid>
           </div>
-          {/* </div> */}
         </DialogContent>
       </Dialog>
     );
