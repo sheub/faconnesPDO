@@ -3,12 +3,8 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import { signInUser } from "../../actions/auth";
-import { 
-  destructServerErrors,
-  hasError,
-  getError
-} from "../../helpers/error";
+import { signInUser, facebookSignIn } from "../../actions/auth";
+import { destructServerErrors, hasError, getError } from "../../helpers/error";
 
 import {
   Button,
@@ -21,16 +17,16 @@ import {
   CssBaseline,
   Grid,
   Typography
-} from '@material-ui/core'
+} from "@material-ui/core";
 import withStyles from "@material-ui/core/styles/withStyles";
 
-import FacebookIcon from '@material-ui/icons/Facebook';
+import FacebookIcon from "@material-ui/icons/Facebook";
 
 const Register = React.lazy(() => import("./Register"));
 
 const propTypes = {
   signInUser: PropTypes.func.isRequired,
-  // googleSignIn: PropTypes.func.isRequired,
+  facebookSignIn: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired
 };
 
@@ -48,7 +44,6 @@ const styles = theme => ({
   socialButtons: {
     marginTop: theme.spacing(3),
     marginLeft: theme.spacing(3)
-
   },
   socialIcon: {
     marginRight: theme.spacing(1)
@@ -58,7 +53,7 @@ const styles = theme => ({
   },
   textField: {
     marginTop: theme.spacing(2)
-  },
+  }
 });
 
 class SignIn extends Component {
@@ -80,7 +75,7 @@ class SignIn extends Component {
   signInSuccess() {
     this.setState({ open: false });
     this.handleClose();
-  };
+  }
 
   handleSubmit(e) {
     e.preventDefault();
@@ -88,7 +83,7 @@ class SignIn extends Component {
       .signIn(this.state)
       .then(response => this.signInSuccess())
       .catch(error => this.setState({ errors: destructServerErrors(error) }));
-  };
+  }
 
   // open Register
   openRegister = () => {
@@ -108,20 +103,28 @@ class SignIn extends Component {
         ...{ [e.target.name]: "" }
       }
     });
-  };
+  }
 
   handleSignIn = event => {
     event.preventDefault();
     // history.push('/');
   };
 
-  //   handleGoogleSignInSuccess(credentials) {
-  //       this.props
-  //           .googleSignIn(credentials)
-  //           .then(response => this.signInSuccess())
-  //           .catch(error => this.setState({ errors: destructServerErrors(error) }));
-  //       this.setState({ open: false });
-  //   }
+  handleFacebookSubmit(e) {
+    e.preventDefault();
+    this.props
+      .facebookSignIn(this.state)
+      .then(response => this.signInSuccess())
+      .catch(error => this.setState({ errors: destructServerErrors(error) }));
+  }
+
+    handleFacebookSignInSuccess(credentials) {
+        this.props
+            .facebookSignIn(credentials)
+            .then(response => this.signInSuccess())
+            .catch(error => this.setState({ errors: destructServerErrors(error) }));
+        this.setState({ open: false });
+    }
 
   render() {
     const { fullScreen, classes } = this.props;
@@ -136,31 +139,30 @@ class SignIn extends Component {
         >
           <CssBaseline />
 
-          <Grid
-                  className={classes.socialButtons}
-                  container
-                  spacing={2}
-                >
-                  <Grid item>
-                    <Button
-                      color="primary"
-                      onClick={this.handleSignIn}
-                      size="large"
-                      variant="contained"
-                    >
-                      <FacebookIcon className={classes.socialIcon} />
-                      Login with Facebook
-                    </Button>
-                  </Grid>
-                </Grid>
-                <Typography
-                  align="center"
-                  className={classes.sugestion}
-                  color="textSecondary"
-                  variant="body1"
-                >
-                  or login with email address
-                </Typography>
+          {/* <form onSubmit={e => this.handleFacebookSubmit(e)} method="POST"> */}
+          <Grid className={classes.socialButtons} container spacing={2}>
+            <Grid item>
+              <Button
+                color="primary"
+                onClick={e => this.handleFacebookSubmit(e)} 
+                method="POST"
+                size="large"
+                variant="contained"
+              >
+                <FacebookIcon className={classes.socialIcon} />
+                Login with Facebook
+              </Button>
+            </Grid>
+          </Grid>
+          <Typography
+            align="center"
+            className={classes.sugestion}
+            color="textSecondary"
+            variant="body1"
+          >
+            or login with email address
+          </Typography>
+          {/* </form> */}
 
           <form onSubmit={e => this.handleSubmit(e)} method="POST">
             <DialogTitle id="form-dialog-title">Please Sign In</DialogTitle>
@@ -225,7 +227,6 @@ class SignIn extends Component {
               </Button>
             </DialogActions>
           </form>
-
         </Dialog>
         {this.state.RegisterFormVisible ? (
           <React.Suspense fallback={<div> </div>}>
@@ -249,7 +250,8 @@ SignIn.propTypes = {
 
 function mapDispatchToProps(dispatch) {
   return {
-    signIn: signInUser(dispatch)
+    signIn: signInUser(dispatch),
+    facebookSignIn: facebookSignIn(dispatch)
   };
 }
 

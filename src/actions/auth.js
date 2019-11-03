@@ -101,26 +101,32 @@ export const logoutUser = dispatch => cb => {
   return clearAuth(dispatch);
 };
 
-// export const googleSignIn = credentials => dispatch => {
-//   var url = "/api/google/signin";
-//   if (process.env.NODE_ENV === "production") {
-//     url = "/api/google/signin";
-//   } else {
-//     // Dev server runs on port 5000
-//     url = "http://localhost:5000/api/google/signin";
-//   }
-//   return axios
-//     .post(url, credentials)
-//     .then(({ data: { data, meta } }) => {
-//       setToken(meta.token);
-//       dispatch(setUserData(data));
-//       dispatch(setAuthenticated(true));
-//       return Promise.resolve({ data, meta });
-//     })
-//     .catch(error => {
-//       return Promise.reject(error);
-//     });
-// };
+export const facebookSignIn = dispatch => async credentials => {
+  var url = "/connect/facebook";
+  if (process.env.NODE_ENV === "production") {
+    url = "/connect/facebook";
+  } else {
+    // url = "http://localhost:8443/connect/facebook";
+    url = "http://localhost:8080/connect/facebook";
+  }
+
+  try {
+    const data = await axios({
+      method: "get",
+      url: url,
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8"
+      },
+    });
+    setToken(data.token);
+    dispatch(setUserData(data));
+    dispatch(setAuthenticated(true));
+    return Promise.resolve(data);
+  } catch (error) {
+    // console.log(error);
+    return Promise.reject(error);
+  }
+};
 
 export const initAuthFromExistingToken = cb => dispatch => {
   checkTokenExists()
