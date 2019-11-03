@@ -23,15 +23,12 @@ import { logoutUser } from "../actions/auth";
 
 const SignIn = React.lazy(() => import("../pages/auth/SignIn"));
 const Register = React.lazy(() => import("../pages/auth/Register"));
+const ProfilePage = React.lazy(() => import("./ProfilePage.js"));
 
 const ForwardNavLink = React.forwardRef((props, ref) => (
   <NavLink {...props} innerRef={ref} />
 ));
 
-
-// const MyLinkToRegister = (props) => <ForwardNavLink to="/register" {...props} />;
-// const MyLinkToUserPage = (props) => <ForwardNavLink to="/profile/${this.state.user.id" {...props} />;
-const MyLinkToUserPage = (props) => <ForwardNavLink to="/profile/" {...props} />;
 const MyLinkToLogout = (props) => <ForwardNavLink to="/" {...props} />;
 
 export const DefaultTransition = React.forwardRef((props, ref) => (
@@ -106,7 +103,8 @@ class MyAppBar extends Component {
         anchorelanguage: null,
         languageSet: 'en',
         SignInFormVisible: false,
-        RegisterFormVisible: false
+        RegisterFormVisible: false,
+        showProfilePage: false
     };
     
 
@@ -154,13 +152,27 @@ class MyAppBar extends Component {
         this.setState({ 
             anchorEl: null,
             SignInFormVisible: false,
-            RegisterFormVisible: false
+            RegisterFormVisible: false,
+            showProfilePage: false
            });
     };
 
-    handleMenuClose = () => {
+    onClickProfilePage() {
+      if (!this.state.showProfilePage) {
+        this.setState({ showProfilePage: true });
+      } else {
+        this.setState({ showProfilePage: false });
+      }
         this.setState({
           anchorEl: null
+        });
+        this.handleMobileMenuClose();
+      };
+
+    handleMenuClose = () => {
+        this.setState({
+          anchorEl: null,
+          showProfilePage: false
         });
         this.handleMobileMenuClose();
     };
@@ -204,7 +216,7 @@ class MyAppBar extends Component {
             >
                 {auth.authenticated ?
                     <div>
-                        <MenuItem className="menuButton" component={MyLinkToUserPage} onClick={this.handleMenuClose}>
+                        <MenuItem className="menuButton" onClick={() => this.onClickProfilePage()}>
                             My Profile
                         </MenuItem>
                         <MenuItem className="menuButton" component={MyLinkToLogout} onClick={this.handleLogout}>
@@ -237,7 +249,7 @@ class MyAppBar extends Component {
                         <IconButton color="inherit">
                             <AccountCircle />
                         </IconButton>
-                        <MenuItem className="menuButton" component={MyLinkToUserPage} onClick={this.handleMenuClose}>
+                        <MenuItem className="menuButton" onClick={() => this.onClickProfilePage()}>
                             {t("appbar.myProfile")}
                         </MenuItem>
                         <MenuItem className="menuButton" onClick={() => this.handleLogout()}>
@@ -354,6 +366,11 @@ class MyAppBar extends Component {
               <React.Suspense fallback={<div> </div>}>
                 <Register handleClose={this.handleClose} />
               </React.Suspense>
+            ) : null}
+            {this.state.showProfilePage ? (
+              <React.Suspense fallback={<div> </div>}>
+                <ProfilePage handleClose={this.handleClose} />
+               </React.Suspense>
             ) : null}
             
           </div>
