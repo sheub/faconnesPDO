@@ -36,11 +36,11 @@ export const setAuthenticated = authenticated => ({
 });
 
 export const signInUser = dispatch => async credentials => {
-  var url = "http://localhost:8080/login";
+  var url = process.env.REACT_APP_API_ENTRYPOINT + "/api/auth/login";
   if (process.env.NODE_ENV === "production") {
-    url = "/login";
+    url = "/api/auth/login";
   } else {
-    url = "http://localhost:8080/login";
+    url = process.env.REACT_APP_API_ENTRYPOINT + "/api/auth/login";
   }
 
   try {
@@ -66,21 +66,26 @@ export const signInUser = dispatch => async credentials => {
 };
 
 export const registerUser = dispatch => async credentials => {
-  var url = "/register";
+  var url = "/api/auth/signup";
   if (process.env.NODE_ENV === "production") {
-    url = "/register";
+    url = "/api/auth/signup";
   } else {
     // Dev server runs on port 3000
-    // url = "http://localhost:5000/api/register";
-    url =
-      "http://localhost:8080/register?email=" +
-      credentials.email +
-      "&password=" +
-      credentials.password;
+    url = process.env.REACT_APP_API_ENTRYPOINT + "/api/auth/signup";
   }
-
   try {
-    const data = await axios.post(url, credentials);
+    const data = await axios({
+      method: "post",
+      url: url,
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8"
+      },
+      data: {
+        email: credentials.email,
+        password: credentials.password,
+        name: credentials.lastname + ' ' +  credentials.firstname
+      }
+    });
     setToken(data.token);
     dispatch(setUserData(data));
     dispatch(setAuthenticated(true));

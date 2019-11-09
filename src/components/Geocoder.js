@@ -211,7 +211,7 @@ Geocoder.defaultProps = {
     endpoint: "https://api-adresse.data.gouv.fr",
     inputPosition: "top",
     inputPlaceholder: "Search",
-    source: "api-adresse.data.gouv.fr",
+    source: "api-adresse.data.gouv.f",
     bbox: "",
     types: "",
     onSuggest: function () {},
@@ -227,7 +227,7 @@ function search(endpoint, source, accessToken, proximity, bbox, types, query, ca
   if (source === "api-adresse.data.gouv.fr") {
     uri = endpoint + "/search/?q=";
   } else {
-    uri = endpoint + "autocomplete?q=";
+    uri = "http://localhost:8080/" + "autocomplete?q=";
   }
   uri = uri + encodeURIComponent(query);
   xhr(
