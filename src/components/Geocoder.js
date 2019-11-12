@@ -1,13 +1,13 @@
 // forked from https://github.com/mapbox/react-geocoder
 import PropTypes from "prop-types";
-import React, {Component} from "react";
-import {connect} from "react-redux";
+import React, { Component } from "react";
+import { connect } from "react-redux";
 import MyPlaceName from "./MyPlaceName";
 import xhr from "xhr";
 
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
+import FormGroup from "@material-ui/core/FormGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Switch from "@material-ui/core/Switch";
 
 /**
  * Geocoder component: connects to endpoint: 'https://api-adresse.data.gouv.fr
@@ -22,7 +22,7 @@ class Geocoder extends Component {
       focus: null,
       loading: false,
       searchTime: new Date(),
-      geocode: false
+      geocode: true
     };
 
     this.onInput = this.onInput.bind(this);
@@ -190,36 +190,44 @@ class Geocoder extends Component {
 }
 
 Geocoder.propTypes = {
-    endpoint: PropTypes.string,
-    source: PropTypes.string,
-    inputPosition: PropTypes.string,
-    inputPlaceholder: PropTypes.string,
-    inputClass: PropTypes.string,
-    resultsClass: PropTypes.string,
-    onSelect: PropTypes.func.isRequired,
-    onSuggest: PropTypes.func,
-    accessToken: PropTypes.string.isRequired,
-    proximity: PropTypes.string,
-    bbox: PropTypes.string,
-    focusOnMount: PropTypes.bool,
-    types: PropTypes.string,
-    searchString: PropTypes.string,
-    writeSearch: PropTypes.func
+  endpoint: PropTypes.string,
+  source: PropTypes.string,
+  inputPosition: PropTypes.string,
+  inputPlaceholder: PropTypes.string,
+  inputClass: PropTypes.string,
+  resultsClass: PropTypes.string,
+  onSelect: PropTypes.func.isRequired,
+  onSuggest: PropTypes.func,
+  accessToken: PropTypes.string.isRequired,
+  proximity: PropTypes.string,
+  bbox: PropTypes.string,
+  focusOnMount: PropTypes.bool,
+  types: PropTypes.string,
+  searchString: PropTypes.string,
+  writeSearch: PropTypes.func
 };
 
 Geocoder.defaultProps = {
-    endpoint: "https://api-adresse.data.gouv.fr",
-    inputPosition: "top",
-    inputPlaceholder: "Search",
-    source: "api-adresse.data.gouv.f",
-    bbox: "",
-    types: "",
-    onSuggest: function () {},
-    focusOnMount: true
+  endpoint: "https://api-adresse.data.gouv.fr",
+  inputPosition: "top",
+  inputPlaceholder: "Search",
+  source: "api-adresse.data.gouv.f",
+  bbox: "",
+  types: "",
+  onSuggest: function() {},
+  focusOnMount: true
 };
 
-function search(endpoint, source, accessToken, proximity, bbox, types, query, callback) 
-{
+function search(
+  endpoint,
+  source,
+  accessToken,
+  proximity,
+  bbox,
+  types,
+  query,
+  callback
+) {
   // Usually asynchronous calls would happen in the API caller,
   // but the results here are independent from the apps' state
   var searchTime = new Date();
@@ -241,14 +249,14 @@ function search(endpoint, source, accessToken, proximity, bbox, types, query, ca
   );
 }
 
-
-const mapStateToProps = (state) => {
-    return {
-        accessToken: state.app.mapboxAccessToken,
-        proximity: state.app.mapCoords[2] > 7 ? state.app.mapCoords.slice(0, 2).join(",") : ""
-    };
+const mapStateToProps = state => {
+  return {
+    accessToken: state.app.mapboxAccessToken,
+    proximity:
+      state.app.mapCoords[2] > 7
+        ? state.app.mapCoords.slice(0, 2).join(",")
+        : ""
+  };
 };
 
-export default connect(
-  mapStateToProps
-)(Geocoder);
+export default connect(mapStateToProps)(Geocoder);

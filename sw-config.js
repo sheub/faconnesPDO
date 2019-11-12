@@ -1,5 +1,5 @@
 module.exports = {
-	navigateFallbackWhitelist: [/^(?!.*analytics)/],
+	navigateFallbackWhitelist: [/^(?!.*analytics)/, /^(?!.*api)/],
 	runtimeCaching: [
 		{
 			urlPattern: /^https:\/\/maps\.tilehosting\.com\/.*/,
