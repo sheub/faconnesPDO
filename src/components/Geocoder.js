@@ -5,10 +5,6 @@ import { connect } from "react-redux";
 import MyPlaceName from "./MyPlaceName";
 import xhr from "xhr";
 
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Switch from "@material-ui/core/Switch";
-
 /**
  * Geocoder component: connects to endpoint: 'https://api-adresse.data.gouv.fr
  * and provides an autocompleting interface for finding locations.
@@ -22,7 +18,9 @@ class Geocoder extends Component {
       focus: null,
       loading: false,
       searchTime: new Date(),
-      geocode: true
+      geocode: true,
+      source: this.props.source,
+      endpoint: this.props.endpoint
     };
 
     this.onInput = this.onInput.bind(this);
@@ -44,9 +42,10 @@ class Geocoder extends Component {
         loading: false
       });
     } else {
+      this.switchGeocoder(this.props.searchMode);
       search(
-        this.props.endpoint,
-        this.props.source,
+        this.state.endpoint,
+        this.state.source,
         this.props.accessToken,
         this.props.proximity,
         this.props.bbox,
@@ -124,6 +123,23 @@ class Geocoder extends Component {
     return false;
   }
 
+  switchGeocoder(searchMode) {
+    if (searchMode === "search") {
+      this.setState({
+        source: "api-adresse.data.gouv.fr",
+        endpoint: "https://api-adresse.data.gouv.fr",
+        geocode: true
+      });
+    } else {
+      this.setState({
+      endpoint: "http://localhost:8080/",
+      source: "autocomplete",
+      geocode: false
+      });
+    }
+    
+  }
+
   render() {
     var input = (
       <input
@@ -173,50 +189,10 @@ class Geocoder extends Component {
           </ul>
         )}
         {this.props.inputPosition === "bottom" && input}
-      </div>
+      </div>      
     );
   }
-
-  switchGeocoder(geocode) {
-    if (geocode) {
-      Geocoder.defaultProps.endpoint = "https://api-adresse.data.gouv.fr";
-      Geocoder.defaultProps.source = "api-adresse.data.gouv.fr";
-    } else {
-      Geocoder.defaultProps.endpoint = "http://localhost:8080/";
-      Geocoder.defaultProps.source = "autocomplete";
-    }
-    this.setState({ geocode: geocode });
-  }
 }
-
-Geocoder.propTypes = {
-  endpoint: PropTypes.string,
-  source: PropTypes.string,
-  inputPosition: PropTypes.string,
-  inputPlaceholder: PropTypes.string,
-  inputClass: PropTypes.string,
-  resultsClass: PropTypes.string,
-  onSelect: PropTypes.func.isRequired,
-  onSuggest: PropTypes.func,
-  accessToken: PropTypes.string.isRequired,
-  proximity: PropTypes.string,
-  bbox: PropTypes.string,
-  focusOnMount: PropTypes.bool,
-  types: PropTypes.string,
-  searchString: PropTypes.string,
-  writeSearch: PropTypes.func
-};
-
-Geocoder.defaultProps = {
-  endpoint: "https://api-adresse.data.gouv.fr",
-  inputPosition: "top",
-  inputPlaceholder: "Search",
-  source: "api-adresse.data.gouv.f",
-  bbox: "",
-  types: "",
-  onSuggest: function() {},
-  focusOnMount: true
-};
 
 function search(
   endpoint,
@@ -249,9 +225,41 @@ function search(
   );
 }
 
+Geocoder.propTypes = {
+  // endpoint: PropTypes.string,
+  // source: PropTypes.string,
+  searchMode: PropTypes.string,
+  inputPosition: PropTypes.string,
+  inputPlaceholder: PropTypes.string,
+  inputClass: PropTypes.string,
+  resultsClass: PropTypes.string,
+  onSelect: PropTypes.func.isRequired,
+  onSuggest: PropTypes.func,
+  accessToken: PropTypes.string.isRequired,
+  proximity: PropTypes.string,
+  bbox: PropTypes.string,
+  focusOnMount: PropTypes.bool,
+  types: PropTypes.string,
+  searchString: PropTypes.string,
+  writeSearch: PropTypes.func
+};
+
+Geocoder.defaultProps = {
+  inputPosition: "top",
+  inputPlaceholder: "Search",
+  // endpoint: "https://api-adresse.data.gouv.fr",
+  // source: "api-adresse.data.gouv.fr",
+  bbox: "",
+  types: "",
+  onSuggest: function() {},
+  focusOnMount: true,
+  searchMode: "search"
+};
+
 const mapStateToProps = state => {
   return {
     accessToken: state.app.mapboxAccessToken,
+    searchMode: state.app.mode,
     proximity:
       state.app.mapCoords[2] > 7
         ? state.app.mapCoords.slice(0, 2).join(",")

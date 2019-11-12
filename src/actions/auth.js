@@ -83,7 +83,7 @@ export const registerUser = dispatch => async credentials => {
       data: {
         email: credentials.email,
         password: credentials.password,
-        name: credentials.lastname + ' ' +  credentials.firstname
+        name: credentials.lastname + " " + credentials.firstname
       }
     });
     setToken(data.token);
@@ -121,7 +121,7 @@ export const facebookSignIn = dispatch => async credentials => {
       url: url,
       headers: {
         "Content-Type": "application/json;charset=UTF-8"
-      },
+      }
     });
     setToken(data.token);
     dispatch(setUserData(data));
