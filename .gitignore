@@ -37,6 +37,7 @@ src/styles/style-basic-ori.json
 /src/styles/style_ben.json
 /src/components/assembly.css
 /src/components/mapbox-gl.css
+.npmrc
 
 .vscode/
 src/styles/osm-basic_old.json

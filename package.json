@@ -60,8 +60,6 @@
     "clean": "rm -rf node_modules/gh-pages/.cache",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "build-sprites": "spritezero public/sprite src/styles/icons && spritezero public/sprite@2x src/styles/icons --retina"
   },
   "description": "L'information touristique et locale en France metropolitaine.",

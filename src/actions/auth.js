@@ -38,7 +38,7 @@ export const setAuthenticated = authenticated => ({
 export const signInUser = dispatch => async credentials => {
   var url = process.env.REACT_APP_API_ENTRYPOINT + "/api/auth/login";
   if (process.env.NODE_ENV === "production") {
-    url = "/api/auth/login";
+    url = "/current/public/api/auth/login";
   } else {
     url = process.env.REACT_APP_API_ENTRYPOINT + "/api/auth/login";
   }
@@ -66,7 +66,7 @@ export const signInUser = dispatch => async credentials => {
 };
 
 export const registerUser = dispatch => async credentials => {
-  var url = "/api/auth/signup";
+  var url = "/current/public/api/auth/signup";
   if (process.env.NODE_ENV === "production") {
     url = "/api/auth/signup";
   } else {

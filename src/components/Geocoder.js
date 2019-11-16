@@ -131,13 +131,21 @@ class Geocoder extends Component {
         geocode: true
       });
     } else {
+      var url = "";
+      if (process.env.NODE_ENV === "production") {
+        url = "https://faconnes.de/";
+        // url = "process.env.PUBLIC_URL/";
+      } else {
+        url = process.env.REACT_APP_API_ENTRYPOINT + "/";
+      }
+
       this.setState({
-      endpoint: "http://localhost:8080/",
+      endpoint: url,
       source: "autocomplete",
       geocode: false
       });
     }
-    
+
   }
 
   render() {
@@ -189,7 +197,7 @@ class Geocoder extends Component {
           </ul>
         )}
         {this.props.inputPosition === "bottom" && input}
-      </div>      
+      </div>
     );
   }
 }
@@ -211,7 +219,7 @@ function search(
   if (source === "api-adresse.data.gouv.fr") {
     uri = endpoint + "/search/?q=";
   } else {
-    uri = "http://localhost:8080/" + "autocomplete?q=";
+    uri = endpoint + "/current/public/api/autocomplete/";
   }
   uri = uri + encodeURIComponent(query);
   xhr(
