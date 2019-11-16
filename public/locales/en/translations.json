@@ -1,5 +1,18 @@
 {
     "title": "France Discovery",
+    "appbar": {
+        "pricing": "Pricing",
+        "myProfile": "Mein Profil",
+        "register": "Registrieren",
+        "logout": "Logout",
+        "signIn": "Anmelden"
+    },
+    "register": {
+        "firstname": "Firstname",
+        "lastname": "Last Name",
+        "email": "email",
+        "password": "Password"
+    },
     "drawer": {
         "main1": "Landschaft & Kultur",
         "main1Title": "Landschaft & Kultur",

@@ -358,7 +358,7 @@
 .input--border-transparent,
 .textarea--border-transparent {
     border-color: transparent
-    
+
 }
 
 .input--border-transparent:focus,
@@ -852,7 +852,9 @@ input:disabled+.switch {
 .pl12 {
     padding-left: 12px !important
 }
-
+.pl24 {
+    padding-left: 24px !important
+}
 .pl42 {
     padding-left: 42px !important
 }

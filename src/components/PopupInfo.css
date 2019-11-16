@@ -1,8 +1,9 @@
 @font-face {
-    font-family: "Caslon";
-    font-style: normal;
+    font-family: "ACaslonPro-Bold";
+    /* font-style: normal; */
     font-weight: 700;
-    src: local("ACaslonPro-Bold"),url(./fonts/Caslon/ACaslonPro-Bold.otf) format("otf")
+    src: local("ACaslonPro-Bold"),
+    url(./fonts/Caslon/ACaslonPro-Bold.otf) format("otf")
 }
 
 .baseInfo,.baseText {
@@ -24,7 +25,7 @@
 
 .titleText {
     white-space: normal;
-    font-family: "Caslon";
+    font-family: "ACaslonPro-Bold";
     font-weight: 700;
     font-size: 20px;
     text-decoration: none;
