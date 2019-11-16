@@ -22,17 +22,17 @@ const fetchUser = () => {
 
 export const setUserData = user => ({
   type: SET_USER_DATA,
-  user
+  user,
 });
 
 export const getUserData = user => ({
   type: "GET_USER_DATA",
-  user
+  user,
 });
 
 export const setAuthenticated = authenticated => ({
   type: SET_AUTHENTICATED,
-  authenticated
+  authenticated,
 });
 
 export const signInUser = dispatch => async credentials => {
@@ -48,12 +48,12 @@ export const signInUser = dispatch => async credentials => {
       method: "post",
       url: url,
       headers: {
-        "Content-Type": "application/json;charset=UTF-8"
+        "Content-Type": "application/json;charset=UTF-8",
       },
       data: {
         email: credentials.email,
-        password: credentials.password
-      }
+        password: credentials.password,
+      },
     });
     setToken(data.token);
     dispatch(setUserData(data));
@@ -78,13 +78,13 @@ export const registerUser = dispatch => async credentials => {
       method: "post",
       url: url,
       headers: {
-        "Content-Type": "application/json;charset=UTF-8"
+        "Content-Type": "application/json;charset=UTF-8",
       },
       data: {
         email: credentials.email,
         password: credentials.password,
-        name: credentials.lastname + " " + credentials.firstname
-      }
+        name: credentials.lastname + " " + credentials.firstname,
+      },
     });
     setToken(data.token);
     dispatch(setUserData(data));
@@ -120,8 +120,8 @@ export const facebookSignIn = dispatch => async credentials => {
       method: "get",
       url: url,
       headers: {
-        "Content-Type": "application/json;charset=UTF-8"
-      }
+        "Content-Type": "application/json;charset=UTF-8",
+      },
     });
     setToken(data.token);
     dispatch(setUserData(data));

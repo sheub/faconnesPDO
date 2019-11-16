@@ -1,51 +1,51 @@
 export const setStateValue = (key, value) => ({
   type: "SET_STATE_VALUE",
   key,
-  value
+  value,
 });
 
 export const setStateValues = modifiedState => ({
   type: "SET_STATE_VALUES",
-  modifiedState
+  modifiedState,
 });
 
 export const resetStateKeys = keys => ({
   type: "RESET_STATE_KEYS",
-  keys
+  keys,
 });
 
 export const triggerMapUpdate = needMapRepan => ({
   type: "TRIGGER_MAP_UPDATE",
-  needMapRepan: !!needMapRepan || false
+  needMapRepan: !!needMapRepan || false,
 });
 
 export const setUserLocation = coordinates => ({
   type: "SET_USER_LOCATION",
-  coordinates
+  coordinates,
 });
 
 export const setDirectionsLocation = (kind, location) => ({
   type: "SET_DIRECTIONS_LOCATION",
   kind,
-  location
+  location,
 });
 
 export const getRoute = (
   directionsFrom,
   directionsTo,
   modality,
-  accessToken
+  accessToken,
 ) => ({
   type: "GET_ROUTE",
   directionsFrom,
   directionsTo,
   modality,
-  accessToken
+  accessToken,
 });
 
 export const getPlaceInfo = wikidataId => ({
   type: "GET_PLACE_INFO",
-  id: wikidataId
+  id: wikidataId,
 });
 
 // export const getReverseGeocode = (key, coordinates, accessToken) => ({
@@ -56,5 +56,5 @@ export const getPlaceInfo = wikidataId => ({
 // });
 
 export const setStateFromURL = () => ({
-  type: "SET_STATE_FROM_URL"
+  type: "SET_STATE_FROM_URL",
 });

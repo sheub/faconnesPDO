@@ -48,7 +48,7 @@ const styles = (theme) => ({
         opacity: 0.85,
         transition: theme.transitions.create(["width", "margin"], {
             easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen            
+            duration: theme.transitions.duration.leavingScreen
         })
     },
 
@@ -106,7 +106,7 @@ class MyAppBar extends Component {
         RegisterFormVisible: false,
         showProfilePage: false
     };
-    
+
 
     handleDrawerOpen = () => {
         this.props.handleDrawerOpen();
@@ -149,7 +149,7 @@ class MyAppBar extends Component {
       };
 
     handleClose = () => {
-        this.setState({ 
+        this.setState({
             anchorEl: null,
             SignInFormVisible: false,
             RegisterFormVisible: false,
@@ -314,14 +314,14 @@ class MyAppBar extends Component {
 
                 {/* <div className={classes.sectionDesktop}> */}
                 <div className={classes.languageButtonClass}>
-                
+
                   <IconButton
                     aria-owns={isMenuOpen ? "material-appbar" : undefined}
                     aria-haspopup="true"
                     onClick={this.handleProfileMenuOpen}
                     color="inherit"
                   >
-                    <AccountCircle />                    
+                    <AccountCircle />
                   </IconButton>
 
                   <IconButton
@@ -372,7 +372,7 @@ class MyAppBar extends Component {
                 <ProfilePage handleClose={this.handleClose} />
                </React.Suspense>
             ) : null}
-            
+
           </div>
         );
     }
@@ -413,5 +413,5 @@ const mapStateToProps = (state) => {
         auth: state.auth
     };
 };
-export default connect(mapStateToProps, mapDispatchToProps, null, 
+export default connect(mapStateToProps, mapDispatchToProps, null,
   {pure: false})(withRouter(withStyles(styles)(translate("translations")(MyAppBar))));
