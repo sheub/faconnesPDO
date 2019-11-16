@@ -10,6 +10,6 @@
         "quote-props": ["error", "as-needed"],
         "quotes": [2, "double", { "avoidEscape": true }],
         "max-len": [1, 280, 2, {"ignoreComments": true}],
-        "indent": 4
+        "indent": [2, 2]
         }
 }
