@@ -180,13 +180,13 @@ class Geocoder extends Component {
                 }
                 onClick={this.clickOption.bind(this, result, i)}
               >
-                <div className="absolute flex-parent flex-parent--center-cross flex-parent--center-main w42 h42">
+                <div className="absolute flex-parent flex-parent--center-cross flex-parent--center-main w24 h42">
                   <svg className="icon color-darken25">
                     <use xlinkHref="#icon-marker"></use>
                   </svg>
                 </div>
                 <div
-                  className="pl42 pr12 txt-truncate"
+                  className="pl24 pr12 txt-truncate"
                   key={result.properties.id}
                 >
                   <MyPlaceName location={result} />
