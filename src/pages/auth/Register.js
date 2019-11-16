@@ -15,7 +15,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 
 import PropTypes from "prop-types";
 import { registerUser } from "../../actions/auth";
-import { destructServerErrors, hasError, getError } from "../../helpers/error";
+import { destructServerErrors } from "../../helpers/error";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 
@@ -157,7 +157,7 @@ class Register extends Component {
                   label={t("register.email")}
                   autoComplete="email"
                   required
-                  fullWidth                
+                  fullWidth
                 />
               </Grid>
               <Grid item xs={12}>
