@@ -6,7 +6,7 @@ import SvgIcon from "@material-ui/core/SvgIcon";
 import IconButton from "@material-ui/core/IconButton";
 import { returnImage } from "../utils/displayUtils";
 import AddToMyPlaces from "./AddToMyPlaces";
-import './fonts/Caslon/ACaslonPro-Bold.otf'
+import "./fonts/Caslon/ACaslonPro-Bold.otf";
 import "./PopupInfo.css";
 
 function HomeIcon(props) {
@@ -227,23 +227,23 @@ class MyPlaceInfo extends Component {
     ) {
       const lang = this.props.i18n.language;
       switch (lang) {
-        case "fr":
-          info.abstract = info.abstract_fr
-            ? info.abstract_fr
-            : info.abstract_en;
-          info.label = info.label_fr ? info.label_fr : info.label_en;
-          break;
-        case "en":
-          info.abstract = info.abstract_en
-            ? info.abstract_en
-            : info.abstract_fr;
-          info.label = info.label_en ? info.label_en : info.label_fr;
-          break;
-        default:
-          info.abstract = info.abstract_en
-            ? info.abstract_en
-            : info.abstract_fr;
-          info.label = info.label_en ? info.label_en : info.label_fr;
+      case "fr":
+        info.abstract = info.abstract_fr
+          ? info.abstract_fr
+          : info.abstract_en;
+        info.label = info.label_fr ? info.label_fr : info.label_en;
+        break;
+      case "en":
+        info.abstract = info.abstract_en
+          ? info.abstract_en
+          : info.abstract_fr;
+        info.label = info.label_en ? info.label_en : info.label_fr;
+        break;
+      default:
+        info.abstract = info.abstract_en
+          ? info.abstract_en
+          : info.abstract_fr;
+        info.label = info.label_en ? info.label_en : info.label_fr;
       }
     }
 
@@ -265,14 +265,14 @@ class MyPlaceInfo extends Component {
     ) {
       const lang = this.props.i18n.language;
       switch (lang) {
-        case "fr":
-          info.link = info.wikipedia_fr ? info.wikipedia_fr : info.wikipedia_en;
-          break;
-        case "en":
-          info.link = info.wikipedia_en ? info.wikipedia_en : info.wikipedia_fr;
-          break;
-        default:
-          info.link = info.wikipedia_en ? info.wikipedia_en : info.wikipedia_fr;
+      case "fr":
+        info.link = info.wikipedia_fr ? info.wikipedia_fr : info.wikipedia_en;
+        break;
+      case "en":
+        info.link = info.wikipedia_en ? info.wikipedia_en : info.wikipedia_fr;
+        break;
+      default:
+        info.link = info.wikipedia_en ? info.wikipedia_en : info.wikipedia_fr;
       }
 
       return (
@@ -333,14 +333,14 @@ class MyPlaceInfo extends Component {
                   &rarr; Wikipedia
                 </a>
                 <RenderUrl props={this.props} />
-                {typeof info.fullPrice !== 'undefined' ? (
+                {typeof info.fullPrice !== "undefined" ? (
                   <p>
                     {t("myplaceinfo.price")}
                     {": "}
                     {info.fullPrice} €
                   </p>
                 ) : null}
-                {(typeof info.opening_hours !== 'undefined' && info.opening_hours !== '') ? (
+                {(typeof info.opening_hours !== "undefined" && info.opening_hours !== "") ? (
                   <p>
                     {t("myplaceinfo.openingHours")}
                     {": "}

@@ -146,49 +146,49 @@ class Register extends Component {
               </Grid>
 
               <Grid item xs={12}>
-              <TextField
-                value={this.state.email}
-                onChange={e => this.handleInputChange(e)}
-                id="email"
-                name="email"
-                type="email"
-                variant="outlined"
-                // errorText = "Please Enter valid email"
-                label={t("register.email")}
-                autoComplete="email"
-                required
-                fullWidth                
-              />
+                <TextField
+                  value={this.state.email}
+                  onChange={e => this.handleInputChange(e)}
+                  id="email"
+                  name="email"
+                  type="email"
+                  variant="outlined"
+                  // errorText = "Please Enter valid email"
+                  label={t("register.email")}
+                  autoComplete="email"
+                  required
+                  fullWidth                
+                />
               </Grid>
               <Grid item xs={12}>
-              <TextField
-                value={this.state.password}
-                onChange={e => this.handleInputChange(e)}
-                type="password"
-                id="password"
-                name="password"
-                variant="outlined"
-                label={t("register.password")}
-                minLength={6}
-                autoComplete="current-password"
-                required
-                fullWidth
-              />
-             </Grid>
+                <TextField
+                  value={this.state.password}
+                  onChange={e => this.handleInputChange(e)}
+                  type="password"
+                  id="password"
+                  name="password"
+                  variant="outlined"
+                  label={t("register.password")}
+                  minLength={6}
+                  autoComplete="current-password"
+                  required
+                  fullWidth
+                />
+              </Grid>
               <Grid item xs={12}>
-              <TextField
-                value={this.state.password_confirmation}
-                onChange={e => this.handleInputChange(e)}
-                type="password"
-                id="password_confirmation"
-                name="password_confirmation"
-                variant="outlined"
-                label={t("register.password")}
-                minLength={6}
-                fullWidth
-                required
-              />
-                </Grid>
+                <TextField
+                  value={this.state.password_confirmation}
+                  onChange={e => this.handleInputChange(e)}
+                  type="password"
+                  id="password_confirmation"
+                  name="password_confirmation"
+                  variant="outlined"
+                  label={t("register.password")}
+                  minLength={6}
+                  fullWidth
+                  required
+                />
+              </Grid>
 
               <DialogActions>
                 <Button

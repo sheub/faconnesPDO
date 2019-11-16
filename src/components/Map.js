@@ -23,11 +23,11 @@ import style from "../styles/osm-bright.json";
 // Set the sprite URL in the style. It has to be a full, absolute URL.
 let spriteUrl;
 if (process.env.NODE_ENV === "production") {
-    // spriteUrl = process.env.PUBLIC_URL + "/sprite";
-    spriteUrl = "https://faconnes.de/sprite";
+  // spriteUrl = process.env.PUBLIC_URL + "/sprite";
+  spriteUrl = "https://faconnes.de/sprite";
 } else { // Dev server runs on port 3000
-    spriteUrl = "http://localhost:3000/sprite";
-    // spriteUrl = "https://faconnes.de" + "/sprite";
+  spriteUrl = "http://localhost:3000/sprite";
+  // spriteUrl = "https://faconnes.de" + "/sprite";
 }
 style.sprite = spriteUrl;
 
@@ -650,79 +650,79 @@ class MapComponent extends Component {
 }
 
 MapComponent.propTypes = {
-    accessToken: PropTypes.string,
-    center: PropTypes.array,
-    coorOnClick: PropTypes.array,
-    dateFrom: PropTypes.number,
-    dateTo: PropTypes.number,
-    directionsFrom: PropTypes.object,
-    directionsTo: PropTypes.object,
-    getRoute: PropTypes.func,
-    languageSet: PropTypes.string,
-    legendItems: PropTypes.array,
-    listVueItems: PropTypes.array,
-    listVueActive: PropTypes.bool,
-    map: PropTypes.object,
-    modality: PropTypes.string,
-    mode: PropTypes.string,
-    moveOnLoad: PropTypes.bool,
-    needMapRepan: PropTypes.bool,
-    needMapToggleLayer: PropTypes.bool,
-    needMapFilterByDate: PropTypes.bool,
-    needMapActualizeLanguage: PropTypes.bool,
-    needMapUpdate: PropTypes.bool,
-    pushHistory: PropTypes.func,
-    resetStateKeys: PropTypes.func,
-    route: PropTypes.object,
-    routeStatus: PropTypes.string,
-    searchLocation: PropTypes.object,
-    setStateValue: PropTypes.func,
-    setUserLocation: PropTypes.func,
-    triggerMapUpdate: PropTypes.func,
-    toggleLayerVisibility: PropTypes.string,
-    userLocation: PropTypes.object,
-    visibility: PropTypes.object,
-    zoom: PropTypes.number,
+  accessToken: PropTypes.string,
+  center: PropTypes.array,
+  coorOnClick: PropTypes.array,
+  dateFrom: PropTypes.number,
+  dateTo: PropTypes.number,
+  directionsFrom: PropTypes.object,
+  directionsTo: PropTypes.object,
+  getRoute: PropTypes.func,
+  languageSet: PropTypes.string,
+  legendItems: PropTypes.array,
+  listVueItems: PropTypes.array,
+  listVueActive: PropTypes.bool,
+  map: PropTypes.object,
+  modality: PropTypes.string,
+  mode: PropTypes.string,
+  moveOnLoad: PropTypes.bool,
+  needMapRepan: PropTypes.bool,
+  needMapToggleLayer: PropTypes.bool,
+  needMapFilterByDate: PropTypes.bool,
+  needMapActualizeLanguage: PropTypes.bool,
+  needMapUpdate: PropTypes.bool,
+  pushHistory: PropTypes.func,
+  resetStateKeys: PropTypes.func,
+  route: PropTypes.object,
+  routeStatus: PropTypes.string,
+  searchLocation: PropTypes.object,
+  setStateValue: PropTypes.func,
+  setUserLocation: PropTypes.func,
+  triggerMapUpdate: PropTypes.func,
+  toggleLayerVisibility: PropTypes.string,
+  userLocation: PropTypes.object,
+  visibility: PropTypes.object,
+  zoom: PropTypes.number,
 };
 
 const mapStateToProps = (state) => {
-    return {
-        accessToken: state.app.mapboxAccessToken,
-        center: state.app.mapCoords.slice(0, 2),
-        directionsFrom: state.app.directionsFrom,
-        directionsTo: state.app.directionsTo,
-        toggleLayerVisibility: state.app.toggleLayerVisibility,
-        dateFrom: state.app.dateFrom,
-        dateTo: state.app.dateTo,
-        languageSet: state.app.languageSet,
-        listVueItems: state.app.listVueItems,
-        listVueActive: state.app.listVueActive,
-        coorOnClick:  state.app.coorOnClick,
-        modality: state.app.modality,
-        mode: state.app.mode,
-        needMapRepan: state.app.needMapRepan,
-        needMapToggleLayer: state.app.needMapToggleLayer,
-        needMapActualizeLanguage: state.app.needMapActualizeLanguage,
-        needMapFilterByDate: state.app.needMapFilterByDate,    
-        needMapUpdate: state.app.needMapUpdate,
-        route: state.app.route,
-        routeStatus: state.app.routeStatus,
-        searchLocation: state.app.searchLocation,
-        userLocation: state.app.userLocation,
-        visibility: state.app.visibility,
-        zoom: state.app.mapCoords[2],
-    };
+  return {
+    accessToken: state.app.mapboxAccessToken,
+    center: state.app.mapCoords.slice(0, 2),
+    directionsFrom: state.app.directionsFrom,
+    directionsTo: state.app.directionsTo,
+    toggleLayerVisibility: state.app.toggleLayerVisibility,
+    dateFrom: state.app.dateFrom,
+    dateTo: state.app.dateTo,
+    languageSet: state.app.languageSet,
+    listVueItems: state.app.listVueItems,
+    listVueActive: state.app.listVueActive,
+    coorOnClick:  state.app.coorOnClick,
+    modality: state.app.modality,
+    mode: state.app.mode,
+    needMapRepan: state.app.needMapRepan,
+    needMapToggleLayer: state.app.needMapToggleLayer,
+    needMapActualizeLanguage: state.app.needMapActualizeLanguage,
+    needMapFilterByDate: state.app.needMapFilterByDate,    
+    needMapUpdate: state.app.needMapUpdate,
+    route: state.app.route,
+    routeStatus: state.app.routeStatus,
+    searchLocation: state.app.searchLocation,
+    userLocation: state.app.userLocation,
+    visibility: state.app.visibility,
+    zoom: state.app.mapCoords[2],
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {
-        getRoute: (directionsFrom, directionsTo, modality, accessToken) => dispatch(getRoute(directionsFrom, directionsTo, modality, accessToken)),
-        pushHistory: (url) => dispatch(push(url)),
-        setStateValue: (key, value) => dispatch(setStateValue(key, value)),
-        setUserLocation: (coordinates) => dispatch(setUserLocation(coordinates)),
-        triggerMapUpdate: (repan) => dispatch(triggerMapUpdate(repan)),
-        resetStateKeys: (keys) => dispatch(resetStateKeys(keys))
-    };
+  return {
+    getRoute: (directionsFrom, directionsTo, modality, accessToken) => dispatch(getRoute(directionsFrom, directionsTo, modality, accessToken)),
+    pushHistory: (url) => dispatch(push(url)),
+    setStateValue: (key, value) => dispatch(setStateValue(key, value)),
+    setUserLocation: (coordinates) => dispatch(setUserLocation(coordinates)),
+    triggerMapUpdate: (repan) => dispatch(triggerMapUpdate(repan)),
+    resetStateKeys: (keys) => dispatch(resetStateKeys(keys))
+  };
 };
 
 export default connect(

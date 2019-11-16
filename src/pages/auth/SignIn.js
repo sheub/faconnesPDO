@@ -118,13 +118,13 @@ class SignIn extends Component {
       .catch(error => this.setState({ errors: destructServerErrors(error) }));
   }
 
-    handleFacebookSignInSuccess(credentials) {
-        this.props
-            .facebookSignIn(credentials)
-            .then(response => this.signInSuccess())
-            .catch(error => this.setState({ errors: destructServerErrors(error) }));
-        this.setState({ open: false });
-    }
+  handleFacebookSignInSuccess(credentials) {
+    this.props
+      .facebookSignIn(credentials)
+      .then(response => this.signInSuccess())
+      .catch(error => this.setState({ errors: destructServerErrors(error) }));
+    this.setState({ open: false });
+  }
 
   render() {
     const { fullScreen, classes } = this.props;

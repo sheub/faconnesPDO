@@ -65,7 +65,7 @@ class Search extends Component {
                 this.props.resetStateKeys(["searchLocation", "placeInfo"]);
               }}
             />
-            {/* { (this.props.searchLocation && this.props.searchLocation.properties) ? 
+            {/* { (this.props.searchLocation && this.props.searchLocation.properties) ?
             <MyPlaceInfo info={this.props.searchLocation} isActive={true} />
             : null
         } */}
@@ -145,10 +145,12 @@ class Search extends Component {
     this.setState({ checkedA: !this.state.checkedA });
     if (this.state.checkedA) {
       this.props.setMode("localAutocomplete");
-      this.state.modeString = "Local search";
+      // this.state.modeString = "Local search";
+      this.setState({ modeString: "Local search" });
     } else {
       this.props.setMode("search");
-      this.state.modeString = "Geocoder";
+      // this.state.modeString = "Geocoder";
+      this.setState({ modeString: "Geocoder" });
     }
   }
 

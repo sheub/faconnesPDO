@@ -158,38 +158,38 @@ class ProfilePage extends Component {
 
     var info = { abstract: "abstract", label: "label", property_id: place.properties.property_id };
     switch (lang) {
-      case "fr":
-        info.abstract = place.properties.abstract_fr
-          ? place.properties.abstract_fr
-          : place.properties.abstract_en;
-        info.label = place.properties.label_fr
-          ? place.properties.label_fr
-          : place.properties.label_en;
-        info.link = place.properties.wikipedia_fr
-          ? place.properties.wikipedia_fr
-          : place.properties.wikipedia_en;
-        break;
-      case "en":
-        info.abstract = place.properties.abstract_en
-          ? place.properties.abstract_en
-          : place.properties.abstract_fr;
-        info.label = place.properties.label_en
-          ? place.properties.label_en
-          : place.properties.label_fr;
-        info.link = place.properties.wikipedia_fr
-          ? place.properties.wikipedia_fr
-          : place.properties.wikipedia_en;
-        break;
-      default:
-        info.abstract = place.properties.abstract_en
-          ? place.properties.abstract_en
-          : place.properties.abstract_fr;
-        info.label = place.properties.label_en
-          ? place.properties.label_en
-          : place.properties.label_fr;
-        info.link = place.properties.wikipedia_fr
-          ? place.properties.wikipedia_fr
-          : place.properties.wikipedia_en;
+    case "fr":
+      info.abstract = place.properties.abstract_fr
+        ? place.properties.abstract_fr
+        : place.properties.abstract_en;
+      info.label = place.properties.label_fr
+        ? place.properties.label_fr
+        : place.properties.label_en;
+      info.link = place.properties.wikipedia_fr
+        ? place.properties.wikipedia_fr
+        : place.properties.wikipedia_en;
+      break;
+    case "en":
+      info.abstract = place.properties.abstract_en
+        ? place.properties.abstract_en
+        : place.properties.abstract_fr;
+      info.label = place.properties.label_en
+        ? place.properties.label_en
+        : place.properties.label_fr;
+      info.link = place.properties.wikipedia_fr
+        ? place.properties.wikipedia_fr
+        : place.properties.wikipedia_en;
+      break;
+    default:
+      info.abstract = place.properties.abstract_en
+        ? place.properties.abstract_en
+        : place.properties.abstract_fr;
+      info.label = place.properties.label_en
+        ? place.properties.label_en
+        : place.properties.label_fr;
+      info.link = place.properties.wikipedia_fr
+        ? place.properties.wikipedia_fr
+        : place.properties.wikipedia_en;
     }
 
     var image = place.properties.thumbnail
