@@ -468,17 +468,17 @@ class MapComponent extends Component {
     geolocateControl.on("geolocate", setGeolocation);
     this.map.addControl(geolocateControl, "bottom-left");
 
-    // Create scale control
+    // Create scale and Navigation controls
     if (
       window.innerWidth > 320 &&
       !("ontouchstart" in window || navigator.msMaxTouchPoints > 0)
     ) {
-      const scaleControl = new mapboxgl.ScaleControl({
-        maxWidth: 80,
-        unit: "metric"
-      });
+      // const scaleControl = new mapboxgl.ScaleControl({
+      //   maxWidth: 80,
+      //   unit: "metric"
+      // });
 
-      this.map.addControl(scaleControl, "bottom-left");
+      // this.map.addControl(scaleControl, "bottom-left");
       this.map.addControl(new mapboxgl.NavigationControl(), "bottom-left");
     }
 
@@ -703,7 +703,7 @@ const mapStateToProps = (state) => {
     needMapRepan: state.app.needMapRepan,
     needMapToggleLayer: state.app.needMapToggleLayer,
     needMapActualizeLanguage: state.app.needMapActualizeLanguage,
-    needMapFilterByDate: state.app.needMapFilterByDate,    
+    needMapFilterByDate: state.app.needMapFilterByDate,
     needMapUpdate: state.app.needMapUpdate,
     route: state.app.route,
     routeStatus: state.app.routeStatus,

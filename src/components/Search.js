@@ -5,30 +5,58 @@ import Geocoder from "./Geocoder";
 import MyPlaceName from "./MyPlaceName";
 import CloseButton from "./CloseButton";
 import PlaceInfo from "./PlaceInfo";
-// import MyPlaceInfo from "./MyPlaceInfo";
+
+import classNames from "classnames";
+import { withStyles } from "@material-ui/core/styles";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import Tooltip from "@material-ui/core/Tooltip";
 import directionsIcon from "../assets/directions.svg";
+
 import {
   triggerMapUpdate,
   setDirectionsLocation,
   getPlaceInfo,
   resetStateKeys,
-  setStateValue
+  setStateValue,
 } from "../actions/index";
 
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 
+const styles = theme => ({
+  menuButton: {
+    marginLeft: 0,
+    marginRight: 0,
+  },
+
+  menuButtonHidden: {
+    display: "none",
+  },
+});
+
 class Search extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      drawerOpen: true,
       checkedA: true,
-      modeString: "Geocoder"
+      modeString: "Geocoder",
     };
   }
+
+  handleDrawerOpen = () => {
+    this.props.setDrawerState(true);
+  };
+
+  handleDrawerClose = () => {
+    this.props.setDrawerState(false);
+  };
+
   render() {
+    const { open, classes } = this.props;
     let SearchBar;
 
     if (this.props.searchLocation === null) {
@@ -96,11 +124,20 @@ class Search extends Component {
           />
         </FormGroup>
         <div className={this.styles.main}>
-          <div className={this.styles.icon}>
-            <svg className="icon color-gray">
-              <use xlinkHref="#icon-search"></use>
-            </svg>
-          </div>
+          <Tooltip title="Menu">
+            <IconButton
+              color="inherit"
+              aria-label="Open drawer"
+              onClick={this.handleDrawerOpen}
+              className={classNames(
+                classes.menuButton,
+                open && classes.menuButtonHidden,
+              )}
+            >
+              <MenuIcon />
+            </IconButton>
+          </Tooltip>
+
           {SearchBar}
           <CloseButton
             show={
@@ -145,11 +182,9 @@ class Search extends Component {
     this.setState({ checkedA: !this.state.checkedA });
     if (this.state.checkedA) {
       this.props.setMode("localAutocomplete");
-      // this.state.modeString = "Local search";
       this.setState({ modeString: "Local search" });
     } else {
       this.props.setMode("search");
-      // this.state.modeString = "Geocoder";
       this.setState({ modeString: "Geocoder" });
     }
   }
@@ -157,11 +192,11 @@ class Search extends Component {
   get styles() {
     return {
       main:
-        "h42 bg-white shadow-darken25 flex-parent flex-parent--row flex-parent--space-between-main",
+        "h42 bg-white shadow-darken25 flex-parent flex-parent--row flex-parent--space-between-main round-bold-mm",
       icon:
         "absolute flex-parent flex-parent--center-cross flex-parent--center-main w42 h42",
-      input: "input px42 h42 border--transparent",
-      results: "results bg-white shadow-darken25 mt6 border-darken10"
+      input: "input h42 border--transparent",
+      results: "results bg-white shadow-darken25 mt6 border-darken10",
     };
   }
 }
@@ -177,7 +212,8 @@ Search.propTypes = {
   setPlaceInfo: PropTypes.func,
   setSearchLocation: PropTypes.func,
   triggerMapUpdate: PropTypes.func,
-  writeSearch: PropTypes.func
+  writeSearch: PropTypes.func,
+  setDrawerState: PropTypes.func,
 };
 
 const mapStateToProps = state => {
@@ -185,7 +221,8 @@ const mapStateToProps = state => {
     placeInfo: state.app.placeInfo,
     searchLocation: state.app.searchLocation,
     searchString: state.app.searchString,
-    modeString: state.app.mode
+    modeString: state.app.mode,
+    drawerOpen: state.app.drawerOpen,
   };
 };
 
@@ -200,12 +237,14 @@ const mapDispatchToProps = dispatch => {
     setSearchLocation: location =>
       dispatch(setStateValue("searchLocation", location)),
     triggerMapUpdate: repan => dispatch(triggerMapUpdate(repan)),
-    writeSearch: input => dispatch(setStateValue("searchString", input))
+    writeSearch: input => dispatch(setStateValue("searchString", input)),
+    setDrawerState: drawerOpen =>
+      dispatch(setStateValue("drawerOpen", drawerOpen)),
   };
 };
 
 export { Search };
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
-)(Search);
+  mapDispatchToProps,
+)(withStyles(styles)(Search));

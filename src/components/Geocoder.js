@@ -176,7 +176,7 @@ class Geocoder extends Component {
                   (i === this.state.focus
                     ? "bg-blue-faint"
                     : "bg-gray-faint-on-hover") +
-                  " h36 flex-parent flex-parent--center-cross pr12 cursor-pointer w-full w420-mm"
+                  " h36 flex-parent flex-parent--center-cross pr12 cursor-pointer w-full"
                 }
                 onClick={this.clickOption.bind(this, result, i)}
               >
