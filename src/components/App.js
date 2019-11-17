@@ -48,13 +48,13 @@ class App extends Component {
               )}
               {this.props.searchLocation &&
               this.props.searchLocation.properties ? (
-                <React.Suspense fallback={<div> </div>}>
-                  <MyPlaceInfo
-                    info={this.props.searchLocation}
-                    isActive={true}
-                  />
-                </React.Suspense>
-              ) : null}
+                  <React.Suspense fallback={<div> </div>}>
+                    <MyPlaceInfo
+                      info={this.props.searchLocation}
+                      isActive={true}
+                    />
+                  </React.Suspense>
+                ) : null}
 
               {this.props.listVueActive && this.props.listVueItems ? (
                 <React.Suspense fallback={<div> </div>}>
