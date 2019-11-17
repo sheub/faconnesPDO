@@ -3,6 +3,9 @@ import polyline from "@mapbox/polyline";
 const defaultAppState = {
   // Mapbox Access Token
   mapboxAccessToken: process.env.REACT_APP_MAPBOX_TOKEN,
+  // drawer
+  drawerOpen: false,
+
   // Map
   mapCoords: [-122.4, 37.8, 10],
   // Map updates

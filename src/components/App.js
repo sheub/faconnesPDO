@@ -13,9 +13,7 @@ const Search = React.lazy(() => import("./Search"));
 const Directions = React.lazy(() => import("./Directions"));
 const MyPlaceInfo = React.lazy(() => import("./MyPlaceInfo"));
 
-
 class App extends Component {
-
   componentWillMount() {
     this.props.setStateFromURL();
   }
@@ -23,41 +21,50 @@ class App extends Component {
   render() {
     var moveOnLoad = !this.props.url
       .split("/")
-      .filter(e => e.startsWith("+") || e.startsWith("@"))
-      .length;
+      .filter(e => e.startsWith("+") || e.startsWith("@")).length;
 
-    let styleSearch = (window.innerWidth > 340) ? { width: "240px", margin: "12px", marginTop: "74px" } : { width: "100%", margin: 0  };
+    let styleSearch =
+      window.innerWidth > 340
+        ? { margin: "12px", marginTop: "74px" }
+        : { width: "100%", margin: 0 };
     return (
-
       <Router>
         <div className="root">
           <AppbarDrawer />
           <div id="mapCont">
             <Map moveOnLoad={moveOnLoad} />
-            <div className="relative fr m12 w240 flex-parent flex-parent--column" style={styleSearch}>
-              {
-                (this.props.mode === "directions")
-                  ? <React.Suspense fallback={<div> Loading Directions...</div>}>
-                    <Directions />
-                  </React.Suspense>
-                  : <React.Suspense fallback={<div> Loading Search...</div>}>
-                    <Search />
-                  </React.Suspense>
-              }
-              {(this.props.searchLocation && this.props.searchLocation.properties) ?
-                <React.Suspense fallback={<div> </div>}>
-                  <MyPlaceInfo info={this.props.searchLocation} isActive={true} />
+            <div
+              className="relative fl m12 w240 flex-parent flex-parent--column"
+              style={styleSearch}
+            >
+              {this.props.mode === "directions" ? (
+                <React.Suspense fallback={<div> Loading Directions...</div>}>
+                  <Directions />
                 </React.Suspense>
-                : null
-              }
-
-              {(this.props.listVueActive && this.props.listVueItems) ?
-                <React.Suspense fallback={<div> </div>}>
-                  <ListVue listVueActive={this.props.listVueActive} listVueItems={this.props.listVueItems} coorOnClick={this.props.coorOnClick} />
+              ) : (
+                <React.Suspense fallback={<div> Loading Search...</div>}>
+                  <Search />
                 </React.Suspense>
-                : null
-              }
+              )}
+              {this.props.searchLocation &&
+              this.props.searchLocation.properties ? (
+                <React.Suspense fallback={<div> </div>}>
+                  <MyPlaceInfo
+                    info={this.props.searchLocation}
+                    isActive={true}
+                  />
+                </React.Suspense>
+              ) : null}
 
+              {this.props.listVueActive && this.props.listVueItems ? (
+                <React.Suspense fallback={<div> </div>}>
+                  <ListVue
+                    listVueActive={this.props.listVueActive}
+                    listVueItems={this.props.listVueItems}
+                    coorOnClick={this.props.coorOnClick}
+                  />
+                </React.Suspense>
+              ) : null}
             </div>
           </div>
         </div>
@@ -75,10 +82,10 @@ App.propTypes = {
   route: PropTypes.object,
   routeStatus: PropTypes.string,
   setStateFromURL: PropTypes.func,
-  url: PropTypes.string
+  url: PropTypes.string,
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     listVueActive: state.app.listVueActive,
     listVueItems: state.app.listVueItems,
@@ -87,17 +94,14 @@ const mapStateToProps = (state) => {
     route: state.app.route,
     routeStatus: state.app.routeStatus,
     searchLocation: state.app.searchLocation,
-    url: state.router.location.pathname
+    url: state.router.location.pathname,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    setStateFromURL: () => dispatch(setStateFromURL())
+    setStateFromURL: () => dispatch(setStateFromURL()),
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

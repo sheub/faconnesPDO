@@ -834,7 +834,7 @@ input:disabled+.switch {
 }
 
 .h42 {
-    height: 42px !important
+    height: 48px !important
 }
 
 .h-full {
@@ -842,7 +842,7 @@ input:disabled+.switch {
 }
 
 .w240 {
-    width: 240px
+    width: 408px
 }
 
 .w42 {
@@ -1006,7 +1006,7 @@ input:disabled+.switch {
 
 @media screen and (min-width:640px) {
     .w240-mm {
-        width: 240px
+        width: 408px
     }
 
     .w420-mm {

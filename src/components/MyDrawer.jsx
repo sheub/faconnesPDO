@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { I18n } from "react-i18next";
-import { triggerMapUpdate, setStateValues } from "../actions/index";
+import { triggerMapUpdate, setStateValue, setStateValues } from "../actions/index";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import classNames from "classnames";
@@ -26,14 +26,14 @@ import MyDatePicker from "./MyDatePicker";
 import Footer from "./Footer.js";
 
 import "./App.css";
-// import "./PopupInfo.css";
 const ProfilePage = React.lazy(() => import("./ProfilePage.js"));
 
-const drawerWidth = 270;
+// const drawerWidth = 270;
+const drawerWidth = (window.innerWidth > 340) ? 320 : window.innerWidth;
 
 const styles = theme => ({
   root: {
-    float: "left"
+    float: "left",
   },
 
   toolbarIcon: {
@@ -42,13 +42,18 @@ const styles = theme => ({
     alignItems: "center",
     justifyContent: "flex-end",
     padding: "0 8px",
-    ...theme.mixins.toolbar
+    ...theme.mixins.toolbar,
+  },
+
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
   },
 
   drawerPaper: {
-    // height: "100vh",
+    height: "auto",
     minHeight: "100vh",
-    position: "absolut",
+    position: "absolute",
     top: "0",
     left: "0",
     whiteSpace: "nowrap",
@@ -58,27 +63,27 @@ const styles = theme => ({
     overflowX: "hidden",
     overflowY: "auto",
     "&:hover": {
-      overflowY: "auto"
+      overflowY: "auto",
     },
     "&::-webkit-scrollbar": {
-      display: "none"
-    }
+      display: "none",
+    },
   },
   drawerPaperClose: {
     overflowX: "hidden",
-    width: 0
+    width: 0,
   },
   collapses: {
-    overflowY: "auto"
+    // overflowY: "auto",
   },
 
   expandIcons: {
     position: "absolute",
-    right: "12px"
+    right: "12px",
   },
 
   listItemStyle: {
-    cursor: "default"
+    cursor: "default",
   },
 
   fontStyle: {
@@ -88,13 +93,13 @@ const styles = theme => ({
     marginBottom: "6px",
     marginTop: "8px",
     cursor: "default",
-    display: "inline-block"
+    display: "inline-block",
   },
 
   datePickerBackground: {
     backgroundColor: "#E5E5E5",
-    marginBottom: "12px"
-  }
+    marginBottom: "12px",
+  },
 });
 
 class MyDrawer extends Component {
@@ -115,7 +120,7 @@ class MyDrawer extends Component {
       checked: filtered,
       dateFrom: new Date(), //Today
       dateTo: new Date(), // Today plus one day
-      showProfilePage: false
+      showProfilePage: false,
     };
 
     this._onClickProfilePage = this._onClickProfilePage.bind(this);
@@ -169,6 +174,7 @@ class MyDrawer extends Component {
 
   handleDrawerClose = () => {
     this.props.open = false;
+    this.props.setDrawerState(false);
   };
 
   handleClick = () => {
@@ -226,10 +232,10 @@ class MyDrawer extends Component {
                   classes={{
                     paper: classNames(
                       classes.drawerPaper,
-                      !this.props.open && classes.drawerPaperClose
+                      !this.props.drawerOpen && classes.drawerPaperClose
                     )
                   }}
-                  open={this.props.open}
+                  open={this.props.drawerOpen}
                 >
                   <div className={classes.toolbarIcon}>
                     <IconButton
@@ -524,20 +530,24 @@ MyDrawer.propTypes = {
   setStateValues: PropTypes.func,
   toggleLayerVisibility: PropTypes.string,
   triggerMapUpdate: PropTypes.func,
-  visibility: PropTypes.object
+  visibility: PropTypes.object,
+  drawerOpen: PropTypes.bool,
+  setDrawerState: PropTypes.func,
 };
 
 const mapStateToProps = state => {
   return {
     toggleLayerVisibility: state.app.toggleLayerVisibility,
-    visibility: state.app.visibility
+    visibility: state.app.visibility,
+    drawerOpen: state.app.drawerOpen
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     setStateValues: obj => dispatch(setStateValues(obj)),
-    triggerMapUpdate: v => dispatch(triggerMapUpdate(v))
+    triggerMapUpdate: v => dispatch(triggerMapUpdate(v)),
+    setDrawerState: drawerOpen => dispatch(setStateValue("drawerOpen", drawerOpen)),
   };
 };
 

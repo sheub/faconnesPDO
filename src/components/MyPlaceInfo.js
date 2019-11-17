@@ -142,10 +142,10 @@ function RenderLastUpdate(props) {
   return null;
 }
 
-function ExtractOtherTags(info) {
-  var res = info.other_tags.split("=>");
-  return res;
-}
+// function ExtractOtherTags(info) {
+//   var res = info.other_tags.split("=>");
+//   return res;
+// }
 
 class MyPlaceInfo extends Component {
   constructor(props) {

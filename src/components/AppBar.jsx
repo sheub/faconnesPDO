@@ -1,15 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { NavLink, withRouter} from "react-router-dom";
+import { NavLink, withRouter } from "react-router-dom";
 import { translate } from "react-i18next";
 import { triggerMapUpdate, setStateValues } from "../actions/index";
 
 import classNames from "classnames";
 import AppBar from "@material-ui/core/AppBar";
 import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
+// import Typography from "@material-ui/core/Typography";
 import Toolbar from "@material-ui/core/Toolbar";
-import MenuIcon from "@material-ui/icons/Menu";
 import { withStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -29,16 +28,13 @@ const ForwardNavLink = React.forwardRef((props, ref) => (
   <NavLink {...props} innerRef={ref} />
 ));
 
-const MyLinkToLogout = (props) => <ForwardNavLink to="/" {...props} />;
+const MyLinkToLogout = props => <ForwardNavLink to="/" {...props} />;
 
 export const DefaultTransition = React.forwardRef((props, ref) => (
   <MenuItem {...props} ref={ref} />
 ));
 
-
-
-const styles = (theme) => ({
-
+const styles = theme => ({
   root: {
     flexGrow: 1,
   },
@@ -48,8 +44,8 @@ const styles = (theme) => ({
     opacity: 0.85,
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    })
+      duration: theme.transitions.duration.leavingScreen,
+    }),
   },
 
   appBarShift: {
@@ -59,22 +55,22 @@ const styles = (theme) => ({
     overflow: "hidden",
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen
-    })
+      duration: theme.transitions.duration.enteringScreen,
+    }),
   },
   menuButton: {
     marginLeft: 20,
-    marginRight: 12
+    marginRight: 12,
   },
   menuButtonHidden: {
-    display: "none"
+    display: "none",
   },
   titleClass: {
-    flexGrow: 1
+    flexGrow: 1,
   },
 
   languageButtonClass: {
-    marginLeft: "auto"
+    marginLeft: "auto",
   },
 
   sectionMobile: {
@@ -87,295 +83,269 @@ const styles = (theme) => ({
     display: "none",
     [theme.breakpoints.up("md")]: {
       display: "flex",
-      marginLeft: 0
+      marginLeft: 0,
     },
   },
-
-
 });
 
 const drawerWidth = 270;
 
 class MyAppBar extends Component {
-    state = {
-      anchorEl: null,
-      mobileMoreAnchorEl: null,
+  state = {
+    anchorEl: null,
+    mobileMoreAnchorEl: null,
+    anchorelanguage: null,
+    languageSet: "en",
+    SignInFormVisible: false,
+    RegisterFormVisible: false,
+    showProfilePage: false,
+  };
+
+  handleMenuLanguage = event => {
+    this.setState({
+      anchorelanguage: event.currentTarget,
+    });
+  };
+
+  handleCloseLanguage = () => {
+    this.setState({
       anchorelanguage: null,
-      languageSet: "en",
+    });
+  };
+
+  // OpenClose Menu
+  handleProfileMenuOpen = event => {
+    this.setState({
+      anchorEl: event.currentTarget,
+    });
+  };
+
+  // open SignIn
+  openSignIn = () => {
+    this.setState({
+      anchorEl: null,
+      SignInFormVisible: true,
+    });
+    this.handleMobileMenuClose();
+  };
+  // open SignIn
+  openRegister = () => {
+    this.setState({
+      anchorEl: null,
+      RegisterFormVisible: true,
+    });
+    this.handleMobileMenuClose();
+  };
+
+  handleClose = () => {
+    this.setState({
+      anchorEl: null,
       SignInFormVisible: false,
       RegisterFormVisible: false,
-      showProfilePage: false
-    };
+      showProfilePage: false,
+    });
+  };
 
+  onClickProfilePage() {
+    if (!this.state.showProfilePage) {
+      this.setState({ showProfilePage: true });
+    } else {
+      this.setState({ showProfilePage: false });
+    }
+    this.setState({
+      anchorEl: null,
+    });
+    this.handleMobileMenuClose();
+  }
 
-    handleDrawerOpen = () => {
-      this.props.handleDrawerOpen();
-    };
+  handleMenuClose = () => {
+    this.setState({
+      anchorEl: null,
+      showProfilePage: false,
+    });
+    this.handleMobileMenuClose();
+  };
 
-    handleMenuLanguage = event => {
+  // OpenClose mobile menu
+  handleMobileMenuOpen = event => {
+    this.setState({ mobileMoreAnchorEl: event.currentTarget });
+  };
+
+  handleMobileMenuClose = () => {
+    this.setState({ mobileMoreAnchorEl: null });
+  };
+
+  handleLogout = () => {
+    this.props.logoutUser(() => this.props.history.push("/"));
+    this.setState({ anchorEl: null });
+    this.handleMobileMenuClose();
+  };
+
+  render() {
+    const { open, classes, auth, t, i18n } = this.props;
+    const { anchorEl, mobileMoreAnchorEl, anchorelanguage } = this.state;
+    const openMenuLanguage = Boolean(anchorelanguage);
+    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+    const isMenuOpen = Boolean(anchorEl);
+
+    const renderMenu = (
+      <Menu
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        open={isMenuOpen}
+        onClose={this.handleMenuClose}
+      >
+        {auth.authenticated ? (
+          <div>
+            <MenuItem
+              className="menuButton"
+              onClick={() => this.onClickProfilePage()}
+            >
+              My Profile
+            </MenuItem>
+            <MenuItem
+              className="menuButton"
+              component={MyLinkToLogout}
+              onClick={this.handleLogout}
+            >
+              Logout
+            </MenuItem>
+          </div>
+        ) : (
+          <div>
+            <MenuItem className="menuButton" onClick={this.openSignIn}>
+              {t("appbar.signIn")}
+            </MenuItem>
+            <MenuItem className="menuButton" onClick={this.openRegister}>
+              {t("appbar.register")}
+            </MenuItem>
+          </div>
+        )}
+      </Menu>
+    );
+
+    const renderMobileMenu = (
+      <Menu
+        anchorEl={mobileMoreAnchorEl}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        transformOrigin={{ vertical: "top", horizontal: "right" }}
+        open={isMobileMenuOpen}
+        onClose={this.handleMobileMenuClose}
+      >
+        <MenuItem onClick={this.handleProfileMenuOpen}>
+          <div>
+            <IconButton color="inherit">
+              <AccountCircle />
+            </IconButton>
+            <MenuItem
+              className="menuButton"
+              onClick={() => this.onClickProfilePage()}
+            >
+              {t("appbar.myProfile")}
+            </MenuItem>
+            <MenuItem
+              className="menuButton"
+              onClick={() => this.handleLogout()}
+            >
+              {t("appbar.logout")}
+            </MenuItem>
+          </div>
+          {/* <p>Profile</p> */}
+        </MenuItem>
+      </Menu>
+    );
+
+    const changeLanguage = lng => {
       this.setState({
-        anchorelanguage: event.currentTarget
+        anchorelanguage: null,
+        languageSet: lng,
       });
-    };
 
-    handleCloseLanguage = () => {
-      this.setState({
-        anchorelanguage: null
+      this.props.setStateValues({
+        languageSet: lng,
+        needMapActualizeLanguage: true,
       });
+
+      i18n.changeLanguage(lng);
+      this.props.triggerMapUpdate();
     };
 
-    // OpenClose Menu
-    handleProfileMenuOpen = (event) => {
-      this.setState({
-        anchorEl: event.currentTarget
-      });
-    };
+    return (
+      <div className={classes.root}>
+        <CssBaseline />
 
-    // open SignIn
-    openSignIn = () => {
-      this.setState({
-        anchorEl: null,
-        SignInFormVisible: true
-      });
-      this.handleMobileMenuClose();
-    };
-      // open SignIn
-      openRegister = () => {
-        this.setState({
-          anchorEl: null,
-          RegisterFormVisible: true
-        });
-        this.handleMobileMenuClose();
-      };
-
-    handleClose = () => {
-      this.setState({
-        anchorEl: null,
-        SignInFormVisible: false,
-        RegisterFormVisible: false,
-        showProfilePage: false
-      });
-    };
-
-    onClickProfilePage() {
-      if (!this.state.showProfilePage) {
-        this.setState({ showProfilePage: true });
-      } else {
-        this.setState({ showProfilePage: false });
-      }
-      this.setState({
-        anchorEl: null
-      });
-      this.handleMobileMenuClose();
-    };
-
-    handleMenuClose = () => {
-      this.setState({
-        anchorEl: null,
-        showProfilePage: false
-      });
-      this.handleMobileMenuClose();
-    };
-
-    // OpenClose mobile menu
-    handleMobileMenuOpen = (event) => {
-      this.setState({ mobileMoreAnchorEl: event.currentTarget });
-    };
-
-    handleMobileMenuClose = () => {
-      this.setState({ mobileMoreAnchorEl: null });
-    };
-
-    handleLogout = () => {
-      this.props.logoutUser(() => this.props.history.push("/"));
-      this.setState({ anchorEl: null });
-      this.handleMobileMenuClose();
-    };
-
-    render() {
-
-      const { open, classes, auth, t, i18n } = this.props;
-      const { anchorEl, mobileMoreAnchorEl, anchorelanguage } = this.state;
-      const openMenuLanguage = Boolean(anchorelanguage);
-      const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-      const isMenuOpen = Boolean(anchorEl);
-
-      const renderMenu = (
-        <Menu
-          anchorEl={anchorEl}
-          anchorOrigin={{
-            vertical: "top",
-            horizontal: "right"
-          }}
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "right"
-          }}
-          open={isMenuOpen}
-          onClose={this.handleMenuClose}
+        <AppBar
+          position="absolute"
+          className={classNames(classes.appBar, open && classes.appBarShift)}
         >
-          {auth.authenticated ?
-            <div>
-              <MenuItem className="menuButton" onClick={() => this.onClickProfilePage()}>
-                            My Profile
-              </MenuItem>
-              <MenuItem className="menuButton" component={MyLinkToLogout} onClick={this.handleLogout}>
-                            Logout
-              </MenuItem>
-            </div>
-            : <div >
-              <MenuItem className="menuButton" onClick={this.openSignIn}>
-                {t("appbar.signIn")}
-              </MenuItem>
-              <MenuItem className="menuButton" onClick={this.openRegister}>
-                {t("appbar.register")}
-              </MenuItem>
-            </div>
-          }
-        </Menu>
-      );
-
-      const renderMobileMenu = (
-        <Menu
-          anchorEl={mobileMoreAnchorEl}
-          anchorOrigin={{ vertical: "top", horizontal: "right" }}
-          transformOrigin={{ vertical: "top", horizontal: "right" }}
-          open={isMobileMenuOpen}
-          onClose={this.handleMobileMenuClose}
-        >
-
-          <MenuItem onClick={this.handleProfileMenuOpen}>
-            <div>
-              <IconButton color="inherit">
+          <Toolbar disableGutters={!open}>
+            <div className={classes.languageButtonClass}>
+              <IconButton
+                aria-owns={isMenuOpen ? "material-appbar" : undefined}
+                aria-haspopup="true"
+                onClick={this.handleProfileMenuOpen}
+                color="inherit"
+              >
                 <AccountCircle />
               </IconButton>
-              <MenuItem className="menuButton" onClick={() => this.onClickProfilePage()}>
-                {t("appbar.myProfile")}
-              </MenuItem>
-              <MenuItem className="menuButton" onClick={() => this.handleLogout()}>
-                {t("appbar.logout")}
-              </MenuItem>
-            </div>
-            {/* <p>Profile</p> */}
-          </MenuItem>
-        </Menu>
-      );
 
-      const changeLanguage = (lng) => {
-        this.setState({
-          anchorelanguage: null,
-          languageSet: lng
-        });
-
-        this.props.setStateValues({
-          languageSet: lng,
-          needMapActualizeLanguage: true
-        });
-
-        i18n.changeLanguage(lng);
-        this.props.triggerMapUpdate();
-      };
-
-      return (
-        <div className={classes.root}>
-          <CssBaseline />
-
-          <AppBar
-            position="absolute"
-            className={classNames(
-              classes.appBar,
-              open && classes.appBarShift
-            )}
-          >
-            <Toolbar disableGutters={!open}>
               <IconButton
+                aria-owns={open ? "menu-appbar" : null}
+                aria-haspopup="true"
+                onClick={this.handleMenuLanguage}
                 color="inherit"
-                aria-label="Open drawer"
-                onClick={this.handleDrawerOpen}
-                className={classNames(
-                  classes.menuButton,
-                  open && classes.menuButtonHidden
-                )}
+                aria-label="Select Language"
               >
-                <MenuIcon />
+                <LanguageIcon />
               </IconButton>
 
-              <NavLink to="/" style={{ textDecoration: "none", color: "white" }}>
-                <Typography
-                  variant="h6"
-                  color="inherit"
-                  noWrap
-                  className={classes.titleClass}
-                >
-                  {t("title")}
-                </Typography>
-
-              </NavLink>
-
-              {/* <div className={classes.sectionDesktop}> */}
-              <div className={classes.languageButtonClass}>
-
-                <IconButton
-                  aria-owns={isMenuOpen ? "material-appbar" : undefined}
-                  aria-haspopup="true"
-                  onClick={this.handleProfileMenuOpen}
-                  color="inherit"
-                >
-                  <AccountCircle />
-                </IconButton>
-
-                <IconButton
-                  aria-owns={open ? "menu-appbar" : null}
-                  aria-haspopup="true"
-                  onClick={this.handleMenuLanguage}
-                  color="inherit"
-                  aria-label="Select Language"
-                >
-                  <LanguageIcon />
-                </IconButton>
-
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorelanguage}
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "right"
-                  }}
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right"
-                  }}
-                  open={openMenuLanguage}
-                  onClose={this.handleCloseLanguage}
-                >
-                  <MenuItem onClick={() => changeLanguage("en")}>en</MenuItem>
-                  <MenuItem onClick={() => changeLanguage("fr")}>fr</MenuItem>
-                </Menu>
-              </div>
-
-            </Toolbar>
-          </AppBar>
-          {renderMenu}
-          {renderMobileMenu}
-          {this.state.SignInFormVisible ? (
-            <React.Suspense fallback={<div> </div>}>
-              <SignIn handleClose={this.handleClose} />
-            </React.Suspense>
-          ) : null}
-          {this.state.RegisterFormVisible ? (
-            <React.Suspense fallback={<div> </div>}>
-              <Register handleClose={this.handleClose} />
-            </React.Suspense>
-          ) : null}
-          {this.state.showProfilePage ? (
-            <React.Suspense fallback={<div> </div>}>
-              <ProfilePage handleClose={this.handleClose} />
-            </React.Suspense>
-          ) : null}
-
-        </div>
-      );
-    }
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorelanguage}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={openMenuLanguage}
+                onClose={this.handleCloseLanguage}
+              >
+                <MenuItem onClick={() => changeLanguage("en")}>en</MenuItem>
+                <MenuItem onClick={() => changeLanguage("fr")}>fr</MenuItem>
+              </Menu>
+            </div>
+          </Toolbar>
+        </AppBar>
+        {renderMenu}
+        {renderMobileMenu}
+        {this.state.SignInFormVisible ? (
+          <React.Suspense fallback={<div> </div>}>
+            <SignIn handleClose={this.handleClose} />
+          </React.Suspense>
+        ) : null}
+        {this.state.RegisterFormVisible ? (
+          <React.Suspense fallback={<div> </div>}>
+            <Register handleClose={this.handleClose} />
+          </React.Suspense>
+        ) : null}
+        {this.state.showProfilePage ? (
+          <React.Suspense fallback={<div> </div>}>
+            <ProfilePage handleClose={this.handleClose} />
+          </React.Suspense>
+        ) : null}
+      </div>
+    );
+  }
 }
 AppBar.propTypes = {
   // Auth
@@ -390,12 +360,12 @@ AppBar.propTypes = {
   triggerMapUpdate: PropTypes.func,
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    setStateValues: (obj) => dispatch(setStateValues(obj)),
-    triggerMapUpdate: (v) => dispatch(triggerMapUpdate(v)),
+    setStateValues: obj => dispatch(setStateValues(obj)),
+    triggerMapUpdate: v => dispatch(triggerMapUpdate(v)),
     // logoutUser: (obj) => dispatch(logoutUser(obj))
-    logoutUser: logoutUser(dispatch)
+    logoutUser: logoutUser(dispatch),
   };
 };
 
@@ -405,13 +375,13 @@ const mapDispatchToProps = (dispatch) => {
 //   };
 // }
 
-
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     languageSet: state.app.languageSet,
     needMapActualizeLanguage: state.app.needMapActualizeLanguage,
-    auth: state.auth
+    auth: state.auth,
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps, null,
-  {pure: false})(withRouter(withStyles(styles)(translate("translations")(MyAppBar))));
+export default connect(mapStateToProps, mapDispatchToProps, null, {
+  pure: false,
+})(withRouter(withStyles(styles)(translate("translations")(MyAppBar))));

@@ -65,6 +65,8 @@ function doTheRest(initialState, localStorage)
             }
         },
 
+        drawerWidth: 270,
+
         typography: {
             useNextVariants: true,
       //   fontFamily: ["Open Sans", "sans-serif",
