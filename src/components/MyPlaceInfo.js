@@ -187,7 +187,7 @@ class MyPlaceInfo extends Component {
 
     // move the popup on the left if the list is display
     let stylePop = listVueActive
-      ? { right: "248px", zIndex: 0 }
+      ? { left: "410px", zIndex: 0 }
       : { left: 0, zIndex: 0 };
 
     if (listVueActive && window.innerWidth < 576) {
