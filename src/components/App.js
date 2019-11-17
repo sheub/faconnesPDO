@@ -25,8 +25,8 @@ class App extends Component {
 
     let styleSearch =
       window.innerWidth > 340
-        ? { margin: "12px", marginTop: "74px",  width: "408px" }
-        : { width: "100vw", margin: 0, marginTop: "74px" };
+        ? { margin: "12px", marginTop: "74px",  maxWidth: "408px" }
+        : { margin: 0, marginTop: "74px" }; //width: "100vw",
     return (
       <Router>
         <div className="root">
@@ -34,7 +34,7 @@ class App extends Component {
           <div id="mapCont">
             <Map moveOnLoad={moveOnLoad} />
             <div
-              className="relative fl m12 flex-parent flex-parent--column"
+              className="relative fl m12 flex-parent flex-parent--column w-full-xs"
               style={styleSearch}
             >
               {this.props.mode === "directions" ? (

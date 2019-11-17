@@ -192,7 +192,7 @@ class Search extends Component {
   get styles() {
     return {
       main:
-        "h42 bg-white shadow-darken25 flex-parent flex-parent--row flex-parent--space-between-main round-bold-mm",
+        "h42 bg-white shadow-darken25 flex-parent flex-parent--row flex-parent--space-between-main round-bold-xs",
       icon:
         "absolute flex-parent flex-parent--center-cross flex-parent--center-main w42 h42",
       input: "input h42 border--transparent",

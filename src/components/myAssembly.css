@@ -1004,6 +1004,15 @@ input:disabled+.switch {
     border-width: 0
 }
 
+@media screen and (max-width:340px) {
+    .w-full-xs {
+        width: 100% !important
+    }
+    .round-bold-xs {
+        border-radius: 8px !important
+    }
+}
+
 @media screen and (min-width:640px) {
     .w240-mm {
         width: 408px
