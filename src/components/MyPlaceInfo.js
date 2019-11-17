@@ -86,7 +86,7 @@ function RenderDateTime(props) {
       weekday: "long",
       year: "numeric",
       month: "long",
-      day: "numeric"
+      day: "numeric",
     };
 
     if (eventStart.getDate() === eventEnd.getDate())
@@ -130,7 +130,7 @@ function RenderLastUpdate(props) {
       weekday: "long",
       year: "numeric",
       month: "long",
-      day: "numeric"
+      day: "numeric",
     };
     return (
       <div className="lastUpdatePopup">
@@ -153,7 +153,7 @@ class MyPlaceInfo extends Component {
 
     this.state = {
       popupActive: this.props.isActive,
-      infoPopup: this.props.info
+      infoPopup: this.props.info,
     };
   }
 
@@ -222,7 +222,7 @@ class MyPlaceInfo extends Component {
         "videsgreniers",
         "OTFrance",
         "AiresJeux",
-        "WineCelar"
+        "WineCelar",
       ].includes(layerId)
     ) {
       const lang = this.props.i18n.language;
@@ -251,7 +251,7 @@ class MyPlaceInfo extends Component {
       width: "12",
       verticalAlign: "middle",
       marginRight: "3pt",
-      color: paintColor
+      color: paintColor,
     };
 
     if (
@@ -260,7 +260,7 @@ class MyPlaceInfo extends Component {
         "patrimoinemondialenfrance",
         "jardinremarquable",
         "grandSiteDeFrance",
-        "monumentsnationaux"
+        "monumentsnationaux",
       ].includes(layerId)
     ) {
       const lang = this.props.i18n.language;
@@ -340,13 +340,14 @@ class MyPlaceInfo extends Component {
                     {info.fullPrice} €
                   </p>
                 ) : null}
-                {(typeof info.opening_hours !== "undefined" && info.opening_hours !== "") ? (
-                  <p>
-                    {t("myplaceinfo.openingHours")}
-                    {": "}
-                    {info.opening_hours}
-                  </p>
-                ) : null}
+                {typeof info.opening_hours !== "undefined" &&
+                info.opening_hours !== "" ? (
+                    <p>
+                      {t("myplaceinfo.openingHours")}
+                      {": "}
+                      {info.opening_hours}
+                    </p>
+                  ) : null}
               </div>
             </div>
             <AddToMyPlaces info={this.state.infoPopup} />
@@ -362,7 +363,7 @@ class MyPlaceInfo extends Component {
         "craftmanshop",
         "WineCelar",
         "OTFrance",
-        "AiresJeux"
+        "AiresJeux",
       ].includes(layerId)
     ) {
       return (
@@ -410,7 +411,7 @@ class MyPlaceInfo extends Component {
         "musique",
         "children",
         "marches",
-        "videsgreniers"
+        "videsgreniers",
       ].includes(layerId)
     ) {
       return (
@@ -646,19 +647,19 @@ class MyPlaceInfo extends Component {
       mainInfo:
         "p6 flex-child flex-child--grow flex-parent flex-parent--column flex-parent--center-main",
       placeInfo:
-        "place-info absolute top bg-white w-full w420-mm shadow-darken25 flex-parent flex-parent--column"
+        "place-info absolute top bg-white w-full w420-mm shadow-darken25 flex-parent flex-parent--column",
     };
   }
 }
 
 MyPlaceInfo.propTypes = {
   infoPopup: PropTypes.object,
-  languageSet: PropTypes.string
+  languageSet: PropTypes.string,
 };
 
 const mapStateToProps = state => {
   return {
-    infoPopup: state.app.infoPopup
+    infoPopup: state.app.infoPopup,
   };
 };
 
