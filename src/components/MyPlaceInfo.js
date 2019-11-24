@@ -212,6 +212,7 @@ class MyPlaceInfo extends Component {
         "jardinremarquable",
         "grandSiteDeFrance",
         "monumentsnationaux",
+        "villeEtPaysArtHistoire",
         "parcsjardins",
         "localproductshop",
         "craftmanshop",
@@ -261,6 +262,7 @@ class MyPlaceInfo extends Component {
         "jardinremarquable",
         "grandSiteDeFrance",
         "monumentsnationaux",
+        "villeEtPaysArtHistoire",
       ].includes(layerId)
     ) {
       const lang = this.props.i18n.language;

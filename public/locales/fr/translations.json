@@ -34,6 +34,8 @@
         "GSFTitle": "Grands Sites de France",
         "MN": "Monuments Nationaux",
         "MNTitle": "Édifices gérés par le centre des monuments nationaux",
+        "VilleEtPaysArtHistoire": "Ville et Pays Art et Histoire",
+        "VilleEtPaysArtHistoireTitle": "Ville et Pays Art et Histoire",
         "FilterByDate": "filtrer par date",
         "SelectCategories": "sélectionner catégories",
 
@@ -86,6 +88,7 @@
         "jardinremarquable": "Jardins",
         "grandSiteDeFrance": "Grands Sites",
         "monumentsnationaux": "Monuments",
+        "villeEtPaysArtHistoire": "ville Et Pays Art Histoire",
         "parcsjardins": "Parcs & jardins",
         "localproductshop": "Commerce Local",
         "craftmanshop": "Atelier artisanal",

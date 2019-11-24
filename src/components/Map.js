@@ -632,6 +632,7 @@ class MapComponent extends Component {
       "jardinremarquable",
       "grandSiteDeFrance",
       "monumentsnationaux",
+      "villeEtPaysArtHistoire",
       "parcsjardins",
       "localproductshop",
       "craftmanshop",

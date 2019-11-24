@@ -2867,6 +2867,32 @@
       }
     },
     {
+      "id": "villeEtPaysArtHistoire",
+      "source": "wiki",
+      "source-layer": "villeEtPaysArtHistoire",
+      "type": "symbol",
+      "layout": {
+        "visibility": "none",
+        "icon-image": "star-15-961313",
+        "icon-allow-overlap":true,
+        "icon-size": {
+          "stops": [
+            [
+              6,
+              0.7
+            ],
+            [
+              10,
+              1
+            ]
+          ]
+        }
+      },
+      "paint": {
+        "text-color": "#961313"
+      }
+    },
+    {
       "id": "jardinremarquable",
       "source": "wiki",
       "source-layer": "jardinremarquable",
@@ -3322,6 +3348,14 @@
       "buffer": 0
     },
     "plusBeauxVillagesDeFrance": {
+      "type": "geojson",
+      "data": {
+        "type": "FeatureCollection",
+        "features": []
+      },
+      "buffer": 0
+    },
+    "villeEtPaysArtHistoire": {
       "type": "geojson",
       "data": {
         "type": "FeatureCollection",

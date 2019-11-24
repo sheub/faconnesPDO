@@ -7,7 +7,7 @@ import Star15_19766E from "../assets/Star15_19766E.svg"; // grandsSites // grand
 import Star15_1F08A6 from "../assets/Star15_1F08A6.svg"; // monuments // monumentsnationaux
 import Star15_33BAAB from "../assets/Star15_33BAAB.svg"; // Museums // museesFrance
 
-import Square15_4AA52C from "../assets/Square15_4AA52C.svg"; // parcsjardins 
+import Square15_4AA52C from "../assets/Square15_4AA52C.svg"; // parcsjardins
 import Square15_E8EF1F from "../assets/Square15_E8EF1F.svg"; // localpropshop
 import Square15_EE8568 from "../assets/Square15_EE8568.svg"; // craftmanShop
 import Square15_318CE7 from "../assets/Square15_318CE7.svg"; // OTFrance
@@ -27,6 +27,7 @@ const layerSelector = {
     Jardins: /jardinremarquable/,
     GSF: /grandSiteDeFrance/,
     MN: /monumentsnationaux/,
+    VilleEtPaysArtHistoire: /villeEtPaysArtHistoire/,
     ParcsJardins: /parcsjardins/,
     AiresJeux: /AiresJeux/,
     LocalProdShop: /localproductshop/,
@@ -41,7 +42,7 @@ const layerSelector = {
     Baignades: /baignades/,
     VidesGreniers: /videsgreniers/
 };
-  
+
 
 function returnImage(layerId) {
     let img = null;
@@ -64,6 +65,9 @@ function returnImage(layerId) {
     case "museesFrance":
         img = <img src={Star15_33BAAB} alt="" className='legend-key' />;
         break;
+    case "villeEtPaysArtHistoire":
+            img = <img src={Star15_961313} alt="" className='legend-key' />;
+            break;
     case "parcsjardins":
         img = <img src={Square15_4AA52C} alt="" className='legend-key' />;
         break;

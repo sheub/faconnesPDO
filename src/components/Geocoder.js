@@ -117,7 +117,6 @@ class Geocoder extends Component {
 
   clickOption(place, listLocation) {
     if(!this.state.geocode){
-      // place.geometry = JSON.parse(place.geometry);
       place.place_name = place.properties.label_fr;
     }
      else place.place_name = place.properties.name;

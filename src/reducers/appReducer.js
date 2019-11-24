@@ -41,6 +41,7 @@ const defaultAppState = {
     Jardins: false,
     GSF: false,
     MN: false,
+    villeEtPaysArtHistoire:false,
     ParcsJardins: false,
     AiresJeux: false,
     LocalProdShop: false,

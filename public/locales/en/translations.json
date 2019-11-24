@@ -60,6 +60,8 @@
         "MarchesTitle": "große und kleine Wochenmärkte",
         "VidesGreniers": "Flohmärkte",
         "VidesGreniersTitle": "Flohmärkte",
+        "VilleEtPaysArtHistoire": "Ville et Pays Art et Histoire",
+        "VilleEtPaysArtHistoireTitle": "Ville et Pays Art et Histoire",
         "Toilets": "Public Toilets",
         "ToiletsTitle": "Toilets open to the public",
         "Baignades": "Swim spot",
@@ -69,7 +71,7 @@
         "dateformat": "MMM do, yy",
         "dateformat_": "dd/MM/yy"
 
-        
+
     },
     "myplaceinfo":{
         "urlDisplay": "More »",
@@ -93,6 +95,7 @@
         "jardinremarquable": "Gardens",
         "grandSiteDeFrance": "Grands Sites",
         "monumentsnationaux": "Monuments",
+        "villeEtPaysArtHistoire": "Ville d'art et histoire",
         "parcsjardins": "Parcs & gardens",
         "localproductshop": "Local product shop",
         "craftmanshop": "Craftman shop",

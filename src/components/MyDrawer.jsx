@@ -298,7 +298,8 @@ class MyDrawer extends Component {
                         "Museum",
                         "Jardins",
                         "GSF",
-                        "MN"
+                        "MN",
+                        "VilleEtPaysArtHistoire"
                       ].map((value, index) => (
                         <ListItem
                           key={value}
