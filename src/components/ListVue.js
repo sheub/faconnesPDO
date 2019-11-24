@@ -33,7 +33,7 @@ const styles = theme => ({
         position: "relative",
         overflowY: "auto",
         overflowX: "hidden",
-        flex: 1,        
+        flex: 1,
     },
 
     listItemClass: {
@@ -42,7 +42,7 @@ const styles = theme => ({
         right: 0,
         left: 0,
     },
-    
+
     btnClose: {
         position: "absolute",
         top: "-4px",
@@ -65,7 +65,7 @@ const styles = theme => ({
 
     ListItemStyle: {
         paddingRight: "16px",
-        cursor: "default" 
+        cursor: "default"
     },
 
 });
@@ -84,7 +84,7 @@ class ListVue extends React.Component {
         infoItem.layerId = this.props.listVueItems[index].layer.id;
         infoItem.listVueActive = true;
         infoItem.paintColor = this.props.listVueItems[index].layer.paint["circle-color"];
-        infoItem.place_name = this.props.listVueItems[index].properties.label_en;
+        infoItem.place_name = this.props.listVueItems[index].properties.label_fr;
         infoItem.popupActive = true;
 
         this.props.setStateValue("infoPopup", infoItem);
@@ -140,7 +140,7 @@ class ListVue extends React.Component {
             else
                     info.label = item.properties.label_en;
             break;
-        
+
         case "en":
             if (typeof (item.properties.label_en) !== "undefined" && item.properties.label_en)
                 info.label = item.properties.label_en;
@@ -204,7 +204,7 @@ class ListVue extends React.Component {
                                 </div>
                                 </ListSubheader>
                         }
-                        
+
                     >
                         <div className={classes.listItemClass}>
                             {

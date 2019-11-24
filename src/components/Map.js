@@ -74,7 +74,7 @@ class MapComponent extends Component {
     if (!this.props.needMapUpdate) return;
 
     // Search mode
-    if (this.props.mode === "search") {
+    if (this.props.mode === "search" || this.props.mode === "localAutocomplete") {
       if (this.props.searchLocation) {
         if (this.props.searchLocation.geometry) {
           let markerSource = this.map.getSource("marker");
@@ -140,7 +140,7 @@ class MapComponent extends Component {
 
     if (this.props.needMapRepan) {
       // Search mode
-      if (this.props.mode === "search") {
+      if (this.props.mode === "search" || this.props.mode === "localAutocomplete") {
         import("../utils/moveTo").then(moveTo => {
           moveTo.moveTo(this.map, this.props.searchLocation, 11);
         });

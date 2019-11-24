@@ -116,6 +116,11 @@ class Geocoder extends Component {
   }
 
   clickOption(place, listLocation) {
+    if(!this.state.geocode){
+      // place.geometry = JSON.parse(place.geometry);
+      place.place_name = place.properties.label_fr;
+    }
+     else place.place_name = place.properties.name;
     this.props.onSelect(place);
     this.setState({ focus: listLocation });
     // focus on the input after click to maintain key traversal
@@ -133,7 +138,7 @@ class Geocoder extends Component {
     } else {
       var url = "";
       if (process.env.NODE_ENV === "production") {
-        url = "https://faconnes.de/";
+        url = "https://faconnes.de/current/public/";
         // url = "process.env.PUBLIC_URL/";
       } else {
         url = process.env.REACT_APP_API_ENTRYPOINT + "/";
@@ -218,7 +223,7 @@ function search(
   if (source === "api-adresse.data.gouv.fr") {
     uri = endpoint + "/search/?q=";
   } else {
-    uri = endpoint + "/current/public/api/autocomplete/";
+    uri = endpoint + "api/autocomplete/";
   }
   uri = uri + encodeURIComponent(query);
   xhr(
