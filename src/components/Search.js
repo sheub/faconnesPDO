@@ -111,18 +111,6 @@ class Search extends Component {
 
     return (
       <div>
-        <FormGroup row>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={this.state.checkedA}
-                onChange={() => this.handleSwitchChange()}
-                value="checkedA"
-              />
-            }
-            label={this.state.modeString}
-          />
-        </FormGroup>
         <div className={this.styles.main}>
           <Tooltip title="Menu">
             <IconButton
@@ -154,7 +142,20 @@ class Search extends Component {
             />
           ) : null}
         </div>
-      </div>
+
+        <FormGroup row>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={this.state.checkedA}
+                onChange={() => this.handleSwitchChange()}
+                value="checkedA"
+              />
+            }
+            label={this.state.modeString}
+          />
+        </FormGroup>
+        </div>
     );
   }
 
