@@ -155,7 +155,7 @@ class Search extends Component {
             label={this.state.modeString}
           />
         </FormGroup>
-        </div>
+      </div>
     );
   }
 
