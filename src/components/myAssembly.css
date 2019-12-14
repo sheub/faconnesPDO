@@ -799,6 +799,13 @@ input:disabled+.switch {
     background-color: #f7f7f7 !important
 }
 
+.results {
+    z-index: 1000;
+    position: absolute;
+    left: 0;
+    max-width: 100%;
+}
+
 .flex-parent {
     display: -ms-flexbox !important;
     display: flex !important

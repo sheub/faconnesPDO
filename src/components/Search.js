@@ -12,6 +12,7 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import Tooltip from "@material-ui/core/Tooltip";
 import directionsIcon from "../assets/directions.svg";
+import SearchIcon from "@material-ui/icons/Search";
 
 import {
   triggerMapUpdate,
@@ -33,6 +34,15 @@ const styles = theme => ({
 
   menuButtonHidden: {
     display: "none",
+  },
+
+  searchIcon: {
+    display: "inline-flex",
+    height: 24,
+    width: 24,
+    color: "gainsboro",
+    margin: "auto",
+    marginRight: 8,
   },
 });
 
@@ -132,7 +142,13 @@ class Search extends Component {
               this.props.searchString !== "" ||
               this.props.searchLocation !== null
             }
-            onClick={() => this.closeSearch()}
+            on
+            Click={() => this.closeSearch()}
+          />
+
+          < SearchIcon className={classes.searchIcon}
+            // conditional display of the search icon
+            style={{display: ((this.props.searchString !== "" || this.props.searchLocation !== null) ? "none" : "inline-flex") }}
           />
 
           {this.props.searchLocation && this.props.placeInfo ? (
@@ -192,10 +208,7 @@ class Search extends Component {
 
   get styles() {
     return {
-      main:
-        "h42 bg-white shadow-darken25 flex-parent flex-parent--row flex-parent--space-between-main round-bold-xs",
-      icon:
-        "absolute flex-parent flex-parent--center-cross flex-parent--center-main w42 h42",
+      main: "h42 bg-white shadow-darken25 flex-parent flex-parent--row flex-parent--space-between-main round-bold-xs",
       input: "input h42 border--transparent",
       results: "results bg-white shadow-darken25 mt6 border-darken10",
     };
