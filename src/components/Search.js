@@ -44,6 +44,9 @@ const styles = theme => ({
     margin: "auto",
     marginRight: 8,
   },
+  switchButton: {
+    height: 0,
+  },
 });
 
 class Search extends Component {
@@ -159,7 +162,7 @@ class Search extends Component {
           ) : null}
         </div>
 
-        <FormGroup row>
+        <FormGroup row className={classes.switchButton}>
           <FormControlLabel
             control={
               <Switch

@@ -25,7 +25,7 @@ class RoutePanel extends Component {
         if (this.props.route) {
             return (
         <div className='flex-parent flex-parent--row flex-parent--center-cross'>
-          <div className='w36 hmin36 flex-parent flex-parent--center-main flex-parent--center-cross'>
+          <div className='w36 hmin36 flex-parent flex-parent--center-main flex-parent--center-cross' style={{marginInline: "6px"}}>
             <svg className='icon color-gray'><use xlinkHref={"#icon-" + this.props.modality}></use></svg>
           </div>
           <div className='bottom pr12'>

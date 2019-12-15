@@ -13,7 +13,7 @@ class ChartsArea extends Component {
                     <svg className='icon inline-block align-middle'><use xlinkHref='#icon-arrow-up'></use></svg>{upsAndDowns[0]}m -
                     <svg className='icon inline-block align-middle'><use xlinkHref='#icon-arrow-down'></use></svg>{upsAndDowns[1]}m
                 </div>
-                <AreaChart width={240} margin={{ top: 0, right: 12, left: 12, bottom: 12 }} height={100} data={data}>
+                <AreaChart width={408} margin={{ top: 0, right: 12, left: 12, bottom: 12 }} height={100} data={data}>
                     <YAxis orientation="right" />
                     <Area type="monotone" dataKey="e" stroke="#2abaf7" fill='#2abaf7' fillOpacity={0.5} strokeWidth={2} dot={null} />
                 </AreaChart>
