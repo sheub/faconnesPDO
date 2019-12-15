@@ -119,7 +119,10 @@ function getActionPayload(key, value) {
   } else if (key === "searchLocation") {
     actionPayload = {
       searchCoords: value.geometry.coordinates,
+      // FIX me: the value.place_name is set only if the user has clicked on the list,
+      // not if he used the arrow + enter....
       searchPlace: value.place_name.split(",")[0],
+      // searchPlace: value.properties.label.split(",")[0],
       wikidata: value.properties.wikidata
     };
   }

@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Geocoder from "./Geocoder";
 import MyPlaceName from "./MyPlaceName";
-import CloseButton from "./CloseButton";
+// import CloseButton from "./CloseButton";
 import PlaceInfo from "./PlaceInfo";
 
 import classNames from "classnames";
@@ -75,6 +75,7 @@ class Search extends Component {
     if (this.props.searchLocation === null) {
       // no place was selected yet
       SearchBar = (
+        <div style={{display: "contents"}}>
         <Geocoder
           onSelect={data => this.onSelect(data)}
           searchString={this.props.searchString}
@@ -88,6 +89,11 @@ class Search extends Component {
           source={this.state.source}
           endpoint={this.state.endpoint}
         />
+        < SearchIcon className={classes.searchIcon}
+        // conditional display of the search icon
+        // style={{display: ((this.props.searchString !== "" || this.props.searchLocation !== null) ? "none" : "inline-flex") }}
+      />
+      </div>
       );
     } else {
       // There is a selected place
@@ -95,10 +101,11 @@ class Search extends Component {
         <div
           className={
             this.styles.input +
-            " flex-parent flex-parent--center-cross flex-parent--center-main"
+            " flex-parent flex-parent--center-cross flex-parent--flex-start-main"
           }
         >
-          <div className="w-full w240-mm pr42 txt-truncate">
+          <div className="pr42 txt-truncate" style={{maxWidth:"332px"}}>
+          {/*w-full w240-mm */}
             <MyPlaceName
               location={this.props.searchLocation}
               onClick={() => {
@@ -113,7 +120,7 @@ class Search extends Component {
           </div>
           <div
             id="search-directions"
-            className={"mr30 cursor-pointer right " + this.styles.icon}
+            className={"cursor-pointer right flex-parent-inline " + this.styles.icon}
             onClick={() => this.clickDirections()}
           >
             <img src={directionsIcon} alt="directions" />
@@ -140,19 +147,14 @@ class Search extends Component {
           </Tooltip>
 
           {SearchBar}
-          <CloseButton
+          {/* <CloseButton
             show={
               this.props.searchString !== "" ||
               this.props.searchLocation !== null
             }
             on
             Click={() => this.closeSearch()}
-          />
-
-          < SearchIcon className={classes.searchIcon}
-            // conditional display of the search icon
-            style={{display: ((this.props.searchString !== "" || this.props.searchLocation !== null) ? "none" : "inline-flex") }}
-          />
+          /> */}
 
           {this.props.searchLocation && this.props.placeInfo ? (
             <PlaceInfo
@@ -187,10 +189,10 @@ class Search extends Component {
       this.props.getPlaceInfo(data.properties.wikidata);
   }
 
-  closeSearch() {
-    this.props.resetStateKeys(["searchString", "searchLocation", "placeInfo"]);
-    this.props.triggerMapUpdate();
-  }
+  // closeSearch() {
+  //   this.props.resetStateKeys(["searchString", "searchLocation", "placeInfo"]);
+  //   this.props.triggerMapUpdate();
+  // }
 
   clickDirections() {
     this.props.setMode("directions");
@@ -211,7 +213,7 @@ class Search extends Component {
 
   get styles() {
     return {
-      main: "h42 bg-white shadow-darken25 flex-parent flex-parent--row flex-parent--space-between-main round-bold-xs",
+      main: "h42 bg-white shadow-darken25 flex-parent flex-parent--row flex-parent--flex-start-main round-bold-xs",
       input: "input h42 border--transparent",
       results: "results bg-white shadow-darken25 mt6 border-darken10",
     };

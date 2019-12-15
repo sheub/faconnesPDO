@@ -549,7 +549,7 @@ ul {
 .input {
     height: 36px;
     line-height: 34px;
-    padding: 0 12px
+    /* padding: 0 12px */
 }
 
 .input--s {
@@ -654,7 +654,7 @@ ul {
     appearance: none
 }
 
-.input {
+/* .input {
     height: 36px;
     line-height: 34px;
     padding: 0 12px
@@ -664,7 +664,7 @@ ul {
     height: 24px;
     line-height: 22px;
     padding: 0 6px
-}
+} */
 
 .icon {
     display: block;
@@ -719,6 +719,11 @@ input:disabled+.switch {
 
 .inline {
     display: inline !important
+}
+
+.flex-parent-inline {
+    /* display: -ms-inline-flexbox !important; */
+    display: inline-flex !important
 }
 
 .color-white {
@@ -958,6 +963,10 @@ input:disabled+.switch {
     -ms-flex-pack: justify !important;
     justify-content: space-between !important
 }
+.flex-parent--flex-start-main {
+    /* -ms-flex-pack: justify !important; */
+    justify-content: flex-start !important
+}
 
 .mt6 {
     margin-top: 6px !important
@@ -1026,7 +1035,7 @@ input:disabled+.switch {
     }
 
     .w420-mm {
-        width: 420px !important
+        width: 408px !important
     }
 
     .h36-mm {
