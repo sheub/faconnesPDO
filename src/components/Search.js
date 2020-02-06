@@ -101,7 +101,7 @@ class Search extends Component {
         <div
           className={
             this.styles.input +
-            " flex-parent flex-parent--center-cross flex-parent--flex-start-main"
+            " flex-parent flex-parent--center-cross flex-parent--space-between-main"
           }
         >
           <div className="pr42 txt-truncate" style={{maxWidth:"332px"}}>
@@ -213,8 +213,8 @@ class Search extends Component {
 
   get styles() {
     return {
-      main: "h42 bg-white shadow-darken25 flex-parent flex-parent--row flex-parent--flex-start-main round-bold-xs",
-      input: "input h42 border--transparent",
+      main: "h42 bg-white shadow-darken25 flex-parent flex-parent--row flex-parent--flex-start-main round-bold",
+      input: "input h42 border--transparent pr6",
       results: "results bg-white shadow-darken25 mt6 border-darken10",
     };
   }

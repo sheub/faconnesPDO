@@ -2,6 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
+// import localforage from "localforage";
+
 import { createBrowserHistory } from "history";
 import { Route } from "react-router";
 import { ConnectedRouter, routerMiddleware } from "connected-react-router";
@@ -12,12 +14,14 @@ import urlTinkerer from "./middlewares/urlTinkerer";
 import rootReducer from "./reducers/index";
 import { defaultState } from "./reducers/index";
 
+
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import registerServiceWorker from "./registerServiceWorker";
 import App from "./components/App";
 import "./i18n";
 
 import "./index.css";
+import axios from "axios";
 
 function doTheRest(initialState, localStorage)
  {
@@ -49,7 +53,39 @@ function doTheRest(initialState, localStorage)
               if (val) _.set(persistedState, key, val);
           });
 
+          // store
           localStorage.setItem("persistedState", JSON.stringify(persistedState));
+
+          if (state.auth.authenticated) {
+            // api call to store localStorage into dB
+            var url = process.env.REACT_APP_API_ENTRYPOINT + "/api/auth/localStorageSubmit";
+            const params = {
+              localStorage: JSON.stringify(persistedState), // data,
+            };
+
+            if (process.env.NODE_ENV === "production") {
+              url = "/current/public/api/auth/localStorageSubmit";
+            } else {
+              url = process.env.REACT_APP_API_ENTRYPOINT + "/api/auth/localStorageSubmit";
+            }
+            var token = state.auth.user.data.token;
+            try {
+              const data = axios({
+                method: "post",
+                url: url, // url
+                params: params,
+                headers: {
+                  "Content-Type": "application/json;charset=UTF-8",
+                  Authorization: `Bearer ${token}`
+
+                },
+              });
+              return Promise.resolve(data);
+            } catch (error) {
+              console.log(error); //<--- Go down one more stream
+              return Promise.reject(error);
+            }
+          };
       });
     });
 
