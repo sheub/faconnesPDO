@@ -8,7 +8,7 @@ export const SET_AUTHENTICATED = "SET_AUTHENTICATED";
 const fetchUser = () => {
   let url = "/me";
   if (process.env.NODE_ENV === "production") {
-    url = "/me";
+    url = "/current/public/me";
   } else {
     // Dev server runs on port 3000
     url = "http://localhost:3000/me";
@@ -115,7 +115,7 @@ export const logoutUser = dispatch => cb => {
 export const facebookSignIn = dispatch => async credentials => {
   var url = "/api/auth/login/facebook/";
   if (process.env.NODE_ENV === "production") {
-    url = "/api/auth/login/facebook/";
+    url = "/current/public/api/auth/login/facebook";
   } else {
     url = "http://localhost:8000/api/auth/login/facebook/";
   }
