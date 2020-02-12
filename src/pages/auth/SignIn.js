@@ -72,7 +72,7 @@ class SignIn extends Component {
     this.props.handleClose();
   };
 
-  signInSuccess() {
+  signInSuccess(response) {
     this.setState({ open: false });
     this.handleClose();
   }
@@ -114,7 +114,7 @@ class SignIn extends Component {
     e.preventDefault();
     this.props
       .facebookSignIn(this.state)
-      .then(response => this.signInSuccess())
+      .then(response => this.signInSuccess(response))
       .catch(error => this.setState({ errors: destructServerErrors(error) }));
   }
 
@@ -144,7 +144,7 @@ class SignIn extends Component {
             <Grid item>
               <Button
                 color="primary"
-                onClick={e => this.handleFacebookSubmit(e)} 
+                onClick={e => this.handleFacebookSubmit(e)}
                 method="POST"
                 size="large"
                 variant="contained"

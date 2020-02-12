@@ -65,13 +65,6 @@ const defaultAppState = {
   infoPopup: null,
   listVueActive: false,
   coorOnClick: [],
-  // Default auth state
-  auth: {
-    user: null,
-    firstname: "",
-    lastname: "",
-    authenticated: false,
-  },
 };
 
 const appReducer = (state = defaultAppState, action) => {

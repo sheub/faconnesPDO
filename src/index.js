@@ -1,8 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
-import { createStore, applyMiddleware, compose } from "redux";
-// import localforage from "localforage";
+import { Provider, connect } from "react-redux";
+import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 
 import { createBrowserHistory } from "history";
 import { Route } from "react-router";
@@ -13,7 +12,9 @@ import apiCaller from "./middlewares/apiCaller";
 import urlTinkerer from "./middlewares/urlTinkerer";
 import rootReducer from "./reducers/index";
 import { defaultState } from "./reducers/index";
+import { defaultAuthState } from "./reducers/auth";
 
+import { getToken } from "./helpers/auth";
 
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 import registerServiceWorker from "./registerServiceWorker";
@@ -23,7 +24,7 @@ import "./i18n";
 import "./index.css";
 import axios from "axios";
 
-function doTheRest(initialState, localStorage)
+function doTheRest(initialState, initialAuthState, localStorage)
  {
     const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -31,9 +32,16 @@ function doTheRest(initialState, localStorage)
     const history = createBrowserHistory();
     const routerMid = routerMiddleware(history);
 
+    // combine App and Auth Reducers to create store
+    let reducers = combineReducers({
+      app: initialState,
+      auth: initialAuthState
+    });
+
+    // create store
     let store = createStore(
     rootReducer(history),
-    initialState,
+    reducers,
     composeEnhancers(
       applyMiddleware(
        routerMiddleware(history), // for dispatching history actions
@@ -56,6 +64,7 @@ function doTheRest(initialState, localStorage)
           // store
           localStorage.setItem("persistedState", JSON.stringify(persistedState));
 
+          // if user authenticate
           if (state.auth.authenticated) {
             // api call to store localStorage into dB
             var url = process.env.REACT_APP_API_ENTRYPOINT + "/api/auth/localStorageSubmit";
@@ -68,11 +77,11 @@ function doTheRest(initialState, localStorage)
             } else {
               url = process.env.REACT_APP_API_ENTRYPOINT + "/api/auth/localStorageSubmit";
             }
-            var token = state.auth.user.data.token;
+            var token = getToken(); // get token
             try {
               const data = axios({
                 method: "post",
-                url: url, // url
+                url: url,
                 params: params,
                 headers: {
                   "Content-Type": "application/json;charset=UTF-8",
@@ -141,18 +150,36 @@ const languageSet = localStorage.getItem("i18nextLng") ? localStorage.getItem("i
 if (typeof (persistedS) !== "undefined" && typeof (persistedS.app) !== "undefined")
     persistedS.app.languageSet = languageSet;
 
+// check if url has token, and user information (redirect from Social Login)
+const urlpath = window.location.search;
+const urlParams = new URLSearchParams(urlpath);
 
-// const persistedState = localStorage.getItem("persistedState") ? JSON.parse(localStorage.getItem("persistedState")) : {};
+const userName = urlParams.get('userName')
+const userEmail = urlParams.get('userEmail')
+const token = urlParams.get('token')
+
+
+// initial state
 let initialState = defaultState;
+let initialAuthState = defaultAuthState;
+
+// if user authenticated (redirect from Social Login)
+if (token && userEmail) {
+  const userData = {"token": token, "name": userName, "email": userEmail};
+
+  initialAuthState.authenticated = true;
+  initialAuthState.user = userData.name;
+}
+
 if (typeof (persistedS) !== "undefined" && typeof (persistedS.app) !== "undefined") {
     import("lodash")
     .then((_) => {
-        initialState = _.merge({}, defaultState, persistedS);
-        doTheRest(initialState, localStorage);
+        initialState = _.merge({}, initialState, persistedS);
+        doTheRest(initialState, initialAuthState, localStorage);
     });
 }
 else{
-    doTheRest(initialState, localStorage);
+    doTheRest(initialState, initialAuthState, localStorage);
 }
 
 registerServiceWorker();

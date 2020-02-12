@@ -35,6 +35,12 @@ export const setAuthenticated = authenticated => ({
   authenticated,
 });
 
+export function updateStore(data, dispatch) {
+  setToken(data.data.token);
+  dispatch(setUserData(data));
+  dispatch(setAuthenticated(true));
+  return Promise.resolve(data);
+};
 export const signInUser = dispatch => async credentials => {
   var url = process.env.REACT_APP_API_ENTRYPOINT + "/api/auth/login";
   if (process.env.NODE_ENV === "production") {
@@ -55,7 +61,7 @@ export const signInUser = dispatch => async credentials => {
         password: credentials.password,
       },
     });
-    setToken(data.token);
+    setToken(data.data.token);
     dispatch(setUserData(data));
     dispatch(setAuthenticated(true));
     return Promise.resolve(data);
@@ -107,29 +113,33 @@ export const logoutUser = dispatch => cb => {
 };
 
 export const facebookSignIn = dispatch => async credentials => {
-  var url = "/connect/facebook";
+  var url = "/api/auth/login/facebook/";
   if (process.env.NODE_ENV === "production") {
-    url = "/connect/facebook";
+    url = "/api/auth/login/facebook/";
   } else {
-    // url = "http://localhost:8443/connect/facebook";
-    url = "http://localhost:8080/connect/facebook";
+    url = "http://localhost:8000/api/auth/login/facebook/";
   }
 
   try {
     const data = await axios({
-      method: "get",
+      method: "post",
       url: url,
       headers: {
+        // "Acces-Control-Allow-Origin": "*",
         "Content-Type": "application/json;charset=UTF-8",
       },
     });
-    setToken(data.token);
-    dispatch(setUserData(data));
-    dispatch(setAuthenticated(true));
-    return Promise.resolve(data);
+    console.log(data);
+    // setToken(data.token);
+    // dispatch(setUserData(data));
+    // dispatch(setAuthenticated(true));
+    window.location.href = data.data;
+    return false;
+    // return window.location.replace(data.data);
+    // return Promise.resolve(data);
   } catch (error) {
-    // console.log(error);
-    return Promise.reject(error);
+    console.log(error);
+    // return Promise.reject(error);
   }
 };
 
