@@ -48,11 +48,11 @@ const buildSW = () => {
         "./ico/*.png",
       ],
       globStrict: true,
-      navigateFallback:"./index.html",
-      navigateFallbackDenylist: [
-        new RegExp(`^${baseUrl}/current`)
-        // "^https://faconnes\.de/current(?:/.*)?$"
-      ],
+      // navigateFallbackDenylist: [
+      //   new RegExp(`^https://faconnes\.de/current`)
+      //   // "^https://faconnes\.de/current(?:/.*)?$"
+      // ],
+      // navigateFallback:"./index.html",
       sourcemap:true,
       //   stripPrefix: "./build",
       //   globPatterns: ["**/*.{jpg}"] // precaching jpg files
