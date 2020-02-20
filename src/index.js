@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Provider, connect } from "react-redux";
+import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 
 import { createBrowserHistory } from "history";
@@ -17,12 +17,13 @@ import { defaultAuthState } from "./reducers/auth";
 import { getToken } from "./helpers/auth";
 
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
-import registerServiceWorker from "./registerServiceWorker";
+// import registerServiceWorker from "./registerServiceWorker";
 import App from "./components/App";
 import "./i18n";
 
 import "./index.css";
 import axios from "axios";
+import * as serviceWorker from "./serviceWorker";
 
 function doTheRest(initialState, initialAuthState, localStorage)
  {
@@ -182,4 +183,5 @@ else{
     doTheRest(initialState, initialAuthState, localStorage);
 }
 
-registerServiceWorker();
+// registerServiceWorker();
+serviceWorker.register();
