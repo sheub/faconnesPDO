@@ -20,6 +20,7 @@ import {
   getPlaceInfo,
   resetStateKeys,
   setStateValue,
+  setStateValues,
 } from "../actions/index";
 
 import FormGroup from "@material-ui/core/FormGroup";
@@ -75,25 +76,26 @@ class Search extends Component {
     if (this.props.searchLocation === null) {
       // no place was selected yet
       SearchBar = (
-        <div style={{display: "contents"}}>
-        <Geocoder
-          onSelect={data => this.onSelect(data)}
-          searchString={this.props.searchString}
-          writeSearch={value => {
-            this.props.triggerMapUpdate();
-            this.props.writeSearch(value);
-          }}
-          resultsClass={this.styles.results}
-          inputClass={this.styles.input}
-          focusOnMount={true}
-          source={this.state.source}
-          endpoint={this.state.endpoint}
-        />
-        < SearchIcon className={classes.searchIcon}
-        // conditional display of the search icon
-        // style={{display: ((this.props.searchString !== "" || this.props.searchLocation !== null) ? "none" : "inline-flex") }}
-      />
-      </div>
+        <div style={{ display: "contents" }}>
+          <Geocoder
+            onSelect={data => this.onSelect(data)}
+            searchString={this.props.searchString}
+            writeSearch={value => {
+              this.props.triggerMapUpdate();
+              this.props.writeSearch(value);
+            }}
+            resultsClass={this.styles.results}
+            inputClass={this.styles.input}
+            focusOnMount={true}
+            source={this.state.source}
+            endpoint={this.state.endpoint}
+          />
+          <SearchIcon
+            className={classes.searchIcon}
+            // conditional display of the search icon
+            // style={{display: ((this.props.searchString !== "" || this.props.searchLocation !== null) ? "none" : "inline-flex") }}
+          />
+        </div>
       );
     } else {
       // There is a selected place
@@ -103,9 +105,14 @@ class Search extends Component {
             this.styles.input +
             " flex-parent flex-parent--center-cross flex-parent--space-between-main"
           }
+          style={{ maxWidth: "362px" }}
+          // style={{borderRadius: "8px"}}
         >
-          <div className="pr42 txt-truncate" style={{maxWidth:"332px"}}>
-          {/*w-full w240-mm */}
+          <div
+            className="pr42 txt-truncate w-full"
+            style={{ maxWidth: "362px" }}
+          >
+            {/*w-full w240-mm */}
             <MyPlaceName
               location={this.props.searchLocation}
               onClick={() => {
@@ -120,7 +127,7 @@ class Search extends Component {
           </div>
           <div
             id="search-directions"
-            className={"cursor-pointer right flex-parent-inline " + this.styles.icon}
+            className={"cursor-pointer right flex-parent-inline m12"}
             onClick={() => this.clickDirections()}
           >
             <img src={directionsIcon} alt="directions" />
@@ -181,12 +188,27 @@ class Search extends Component {
   }
 
   onSelect(data) {
-    this.props.writeSearch(data.place_name);
-    this.props.setSearchLocation(data);
-    this.props.triggerMapUpdate("repan");
-    // if (data.place_name) this.props.getPlaceInfo(data.place_name);
-    if (data.properties.wikidata)
-      this.props.getPlaceInfo(data.properties.wikidata);
+    if (typeof data.place_name == "undefined") {
+      data.place_name = data.properties.city;
+    }
+    // If search mode is geocoder -> do zoom in to place
+    if (this.state.checkedA) {
+      this.props.writeSearch(data.place_name);
+      this.props.setSearchLocation(data);
+      this.props.triggerMapUpdate("repan");
+      // if (data.place_name) this.props.getPlaceInfo(data.place_name);
+      if (data.properties.wikidata) {
+        this.props.getPlaceInfo(data.properties.wikidata);
+      }
+      // otherwize search mode is local search set filterString to layers
+    } else {
+      this.props.setStateValues({
+        filterString: data.place_name,
+        needMapFilterString: true,
+      });
+
+      this.props.triggerMapUpdate();
+    }
   }
 
   // closeSearch() {
@@ -230,6 +252,7 @@ Search.propTypes = {
   setMode: PropTypes.func,
   setPlaceInfo: PropTypes.func,
   setSearchLocation: PropTypes.func,
+  setStateValues: PropTypes.func,
   triggerMapUpdate: PropTypes.func,
   writeSearch: PropTypes.func,
   setDrawerState: PropTypes.func,
@@ -249,16 +272,14 @@ const mapDispatchToProps = dispatch => {
   return {
     getPlaceInfo: id => dispatch(getPlaceInfo(id)),
     resetStateKeys: keys => dispatch(resetStateKeys(keys)),
-    setDirectionsLocation: (kind, location) =>
-      dispatch(setDirectionsLocation(kind, location)),
+    setDirectionsLocation: (kind, location) => dispatch(setDirectionsLocation(kind, location)),
     setMode: mode => dispatch(setStateValue("mode", mode)),
     setPlaceInfo: info => dispatch(setStateValue("placeInfo", info)),
-    setSearchLocation: location =>
-      dispatch(setStateValue("searchLocation", location)),
+    setSearchLocation: location => dispatch(setStateValue("searchLocation", location)),
+    setStateValues: obj => dispatch(setStateValues(obj)),
     triggerMapUpdate: repan => dispatch(triggerMapUpdate(repan)),
     writeSearch: input => dispatch(setStateValue("searchString", input)),
-    setDrawerState: drawerOpen =>
-      dispatch(setStateValue("drawerOpen", drawerOpen)),
+    setDrawerState: drawerOpen => dispatch(setStateValue("drawerOpen", drawerOpen)),
   };
 };
 
