@@ -1,5 +1,4 @@
 const workboxBuild = require("workbox-build");
-const baseUrl = process.env.PUBLIC_URL;
 // NOTE: This should be run *AFTER* all your assets are built
 const buildSW = () => {
   // This will return a Promise
@@ -37,7 +36,7 @@ const buildSW = () => {
           handler: "CacheFirst",
         },
       ],
-      navigationPreload:true,
+      navigationPreload:false,
       globPatterns: [
         "./**/**.html",
         "./static/js/*.js",
@@ -48,14 +47,12 @@ const buildSW = () => {
         "./ico/*.png",
       ],
       globStrict: true,
+      // navigateFallback:"./index.html",
       // navigateFallbackDenylist: [
-      //   new RegExp(`^https://faconnes\.de/current`)
+      //   RegExp(`^https://faconnes.de/current/public/api/`)
+      //   // RegExp('^https://example.com/')
       //   // "^https://faconnes\.de/current(?:/.*)?$"
       // ],
-      // navigateFallback:"./index.html",
-      sourcemap:true,
-      //   stripPrefix: "./build",
-      //   globPatterns: ["**/*.{jpg}"] // precaching jpg files
     })
     .then(({ count, size, warnings }) => {
       // Optionally, log any warnings and details.
