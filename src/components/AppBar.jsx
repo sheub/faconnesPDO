@@ -127,6 +127,7 @@ class MyAppBar extends Component {
     });
     this.handleMobileMenuClose();
   };
+
   // open SignIn
   openRegister = () => {
     this.setState({
@@ -350,7 +351,7 @@ AppBar.propTypes = {
   // Auth
   // auth: PropTypes.object.isRequired,
   // logoutUser: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired,
+  // history: PropTypes.object.isRequired,
 
   // Others
   languageSet: PropTypes.string,

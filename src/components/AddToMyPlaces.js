@@ -16,12 +16,13 @@ class AddToMyPlaces extends Component {
 
         this.state = {
             userFavoritePlaces: this.props.userFavoritePlaces,
-            infoPopup: this.props.info,            
+            infoPopup: this.props.info,
         };
     }
 
     handleClickAddLocation = () => {
         var infoPlace = {properties: this.props.info.properties, geometry: this.props.info.geometry, paintColor: this.props.info.paintColor, layerId: this.props.info.layerId};
+        // Check if already in Favorites before adding new POI/Event
         if (!(this.state.userFavoritePlaces.some(e => isEqual(e, infoPlace)))) {
             this.state.userFavoritePlaces.push(infoPlace);
         }
@@ -42,7 +43,7 @@ class AddToMyPlaces extends Component {
 AddToMyPlaces.propTypes = {
     infoPopup: PropTypes.object,
     userFavoritePlaces: PropTypes.array,
-    languageSet: PropTypes.string,
+    // languageSet: PropTypes.string,
 };
 
 const mapStateToProps = (state) => {

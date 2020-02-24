@@ -19,7 +19,7 @@ import {
   resetStateKeys
 } from "../actions/index";
 
-import style from "../styles/osm-bright.json";
+import style from "../styles/osm-liberty.json";
 // Set the sprite URL in the style. It has to be a full, absolute URL.
 let spriteUrl;
 if (process.env.NODE_ENV === "production") {

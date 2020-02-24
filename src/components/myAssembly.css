@@ -1021,11 +1021,9 @@ input:disabled+.switch {
     border-color: transparent !important;
     border-width: 0
 }
-
-.round-border {
-    border-radius: 6px
+.round-bold {
+    border-radius: 8px !important
 }
-
 @media screen and (max-width:340px) {
     .w-full-xs {
         width: 100% !important
