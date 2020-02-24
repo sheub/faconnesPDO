@@ -235,14 +235,8 @@ class Search extends Component {
 
   get styles() {
     return {
-<<<<<<< HEAD
-      main:
-        "h42 bg-white shadow-darken25 flex-parent flex-parent--row flex-parent--flex-start-main round-bold-xs round-border",
-      input: "input h42 border--transparent",
-=======
       main: "h42 bg-white shadow-darken25 flex-parent flex-parent--row flex-parent--flex-start-main round-bold",
       input: "input h42 border--transparent pr6",
->>>>>>> master
       results: "results bg-white shadow-darken25 mt6 border-darken10",
     };
   }
