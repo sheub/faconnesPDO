@@ -791,7 +791,8 @@ input:disabled+.switch {
 }
 
 .shadow-darken10 {
-    box-shadow: 0 0 10px 2px rgba(0, 0, 0, .1) !important
+    /* box-shadow: 0 0 10px 2px rgba(0, 0, 0, .1) !important */
+    box-shadow: 0 4px 10px -4px rgba(0, 0, 0, .25) !important;
 }
 
 .shadow-darken25 {
@@ -808,7 +809,8 @@ input:disabled+.switch {
     z-index: 1000;
     position: absolute;
     left: 0;
-    max-width: 100%;
+    /* max-width: 100%; */
+    width:100%;
 }
 
 .flex-parent {

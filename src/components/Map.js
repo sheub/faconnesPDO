@@ -38,7 +38,7 @@ class MapComponent extends Component {
       isDragging: false,
       isCursorOverPoint: false,
       draggedLayer: "",
-      draggedCoords: null
+      draggedCoords: null,
     };
   }
 
@@ -60,7 +60,7 @@ class MapComponent extends Component {
       zoom: 4,
       minZoom: 2,
       maxZoom: 20,
-      maxBounds: [-15.06, 34.07, 24.32, 55.11]
+      maxBounds: [-15.06, 34.07, 24.32, 55.11],
     });
 
     this.map = map;
@@ -74,7 +74,10 @@ class MapComponent extends Component {
     if (!this.props.needMapUpdate) return;
 
     // Search mode
-    if (this.props.mode === "search" || this.props.mode === "localAutocomplete") {
+    if (
+      this.props.mode === "search" ||
+      this.props.mode === "localAutocomplete"
+    ) {
       if (this.props.searchLocation) {
         if (this.props.searchLocation.geometry) {
           let markerSource = this.map.getSource("marker");
@@ -132,7 +135,7 @@ class MapComponent extends Component {
             this.props.directionsFrom,
             this.props.directionsTo,
             this.props.modality,
-            this.props.accessToken
+            this.props.accessToken,
           );
         }
       }
@@ -140,7 +143,10 @@ class MapComponent extends Component {
 
     if (this.props.needMapRepan) {
       // Search mode
-      if (this.props.mode === "search" || this.props.mode === "localAutocomplete") {
+      if (
+        this.props.mode === "search" ||
+        this.props.mode === "localAutocomplete"
+      ) {
         import("../utils/moveTo").then(moveTo => {
           moveTo.moveTo(this.map, this.props.searchLocation, 11);
         });
@@ -157,7 +163,7 @@ class MapComponent extends Component {
         } else if (this.props.directionsTo && this.props.directionsFrom) {
           const bbox = turfBbox({
             type: "FeatureCollection",
-            features: [this.props.directionsFrom, this.props.directionsTo]
+            features: [this.props.directionsFrom, this.props.directionsTo],
           });
           import("../utils/moveTo").then(moveTo => {
             moveTo.moveTo(this.map, { bbox: bbox });
@@ -180,6 +186,9 @@ class MapComponent extends Component {
     if (this.props.needMapFilterByDate) {
       this.filterByDate(this.props.dateFrom, this.props.dateTo);
     }
+    if (this.props.needMapFilterString) {
+      this.filterStringContain(this.props.filterString);
+    }
 
     if (this.props.needMapActualizeLanguage) {
       var lng = this.props.languageSet;
@@ -192,6 +201,7 @@ class MapComponent extends Component {
 
     this.props.setStateValue("needMapToggleLayer", false);
     this.props.setStateValue("needMapFilterByDate", false);
+    this.props.setStateValue("needMapFilterString", false);
     this.props.setStateValue("needMapActualizeLanguage", false);
   }
 
@@ -209,7 +219,7 @@ class MapComponent extends Component {
 
     const geometry = {
       type: "Point",
-      coordinates: coords
+      coordinates: coords,
     };
 
     this.map.getSource(layerId).setData(geometry);
@@ -219,7 +229,7 @@ class MapComponent extends Component {
     var coords = [e.lngLat.lng, e.lngLat.lat];
     const geometry = {
       type: "Point",
-      coordinates: coords
+      coordinates: coords,
     };
 
     const layerId = this.state.draggedLayer;
@@ -227,12 +237,12 @@ class MapComponent extends Component {
       "placeInfo",
       "searchLocation",
       "route",
-      "routeStatus"
+      "routeStatus",
     ]);
     this.props.setStateValue("routeStatus", status); // pause route updates
     this.props.setStateValue(this.layerToKey(layerId), {
       place_name: "__loading",
-      geometry: geometry
+      geometry: geometry,
     });
     this.props.triggerMapUpdate();
   }
@@ -250,9 +260,12 @@ class MapComponent extends Component {
   }
 
   onClick(e) {
-    var bbox = [[e.point.x - 5, e.point.y - 5], [e.point.x + 5, e.point.y + 5]];
+    var bbox = [
+      [e.point.x - 5, e.point.y - 5],
+      [e.point.x + 5, e.point.y + 5],
+    ];
     var features = this.map.queryRenderedFeatures(bbox, {
-      layers: this.selectableLayers
+      layers: this.selectableLayers,
     });
 
     if (features.length) {
@@ -320,7 +333,7 @@ class MapComponent extends Component {
         listVueActive = true;
         this.props.setStateValue("coorOnClick", [
           e.lngLat["lng"],
-          e.lngLat["lat"]
+          e.lngLat["lat"],
         ]);
         this.props.setStateValue("listVueActive", true);
         this.props.setStateValue("listVueItems", features);
@@ -349,7 +362,7 @@ class MapComponent extends Component {
           layerId: feature.layer.id,
           paintColor: paintColor,
           popupActive: true,
-          listVueActive: listVueActive
+          listVueActive: listVueActive,
         });
         this.props.triggerMapUpdate();
       }
@@ -360,10 +373,10 @@ class MapComponent extends Component {
     var pointLocation = this.map.project(location.geometry.coordinates);
     var bbox = [
       [pointLocation.x - 5, pointLocation.y - 5],
-      [pointLocation.x + 5, pointLocation.y + 5]
+      [pointLocation.x + 5, pointLocation.y + 5],
     ];
     var features = this.map.queryRenderedFeatures(bbox, {
-      layers: this.selectableLayers
+      layers: this.selectableLayers,
     });
 
     if (features.length) {
@@ -401,7 +414,7 @@ class MapComponent extends Component {
           "exposition",
           "musique",
           "children",
-          "videsgreniers"
+          "videsgreniers",
         ].includes(feature.layer.id)
       ) {
         let lng = this.props.languageSet;
@@ -424,7 +437,7 @@ class MapComponent extends Component {
         listVueActive = true;
         this.props.setStateValue("coorOnClick", [
           location.geometry.coordinates[0],
-          location.geometry.coordinates[1]
+          location.geometry.coordinates[1],
         ]);
         this.props.setStateValue("listVueActive", true);
         this.props.setStateValue("listVueItems", features);
@@ -450,7 +463,7 @@ class MapComponent extends Component {
     const setGeolocation = data => {
       const geometry = {
         type: "Point",
-        coordinates: [data.coords.longitude, data.coords.latitude]
+        coordinates: [data.coords.longitude, data.coords.latitude],
       };
       this.map.getSource("geolocation").setData(geometry);
       this.props.setUserLocation(geometry.coordinates);
@@ -486,7 +499,7 @@ class MapComponent extends Component {
     this.map.on("click", e => this.onClick(e));
     this.map.on("mousemove", e => {
       var features = this.map.queryRenderedFeatures(e.point, {
-        layers: this.selectableLayers
+        layers: this.selectableLayers,
       });
       if (features.length) {
         this.map.getCanvas().style.cursor = "pointer";
@@ -522,20 +535,20 @@ class MapComponent extends Component {
           this.map.setLayoutProperty(
             layerSelector[key].source,
             "visibility",
-            "visible"
+            "visible",
           );
         } else {
           if (typeof layerSelector[key] === "undefined") return;
           let isVisible = this.map.getLayoutProperty(
             layerSelector[key].source,
-            "visibility"
+            "visibility",
           );
           if (isVisible === "visible") {
             // set 'visibility' to 'none'
             this.map.setLayoutProperty(
               layerSelector[key].source,
               "visibility",
-              "none"
+              "none",
             );
           }
         }
@@ -546,7 +559,7 @@ class MapComponent extends Component {
   toggleLayerVisibility(toggleLayerVisibility) {
     var visibility = this.map.getLayoutProperty(
       toggleLayerVisibility,
-      "visibility"
+      "visibility",
     );
     if (visibility === "visible") {
       this.map.setLayoutProperty(toggleLayerVisibility, "visibility", "none");
@@ -554,7 +567,7 @@ class MapComponent extends Component {
       this.map.setLayoutProperty(
         toggleLayerVisibility,
         "visibility",
-        "visible"
+        "visible",
       );
     }
   }
@@ -563,6 +576,7 @@ class MapComponent extends Component {
     if (dateTo !== dateFrom) {
       let filterTo = ["<=", dateFrom, ["number", ["get", "valid_through"]]];
       let filterFrom = [">", dateTo, ["number", ["get", "valid_from"]]];
+
       this.map.setFilter("musique", ["all", filterFrom, filterTo]);
       this.map.setFilter("exposition", ["all", filterFrom, filterTo]);
       this.map.setFilter("children", ["all", filterFrom, filterTo]);
@@ -572,29 +586,50 @@ class MapComponent extends Component {
       this.map.setFilter("musique", [
         "<=",
         dateFrom,
-        ["number", ["get", "valid_from"]]
+        ["number", ["get", "valid_from"]],
       ]);
       this.map.setFilter("exposition", [
         "<=",
         dateFrom,
-        ["number", ["get", "valid_from"]]
+        ["number", ["get", "valid_from"]],
       ]);
       this.map.setFilter("children", [
         "<=",
         dateFrom,
-        ["number", ["get", "valid_from"]]
+        ["number", ["get", "valid_from"]],
       ]);
       this.map.setFilter("videsgreniers", [
         "<=",
         dateFrom,
-        ["number", ["get", "valid_from"]]
+        ["number", ["get", "valid_from"]],
       ]);
       this.map.setFilter("marches", [
         "<=",
         dateFrom,
-        ["number", ["get", "valid_from"]]
+        ["number", ["get", "valid_from"]],
       ]);
     }
+  }
+
+  filterStringContain(stringInput) {
+    let filterString = ["in", stringInput, ["string", ["get", "label_fr"]]];
+
+    this.map.setFilter("musique", filterString, false);
+    this.map.setFilter("exposition", filterString, false);
+    this.map.setFilter("children", filterString, false);
+    this.map.setFilter("videsgreniers", filterString, false);
+    this.map.setFilter("marches", filterString, false);
+  }
+
+  unsetFilterStringContain() {
+    var undifined;
+    let filterString = ["in", undifined, ["string", ["get", "label_fr"]]];
+
+    this.map.setFilter("musique", filterString, false);
+    this.map.setFilter("exposition", filterString, false);
+    this.map.setFilter("children", filterString, false);
+    this.map.setFilter("videsgreniers", filterString, false);
+    this.map.setFilter("marches", filterString, false);
   }
 
   layerToKey(layer) {
@@ -610,7 +645,7 @@ class MapComponent extends Component {
   get emptyData() {
     return {
       type: "FeatureCollection",
-      features: []
+      features: [],
     };
   }
 
@@ -645,7 +680,7 @@ class MapComponent extends Component {
       "marches",
       "baignades",
       "toilets",
-      "videsgreniers"
+      "videsgreniers",
     ];
   }
 }
@@ -656,6 +691,7 @@ MapComponent.propTypes = {
   coorOnClick: PropTypes.array,
   dateFrom: PropTypes.number,
   dateTo: PropTypes.number,
+  filterString: PropTypes.string,
   directionsFrom: PropTypes.object,
   directionsTo: PropTypes.object,
   getRoute: PropTypes.func,
@@ -670,6 +706,7 @@ MapComponent.propTypes = {
   needMapRepan: PropTypes.bool,
   needMapToggleLayer: PropTypes.bool,
   needMapFilterByDate: PropTypes.bool,
+  needMapFilterString: PropTypes.bool,
   needMapActualizeLanguage: PropTypes.bool,
   needMapUpdate: PropTypes.bool,
   pushHistory: PropTypes.func,
@@ -695,6 +732,7 @@ const mapStateToProps = (state) => {
     toggleLayerVisibility: state.app.toggleLayerVisibility,
     dateFrom: state.app.dateFrom,
     dateTo: state.app.dateTo,
+    filterString: state.app.filterString,
     languageSet: state.app.languageSet,
     listVueItems: state.app.listVueItems,
     listVueActive: state.app.listVueActive,
@@ -705,6 +743,8 @@ const mapStateToProps = (state) => {
     needMapToggleLayer: state.app.needMapToggleLayer,
     needMapActualizeLanguage: state.app.needMapActualizeLanguage,
     needMapFilterByDate: state.app.needMapFilterByDate,
+    needMapFilterString: state.app.needMapFilterString,
+    needMapString: state.app.needMapString,
     needMapUpdate: state.app.needMapUpdate,
     route: state.app.route,
     routeStatus: state.app.routeStatus,
