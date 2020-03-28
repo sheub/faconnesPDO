@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import MyPlaceName from "./MyPlaceName";
 import xhr from "xhr";
+import {displayColors, layersArray} from "../utils/displayUtils";
 
 /**
  * Geocoder component: connects to endpoint: 'https://api-adresse.data.gouv.fr
@@ -21,6 +22,7 @@ class Geocoder extends Component {
       geocode: true,
       source: this.props.source,
       endpoint: this.props.endpoint,
+      iconColor: "rgba(0, 0, 0, .25)",
     };
 
     this.onInput = this.onInput.bind(this);
@@ -150,6 +152,15 @@ class Geocoder extends Component {
       });
     }
   }
+  getColorLayer(property_id) {
+    // get layerindex and return corresponding layerColor
+    if(typeof property_id === 'undefined')
+    {
+      return "gray";
+    }
+    var layerIndex = parseInt(property_id.substring(2, 4));
+    return displayColors[layersArray[layerIndex]];
+  }
 
   render() {
     var input = (
@@ -184,8 +195,10 @@ class Geocoder extends Component {
                 }
                 onClick={this.clickOption.bind(this, result, i)}
               >
+                {/* list display */}
                 <div className="absolute flex-parent flex-parent--center-cross flex-parent--center-main w24 h42">
-                  <svg className="icon color-darken25">
+                {/* feature_id getColorLayer */}
+                  <svg className="icon"  style={{ color: this.getColorLayer(result.properties.feature_id)}}>
                     <use xlinkHref="#icon-marker"></use>
                   </svg>
                 </div>

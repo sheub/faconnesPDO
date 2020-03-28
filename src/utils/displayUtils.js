@@ -19,96 +19,125 @@ const ChildrenColor = "#15178A";
 const MarchesColor = "#4AA52C";
 const VideGreniers = "#007CBF";
 
+const displayColors = {
+  'Exposition': "#E12E0E",
+  'Musique': "#A52C56",
+  'Children': "#15178A",
+  'Marches': "#4AA52C",
+  'VideGreniers': "#007CBF",
+};
+
+const layersArray = ['VideGreniers', 'Marches', 'Musique', 'Exposition', 'Children'];
+
+// const indexLayers = {
+//   VideGreniers: 0,
+//   Marches: 1,
+//   Musique: 2,
+//   Exposition: 3,
+//   Children: 4,
+// };
+
 // Layer id patterns by category
 const layerSelector = {
-    Museum: /museesFrance/,
-    Villages: /plusBeauxVillagesDeFrance/,
-    Unesco: /patrimoinemondialenfrance/, // This is the Layer id
-    Jardins: /jardinremarquable/,
-    GSF: /grandSiteDeFrance/,
-    MN: /monumentsnationaux/,
-    VilleEtPaysArtHistoire: /villeEtPaysArtHistoire/,
-    ParcsJardins: /parcsjardins/,
-    AiresJeux: /AiresJeux/,
-    LocalProdShop: /localproductshop/,
-    CraftmanShop: /craftmanshop/,
-    WineCelar: /WineCelar/,
-    OTFrance: /OTFrance/,
-    Exposition: /exposition/,
-    Musique: /musique/,
-    Children: /children/,
-    Marches: /marches/,
-    Toilets: /toilets/,
-    Baignades: /baignades/,
-    VidesGreniers: /videsgreniers/
+  Museum: /museesFrance/,
+  Villages: /plusBeauxVillagesDeFrance/,
+  Unesco: /patrimoinemondialenfrance/, // This is the Layer id
+  Jardins: /jardinremarquable/,
+  GSF: /grandSiteDeFrance/,
+  MN: /monumentsnationaux/,
+  VilleEtPaysArtHistoire: /villeEtPaysArtHistoire/,
+  ParcsJardins: /parcsjardins/,
+  AiresJeux: /AiresJeux/,
+  LocalProdShop: /localproductshop/,
+  CraftmanShop: /craftmanshop/,
+  WineCelar: /WineCelar/,
+  OTFrance: /OTFrance/,
+  Exposition: /exposition/,
+  Musique: /musique/,
+  Children: /children/,
+  Marches: /marches/,
+  Toilets: /toilets/,
+  Baignades: /baignades/,
+  VidesGreniers: /videsgreniers/,
 };
-
 
 function returnImage(layerId) {
-    let img = null;
-    switch (layerId) {
+  let img = null;
+  switch (layerId) {
     case "plusBeauxVillagesDeFrance":
-        img = <img src={Star15_961313} alt="" className='legend-key' />;
-        break;
+      img = <img src={Star15_961313} alt="" className="legend-key" />;
+      break;
     case "patrimoinemondialenfrance":
-        img = <img src={Star15_14222D} alt="" className='legend-key' />;
-        break;
+      img = <img src={Star15_14222D} alt="" className="legend-key" />;
+      break;
     case "jardinremarquable":
-        img = <img src={Star15_4AA52C} alt="" className='legend-key' />;
-        break;
+      img = <img src={Star15_4AA52C} alt="" className="legend-key" />;
+      break;
     case "grandSiteDeFrance":
-        img = <img src={Star15_19766E} alt="" className='legend-key' />;
-        break;
+      img = <img src={Star15_19766E} alt="" className="legend-key" />;
+      break;
     case "monumentsnationaux":
-        img = <img src={Star15_1F08A6} alt="" className='legend-key' />;
-        break;
+      img = <img src={Star15_1F08A6} alt="" className="legend-key" />;
+      break;
     case "museesFrance":
-        img = <img src={Star15_33BAAB} alt="" className='legend-key' />;
-        break;
+      img = <img src={Star15_33BAAB} alt="" className="legend-key" />;
+      break;
     case "villeEtPaysArtHistoire":
-            img = <img src={Star15_961313} alt="" className='legend-key' />;
-            break;
+      img = <img src={Star15_961313} alt="" className="legend-key" />;
+      break;
     case "parcsjardins":
-        img = <img src={Square15_4AA52C} alt="" className='legend-key' />;
-        break;
+      img = <img src={Square15_4AA52C} alt="" className="legend-key" />;
+      break;
     case "localproductshop":
-        img = <img src={Square15_E8EF1F} alt="" className='legend-key' />;
-        break;
+      img = <img src={Square15_E8EF1F} alt="" className="legend-key" />;
+      break;
     case "craftmanshop":
-        img = <img src={Square15_EE8568} alt="" className='legend-key' />;
-        break;
+      img = <img src={Square15_EE8568} alt="" className="legend-key" />;
+      break;
     case "WineCelar":
-        img = <img src={Square15_6B0D0D} alt="" className='legend-key' />;
-        break;
+      img = <img src={Square15_6B0D0D} alt="" className="legend-key" />;
+      break;
     case "OTFrance":
-        img = <img src={Square15_318CE7} alt="" className='legend-key' />;
-        break;
+      img = <img src={Square15_318CE7} alt="" className="legend-key" />;
+      break;
     case "AiresJeux":
-        img = <img src={Square15_318CE7} alt="" className='legend-key' />;
-        break;
+      img = <img src={Square15_318CE7} alt="" className="legend-key" />;
+      break;
     case "marches":
-        img = <span className="dot" style={{ backgroundColor: MarchesColor }}></span>;
-        break;
+      img = (
+        <span className="dot" style={{ backgroundColor: MarchesColor }}></span>
+      );
+      break;
     case "exposition":
-        img = <span className="dot" style={{ backgroundColor: ExpositionColor }}></span>;
-        break;
+      img = (
+        <span
+          className="dot"
+          style={{ backgroundColor: ExpositionColor }}
+        ></span>
+      );
+      break;
     case "musique":
-        img = <span className="dot" style={{ backgroundColor: MusiqueColor }}></span>;
-        break;
+      img = (
+        <span className="dot" style={{ backgroundColor: MusiqueColor }}></span>
+      );
+      break;
     case "children":
-        img = <span className="dot" style={{ backgroundColor: ChildrenColor }}></span>;
-        break;
+      img = (
+        <span className="dot" style={{ backgroundColor: ChildrenColor }}></span>
+      );
+      break;
     case "videsgreniers":
-        img = <span className="dot" style={{ backgroundColor: VideGreniers }}></span>;
-        break;
+      img = (
+        <span className="dot" style={{ backgroundColor: VideGreniers }}></span>
+      );
+      break;
 
     default:
-        img = null;
-        break;
-    }
+      img = null;
+      break;
+  }
 
-    return img;
+  return img;
+}
 
-};
-
-export { returnImage, layerSelector };
+export { returnImage, layerSelector, displayColors, layersArray };
