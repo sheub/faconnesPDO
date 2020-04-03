@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { connect } from "react-redux";
 import Map from "./Map";
-import { setStateFromURL } from "../actions/index";
+// import { setStateFromURL } from "../actions/index";
 import AppbarDrawer from "./AppbarDrawer";
 
 import "./myAssembly.css";
@@ -14,9 +14,9 @@ const Directions = React.lazy(() => import("./Directions"));
 const MyPlaceInfo = React.lazy(() => import("./MyPlaceInfo"));
 
 class App extends Component {
-  componentWillMount() {
-    this.props.setStateFromURL();
-  }
+  // componentWillMount() {
+  //   this.props.setStateFromURL();
+  // }
 
   render() {
     var moveOnLoad = !this.props.url
@@ -98,10 +98,11 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    setStateFromURL: () => dispatch(setStateFromURL()),
-  };
-};
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     setStateFromURL: () => dispatch(setStateFromURL()),
+//   };
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+// export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);
