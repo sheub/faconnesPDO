@@ -14,7 +14,7 @@ class RouteElevation extends Component {
     }
 
     render() {
-    
+
         switch (this.state.status) {
         case "pending":
             return <div className='loading--s' />;
@@ -59,7 +59,7 @@ class RouteElevation extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps) {
+    // componentWillReceiveProps(nextProps) {
     // Usually asynchronous calls would happen in the API caller,
     // but the results here are independent from the apps' state.
 

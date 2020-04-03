@@ -88,13 +88,14 @@ const appReducer = (state = defaultAppState, action) => {
     return Object.assign({}, state, modifiedState);
   }
 
-  case "TRIGGER_MAP_UPDATE":
+  case "TRIGGER_MAP_UPDATE": {
     return Object.assign({}, state, {
       needMapUpdate: true,
       needMapRepan: action.needMapRepan,
     });
+  }
 
-  case "SET_USER_LOCATION":
+  case "SET_USER_LOCATION": {
     return Object.assign({}, state, {
       userLocation: {
         place_name: "My Location",
@@ -105,6 +106,7 @@ const appReducer = (state = defaultAppState, action) => {
         },
       },
     });
+  }
 
   case "SET_DIRECTIONS_LOCATION": {
     if (action.kind === "from") {
@@ -117,7 +119,6 @@ const appReducer = (state = defaultAppState, action) => {
       });
     } else return state;
   }
-
   case "SET_ROUTE": {
     if (
       action.data.routes.length > 0 &&
@@ -151,11 +152,9 @@ const appReducer = (state = defaultAppState, action) => {
       routeStatus: "error",
     });
   }
-
   case "SET_STATE_FROM_URL": {
     return state;
   }
-
   default:
     return state;
   }

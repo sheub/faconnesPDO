@@ -34,6 +34,7 @@ function doTheRest(initialState, initialAuthState, localStorage)
     const routerMid = routerMiddleware(history);
 
     // combine App and Auth Reducers to create store
+
     let reducers = combineReducers({
       app: initialState,
       auth: initialAuthState
