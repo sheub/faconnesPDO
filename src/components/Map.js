@@ -365,6 +365,11 @@ class MapComponent extends Component {
           listVueActive: listVueActive,
         });
         this.props.triggerMapUpdate();
+        /* take map screenshot */
+        this.takeScreenshot(this.map).then((data) => {
+        this.props.setStateValue("mapScreenshot", data);
+      });
+
       }
     }
   }
@@ -641,6 +646,16 @@ class MapComponent extends Component {
       return "directionsFrom";
     else return "";
   }
+
+  takeScreenshot(map) {
+    return new Promise(function(resolve, reject) {
+      map.once('idle', function() {
+        resolve(map.getCanvas().toDataURL());
+      });
+      /* trigger render */
+      map.setBearing(map.getBearing());
+    })
+  };
 
   get emptyData() {
     return {

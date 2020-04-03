@@ -13,6 +13,7 @@ const defaultAppState = {
   needMapRepan: false,
   needMapToggleLayer: false,
   needMapActualizeLanguage: false,
+  mapScreenshot: "",
 
   // Mode
   mode: "search",
