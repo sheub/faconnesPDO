@@ -14,7 +14,7 @@ import rootReducer from "./reducers/index";
 import { defaultState } from "./reducers/index";
 import { defaultAuthState } from "./reducers/auth";
 
-import { getToken } from "./helpers/auth";
+import { getToken, setToken } from "./helpers/auth";
 
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 // import registerServiceWorker from "./registerServiceWorker";
@@ -79,23 +79,27 @@ function doTheRest(initialState, initialAuthState, localStorage)
             } else {
               url = process.env.REACT_APP_API_ENTRYPOINT + "/api/auth/localStorageSubmit";
             }
-            var token = getToken(); // get token
-            try {
-              const data = axios({
-                method: "post",
-                url: url,
-                params: params,
-                headers: {
-                  "Content-Type": "application/json;charset=UTF-8",
-                  Authorization: `Bearer ${token}`
+            // var token = getToken(); // get token
+            getToken()
+                    .then(function(token)
+                    {
+                      try {
+                        const data = axios({
+                          method: "post",
+                          url: url,
+                          params: params,
+                          headers: {
+                            "Content-Type": "application/json;charset=UTF-8",
+                            Authorization: `Bearer ${token}`
 
-                },
-              });
-              return Promise.resolve(data);
-            } catch (error) {
-              console.log(error); //<--- Go down one more stream
-              return Promise.reject(error);
-            }
+                          },
+                        });
+                        return Promise.resolve(data);
+                      } catch (error) {
+                        console.log(error); //<--- Go down one more stream
+                        return Promise.reject(error);
+                      }
+                  });
           };
       });
     });
@@ -171,6 +175,7 @@ if (token && userEmail) {
 
   initialAuthState.authenticated = true;
   initialAuthState.user = userData.name;
+  setToken(token);
 }
 
 if (typeof (persistedS) !== "undefined" && typeof (persistedS.app) !== "undefined") {

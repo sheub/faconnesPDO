@@ -1,4 +1,4 @@
-// import { SET_AUTHENTICATED, SET_USER_DATA } from "../actions/auth";
+import { SET_AUTHENTICATED, SET_USER_DATA } from "../actions/auth";
 
 // Default auth state
 const defaultAuthState = {
@@ -11,9 +11,9 @@ const defaultAuthState = {
 const authReducer = (state = defaultAuthState, action) => {
   // export default (state = { user: null, authenticated: false }, action) => {
   switch (action.type) {
-  case "SET_USER_DATA":
+  case SET_USER_DATA:
     return Object.assign({}, state, { user: action.user });
-  case "SET_AUTHENTICATED":
+  case SET_AUTHENTICATED:
     return Object.assign({}, state, {
       authenticated: action.authenticated,
     });

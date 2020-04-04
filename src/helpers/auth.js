@@ -10,6 +10,7 @@ const setLocalForageToken = token => {
   }
 
   localforage.setItem("authtoken", token);
+  // console.log(token);
 };
 
 export const checkTokenExists = () => {
@@ -22,8 +23,10 @@ export const checkTokenExists = () => {
   });
 };
 
-export const getToken = () => {
-  return localforage.getItem("authtoken");
+export async function getToken() {
+  var result = await localforage.getItem("authtoken");
+  // console.log(result);
+  return result;
 }
 
 export const setToken = token => {
