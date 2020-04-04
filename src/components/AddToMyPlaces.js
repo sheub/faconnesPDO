@@ -21,8 +21,8 @@ class AddToMyPlaces extends Component {
 
   handleClickAddLocation = () => {
     var image = this.props.info.properties.thumbnail
-    ? this.props.info.properties.thumbnail
-    : this.props.mapScreenshot; // eslint-disable-line max-len
+      ? this.props.info.properties.thumbnail
+      : this.props.mapScreenshot; // eslint-disable-line max-len
 
     this.props.info.properties.thumbnail = image;
 

@@ -59,7 +59,7 @@ class RouteElevation extends Component {
         }
     }
 
-    // componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps) {
     // Usually asynchronous calls would happen in the API caller,
     // but the results here are independent from the apps' state.
 
