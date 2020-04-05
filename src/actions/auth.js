@@ -129,7 +129,7 @@ export const facebookSignIn = dispatch => async credentials => {
         "Content-Type": "application/json;charset=UTF-8",
       },
     });
-    console.log(data);
+    // console.log(data);
     // setToken(data.token);
     // dispatch(setUserData(data));
     // dispatch(setAuthenticated(true));

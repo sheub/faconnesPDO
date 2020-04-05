@@ -367,8 +367,8 @@ class MapComponent extends Component {
         this.props.triggerMapUpdate();
         /* take map screenshot */
         this.takeScreenshot(this.map).then((data) => {
-        this.props.setStateValue("mapScreenshot", data);
-      });
+          this.props.setStateValue("mapScreenshot", data);
+        });
 
       }
     }
@@ -649,12 +649,12 @@ class MapComponent extends Component {
 
   takeScreenshot(map) {
     return new Promise(function(resolve, reject) {
-      map.once('idle', function() {
+      map.once("idle", function() {
         resolve(map.getCanvas().toDataURL());
       });
       /* trigger render */
       map.setBearing(map.getBearing());
-    })
+    });
   };
 
   get emptyData() {
