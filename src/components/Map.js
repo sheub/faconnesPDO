@@ -53,15 +53,23 @@ class MapComponent extends Component {
 
   componentDidMount() {
     mapboxgl.accessToken = this.props.accessToken;
+
     const map = new mapboxgl.Map({
       container: "map",
       style: style,
-      center: [2, 45.5],
-      zoom: 4,
+      center: this.props.center,
+      zoom: this.props.zoom,
+      // center: [2, 45.5],
+      // zoom: 4,
       minZoom: 2,
-      maxZoom: 20,
+      maxZoom: 21,
+      pitchWithRotate: false,
+      dragRotate: false,
+      localIdeographFontFamily: "'Noto Sans', 'Noto Sans CJK SC', sans-serif",
       maxBounds: [-15.06, 34.07, 24.32, 55.11],
     });
+
+    map.touchZoomRotate.disableRotation();
 
     this.map = map;
 
