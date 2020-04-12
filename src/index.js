@@ -1,18 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { createStore, applyMiddleware, compose, combineReducers } from "redux";
+import { createStore, applyMiddleware, compose } from "redux";
 
 import { createBrowserHistory } from "history";
 import { Route } from "react-router";
 import { ConnectedRouter, routerMiddleware } from "connected-react-router";
 
+// import {merge, get, set } from "lodash";
 
 import apiCaller from "./middlewares/apiCaller";
 import urlTinkerer from "./middlewares/urlTinkerer";
 import rootReducer from "./reducers/index";
 import { defaultState } from "./reducers/index";
-import { defaultAuthState } from "./reducers/auth";
+import { defaultAuthState } from "./reducers/authReducer";
 
 import { getToken, setToken } from "./helpers/auth";
 
@@ -24,6 +25,7 @@ import "./i18n";
 import "./index.css";
 import axios from "axios";
 import * as serviceWorker from "./serviceWorker";
+// import { LocalDrinkSharp } from "@material-ui/icons";
 
 function doTheRest(initialState, initialAuthState, localStorage)
 {
@@ -34,21 +36,29 @@ function doTheRest(initialState, initialAuthState, localStorage)
   const routerMid = routerMiddleware(history);
 
   // combine App and Auth Reducers to create store
+  // let reducers = combineReducers({
+  //   app: defaultState,
+  //   auth: defaultAuthState,
+  // });
+  // let combinedState = merge({}, initialState, initialAuthState);
 
-  let reducers = combineReducers({
-    app: initialState,
-    auth: initialAuthState
-  });
+  let combinedState = {
+    app: initialState.app,
+    auth: initialState.auth
+  };
+
 
   // create store
   let store = createStore(
     rootReducer(history),
-    reducers,
+    combinedState,
     composeEnhancers(
       applyMiddleware(
         routerMiddleware(history), // for dispatching history actions
         apiCaller, urlTinkerer, routerMid))
   );
+
+  // console.log(store.getState());
 
   // Store subscription that will keep the persisted state in local storage in sync with the state.
   store.subscribe(() => {
@@ -163,6 +173,8 @@ const urlParams = new URLSearchParams(urlpath);
 const userName = urlParams.get("userName");
 const userEmail = urlParams.get("userEmail");
 const token = urlParams.get("token");
+console.log(urlParams.toString());
+
 
 
 // initial state
