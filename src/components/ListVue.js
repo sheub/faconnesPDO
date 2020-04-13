@@ -234,6 +234,7 @@ ListVue.propTypes = {
   listVueActive: PropTypes.bool,
   listVueItems: PropTypes.array,
   searchLocation: PropTypes.object,
+  featureId: PropTypes.number,
   setInfoPopup: PropTypes.func,
   setStateValue: PropTypes.func,
   triggerMapUpdate: PropTypes.func,
@@ -245,6 +246,7 @@ const mapStateToProps = (state) => {
     listVueActive: state.app.listVueActive,
     infoPopup: state.app.infoPopup,
     searchLocation: state.app.searchLocation,
+    featureId: state.app.infoPopup.featureId,
   };
 };
 

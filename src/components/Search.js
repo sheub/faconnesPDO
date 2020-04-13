@@ -11,7 +11,7 @@ import { withStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import Tooltip from "@material-ui/core/Tooltip";
-import directionsIcon from "../assets/directions.svg";
+// import directionsIcon from "../assets/directions.svg";
 import SearchIcon from "@material-ui/icons/Search";
 
 import {
@@ -125,13 +125,13 @@ class Search extends Component {
             : null
         } */}
           </div>
-          <div
+          {/* <div
             id="search-directions"
             className={"cursor-pointer right flex-parent-inline m12"}
             onClick={() => this.clickDirections()}
           >
             <img src={directionsIcon} alt="directions" />
-          </div>
+          </div> */}
         </div>
       );
     }
@@ -166,7 +166,7 @@ class Search extends Component {
           {this.props.searchLocation && this.props.placeInfo ? (
             <PlaceInfo
               info={this.props.placeInfo}
-              clickDirections={() => this.clickDirections()}
+              // clickDirections={() => this.clickDirections()}
             />
           ) : null}
         </div>
@@ -216,11 +216,11 @@ class Search extends Component {
   //   this.props.triggerMapUpdate();
   // }
 
-  clickDirections() {
-    this.props.setMode("directions");
-    this.props.writeSearch(this.props.searchLocation.place_name);
-    this.props.setDirectionsLocation("to", this.props.searchLocation);
-  }
+  // clickDirections() {
+  //   this.props.setMode("directions");
+  //   this.props.writeSearch(this.props.searchLocation.place_name);
+  //   this.props.setDirectionsLocation("to", this.props.searchLocation);
+  // }
 
   handleSwitchChange() {
     this.setState({ checkedA: !this.state.checkedA });

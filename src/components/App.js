@@ -10,7 +10,7 @@ import "./myAssembly.css";
 
 const ListVue = React.lazy(() => import("./ListVue"));
 const Search = React.lazy(() => import("./Search"));
-const Directions = React.lazy(() => import("./Directions"));
+// const Directions = React.lazy(() => import("./Directions"));
 const MyPlaceInfo = React.lazy(() => import("./MyPlaceInfo"));
 
 class App extends Component {
@@ -37,15 +37,15 @@ class App extends Component {
               className="relative fl m12 flex-parent flex-parent--column w-full-xs"
               style={styleSearch}
             >
-              {this.props.mode === "directions" ? (
+              {/* {this.props.mode === "directions" ? (
                 <React.Suspense fallback={<div> Loading Directions...</div>}>
                   <Directions />
                 </React.Suspense>
-              ) : (
+              ) : ( */}
                 <React.Suspense fallback={<div> Loading Search...</div>}>
                   <Search />
                 </React.Suspense>
-              )}
+              {/* )} */}
               {this.props.searchLocation &&
               this.props.searchLocation.properties ? (
                   <React.Suspense fallback={<div> </div>}>

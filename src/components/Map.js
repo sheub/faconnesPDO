@@ -15,7 +15,7 @@ import {
   setStateValue,
   setUserLocation,
   triggerMapUpdate,
-  getRoute,
+  // getRoute,
   resetStateKeys
 } from "../actions/index";
 
@@ -78,9 +78,10 @@ class MapComponent extends Component {
     });
   }
 
-  componentDidUpdate() {
+  async componentDidUpdate() {
     if (!this.props.needMapUpdate) return;
 
+    await loadedPromise(this.map);
     // Search mode
     if (
       this.props.mode === "search" ||
@@ -139,12 +140,12 @@ class MapComponent extends Component {
           this.props.routeStatus !== "paused"
         ) {
           // Trigger the API call to directions
-          this.props.getRoute(
-            this.props.directionsFrom,
-            this.props.directionsTo,
-            this.props.modality,
-            this.props.accessToken,
-          );
+          // this.props.getRoute(
+          //   this.props.directionsFrom,
+          //   this.props.directionsTo,
+          //   this.props.modality,
+          //   this.props.accessToken,
+          // );
         }
       }
     }
@@ -187,6 +188,7 @@ class MapComponent extends Component {
     }
 
     this.props.setStateValue("needMapUpdate", false);
+
     if (this.props.needMapToggleLayer) {
       this.toggleLayerVisibility(this.props.toggleLayerVisibility);
     }
@@ -194,6 +196,7 @@ class MapComponent extends Component {
     if (this.props.needMapFilterByDate) {
       this.filterByDate(this.props.dateFrom, this.props.dateTo);
     }
+
     if (this.props.needMapFilterString) {
       this.filterStringContain(this.props.filterString);
     }
@@ -280,10 +283,10 @@ class MapComponent extends Component {
       // We have a selected feature
       var feature = features[0];
 
-      let key;
+      // let key;
       // if (this.props.mode === 'search') {
       this.props.resetStateKeys(["placeInfo"]);
-      key = "searchLocation";
+      // key = "searchLocation";
       // }
       //  else if (!this.props.directionsFrom) {
       //   key = 'directionsFrom';
@@ -350,28 +353,24 @@ class MapComponent extends Component {
         this.props.setStateValue("listVueActive", false);
       }
 
-      let infoItem = {};
-      infoItem.place_name = place_name;
-      infoItem.properties = feature.properties;
-      infoItem.geometry = feature.geometry;
-      infoItem.layerId = feature.layer.id;
-      infoItem.paintColor = paintColor;
-      infoItem.listVueActive = listVueActive;
-      infoItem.popupActive = true;
+
+      let infoItem = this.setInfoItem(place_name, feature, paintColor, listVueActive);
       this.props.setStateValue("infoPopup", infoItem);
 
       /**Call setStateValue */
-      if (key && place_name) {
-        this.props.setStateValue(key, {
+      if (place_name) {
+        this.props.setStateValue("searchLocation", {
           type: "Feature",
           place_name: place_name,
           properties: feature.properties,
           geometry: feature.geometry,
           layerId: feature.layer.id,
+          featureId: feature.id,
           paintColor: paintColor,
           popupActive: true,
           listVueActive: listVueActive,
         });
+
         this.props.triggerMapUpdate();
         /* take map screenshot */
         this.takeScreenshot(this.map).then((data) => {
@@ -459,16 +458,23 @@ class MapComponent extends Component {
         this.props.setStateValue("listVueActive", false);
       }
 
-      let infoItem = {};
-      infoItem.place_name = place_name;
-      infoItem.properties = feature.properties;
-      infoItem.geometry = feature.geometry;
-      infoItem.layerId = feature.layer.id;
-      infoItem.paintColor = paintColor;
-      infoItem.listVueActive = listVueActive;
-      infoItem.popupActive = true;
+      let infoItem = this.setInfoItem(place_name, feature, paintColor, listVueActive);
       this.props.setStateValue("infoPopup", infoItem);
     }
+  }
+
+  setInfoItem(place_name, feature, paintColor, listVueActive) {
+    let infoItem = {};
+    infoItem.place_name = place_name;
+    infoItem.properties = feature.properties;
+    infoItem.geometry = feature.geometry;
+    infoItem.layerId = feature.layer.id;
+    infoItem.featureId = feature.id;
+    infoItem.paintColor = paintColor;
+    infoItem.listVueActive = listVueActive;
+    infoItem.popupActive = true;
+
+    return infoItem;
   }
 
   onLoad() {
@@ -769,8 +775,8 @@ const mapStateToProps = (state) => {
     needMapFilterString: state.app.needMapFilterString,
     needMapString: state.app.needMapString,
     needMapUpdate: state.app.needMapUpdate,
-    route: state.app.route,
-    routeStatus: state.app.routeStatus,
+    // route: state.app.route,
+    // routeStatus: state.app.routeStatus,
     searchLocation: state.app.searchLocation,
     userLocation: state.app.userLocation,
     visibility: state.app.visibility,
@@ -778,9 +784,16 @@ const mapStateToProps = (state) => {
   };
 };
 
+const loadedPromise = map => {
+  if (map.isStyleLoaded()) return Promise.resolve(true);
+  return new Promise(resolve => {
+    map.on("idle", () => resolve(true));
+  });
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
-    getRoute: (directionsFrom, directionsTo, modality, accessToken) => dispatch(getRoute(directionsFrom, directionsTo, modality, accessToken)),
+    // getRoute: (directionsFrom, directionsTo, modality, accessToken) => dispatch(getRoute(directionsFrom, directionsTo, modality, accessToken)),
     pushHistory: (url) => dispatch(push(url)),
     setStateValue: (key, value) => dispatch(setStateValue(key, value)),
     setUserLocation: (coordinates) => dispatch(setUserLocation(coordinates)),

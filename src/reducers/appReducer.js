@@ -1,4 +1,4 @@
-import polyline from "@mapbox/polyline";
+// import polyline from "@mapbox/polyline";
 
 const defaultAppState = {
   // Mapbox Access Token
@@ -7,7 +7,7 @@ const defaultAppState = {
   drawerOpen: false,
 
   // Map
-  mapCoords: [-122.4, 37.8, 10],
+  mapCoords: [2.4, 46.8, 5],
   // Map updates
   needMapUpdate: false,
   needMapRepan: false,
@@ -17,7 +17,7 @@ const defaultAppState = {
 
   // Mode
   mode: "search",
-  modality: "car",
+  // modality: "car",
   // Search
   searchString: "",
   searchLocation: null,
@@ -26,13 +26,13 @@ const defaultAppState = {
   userLocation: null,
   userFavoritePlaces: [],
   // Directions
-  directionsFromString: "",
-  directionsFrom: null,
-  directionsToString: "",
-  directionsTo: null,
-  route: null,
-  routeStatus: "idle",
-  lastQueried: 0,
+  // directionsFromString: "",
+  // directionsFrom: null,
+  // directionsToString: "",
+  // directionsTo: null,
+  // route: null,
+  // routeStatus: "idle",
+  // lastQueried: 0,
   // Information
   toggleLayerVisibility: "",
   visibility: {
@@ -108,51 +108,51 @@ const appReducer = (state = defaultAppState, action) => {
       });
     }
 
-    case "SET_DIRECTIONS_LOCATION": {
-      if (action.kind === "from") {
-        return Object.assign({}, state, {
-          directionsFrom: action.location,
-        });
-      } else if (action.kind === "to") {
-        return Object.assign({}, state, {
-          directionsTo: action.location,
-        });
-      } else return state;
-    }
+    // case "SET_DIRECTIONS_LOCATION": {
+    //   if (action.kind === "from") {
+    //     return Object.assign({}, state, {
+    //       directionsFrom: action.location,
+    //     });
+    //   } else if (action.kind === "to") {
+    //     return Object.assign({}, state, {
+    //       directionsTo: action.location,
+    //     });
+    //   } else return state;
+    // }
 
-    case "SET_ROUTE": {
-      if (
-        action.data.routes.length > 0 &&
-        state.directionsFrom &&
-        state.directionsTo
-      ) {
-        const route = action.data.routes[0];
+    // case "SET_ROUTE": {
+    //   if (
+    //     action.data.routes.length > 0 &&
+    //     state.directionsFrom &&
+    //     state.directionsTo
+    //   ) {
+    //     const route = action.data.routes[0];
 
-        let congestion;
-        if (
-          route.legs[0] &&
-          route.legs[0].annotation &&
-          route.legs[0].annotation.congestion
-        ) {
-          congestion = route.legs[0].annotation.congestion;
-        }
+    //     let congestion;
+    //     if (
+    //       route.legs[0] &&
+    //       route.legs[0].annotation &&
+    //       route.legs[0].annotation.congestion
+    //     ) {
+    //       congestion = route.legs[0].annotation.congestion;
+    //     }
 
-        const line = polyline.toGeoJSON(route.geometry);
+    //     const line = polyline.toGeoJSON(route.geometry);
 
-        if (!congestion) {
-          route.geometry = line;
-        } else {
-          route.geometry = congestionSegments(line, congestion);
-        }
+    //     if (!congestion) {
+    //       route.geometry = line;
+    //     } else {
+    //       route.geometry = congestionSegments(line, congestion);
+    //     }
 
-        return Object.assign({}, state, {
-          route: route,
-        });
-      }
-      return Object.assign({}, state, {
-        routeStatus: "error",
-      });
-    }
+    //     return Object.assign({}, state, {
+    //       route: route,
+    //     });
+    //   }
+    //   return Object.assign({}, state, {
+    //     routeStatus: "error",
+    //   });
+    // }
 
     case "SET_STATE_FROM_URL": {
       return state;
@@ -162,40 +162,40 @@ const appReducer = (state = defaultAppState, action) => {
   }
 };
 
-function congestionSegments(line, congestionArray) {
-  let featureCollection = {
-    type: "FeatureCollection",
-    features: [],
-  };
-  const coordinates = line.coordinates;
-  let prevCongestion = congestionArray[0];
-  let currentCoordinates = [];
-  for (var i = 0; i < coordinates.length - 1; i++) {
-    currentCoordinates.push(coordinates[i]);
+// function congestionSegments(line, congestionArray) {
+//   let featureCollection = {
+//     type: "FeatureCollection",
+//     features: [],
+//   };
+//   const coordinates = line.coordinates;
+//   let prevCongestion = congestionArray[0];
+//   let currentCoordinates = [];
+//   for (var i = 0; i < coordinates.length - 1; i++) {
+//     currentCoordinates.push(coordinates[i]);
 
-    if (
-      i === coordinates.length - 1 ||
-      congestionArray[i + 1] !== prevCongestion
-    ) {
-      currentCoordinates.push(coordinates[i + 1]);
-      let segment = {
-        type: "Feature",
-        geometry: {
-          type: "LineString",
-          coordinates: currentCoordinates.slice(),
-        },
-        properties: {
-          congestion: prevCongestion,
-        },
-      };
-      featureCollection.features.push(segment);
-      currentCoordinates = [];
-    }
+//     if (
+//       i === coordinates.length - 1 ||
+//       congestionArray[i + 1] !== prevCongestion
+//     ) {
+//       currentCoordinates.push(coordinates[i + 1]);
+//       let segment = {
+//         type: "Feature",
+//         geometry: {
+//           type: "LineString",
+//           coordinates: currentCoordinates.slice(),
+//         },
+//         properties: {
+//           congestion: prevCongestion,
+//         },
+//       };
+//       featureCollection.features.push(segment);
+//       currentCoordinates = [];
+//     }
 
-    prevCongestion = congestionArray[i];
-  }
-  return featureCollection;
-}
+//     prevCongestion = congestionArray[i];
+//   }
+//   return featureCollection;
+// }
 
 export default appReducer;
 export { appReducer, defaultAppState };

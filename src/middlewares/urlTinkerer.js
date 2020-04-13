@@ -1,3 +1,4 @@
+
 const CALL_HISTORY_METHOD = "@@router/CALL_HISTORY_METHOD";
 
 const urlTinkerer = store => next => action => {
@@ -7,6 +8,8 @@ const urlTinkerer = store => next => action => {
     case "SET_STATE_VALUE": {
       next(action);
 
+
+      if(action.key === "infoPopup"){
       let actionPayload = getActionPayload(action.key, action.value);
       const url = updateUrlWithPayload(
         store.getState().router.location.pathname,
@@ -20,7 +23,7 @@ const urlTinkerer = store => next => action => {
             args: [url]
           }
         });
-      }
+      }}
       break;
     }
 
@@ -52,7 +55,8 @@ const urlTinkerer = store => next => action => {
           store.getState().router.location.pathname,
           {
             searchCoords: null,
-            searchPlace: null
+            searchPlace: null,
+            featureId: null
           }
         );
 
@@ -82,14 +86,16 @@ const urlTinkerer = store => next => action => {
           },
           properties: {
             name: params.searchPlace,
-            wikidata: params.wikidata
+            wikidata: params.wikidata,
+            featureId: params.featureId
           }
         };
         next({
           type: "SET_STATE_VALUES",
           modifiedState: {
             searchLocation: feature,
-            mapCoords: params.searchCoords.concat([13])
+            mapCoords: params.searchCoords.concat([13]),
+            featureId: params.featureId
           }
         });
         next({
@@ -116,14 +122,16 @@ function getActionPayload(key, value) {
     actionPayload = {
       coords: value
     };
-  } else if (key === "searchLocation") {
+  // } else if (key === "searchLocation") {
+  } else if (key === "infoPopup") {
     actionPayload = {
       searchCoords: value.geometry.coordinates,
       // FIX me: the value.place_name is set only if the user has clicked on the list,
       // not if he used the arrow + enter....
       searchPlace: value.place_name.split(",")[0],
       // searchPlace: value.properties.label.split(",")[0],
-      wikidata: value.properties.wikidata
+      // wikidata: value.properties.wikidata,
+      featureId: value.featureId
     };
   }
   return actionPayload;
@@ -158,6 +166,9 @@ function parseUrl(url) {
     } else if (s.startsWith("$")) {
       // Parse wikidata entity, noted with a ^.
       props.wikidata = decodeURI(s.slice(1));
+    } else if (s.startsWith("#")) {
+      // Parse featureId, noted with a #.
+      props.featureId = decodeURI(s.slice(1));
     }
   });
 
@@ -176,15 +187,18 @@ function toUrl(props) {
         ].join(",")
     );
   }
-  if (props.searchCoords) {
-    // res.push("+" + props.searchCoords.map(e => e.toFixed(6)).join(","));
-  }
+  // if (props.searchCoords) {
+  //   // res.push("+" + props.searchCoords.map(e => e.toFixed(6)).join(","));
+  // }
 
   if (props.searchPlace) {
     res.push("~" + encodeURI(props.searchPlace));
   }
-  if (props.wikidata) {
-    res.push("$" + encodeURI(props.wikidata));
+  // if (props.wikidata) {
+  //   res.push("$" + encodeURI(props.wikidata));
+  // }
+  if (props.featureId) {
+    res.push("#" + encodeURI(props.featureId));
   }
   return res.join("/");
 }

@@ -4,71 +4,71 @@ const apiCaller = (store) => (next) => (action) => { // eslint-disable-line
 
     switch (action.type) {
   // ---------------------------------------------------------------------------
-    case "GET_ROUTE": {
-    // Dispatch pending action
-        next({
-            type: "SET_STATE_VALUE",
-            key: "routeStatus",
-            value: "pending"
-        });
+    // case "GET_ROUTE": {
+    // // Dispatch pending action
+    //     next({
+    //         type: "SET_STATE_VALUE",
+    //         key: "routeStatus",
+    //         value: "pending"
+    //     });
 
-        const baseUrl = "https://api.mapbox.com/directions/v5/mapbox/";
+    //     const baseUrl = "https://api.mapbox.com/directions/v5/mapbox/";
 
-        let profile = "driving-traffic"; // default
-        let annotationsParam = "";
-        if (action.modality === "car") {
-            profile = "driving-traffic";
-            annotationsParam = "&annotations=congestion";
-        }
-        if (action.modality === "bike") profile = "cycling";
-        if (action.modality === "walk") profile = "walking";
+    //     let profile = "driving-traffic"; // default
+    //     let annotationsParam = "";
+    //     if (action.modality === "car") {
+    //         profile = "driving-traffic";
+    //         annotationsParam = "&annotations=congestion";
+    //     }
+    //     if (action.modality === "bike") profile = "cycling";
+    //     if (action.modality === "walk") profile = "walking";
 
-        const fromCoordinates = action.directionsFrom.geometry.coordinates.join(",");
-        const toCoordinates = action.directionsTo.geometry.coordinates.join(",");
+    //     const fromCoordinates = action.directionsFrom.geometry.coordinates.join(",");
+    //     const toCoordinates = action.directionsTo.geometry.coordinates.join(",");
 
-        const url = baseUrl + profile + "/" + fromCoordinates + ";" + toCoordinates
-      + "?access_token=" + action.accessToken
-      + "&overview=full"
-      + annotationsParam;
+    //     const url = baseUrl + profile + "/" + fromCoordinates + ";" + toCoordinates
+    //   + "?access_token=" + action.accessToken
+    //   + "&overview=full"
+    //   + annotationsParam;
 
-    // Fetch
-        fetch(url, {method: "get"})
-      .then(res => {
-          if (res.ok) {
-              return res.json();
-          } else { // 4xx or 5xx response
-              var err = new Error(res.statusText);
-              return Promise.reject(err);
-          }
-      })
-      .then(data => {
-          if (data.code !== "Ok") return Promise.reject();
-          else {
-          // Success
-              next({
-                  type: "SET_ROUTE",
-                  data: data
-              });
-              next({
-                  type: "SET_STATE_VALUE",
-                  key: "routeStatus",
-                  value: "idle"
-              });
-              next({
-                  type: "TRIGGER_MAP_UPDATE",
-                  needMapRepan: true
-              });
+    // // Fetch
+    //     fetch(url, {method: "get"})
+    //   .then(res => {
+    //       if (res.ok) {
+    //           return res.json();
+    //       } else { // 4xx or 5xx response
+    //           var err = new Error(res.statusText);
+    //           return Promise.reject(err);
+    //       }
+    //   })
+    //   .then(data => {
+    //       if (data.code !== "Ok") return Promise.reject();
+    //       else {
+    //       // Success
+    //           next({
+    //               type: "SET_ROUTE",
+    //               data: data
+    //           });
+    //           next({
+    //               type: "SET_STATE_VALUE",
+    //               key: "routeStatus",
+    //               value: "idle"
+    //           });
+    //           next({
+    //               type: "TRIGGER_MAP_UPDATE",
+    //               needMapRepan: true
+    //           });
 
-              return Promise.resolve();
-          }
-      })
-      .catch(() => next({
-          type: "SET_STATE_VALUE",
-          key: "routeStatus",
-          value: "error"
-      }));
-        break;
-    }
+    //           return Promise.resolve();
+    //       }
+    //   })
+    //   .catch(() => next({
+    //       type: "SET_STATE_VALUE",
+    //       key: "routeStatus",
+    //       value: "error"
+    //   }));
+    //     break;
+    // }
 
     case "GET_PLACE_INFO": {
         const url = wdk.getEntities({
@@ -142,7 +142,8 @@ const apiCaller = (store) => (next) => (action) => { // eslint-disable-line
                       geometry: {
                           type: "Point",
                           coordinates: action.coordinates
-                      }
+                      },
+                      featureId: data.features[0].featureId,
                   }
               });
           } else return Promise.reject();

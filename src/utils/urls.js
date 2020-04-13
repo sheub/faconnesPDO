@@ -8,6 +8,8 @@ function parseUrl(url) {
             props.searchCoords = s.slice(1).split(",").map(Number);
         } else if (s.startsWith("~")) { // Parse search place name, noted with a ~.
             props.searchPlace = decodeURI(s.slice(1));
+        } else if (s.startsWith("#")) { // Parse search place name, noted with a ~.
+            props.featureId = decodeURI(s.slice(1));
         }
     });
 
@@ -28,6 +30,9 @@ function toUrl(props) {
     }
     if (props.searchPlace) {
         res.push("~" + encodeURI(props.searchPlace));
+    }
+    if (props.featureId) {
+        res.push("#" + encodeURI(props.featureId));
     }
 
     return res.join("/");
