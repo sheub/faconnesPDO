@@ -30,18 +30,18 @@ export const setDirectionsLocation = (kind, location) => ({
   location,
 });
 
-export const getRoute = (
-  directionsFrom,
-  directionsTo,
-  modality,
-  accessToken,
-) => ({
-  type: "GET_ROUTE",
-  directionsFrom,
-  directionsTo,
-  modality,
-  accessToken,
-});
+// export const getRoute = (
+//   directionsFrom,
+//   directionsTo,
+//   modality,
+//   accessToken,
+// ) => ({
+//   type: "GET_ROUTE",
+//   directionsFrom,
+//   directionsTo,
+//   modality,
+//   accessToken,
+// });
 
 export const getPlaceInfo = wikidataId => ({
   type: "GET_PLACE_INFO",

@@ -1,4 +1,7 @@
 
+import axios from "axios";
+import {layerSelector, layersArray, displayColors} from "../utils/displayUtils";
+
 const CALL_HISTORY_METHOD = "@@router/CALL_HISTORY_METHOD";
 
 const urlTinkerer = store => next => action => {
@@ -7,7 +10,6 @@ const urlTinkerer = store => next => action => {
   switch (action.type) {
     case "SET_STATE_VALUE": {
       next(action);
-
 
       if(action.key === "infoPopup"){
       let actionPayload = getActionPayload(action.key, action.value);
@@ -77,35 +79,25 @@ const urlTinkerer = store => next => action => {
       let url = store.getState().router.location.pathname;
       const params = parseUrl(url);
       if (params.searchCoords) {
-        const feature = {
-          type: "Feature",
-          place_name: params.searchPlace,
-          geometry: {
-            type: "Point",
-            coordinates: params.searchCoords
-          },
-          properties: {
-            name: params.searchPlace,
-            wikidata: params.wikidata,
-            featureId: params.featureId
+        if(typeof params.featureId !== 'undefined') {
+          requestFeatureFromId(params.featureId).then(
+            resultFeature => nextActionsSetStateFromURL(resultFeature, next)
+
+            )
+          //  var resultFeature = requestFeatureFromId(params.featureId);
+          //  console.log(resultFeature);
           }
-        };
-        next({
-          type: "SET_STATE_VALUES",
-          modifiedState: {
-            searchLocation: feature,
-            mapCoords: params.searchCoords.concat([13]),
-            featureId: params.featureId
+          else {
+            const feature = {
+              type: "Feature",
+              place_name: params.searchPlace,
+              geometry: {
+                type: "Point",
+                coordinates: params.searchCoords
+              },
+            };
+            nextActionsSetStateFromURL(feature, next);
           }
-        });
-        next({
-          type: "GET_PLACE_INFO",
-          feature
-        });
-        next({
-          type: "TRIGGER_MAP_UPDATE",
-          needMapRepan: true
-        });
       }
       break;
     }
@@ -115,6 +107,60 @@ const urlTinkerer = store => next => action => {
       break;
   }
 };
+
+async function requestFeatureFromId(featureId) {
+    var url = "http://localhost:8000/api/getFeatureByPropertyID/010300674"// + params.featureId
+    try {
+      let axiosResult = await axios({
+            url: url,
+            method: 'get',
+            timeout: 8000,
+            headers: {
+                'Content-Type': 'application/json',
+            }
+          })
+      if(axiosResult.status === 200) {
+        // handle success
+        console.log(axiosResult);
+
+        var featureResult = axiosResult.data;
+        var layerIndex = parseInt(featureResult.feature_id.substring(2, 4));
+        var layerKey = layersArray[layerIndex];
+        var sourceLayer = layerSelector[layerKey].source;
+        featureResult.paintColor = displayColors[layersArray[layerIndex]];
+        featureResult.layerId = sourceLayer;
+        // console.log(featureResult);
+      }
+      return featureResult;
+    }
+      catch(error) {
+        // handle error
+        console.log(error);
+      };
+  }
+
+  function nextActionsSetStateFromURL(feature, next) {
+
+    next({
+      type: "SET_STATE_VALUES",
+      modifiedState: {
+        searchLocation: feature,
+        infoPopup: feature,
+        needMapRepan: true,
+        mapCoords: feature.geometry.coordinates.concat([13]),
+        // featureId: params.featureId
+      },
+    });
+    next({
+      type: "GET_PLACE_INFO",
+      feature
+    });
+    next({
+      type: "TRIGGER_MAP_UPDATE",
+      needMapRepan: true,
+    });
+  }
+
 
 function getActionPayload(key, value) {
   let actionPayload = {};
@@ -163,11 +209,11 @@ function parseUrl(url) {
     } else if (s.startsWith("~")) {
       // Parse search place name, noted with a ~.
       props.searchPlace = decodeURI(s.slice(1));
+    // } else if (s.startsWith("$")) {
+    //   // Parse wikidata entity, noted with a $.
+    //   props.wikidata = decodeURI(s.slice(1));
     } else if (s.startsWith("$")) {
-      // Parse wikidata entity, noted with a ^.
-      props.wikidata = decodeURI(s.slice(1));
-    } else if (s.startsWith("#")) {
-      // Parse featureId, noted with a #.
+      // Parse featureId, noted with a $.
       props.featureId = decodeURI(s.slice(1));
     }
   });
@@ -187,9 +233,9 @@ function toUrl(props) {
         ].join(",")
     );
   }
-  // if (props.searchCoords) {
-  //   // res.push("+" + props.searchCoords.map(e => e.toFixed(6)).join(","));
-  // }
+  if (props.searchCoords) {
+    res.push("+" + props.searchCoords.map(e => e.toFixed(6)).join(","));
+  }
 
   if (props.searchPlace) {
     res.push("~" + encodeURI(props.searchPlace));
@@ -198,7 +244,7 @@ function toUrl(props) {
   //   res.push("$" + encodeURI(props.wikidata));
   // }
   if (props.featureId) {
-    res.push("#" + encodeURI(props.featureId));
+    res.push("$" + encodeURI(props.featureId));
   }
   return res.join("/");
 }

@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { connect } from "react-redux";
 import Map from "./Map";
-// import { setStateFromURL } from "../actions/index";
+import { setStateFromURL } from "../actions/index";
 import AppbarDrawer from "./AppbarDrawer";
 
 import "./myAssembly.css";
@@ -14,9 +14,9 @@ const Search = React.lazy(() => import("./Search"));
 const MyPlaceInfo = React.lazy(() => import("./MyPlaceInfo"));
 
 class App extends Component {
-  // componentWillMount() {
-  //   this.props.setStateFromURL();
-  // }
+  componentWillMount() {
+    this.props.setStateFromURL();
+  }
 
   render() {
     var moveOnLoad = !this.props.url
@@ -79,8 +79,8 @@ App.propTypes = {
   listVueItems: PropTypes.array,
   coorOnClick: PropTypes.array,
   mode: PropTypes.string,
-  route: PropTypes.object,
-  routeStatus: PropTypes.string,
+  // route: PropTypes.object,
+  // routeStatus: PropTypes.string,
   setStateFromURL: PropTypes.func,
   url: PropTypes.string,
 };
@@ -91,18 +91,18 @@ const mapStateToProps = state => {
     listVueItems: state.app.listVueItems,
     coorOnClick: state.app.coorOnClick,
     mode: state.app.mode,
-    route: state.app.route,
-    routeStatus: state.app.routeStatus,
+    // route: state.app.route,
+    // routeStatus: state.app.routeStatus,
     searchLocation: state.app.searchLocation,
     url: state.router.location.pathname,
   };
 };
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     setStateFromURL: () => dispatch(setStateFromURL()),
-//   };
-// };
+const mapDispatchToProps = dispatch => {
+  return {
+    setStateFromURL: () => dispatch(setStateFromURL()),
+  };
+};
 
-// export default connect(mapStateToProps, mapDispatchToProps)(App);
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+// export default connect(mapStateToProps)(App);

@@ -6,7 +6,7 @@ import {connect} from "react-redux";
 import {push} from "connected-react-router";
 
 import mapboxgl from "mapbox-gl/dist/mapbox-gl";
-import turfBbox from "@turf/bbox";
+// import turfBbox from "@turf/bbox";
 
 import {setLanguage} from "../utils/openmaptiles-language";
 import { defaultAppState } from "../reducers/appReducer";
@@ -18,6 +18,7 @@ import {
   // getRoute,
   resetStateKeys
 } from "../actions/index";
+
 
 import style from "../styles/osm-liberty.json";
 // Set the sprite URL in the style. It has to be a full, absolute URL.
@@ -96,59 +97,86 @@ class MapComponent extends Component {
           this.map
             .getSource("marker")
             .setData(this.props.searchLocation.geometry);
+
+            // if featureId set => query feature and set infoItem
+            // if (typeof this.props.searchLocation.featureId !== "undefined") {
+            //   var sourceId = "localEvents";
+            //   // get source layer from featureId
+            //   var layerIndex = parseInt(this.props.searchLocation.featureId.substring(2, 3));
+            //   var layerKey = layersArray[layerIndex];
+            //   var sourceLayer = layerSelector[layerKey].source
+
+            //   // var relatedFeatures = map.querySourceFeatures('counties', {
+            //   //   sourceLayer: 'original',
+            //   //   filter: ['in', 'COUNTY', feature.properties.COUNTY]
+            //   //   });
+
+            //   // filter.sourceLayer = "videsgreniers";
+            //   // Find all features in one source layer in a vector source
+            //   var features = null;
+            //   features = this.map.querySourceFeatures(sourceId, {
+            //     sourceLayer: sourceLayer,
+            //     filter: ['==', '$id', this.props.searchLocation.featureId],
+            //   });
+            //   if (features.length) {
+            //     features[0].paintColor = displayColors[layersArray[layerIndex]];
+            //     features[0].layerId = sourceLayer;
+            //     this.setInfoItemAndRenderPopup(features);
+            //   }
+            // }
         }
       } else {
         this.map.getSource("marker").setData(this.emptyData);
       }
 
-      // remove items specific to directions mode
-      this.map.getSource("fromMarker").setData(this.emptyData);
-      this.map.getSource("route").setData(this.emptyData);
+      // // remove items specific to directions mode
+      // this.map.getSource("fromMarker").setData(this.emptyData);
+      // this.map.getSource("route").setData(this.emptyData);
     }
 
     // Directions mode
-    else if (this.props.mode === "directions") {
-      if (this.props.directionsFrom) {
-        this.map
-          .getSource("fromMarker")
-          .setData(this.props.directionsFrom.geometry);
-      } else {
-        this.map.getSource("fromMarker").setData(this.emptyData);
-      }
+    // else if (this.props.mode === "directions") {
+    //   if (this.props.directionsFrom) {
+    //     this.map
+    //       .getSource("fromMarker")
+    //       .setData(this.props.directionsFrom.geometry);
+    //   } else {
+    //     this.map.getSource("fromMarker").setData(this.emptyData);
+    //   }
 
-      if (this.props.directionsTo) {
-        this.map.getSource("marker").setData(this.props.directionsTo.geometry);
-      } else {
-        this.map.getSource("marker").setData(this.emptyData);
-      }
+    //   // if (this.props.directionsTo) {
+    //   //   this.map.getSource("marker").setData(this.props.directionsTo.geometry);
+    //   // } else {
+    //   //   this.map.getSource("marker").setData(this.emptyData);
+    //   // }
 
-      if (this.props.route) {
-        this.map.getSource("route").setData(this.props.route.geometry);
-      } else {
-        this.map.getSource("route").setData(this.emptyData);
-      }
+    //   // if (this.props.route) {
+    //   //   this.map.getSource("route").setData(this.props.route.geometry);
+    //   // } else {
+    //   //   this.map.getSource("route").setData(this.emptyData);
+    //   // }
 
-      // We have origin and destination but no route yet
-      if (
-        this.props.directionsFrom &&
-        this.props.directionsTo &&
-        this.props.route === null
-      ) {
-        // Do not retry when the previous request errored
-        if (
-          this.props.routeStatus !== "error" &&
-          this.props.routeStatus !== "paused"
-        ) {
-          // Trigger the API call to directions
-          // this.props.getRoute(
-          //   this.props.directionsFrom,
-          //   this.props.directionsTo,
-          //   this.props.modality,
-          //   this.props.accessToken,
-          // );
-        }
-      }
-    }
+    //   // We have origin and destination but no route yet
+    //   // if (
+    //   //   this.props.directionsFrom &&
+    //   //   this.props.directionsTo &&
+    //   //   this.props.route === null
+    //   // ) {
+    //   //   // Do not retry when the previous request errored
+    //   //   if (
+    //   //     this.props.routeStatus !== "error" &&
+    //   //     this.props.routeStatus !== "paused"
+    //   //   ) {
+    //   //     // Trigger the API call to directions
+    //   //     // this.props.getRoute(
+    //   //     //   this.props.directionsFrom,
+    //   //     //   this.props.directionsTo,
+    //   //     //   this.props.modality,
+    //   //     //   this.props.accessToken,
+    //   //     // );
+    //   //   }
+    //   // }
+    // }
 
     if (this.props.needMapRepan) {
       // Search mode
@@ -163,31 +191,31 @@ class MapComponent extends Component {
       }
 
       // Directions mode
-      if (this.props.mode === "directions") {
-        if (this.props.route) {
-          const bbox = turfBbox(this.props.route.geometry);
-          import("../utils/moveTo").then(moveTo => {
-            moveTo.moveTo(this.map, { bbox: bbox });
-          });
-        } else if (this.props.directionsTo && this.props.directionsFrom) {
-          const bbox = turfBbox({
-            type: "FeatureCollection",
-            features: [this.props.directionsFrom, this.props.directionsTo],
-          });
-          import("../utils/moveTo").then(moveTo => {
-            moveTo.moveTo(this.map, { bbox: bbox });
-          });
-        } else {
-          // Whichever exists
-          import("../utils/moveTo").then(moveTo => {
-            moveTo.moveTo(this.map, this.props.directionsTo);
-            moveTo.moveTo(this.map, this.props.directionsFrom);
-          });
-        }
-      }
+      // if (this.props.mode === "directions") {
+      //   if (this.props.route) {
+      //     const bbox = turfBbox(this.props.route.geometry);
+      //     import("../utils/moveTo").then(moveTo => {
+      //       moveTo.moveTo(this.map, { bbox: bbox });
+      //     });
+      //   } else if (this.props.directionsTo && this.props.directionsFrom) {
+      //     const bbox = turfBbox({
+      //       type: "FeatureCollection",
+      //       features: [this.props.directionsFrom, this.props.directionsTo],
+      //     });
+      //     import("../utils/moveTo").then(moveTo => {
+      //       moveTo.moveTo(this.map, { bbox: bbox });
+      //     });
+      //   } else {
+      //     // Whichever exists
+      //     import("../utils/moveTo").then(moveTo => {
+      //       moveTo.moveTo(this.map, this.props.directionsTo);
+      //       moveTo.moveTo(this.map, this.props.directionsFrom);
+      //     });
+      //   }
+      // }
     }
 
-    this.props.setStateValue("needMapUpdate", false);
+    // this.props.setStateValue("needMapUpdate", false);
 
     if (this.props.needMapToggleLayer) {
       this.toggleLayerVisibility(this.props.toggleLayerVisibility);
@@ -210,10 +238,22 @@ class MapComponent extends Component {
       this.filterByDate(this.props.dateFrom, this.props.dateTo);
     }
 
+    // if (this.props.mapTriggerQueryFeature) {
+    //   var filter = { layers: this.selectableLayers, id: this.props.searchLocation.featureId };
+    //   var coords = {"lng":  this.props.searchLocation.geometry.coordinates[0], "lat": this.props.searchLocation.geometry.coordinates[1]};
+
+    //   this.queryFeaturesAndRenderPopup (coords, filter)
+    //   // this.filterStringContain(this.props.filterString);
+    // }
+
+
+    this.props.setStateValue("needMapUpdate", false);
     this.props.setStateValue("needMapToggleLayer", false);
     this.props.setStateValue("needMapFilterByDate", false);
     this.props.setStateValue("needMapFilterString", false);
     this.props.setStateValue("needMapActualizeLanguage", false);
+    // this.props.setStateValue("mapTriggerQueryFeature", false);
+
   }
 
   onMove(e) {
@@ -270,14 +310,25 @@ class MapComponent extends Component {
     this.setState({ isDragging: false, draggedLayer: "", draggedCoords: null });
   }
 
-  onClick(e) {
+  async onClick(e) {
+
+    var filter = { layers: this.selectableLayers };
+    var coords = {"lng":  e.lngLat["lng"], "lat": e.lngLat["lat"]};
+
+    var point = this.map.project(coords);
+
     var bbox = [
-      [e.point.x - 5, e.point.y - 5],
-      [e.point.x + 5, e.point.y + 5],
+      [point.x - 5, point.y - 5],
+      [point.x + 5, point.y + 5],
     ];
-    var features = this.map.queryRenderedFeatures(bbox, {
-      layers: this.selectableLayers,
-    });
+
+    var features = this.map.queryRenderedFeatures(bbox, filter);
+    this.setInfoItemAndRenderPopup (features);
+
+    // this.queryFeaturesAndRenderPopup(coords, filter);
+  };
+
+  setInfoItemAndRenderPopup (features) {
 
     if (features.length) {
       // We have a selected feature
@@ -297,31 +348,21 @@ class MapComponent extends Component {
 
       /*Prepare data for detailInfo*/
       var paintColor = null;
-      if ("paint" in feature.layer) {
-        if (typeof feature.layer.paint["circle-color"] !== "undefined") {
-          paintColor = feature.layer.paint["circle-color"];
-        } else if (typeof feature.layer.paint["text-color"] !== "undefined") {
-          paintColor = feature.layer.paint["text-color"];
+      if (typeof feature.layer !== "undefined") {
+        if ("paint" in feature.layer) {
+          if (typeof feature.layer.paint["circle-color"] !== "undefined") {
+            paintColor = feature.layer.paint["circle-color"];
+          } else if (typeof feature.layer.paint["text-color"] !== "undefined") {
+            paintColor = feature.layer.paint["text-color"];
+          }
         }
+      }
+      else {
+        paintColor = feature.paintColor;
+        feature.layer = feature.layerId;
       }
 
       let place_name = null;
-      // if (feature.properties.name) { place_name = feature.properties.name; }
-      // else if (feature.properties.label) { place_name = feature.properties.label; }
-      // else if (feature.properties.nom_du_musee) { place_name = feature.properties.nom_du_musee; }
-
-      // if (["parcsjardins",
-      //     "localproductshop",
-      //     "craftmanshop",
-      //     "WineCelar",
-      //     "OTFrance",
-      //     "AiresJeux",
-      //     "marches",
-      //     "exposition",
-      //     "musique",
-      //     "children",
-      //     "videsgreniers"].includes(feature.layer.id))
-      // {
       let lng = this.props.languageSet;
       if (lng === "fr") {
         place_name = feature.properties.label_fr;
@@ -330,22 +371,27 @@ class MapComponent extends Component {
           ? feature.properties.label_en
           : feature.properties.label_fr;
       }
-      // }
-      if (["baignades"].includes(feature.layer.id)) {
-        place_name = feature.properties.Adresse;
-      }
-      if (["toilets"].includes(feature.layer.id)) {
-        place_name = "Toilets";
+
+      if (typeof feature.layer !== "undefined") {
+        if (["baignades"].includes(feature.layer.id)) {
+          place_name = feature.properties.Adresse;
+        }
+        if (["toilets"].includes(feature.layer.id)) {
+          place_name = "Toilets";
+        }
       }
 
       let listVueActive = false;
 
       if (features.length > 1) {
         listVueActive = true;
-        this.props.setStateValue("coorOnClick", [
-          e.lngLat["lng"],
-          e.lngLat["lat"],
-        ]);
+        // this.props.setStateValue("coorOnClick",
+        //   [
+        //     coords["lng"],
+        //     coords["lat"],
+        //   ]);
+        this.props.setStateValue("coorOnClick", feature.geometry.coordinates);
+
         this.props.setStateValue("listVueActive", true);
         this.props.setStateValue("listVueItems", features);
       } else {
@@ -371,12 +417,11 @@ class MapComponent extends Component {
           listVueActive: listVueActive,
         });
 
-        this.props.triggerMapUpdate();
+        // this.props.triggerMapUpdate();
         /* take map screenshot */
         this.takeScreenshot(this.map).then((data) => {
           this.props.setStateValue("mapScreenshot", data);
         });
-
       }
     }
   }
@@ -654,10 +699,10 @@ class MapComponent extends Component {
   layerToKey(layer) {
     if (this.props.mode === "search" && layer === "marker")
       return "searchLocation";
-    else if (this.props.mode === "directions" && layer === "marker")
-      return "directionsTo";
-    else if (this.props.mode === "directions" && layer === "fromMarker")
-      return "directionsFrom";
+    // else if (this.props.mode === "directions" && layer === "marker")
+    //   return "directionsTo";
+    // else if (this.props.mode === "directions" && layer === "fromMarker")
+    //   return "directionsFrom";
     else return "";
   }
 
@@ -721,14 +766,15 @@ MapComponent.propTypes = {
   dateFrom: PropTypes.number,
   dateTo: PropTypes.number,
   filterString: PropTypes.string,
-  directionsFrom: PropTypes.object,
-  directionsTo: PropTypes.object,
-  getRoute: PropTypes.func,
+  // directionsFrom: PropTypes.object,
+  // directionsTo: PropTypes.object,
+  // getRoute: PropTypes.func,
   languageSet: PropTypes.string,
   legendItems: PropTypes.array,
   listVueItems: PropTypes.array,
   listVueActive: PropTypes.bool,
   map: PropTypes.object,
+  // mapTriggerQueryFeature: PropTypes.bool,
   modality: PropTypes.string,
   mode: PropTypes.string,
   moveOnLoad: PropTypes.bool,
@@ -766,6 +812,7 @@ const mapStateToProps = (state) => {
     listVueItems: state.app.listVueItems,
     listVueActive: state.app.listVueActive,
     coorOnClick:  state.app.coorOnClick,
+    // mapTriggerQueryFeature: state.app.mapTriggerQueryFeature,
     modality: state.app.modality,
     mode: state.app.mode,
     needMapRepan: state.app.needMapRepan,
@@ -798,11 +845,11 @@ const mapDispatchToProps = (dispatch) => {
     setStateValue: (key, value) => dispatch(setStateValue(key, value)),
     setUserLocation: (coordinates) => dispatch(setUserLocation(coordinates)),
     triggerMapUpdate: (repan) => dispatch(triggerMapUpdate(repan)),
-    resetStateKeys: (keys) => dispatch(resetStateKeys(keys))
+    resetStateKeys: (keys) => dispatch(resetStateKeys(keys)),
   };
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(translate("translations")(MapComponent));
