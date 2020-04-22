@@ -8,10 +8,10 @@ const urlTinkerer = store => next => action => {
   // eslint-disable-line
 
   switch (action.type) {
-    case "SET_STATE_VALUE": {
-      next(action);
+  case "SET_STATE_VALUE": {
+    next(action);
 
-      if(action.key === "infoPopup"){
+    if(action.key === "infoPopup"){
       let actionPayload = getActionPayload(action.key, action.value);
       const url = updateUrlWithPayload(
         store.getState().router.location.pathname,
@@ -26,16 +26,42 @@ const urlTinkerer = store => next => action => {
           }
         });
       }}
-      break;
+    break;
+  }
+
+  case "SET_STATE_VALUES": {
+    next(action);
+    let url = store.getState().router.location.pathname;
+    Object.keys(action.modifiedState).forEach(k => {
+      let actionPayload = getActionPayload(k, action.modifiedState[k]);
+      url = updateUrlWithPayload(url, actionPayload);
+    });
+    if (store.getState().router.location.pathname !== url) {
+      next({
+        type: CALL_HISTORY_METHOD,
+        payload: {
+          method: "replace",
+          args: [url]
+        }
+      });
     }
 
-    case "SET_STATE_VALUES": {
-      next(action);
-      let url = store.getState().router.location.pathname;
-      Object.keys(action.modifiedState).forEach(k => {
-        let actionPayload = getActionPayload(k, action.modifiedState[k]);
-        url = updateUrlWithPayload(url, actionPayload);
-      });
+    break;
+  }
+
+  case "RESET_STATE_KEYS": {
+    next(action);
+
+    if (action.keys.indexOf("searchLocation") > -1) {
+      let url = updateUrlWithPayload(
+        store.getState().router.location.pathname,
+        {
+          searchCoords: null,
+          searchPlace: null,
+          featureId: null
+        }
+      );
+
       if (store.getState().router.location.pathname !== url) {
         next({
           type: CALL_HISTORY_METHOD,
@@ -45,128 +71,102 @@ const urlTinkerer = store => next => action => {
           }
         });
       }
-
-      break;
     }
+    break;
+  }
 
-    case "RESET_STATE_KEYS": {
-      next(action);
+  case "SET_STATE_FROM_URL": {
+    let url = store.getState().router.location.pathname;
+    const params = parseUrl(url);
+    if (params.searchCoords) {
+      if(typeof params.featureId !== "undefined") {
+        requestFeatureFromId(params.featureId).then(
+          resultFeature => nextActionsSetStateFromURL(resultFeature, next)
 
-      if (action.keys.indexOf("searchLocation") > -1) {
-        let url = updateUrlWithPayload(
-          store.getState().router.location.pathname,
-          {
-            searchCoords: null,
-            searchPlace: null,
-            featureId: null
-          }
         );
-
-        if (store.getState().router.location.pathname !== url) {
-          next({
-            type: CALL_HISTORY_METHOD,
-            payload: {
-              method: "replace",
-              args: [url]
-            }
-          });
-        }
       }
-      break;
-    }
-
-    case "SET_STATE_FROM_URL": {
-      let url = store.getState().router.location.pathname;
-      const params = parseUrl(url);
-      if (params.searchCoords) {
-        if(typeof params.featureId !== 'undefined') {
-          requestFeatureFromId(params.featureId).then(
-              resultFeature => nextActionsSetStateFromURL(resultFeature, next)
-
-            )
-          }
-          else {
-            const feature = {
-              type: "Feature",
-              place_name: params.searchPlace,
-              geometry: {
-                type: "Point",
-                coordinates: params.searchCoords
-              },
-            };
-            nextActionsSetStateFromURL(feature, next);
-          }
+      else {
+        const feature = {
+          type: "Feature",
+          place_name: params.searchPlace,
+          geometry: {
+            type: "Point",
+            coordinates: params.searchCoords
+          },
+        };
+        nextActionsSetStateFromURL(feature, next);
       }
-      break;
     }
+    break;
+  }
 
-    default:
-      next(action); // let through as default
-      break;
+  default:
+    next(action); // let through as default
+    break;
   }
 };
 
 async function requestFeatureFromId(featureId) {
-    var url = "http://localhost:8000/api/getFeatureByPropertyID/010300674"// + params.featureId
-    if (process.env.NODE_ENV === "production") {
-      url = "/current/public/api/getFeatureByPropertyID/";
-    } else {
-      url = process.env.REACT_APP_API_ENTRYPOINT + "/api/getFeatureByPropertyID/";
-    }
-    url = url + "010300674";//featureId;
-    try {
-      let axiosResult = await axios({
-            url: url,
-            method: 'get',
-            timeout: 8000,
-            headers: {
-                'Content-Type': 'application/json',
-            }
-          })
-      if(axiosResult.status === 200) {
-        // handle success
-        console.log(axiosResult);
-
-        var featureResult = axiosResult.data;
-        var layerIndex = parseInt(featureResult.feature_id.substring(2, 4));
-        var layerKey = layersArray[layerIndex];
-        var sourceLayer = layerSelector[layerKey].source;
-        featureResult.paintColor = displayColors[layersArray[layerIndex]];
-        featureResult.layerId = sourceLayer;
-        // console.log(featureResult);
+  var url = "http://localhost:8000/api/getFeatureByPropertyID/010300674";// + params.featureId
+  if (process.env.NODE_ENV === "production") {
+    url = "/current/public/api/getFeatureByPropertyID/";
+  } else {
+    url = process.env.REACT_APP_API_ENTRYPOINT + "/api/getFeatureByPropertyID/";
+  }
+  url = url + "010300674";//featureId;
+  try {
+    let axiosResult = await axios({
+      url: url,
+      method: "get",
+      timeout: 8000,
+      headers: {
+        "Content-Type": "application/json",
       }
-      return featureResult;
+    });
+    if(axiosResult.status === 200) {
+      // handle success
+      console.log(axiosResult);
+
+      var featureResult = axiosResult.data;
+      var layerIndex = parseInt(featureResult.feature_id.substring(2, 4));
+      var layerKey = layersArray[layerIndex];
+      var sourceLayer = layerSelector[layerKey].source;
+      featureResult.paintColor = displayColors[layersArray[layerIndex]];
+      featureResult.layerId = sourceLayer;
+      // console.log(featureResult);
     }
-      catch(error) {
-        // handle error
-        console.log(error);
-      };
+    return featureResult;
   }
+  catch(error) {
+    // handle error
+    console.log(error);
+  };
+}
 
-  function nextActionsSetStateFromURL(feature, next) {
+function nextActionsSetStateFromURL(feature, next) {
 
-    if(typeof feature === 'undefined'){
-      return
-    }
-    next({
-      type: "SET_STATE_VALUES",
-      modifiedState: {
-        searchLocation: feature,
-        infoPopup: feature,
-        needMapRepan: true,
-        mapCoords: feature.geometry.coordinates.concat([13]),
-        // featureId: params.featureId
-      },
-    });
-    next({
-      type: "GET_PLACE_INFO",
-      feature
-    });
-    next({
-      type: "TRIGGER_MAP_UPDATE",
+  if(typeof feature === "undefined"){
+    return;
+  }
+  next({
+    type: "SET_STATE_VALUES",
+    modifiedState: {
+      searchLocation: feature,
+      infoPopup: feature,
       needMapRepan: true,
-    });
-  }
+      mapCoords: feature.geometry.coordinates.concat([13]),
+      // featureId: params.featureId
+    },
+  });
+  next({
+    type: "GET_PLACE_INFO",
+    feature
+  });
+  next({
+    type: "TRIGGER_MAP_UPDATE",
+    needMapRepan: true,
+  });
+}
 
 
 function getActionPayload(key, value) {

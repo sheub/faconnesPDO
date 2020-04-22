@@ -98,32 +98,32 @@ class MapComponent extends Component {
             .getSource("marker")
             .setData(this.props.searchLocation.geometry);
 
-            // if featureId set => query feature and set infoItem
-            // if (typeof this.props.searchLocation.featureId !== "undefined") {
-            //   var sourceId = "localEvents";
-            //   // get source layer from featureId
-            //   var layerIndex = parseInt(this.props.searchLocation.featureId.substring(2, 3));
-            //   var layerKey = layersArray[layerIndex];
-            //   var sourceLayer = layerSelector[layerKey].source
+          // if featureId set => query feature and set infoItem
+          // if (typeof this.props.searchLocation.featureId !== "undefined") {
+          //   var sourceId = "localEvents";
+          //   // get source layer from featureId
+          //   var layerIndex = parseInt(this.props.searchLocation.featureId.substring(2, 3));
+          //   var layerKey = layersArray[layerIndex];
+          //   var sourceLayer = layerSelector[layerKey].source
 
-            //   // var relatedFeatures = map.querySourceFeatures('counties', {
-            //   //   sourceLayer: 'original',
-            //   //   filter: ['in', 'COUNTY', feature.properties.COUNTY]
-            //   //   });
+          //   // var relatedFeatures = map.querySourceFeatures('counties', {
+          //   //   sourceLayer: 'original',
+          //   //   filter: ['in', 'COUNTY', feature.properties.COUNTY]
+          //   //   });
 
-            //   // filter.sourceLayer = "videsgreniers";
-            //   // Find all features in one source layer in a vector source
-            //   var features = null;
-            //   features = this.map.querySourceFeatures(sourceId, {
-            //     sourceLayer: sourceLayer,
-            //     filter: ['==', '$id', this.props.searchLocation.featureId],
-            //   });
-            //   if (features.length) {
-            //     features[0].paintColor = displayColors[layersArray[layerIndex]];
-            //     features[0].layerId = sourceLayer;
-            //     this.setInfoItemAndRenderPopup(features);
-            //   }
-            // }
+          //   // filter.sourceLayer = "videsgreniers";
+          //   // Find all features in one source layer in a vector source
+          //   var features = null;
+          //   features = this.map.querySourceFeatures(sourceId, {
+          //     sourceLayer: sourceLayer,
+          //     filter: ['==', '$id', this.props.searchLocation.featureId],
+          //   });
+          //   if (features.length) {
+          //     features[0].paintColor = displayColors[layersArray[layerIndex]];
+          //     features[0].layerId = sourceLayer;
+          //     this.setInfoItemAndRenderPopup(features);
+          //   }
+          // }
         }
       } else {
         this.map.getSource("marker").setData(this.emptyData);
@@ -304,7 +304,7 @@ class MapComponent extends Component {
   async onClick(e) {
 
     var filter = { layers: this.selectableLayers };
-    var coords = {"lng":  e.lngLat["lng"], "lat": e.lngLat["lat"]};
+    var coords = {lng:  e.lngLat["lng"], lat: e.lngLat["lat"]};
 
     var point = this.map.project(coords);
 
