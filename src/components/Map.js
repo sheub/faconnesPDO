@@ -238,21 +238,12 @@ class MapComponent extends Component {
       this.filterByDate(this.props.dateFrom, this.props.dateTo);
     }
 
-    // if (this.props.mapTriggerQueryFeature) {
-    //   var filter = { layers: this.selectableLayers, id: this.props.searchLocation.featureId };
-    //   var coords = {"lng":  this.props.searchLocation.geometry.coordinates[0], "lat": this.props.searchLocation.geometry.coordinates[1]};
-
-    //   this.queryFeaturesAndRenderPopup (coords, filter)
-    //   // this.filterStringContain(this.props.filterString);
-    // }
-
 
     this.props.setStateValue("needMapUpdate", false);
     this.props.setStateValue("needMapToggleLayer", false);
     this.props.setStateValue("needMapFilterByDate", false);
     this.props.setStateValue("needMapFilterString", false);
     this.props.setStateValue("needMapActualizeLanguage", false);
-    // this.props.setStateValue("mapTriggerQueryFeature", false);
 
   }
 
@@ -330,6 +321,9 @@ class MapComponent extends Component {
 
   setInfoItemAndRenderPopup (features) {
 
+    if(!features.length){
+      return;
+    }
     if (features.length) {
       // We have a selected feature
       var feature = features[0];
@@ -383,6 +377,7 @@ class MapComponent extends Component {
 
       let listVueActive = false;
 
+      // if more than one feature
       if (features.length > 1) {
         listVueActive = true;
         // this.props.setStateValue("coorOnClick",
@@ -391,7 +386,6 @@ class MapComponent extends Component {
         //     coords["lat"],
         //   ]);
         this.props.setStateValue("coorOnClick", feature.geometry.coordinates);
-
         this.props.setStateValue("listVueActive", true);
         this.props.setStateValue("listVueItems", features);
       } else {
@@ -402,8 +396,12 @@ class MapComponent extends Component {
 
       let infoItem = this.setInfoItem(place_name, feature, paintColor, listVueActive);
       this.props.setStateValue("infoPopup", infoItem);
+      this.props.setStateValue("popupActive", true);
 
-      /**Call setStateValue */
+      /**Call setStateValue
+       * @todo: check if the popupActive: true, listVueActive: listVueActive
+       * are really necessary here because they are not part of searchLocaltion
+       * */
       if (place_name) {
         this.props.setStateValue("searchLocation", {
           type: "Feature",
@@ -417,7 +415,7 @@ class MapComponent extends Component {
           listVueActive: listVueActive,
         });
 
-        // this.props.triggerMapUpdate();
+        this.props.triggerMapUpdate();
         /* take map screenshot */
         this.takeScreenshot(this.map).then((data) => {
           this.props.setStateValue("mapScreenshot", data);
@@ -774,7 +772,6 @@ MapComponent.propTypes = {
   listVueItems: PropTypes.array,
   listVueActive: PropTypes.bool,
   map: PropTypes.object,
-  // mapTriggerQueryFeature: PropTypes.bool,
   modality: PropTypes.string,
   mode: PropTypes.string,
   moveOnLoad: PropTypes.bool,
@@ -812,7 +809,6 @@ const mapStateToProps = (state) => {
     listVueItems: state.app.listVueItems,
     listVueActive: state.app.listVueActive,
     coorOnClick:  state.app.coorOnClick,
-    // mapTriggerQueryFeature: state.app.mapTriggerQueryFeature,
     modality: state.app.modality,
     mode: state.app.mode,
     needMapRepan: state.app.needMapRepan,

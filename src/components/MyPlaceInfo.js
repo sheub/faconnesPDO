@@ -165,10 +165,10 @@ class MyPlaceInfo extends Component {
     this.setState({ popupActive: true });
   }
 
-  componentWillReceiveProps(props) {
-    this.setState({ infoPopup: props.infoPopup });
-    this.setState({ popupActive: props.isActive });
-  }
+  // componentWillReceiveProps(props) {
+  //   // this.setState({ infoPopup: props.infoPopup });
+  //   // this.setState({ popupActive: props.isActive });
+  // }
 
   render() {
     const { t } = this.props;
@@ -181,9 +181,9 @@ class MyPlaceInfo extends Component {
     }
 
     let popupActive = this.state.popupActive;
-    const layerId = this.state.infoPopup.layerId;
-    const paintColor = this.state.infoPopup.paintColor;
-    let listVueActive = this.state.infoPopup.listVueActive;
+    const layerId = this.props.infoPopup.layerId;
+    const paintColor = this.props.infoPopup.paintColor;
+    let listVueActive = this.props.infoPopup.listVueActive;
 
     // move the popup on the left if the list is display
     let stylePop = listVueActive
@@ -197,13 +197,13 @@ class MyPlaceInfo extends Component {
       stylePop = { maxHeight: heightWin, left: 0, top: topPos, zIndex: 2 };
     }
 
-    // use zIndex: -1 to hide the infowindow behind the map intead of norender
+    // use zIndex: -1 to hide the infowindow behind the map instead of norender
     // otherwize the infowindow invisible but is still there and catch all mouse action
     if (!popupActive) {
       stylePop = { zIndex: -1 };
     }
 
-    let info = this.state.infoPopup.properties;
+    let info = this.props.infoPopup.properties;
 
     if (
       [
@@ -449,7 +449,7 @@ class MyPlaceInfo extends Component {
                 ) : null}
               </div>
             </div>
-            <AddToMyPlaces info={this.state.infoPopup} />
+            <AddToMyPlaces info={this.props.infoPopup} />
             <RenderLastUpdate props={this.props} />
           </div>
         </div>
@@ -476,7 +476,7 @@ class MyPlaceInfo extends Component {
                 </IconButton>
               </div>
             </div>
-            <AddToMyPlaces info={this.state.infoPopup} />
+            <AddToMyPlaces info={this.props.infoPopup} />
           </div>
         </div>
       );
@@ -503,7 +503,7 @@ class MyPlaceInfo extends Component {
                 </IconButton>
               </div>
             </div>
-            <AddToMyPlaces info={this.state.infoPopup} />
+            <AddToMyPlaces info={this.props.infoPopup} />
           </div>
         </div>
       );
@@ -640,16 +640,16 @@ class MyPlaceInfo extends Component {
 
   get styles() {
     return {
-      directionsIcon:
-        "bg-white hmin42 wmin42 hmin48-mm wmin48-mm hmax42 wmax42 hmax48-mm wmax48-mm m6 m12-mm round-full shadow-darken10 cursor-pointer flex-parent flex-parent--center-main flex-parent--center-cross",
+      // directionsIcon:
+      //   "bg-white hmin42 wmin42 hmin48-mm wmin48-mm hmax42 wmax42 hmax48-mm wmax48-mm m6 m12-mm round-full shadow-darken10 cursor-pointer flex-parent flex-parent--center-main flex-parent--center-cross",
       icon:
         "flex-parent flex-parent--center-cross flex-parent--center-main w42 h42",
-      infoRow:
-        "h24 h36-mm py6 pr12 flex-parent flex-parent--row flex-parent--center-cross",
-      mainInfo:
-        "p6 flex-child flex-child--grow flex-parent flex-parent--column flex-parent--center-main",
-      placeInfo:
-        "place-info absolute top bg-white w-full w420-mm shadow-darken25 flex-parent flex-parent--column",
+      // infoRow:
+      //   "h24 h36-mm py6 pr12 flex-parent flex-parent--row flex-parent--center-cross",
+      // mainInfo:
+      //   "p6 flex-child flex-child--grow flex-parent flex-parent--column flex-parent--center-main",
+      // placeInfo:
+      //   "place-info absolute top bg-white w-full w420-mm shadow-darken25 flex-parent flex-parent--column",
     };
   }
 }
@@ -657,6 +657,7 @@ class MyPlaceInfo extends Component {
 MyPlaceInfo.propTypes = {
   infoPopup: PropTypes.object,
   languageSet: PropTypes.string,
+  popupActive: PropTypes.bool,
 };
 
 const mapStateToProps = state => {

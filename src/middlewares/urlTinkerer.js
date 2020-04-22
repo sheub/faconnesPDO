@@ -81,11 +81,9 @@ const urlTinkerer = store => next => action => {
       if (params.searchCoords) {
         if(typeof params.featureId !== 'undefined') {
           requestFeatureFromId(params.featureId).then(
-            resultFeature => nextActionsSetStateFromURL(resultFeature, next)
+              resultFeature => nextActionsSetStateFromURL(resultFeature, next)
 
             )
-          //  var resultFeature = requestFeatureFromId(params.featureId);
-          //  console.log(resultFeature);
           }
           else {
             const feature = {
@@ -110,6 +108,12 @@ const urlTinkerer = store => next => action => {
 
 async function requestFeatureFromId(featureId) {
     var url = "http://localhost:8000/api/getFeatureByPropertyID/010300674"// + params.featureId
+    if (process.env.NODE_ENV === "production") {
+      url = "/current/public/api/getFeatureByPropertyID/";
+    } else {
+      url = process.env.REACT_APP_API_ENTRYPOINT + "/api/getFeatureByPropertyID/";
+    }
+    url = url + "010300674";//featureId;
     try {
       let axiosResult = await axios({
             url: url,
@@ -141,6 +145,9 @@ async function requestFeatureFromId(featureId) {
 
   function nextActionsSetStateFromURL(feature, next) {
 
+    if(typeof feature === 'undefined'){
+      return
+    }
     next({
       type: "SET_STATE_VALUES",
       modifiedState: {
