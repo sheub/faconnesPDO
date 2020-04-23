@@ -109,11 +109,11 @@ const urlTinkerer = store => next => action => {
 async function requestFeatureFromId(featureId) {
   var url = "http://localhost:8000/api/getFeatureByPropertyID/010300674";// + params.featureId
   if (process.env.NODE_ENV === "production") {
-    url = "/current/public/api/getFeatureByPropertyID/";
+    url = "/current/public/api/getFeatureByPropertyID/" + featureId;
   } else {
-    url = process.env.REACT_APP_API_ENTRYPOINT + "/api/getFeatureByPropertyID/";
+    url = process.env.REACT_APP_API_ENTRYPOINT + "/api/getFeatureByPropertyID/" + "010300674";
   }
-  url = url + "010300674";//featureId;
+
   try {
     let axiosResult = await axios({
       url: url,
@@ -125,7 +125,7 @@ async function requestFeatureFromId(featureId) {
     });
     if(axiosResult.status === 200) {
       // handle success
-      console.log(axiosResult);
+      // console.log(axiosResult);
 
       var featureResult = axiosResult.data;
       var layerIndex = parseInt(featureResult.feature_id.substring(2, 4));
@@ -133,7 +133,6 @@ async function requestFeatureFromId(featureId) {
       var sourceLayer = layerSelector[layerKey].source;
       featureResult.paintColor = displayColors[layersArray[layerIndex]];
       featureResult.layerId = sourceLayer;
-      // console.log(featureResult);
     }
     return featureResult;
   }

@@ -31,7 +31,7 @@ class AddToMyPlaces extends Component {
 
     var url = "http://localhost:8000/api/storeImage/";
     if (process.env.NODE_ENV === "production") {
-      url = "/current/public/api/storeImage/";
+      url = "https://faconnes.de/current/public/api/storeImage/";
     } else {
       url = process.env.REACT_APP_API_ENTRYPOINT + "/api/storeImage/";
     }
