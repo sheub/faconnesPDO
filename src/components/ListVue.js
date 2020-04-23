@@ -86,6 +86,7 @@ class ListVue extends React.Component {
       infoItem.paintColor = this.props.listVueItems[index].layer.paint["circle-color"];
       infoItem.place_name = this.props.listVueItems[index].properties.label_fr;
       infoItem.popupActive = true;
+      infoItem.featureId = this.props.listVueItems[index].id;
 
       this.props.setStateValue("infoPopup", infoItem);
 
@@ -98,6 +99,7 @@ class ListVue extends React.Component {
         geometry: infoItem.geometry,
         layerId: infoItem.layerId,
         paintColor: infoItem.paintColor,
+        featureId: infoItem.featureId,
         popupActive: true,
         listVueActive: true
       });

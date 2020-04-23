@@ -101,7 +101,6 @@ function doTheRest(initialState, initialAuthState, localStorage)
                       headers: {
                         "Content-Type": "application/json;charset=UTF-8",
                         Authorization: `Bearer ${token}`
-
                       },
                     });
                     return Promise.resolve(data);

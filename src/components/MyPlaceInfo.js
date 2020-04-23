@@ -180,7 +180,7 @@ class MyPlaceInfo extends Component {
       return null;
     }
 
-    let popupActive = this.state.popupActive;
+    let popupActive = (this.props.infoPopup.popupActive && this.state.popupActive);
     const layerId = this.props.infoPopup.layerId;
     const paintColor = this.props.infoPopup.paintColor;
     let listVueActive = this.props.infoPopup.listVueActive;

@@ -6,6 +6,9 @@ import { translate } from "react-i18next";
 import AddLocationIcon from "@material-ui/icons/AddLocation";
 import Tooltip from "@material-ui/core/Tooltip";
 import isEqual from "lodash/isEqual";
+import axios from "axios";
+import { getToken } from "../helpers/auth";
+
 
 class AddToMyPlaces extends Component {
   constructor(props) {
@@ -19,12 +22,59 @@ class AddToMyPlaces extends Component {
     };
   }
 
-  handleClickAddLocation = () => {
-    var image = this.props.info.properties.thumbnail
-      ? this.props.info.properties.thumbnail
-      : this.props.mapScreenshot; // eslint-disable-line max-len
+  async uploadMapScreeshot () {
+    // var image = this.props.info.properties.thumbnail
+    //   ? this.props.info.properties.thumbnail
+    //   : this.props.mapScreenshot; // eslint-disable-line max-len
 
-    this.props.info.properties.thumbnail = image;
+    this.props.info.properties.thumbnail = await this.props.mapScreenshot;
+
+    var url = "http://localhost:8000/api/storeImage/";
+    if (process.env.NODE_ENV === "production") {
+      url = "/current/public/api/storeImage/";
+    } else {
+      url = process.env.REACT_APP_API_ENTRYPOINT + "/api/storeImage/";
+    }
+
+    try {
+      var token = await getToken();
+
+
+      const axiosResult = await axios({
+        method: "post",
+        url: url,
+        data:
+        {
+          feature: this.props.info
+        },
+        headers: {
+          "Content-Type": "application/json;charset=UTF-8",
+          Authorization: `Bearer ${token}`
+        },
+      });
+      // if(axiosResult.status === 200) {
+      //   // handle success
+      //   console.log(axiosResult);
+      //   var featureResult = axiosResult.data;
+
+      // }
+      // console.log(axiosResult.data);
+      return axiosResult.data;
+    }
+    catch(error) {
+      // handle error
+      console.log(error);
+      return error;
+    };
+
+  };
+
+  handleClickAddLocation = async () => {
+    // var image = this.props.info.properties.thumbnail
+    //   ? this.props.info.properties.thumbnail
+    //   : this.props.mapScreenshot; // eslint-disable-line max-len
+
+    // this.props.info.properties.thumbnail = image;
 
     var infoPlace = {
       properties: this.props.info.properties,
@@ -35,6 +85,18 @@ class AddToMyPlaces extends Component {
 
     // Check if already in Favorites before adding new POI/Event
     if (!this.state.userFavoritePlaces.some(e => isEqual(e, infoPlace))) {
+      var uploadResult = await this.uploadMapScreeshot();
+      var url = "http://localhost:8000/stored-screenshots/";
+      if (process.env.NODE_ENV === "production") {
+        url = "/current/public/stored-screenshots/";
+      } else {
+        url = process.env.REACT_APP_API_ENTRYPOINT + "/stored-screenshots/";
+      }
+
+      // console.log(uploadResult);
+      // set image upload url into thumbnail
+      infoPlace.properties.thumbnail = url + uploadResult.image_path;
+
       this.state.userFavoritePlaces.push(infoPlace);
     }
   };
