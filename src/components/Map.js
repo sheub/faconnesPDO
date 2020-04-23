@@ -488,6 +488,7 @@ class MapComponent extends Component {
 
       let listVueActive = false;
 
+      // if more than one feature onClick
       if (features.length > 1) {
         listVueActive = true;
         this.props.setStateValue("coorOnClick", [
@@ -503,6 +504,8 @@ class MapComponent extends Component {
 
       let infoItem = this.setInfoItem(place_name, feature, paintColor, listVueActive);
       this.props.setStateValue("infoPopup", infoItem);
+      this.props.setStateValue("searchLocation", infoItem);
+      this.props.setStateValue("popupActive", true);
     }
   }
 
@@ -818,6 +821,7 @@ const mapStateToProps = (state) => {
     needMapFilterString: state.app.needMapFilterString,
     needMapString: state.app.needMapString,
     needMapUpdate: state.app.needMapUpdate,
+    popupActive: state.app.popupActive,
     // route: state.app.route,
     // routeStatus: state.app.routeStatus,
     searchLocation: state.app.searchLocation,

@@ -159,6 +159,7 @@ class MyPlaceInfo extends Component {
 
   hidePopup() {
     this.setState({ popupActive: false });
+    this.props.infoPopup.popupActive = false;
   }
 
   displayPopup() {
@@ -180,7 +181,7 @@ class MyPlaceInfo extends Component {
       return null;
     }
 
-    let popupActive = (this.props.infoPopup.popupActive && this.state.popupActive);
+    let popupActive = (this.props.infoPopup.popupActive);
     const layerId = this.props.infoPopup.layerId;
     const paintColor = this.props.infoPopup.paintColor;
     let listVueActive = this.props.infoPopup.listVueActive;
@@ -201,6 +202,7 @@ class MyPlaceInfo extends Component {
     // otherwize the infowindow invisible but is still there and catch all mouse action
     if (!popupActive) {
       stylePop = { zIndex: -1 };
+      return null;
     }
 
     let info = this.props.infoPopup.properties;
@@ -663,6 +665,7 @@ MyPlaceInfo.propTypes = {
 const mapStateToProps = state => {
   return {
     infoPopup: state.app.infoPopup,
+    popupActive: state.app.popupActive
   };
 };
 
