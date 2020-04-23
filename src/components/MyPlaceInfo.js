@@ -663,4 +663,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-  )(translate("translations")(MyPlaceInfo));
+)(translate("translations")(MyPlaceInfo));

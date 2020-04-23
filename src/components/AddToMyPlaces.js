@@ -38,8 +38,6 @@ class AddToMyPlaces extends Component {
 
     try {
       var token = await getToken();
-
-
       const axiosResult = await axios({
         method: "post",
         url: url,

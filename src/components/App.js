@@ -42,9 +42,9 @@ class App extends Component {
                   <Directions />
                 </React.Suspense>
               ) : ( */}
-                <React.Suspense fallback={<div> Loading Search...</div>}>
-                  <Search />
-                </React.Suspense>
+              <React.Suspense fallback={<div> Loading Search...</div>}>
+                <Search />
+              </React.Suspense>
               {/* )} */}
               {this.props.searchLocation &&
               this.props.searchLocation.properties ? (
