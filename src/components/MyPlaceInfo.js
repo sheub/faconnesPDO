@@ -9,6 +9,11 @@ import AddToMyPlaces from "./AddToMyPlaces";
 import "./fonts/Caslon/ACaslonPro-Bold.otf";
 import "./PopupInfo.css";
 
+import {
+  setStateValue,
+  resetStateKeys
+} from "../actions/index";
+
 function HomeIcon(props) {
   return (
     <SvgIcon {...props}>
@@ -18,7 +23,8 @@ function HomeIcon(props) {
 }
 
 function RenderUrl(props) {
-  const { t, info } = props.props;
+  const { t, infoPopup } = props.props;
+  const info = infoPopup;
 
   var link = null;
   // layer museesFrance
@@ -75,8 +81,9 @@ function RenderAddress(props) {
   );
 }
 function RenderDateTime(props) {
-  const { t, info } = props.props;
+  const { t, infoPopup } = props.props;
   const lng = props.props.i18n.language;
+  const info = infoPopup;
 
   if (info.properties.valid_from) {
     let eventStart = new Date(info.properties.valid_from);
@@ -120,9 +127,9 @@ function RenderDateTime(props) {
   return null;
 }
 function RenderLastUpdate(props) {
-  const { t, info } = props.props;
+  const { t, infoPopup } = props.props;
   const lng = props.props.i18n.language;
-
+  const info = infoPopup;
   if (info.properties.last_update) {
     let lastUpdate = new Date(info.properties.last_update);
 
@@ -148,40 +155,15 @@ function RenderLastUpdate(props) {
 // }
 
 class MyPlaceInfo extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      popupActive: this.props.isActive,
-      infoPopup: this.props.info,
-    };
-  }
 
   hidePopup() {
-    this.setState({ popupActive: false });
-    this.props.infoPopup.popupActive = false;
+    this.props.setStateValue("popupActive", false);
   }
-
-  displayPopup() {
-    this.setState({ popupActive: true });
-  }
-
-  // componentWillReceiveProps(props) {
-  //   // this.setState({ infoPopup: props.infoPopup });
-  //   // this.setState({ popupActive: props.isActive });
-  // }
 
   render() {
-    const { t } = this.props;
+    const { t, popupActive } = this.props;
 
-    if (
-      typeof this.state.infoPopup === "undefined" ||
-      this.state.infoPopup === null
-    ) {
-      return null;
-    }
-
-    let popupActive = (this.props.infoPopup.popupActive);
+    //  let popupActive = this.props.popupActive;
     const layerId = this.props.infoPopup.layerId;
     const paintColor = this.props.infoPopup.paintColor;
     let listVueActive = this.props.infoPopup.listVueActive;
@@ -199,7 +181,7 @@ class MyPlaceInfo extends Component {
     }
 
     // use zIndex: -1 to hide the infowindow behind the map instead of norender
-    // otherwize the infowindow invisible but is still there and catch all mouse action
+    // otherwize the infowindow invisible but is still there and catch all mouse actions
     if (!popupActive) {
       stylePop = { zIndex: -1 };
       return null;
@@ -608,7 +590,6 @@ class MyPlaceInfo extends Component {
 
     // Case: geocoder result
     if (info && this.props.info.geometry) {
-      // popupActive = this.props.isActive;
       return (
         <div>
           <div className="mapboxgl-popupup popPupStyle" style={stylePop}>
@@ -669,4 +650,17 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(translate("translations")(MyPlaceInfo));
+const mapDispatchToProps = (dispatch) => {
+  return {
+    // getRoute: (directionsFrom, directionsTo, modality, accessToken) => dispatch(getRoute(directionsFrom, directionsTo, modality, accessToken)),
+    setStateValue: (key, value) => dispatch(setStateValue(key, value)),
+    // setUserLocation: (coordinates) => dispatch(setUserLocation(coordinates)),
+    // triggerMapUpdate: (repan) => dispatch(triggerMapUpdate(repan)),
+    resetStateKeys: (keys) => dispatch(resetStateKeys(keys)),
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+  )(translate("translations")(MyPlaceInfo));

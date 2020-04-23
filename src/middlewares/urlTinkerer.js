@@ -155,6 +155,7 @@ function nextActionsSetStateFromURL(feature, next) {
       infoPopup: feature,
       needMapRepan: true,
       mapCoords: feature.geometry.coordinates.concat([13]),
+      popupActive: true,
       // featureId: params.featureId
     },
   });

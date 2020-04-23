@@ -411,7 +411,7 @@ class MapComponent extends Component {
           layerId: feature.layer.id,
           featureId: feature.id,
           paintColor: paintColor,
-          popupActive: true,
+          // popupActive: true,
           listVueActive: listVueActive,
         });
 
@@ -518,7 +518,7 @@ class MapComponent extends Component {
     infoItem.featureId = feature.id;
     infoItem.paintColor = paintColor;
     infoItem.listVueActive = listVueActive;
-    infoItem.popupActive = true;
+    // infoItem.popupActive = true;
 
     return infoItem;
   }

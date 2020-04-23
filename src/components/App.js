@@ -49,10 +49,7 @@ class App extends Component {
               {this.props.searchLocation &&
               this.props.searchLocation.properties ? (
                   <React.Suspense fallback={<div> </div>}>
-                    <MyPlaceInfo
-                      info={this.props.searchLocation}
-                      isActive={true}
-                    />
+                    <MyPlaceInfo/>
                   </React.Suspense>
                 ) : null}
 

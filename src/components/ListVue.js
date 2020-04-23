@@ -85,7 +85,7 @@ class ListVue extends React.Component {
       infoItem.listVueActive = true;
       infoItem.paintColor = this.props.listVueItems[index].layer.paint["circle-color"];
       infoItem.place_name = this.props.listVueItems[index].properties.label_fr;
-      infoItem.popupActive = true;
+      // infoItem.popupActive = true;
       infoItem.featureId = this.props.listVueItems[index].id;
 
       this.props.setStateValue("infoPopup", infoItem);
