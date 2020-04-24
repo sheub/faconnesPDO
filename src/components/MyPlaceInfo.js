@@ -336,7 +336,7 @@ class MyPlaceInfo extends Component {
                   ) : null}
               </div>
             </div>
-            <AddToMyPlaces info={this.state.infoPopup} />
+            <AddToMyPlaces info={this.props.infoPopup} />
           </div>
         </div>
       );
@@ -386,7 +386,7 @@ class MyPlaceInfo extends Component {
               </div>
             </div>
           </div>
-          <AddToMyPlaces info={this.state.infoPopup} />
+          <AddToMyPlaces info={this.props.infoPopup} />
         </div>
       );
     }
