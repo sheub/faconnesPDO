@@ -152,6 +152,7 @@ class Geocoder extends Component {
       });
     }
   }
+
   getColorLayer(property_id) {
     // get layerindex and return corresponding layerColor
     if(typeof property_id === 'undefined')

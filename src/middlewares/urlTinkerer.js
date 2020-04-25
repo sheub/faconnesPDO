@@ -109,9 +109,9 @@ const urlTinkerer = store => next => action => {
 async function requestFeatureFromId(featureId) {
   var url = "http://localhost:8000/api/getFeatureByPropertyID/010300674";// + params.featureId
   if (process.env.NODE_ENV === "production") {
-    url = "/current/public/api/getFeatureByPropertyID/" + featureId;
+    url = "/current/public/api/getFeatureByPropertyID/" + featureId.toString().padStart(9, "0");
   } else {
-    url = process.env.REACT_APP_API_ENTRYPOINT + "/api/getFeatureByPropertyID/" + "010300674";
+    url = process.env.REACT_APP_API_ENTRYPOINT + "/api/getFeatureByPropertyID/010300674";
   }
 
   try {
@@ -203,17 +203,20 @@ function parseUrl(url) {
   splits.forEach(s => {
     if (s.startsWith("@")) {
       // Parse coords, noted with an @.
-      props.coords = s
-        .slice(1)
-        .split(",")
-        .map(Number);
-    } else if (s.startsWith("+")) {
-      // Parse search coords, noted with a +.
       props.searchCoords = s
         .slice(1)
         .split(",")
         .map(Number);
-    } else if (s.startsWith("~")) {
+    }
+    // the sign + breaks the htaccess
+    //  else if (s.startsWith("+")) {
+    //   // Parse search coords, noted with a +.
+    //   props.searchCoords = s
+    //     .slice(1)
+    //     .split(",")
+    //     .map(Number);
+    // }
+    else if (s.startsWith("~")) {
       // Parse search place name, noted with a ~.
       props.searchPlace = decodeURI(s.slice(1));
     // } else if (s.startsWith("$")) {
@@ -236,12 +239,12 @@ function toUrl(props) {
         [
           props.coords[0].toFixed(6),
           props.coords[1].toFixed(6),
-          props.coords[2].toFixed(2)
+          // props.coords[2].toFixed(2)
         ].join(",")
     );
   }
   if (props.searchCoords) {
-    res.push("+" + props.searchCoords.map(e => e.toFixed(6)).join(","));
+    res.push("@" + props.searchCoords.map(e => e.toFixed(6)).join(","));
   }
 
   if (props.searchPlace) {

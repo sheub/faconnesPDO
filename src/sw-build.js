@@ -45,6 +45,8 @@ const buildSW = () => {
         "./locales/en-US/*.json",
         "./locales/fr/*.json",
         "./ico/*.png",
+        // "./sprite.json",
+        // "./sprite.png",
       ],
       globStrict: true,
       // navigateFallback:"./index.html",

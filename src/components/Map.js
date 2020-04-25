@@ -4,7 +4,6 @@ import { translate } from "react-i18next";
 
 import {connect} from "react-redux";
 import {push} from "connected-react-router";
-
 import mapboxgl from "mapbox-gl/dist/mapbox-gl";
 // import turfBbox from "@turf/bbox";
 
@@ -20,7 +19,7 @@ import {
 } from "../actions/index";
 
 
-import style from "../styles/osm-liberty.json";
+import style from "../styles/osm-liberty-latest.json";
 // Set the sprite URL in the style. It has to be a full, absolute URL.
 let spriteUrl;
 if (process.env.NODE_ENV === "production") {
@@ -97,86 +96,11 @@ class MapComponent extends Component {
           this.map
             .getSource("marker")
             .setData(this.props.searchLocation.geometry);
-
-          // if featureId set => query feature and set infoItem
-          // if (typeof this.props.searchLocation.featureId !== "undefined") {
-          //   var sourceId = "localEvents";
-          //   // get source layer from featureId
-          //   var layerIndex = parseInt(this.props.searchLocation.featureId.substring(2, 3));
-          //   var layerKey = layersArray[layerIndex];
-          //   var sourceLayer = layerSelector[layerKey].source
-
-          //   // var relatedFeatures = map.querySourceFeatures('counties', {
-          //   //   sourceLayer: 'original',
-          //   //   filter: ['in', 'COUNTY', feature.properties.COUNTY]
-          //   //   });
-
-          //   // filter.sourceLayer = "videsgreniers";
-          //   // Find all features in one source layer in a vector source
-          //   var features = null;
-          //   features = this.map.querySourceFeatures(sourceId, {
-          //     sourceLayer: sourceLayer,
-          //     filter: ['==', '$id', this.props.searchLocation.featureId],
-          //   });
-          //   if (features.length) {
-          //     features[0].paintColor = displayColors[layersArray[layerIndex]];
-          //     features[0].layerId = sourceLayer;
-          //     this.setInfoItemAndRenderPopup(features);
-          //   }
-          // }
         }
       } else {
         this.map.getSource("marker").setData(this.emptyData);
       }
-
-      // // remove items specific to directions mode
-      // this.map.getSource("fromMarker").setData(this.emptyData);
-      // this.map.getSource("route").setData(this.emptyData);
     }
-
-    // Directions mode
-    // else if (this.props.mode === "directions") {
-    //   if (this.props.directionsFrom) {
-    //     this.map
-    //       .getSource("fromMarker")
-    //       .setData(this.props.directionsFrom.geometry);
-    //   } else {
-    //     this.map.getSource("fromMarker").setData(this.emptyData);
-    //   }
-
-    //   // if (this.props.directionsTo) {
-    //   //   this.map.getSource("marker").setData(this.props.directionsTo.geometry);
-    //   // } else {
-    //   //   this.map.getSource("marker").setData(this.emptyData);
-    //   // }
-
-    //   // if (this.props.route) {
-    //   //   this.map.getSource("route").setData(this.props.route.geometry);
-    //   // } else {
-    //   //   this.map.getSource("route").setData(this.emptyData);
-    //   // }
-
-    //   // We have origin and destination but no route yet
-    //   // if (
-    //   //   this.props.directionsFrom &&
-    //   //   this.props.directionsTo &&
-    //   //   this.props.route === null
-    //   // ) {
-    //   //   // Do not retry when the previous request errored
-    //   //   if (
-    //   //     this.props.routeStatus !== "error" &&
-    //   //     this.props.routeStatus !== "paused"
-    //   //   ) {
-    //   //     // Trigger the API call to directions
-    //   //     // this.props.getRoute(
-    //   //     //   this.props.directionsFrom,
-    //   //     //   this.props.directionsTo,
-    //   //     //   this.props.modality,
-    //   //     //   this.props.accessToken,
-    //   //     // );
-    //   //   }
-    //   // }
-    // }
 
     if (this.props.needMapRepan) {
       // Search mode
@@ -189,33 +113,7 @@ class MapComponent extends Component {
         });
         this.queryAndRenderFeatures(this.props.searchLocation);
       }
-
-      // Directions mode
-      // if (this.props.mode === "directions") {
-      //   if (this.props.route) {
-      //     const bbox = turfBbox(this.props.route.geometry);
-      //     import("../utils/moveTo").then(moveTo => {
-      //       moveTo.moveTo(this.map, { bbox: bbox });
-      //     });
-      //   } else if (this.props.directionsTo && this.props.directionsFrom) {
-      //     const bbox = turfBbox({
-      //       type: "FeatureCollection",
-      //       features: [this.props.directionsFrom, this.props.directionsTo],
-      //     });
-      //     import("../utils/moveTo").then(moveTo => {
-      //       moveTo.moveTo(this.map, { bbox: bbox });
-      //     });
-      //   } else {
-      //     // Whichever exists
-      //     import("../utils/moveTo").then(moveTo => {
-      //       moveTo.moveTo(this.map, this.props.directionsTo);
-      //       moveTo.moveTo(this.map, this.props.directionsFrom);
-      //     });
-      //   }
-      // }
     }
-
-    // this.props.setStateValue("needMapUpdate", false);
 
     if (this.props.needMapToggleLayer) {
       this.toggleLayerVisibility(this.props.toggleLayerVisibility);
@@ -238,13 +136,11 @@ class MapComponent extends Component {
       this.filterByDate(this.props.dateFrom, this.props.dateTo);
     }
 
-
     this.props.setStateValue("needMapUpdate", false);
     this.props.setStateValue("needMapToggleLayer", false);
     this.props.setStateValue("needMapFilterByDate", false);
     this.props.setStateValue("needMapFilterString", false);
     this.props.setStateValue("needMapActualizeLanguage", false);
-
   }
 
   onMove(e) {
@@ -327,18 +223,7 @@ class MapComponent extends Component {
     if (features.length) {
       // We have a selected feature
       var feature = features[0];
-
-      // let key;
-      // if (this.props.mode === 'search') {
       this.props.resetStateKeys(["placeInfo"]);
-      // key = "searchLocation";
-      // }
-      //  else if (!this.props.directionsFrom) {
-      //   key = 'directionsFrom';
-      // } else {
-      //   this.props.resetStateKeys(['route', 'searchLocation']);
-      //   key = 'directionsTo';
-      // }
 
       /*Prepare data for detailInfo*/
       var paintColor = null;
@@ -518,8 +403,6 @@ class MapComponent extends Component {
     infoItem.featureId = feature.id;
     infoItem.paintColor = paintColor;
     infoItem.listVueActive = listVueActive;
-    // infoItem.popupActive = true;
-
     return infoItem;
   }
 
@@ -700,10 +583,6 @@ class MapComponent extends Component {
   layerToKey(layer) {
     if (this.props.mode === "search" && layer === "marker")
       return "searchLocation";
-    // else if (this.props.mode === "directions" && layer === "marker")
-    //   return "directionsTo";
-    // else if (this.props.mode === "directions" && layer === "fromMarker")
-    //   return "directionsFrom";
     else return "";
   }
 
@@ -767,9 +646,6 @@ MapComponent.propTypes = {
   dateFrom: PropTypes.number,
   dateTo: PropTypes.number,
   filterString: PropTypes.string,
-  // directionsFrom: PropTypes.object,
-  // directionsTo: PropTypes.object,
-  // getRoute: PropTypes.func,
   languageSet: PropTypes.string,
   legendItems: PropTypes.array,
   listVueItems: PropTypes.array,
@@ -822,8 +698,6 @@ const mapStateToProps = (state) => {
     needMapString: state.app.needMapString,
     needMapUpdate: state.app.needMapUpdate,
     popupActive: state.app.popupActive,
-    // route: state.app.route,
-    // routeStatus: state.app.routeStatus,
     searchLocation: state.app.searchLocation,
     userLocation: state.app.userLocation,
     visibility: state.app.visibility,
@@ -840,7 +714,6 @@ const loadedPromise = map => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    // getRoute: (directionsFrom, directionsTo, modality, accessToken) => dispatch(getRoute(directionsFrom, directionsTo, modality, accessToken)),
     pushHistory: (url) => dispatch(push(url)),
     setStateValue: (key, value) => dispatch(setStateValue(key, value)),
     setUserLocation: (coordinates) => dispatch(setUserLocation(coordinates)),

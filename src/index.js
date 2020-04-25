@@ -172,7 +172,7 @@ const urlParams = new URLSearchParams(urlpath);
 const userName = urlParams.get("userName");
 const userEmail = urlParams.get("userEmail");
 const token = urlParams.get("token");
-console.log(urlParams.toString());
+// console.log(urlParams.toString());
 
 
 

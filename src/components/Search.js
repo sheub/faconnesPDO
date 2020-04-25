@@ -11,12 +11,10 @@ import { withStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import Tooltip from "@material-ui/core/Tooltip";
-// import directionsIcon from "../assets/directions.svg";
 import SearchIcon from "@material-ui/icons/Search";
 
 import {
   triggerMapUpdate,
-  setDirectionsLocation,
   getPlaceInfo,
   resetStateKeys,
   setStateValue,
@@ -125,13 +123,6 @@ class Search extends Component {
             : null
         } */}
           </div>
-          {/* <div
-            id="search-directions"
-            className={"cursor-pointer right flex-parent-inline m12"}
-            onClick={() => this.clickDirections()}
-          >
-            <img src={directionsIcon} alt="directions" />
-          </div> */}
         </div>
       );
     }
@@ -166,7 +157,6 @@ class Search extends Component {
           {this.props.searchLocation && this.props.placeInfo ? (
             <PlaceInfo
               info={this.props.placeInfo}
-              // clickDirections={() => this.clickDirections()}
             />
           ) : null}
         </div>
@@ -195,11 +185,9 @@ class Search extends Component {
     if (this.state.checkedA) {
       this.props.writeSearch(data.place_name);
       this.props.setSearchLocation(data);
+      this.props.setInfoPopup(data);
       this.props.triggerMapUpdate("repan");
-      // if (data.place_name) this.props.getPlaceInfo(data.place_name);
-      if (data.properties.wikidata) {
-        this.props.getPlaceInfo(data.properties.wikidata);
-      }
+
       // otherwize search mode is local search set filterString to layers
     } else {
       this.props.setStateValues({
@@ -210,17 +198,6 @@ class Search extends Component {
       this.props.triggerMapUpdate();
     }
   }
-
-  // closeSearch() {
-  //   this.props.resetStateKeys(["searchString", "searchLocation", "placeInfo"]);
-  //   this.props.triggerMapUpdate();
-  // }
-
-  // clickDirections() {
-  //   this.props.setMode("directions");
-  //   this.props.writeSearch(this.props.searchLocation.place_name);
-  //   this.props.setDirectionsLocation("to", this.props.searchLocation);
-  // }
 
   handleSwitchChange() {
     this.setState({ checkedA: !this.state.checkedA });
@@ -248,7 +225,6 @@ Search.propTypes = {
   resetStateKeys: PropTypes.func,
   searchLocation: PropTypes.object,
   searchString: PropTypes.string,
-  setDirectionsLocation: PropTypes.func,
   setMode: PropTypes.func,
   setPlaceInfo: PropTypes.func,
   setSearchLocation: PropTypes.func,
@@ -272,9 +248,9 @@ const mapDispatchToProps = dispatch => {
   return {
     getPlaceInfo: id => dispatch(getPlaceInfo(id)),
     resetStateKeys: keys => dispatch(resetStateKeys(keys)),
-    setDirectionsLocation: (kind, location) => dispatch(setDirectionsLocation(kind, location)),
     setMode: mode => dispatch(setStateValue("mode", mode)),
     setPlaceInfo: info => dispatch(setStateValue("placeInfo", info)),
+    setInfoPopup: info => dispatch(setStateValue("infoPopup", info)),
     setSearchLocation: location => dispatch(setStateValue("searchLocation", location)),
     setStateValues: obj => dispatch(setStateValues(obj)),
     triggerMapUpdate: repan => dispatch(triggerMapUpdate(repan)),

@@ -28,7 +28,7 @@ i18n
       },
 
       backend: {
-          loadPath: baseDataUrl + "/locales/{{lng}}/{{ns}}.json"
+          loadPath: baseDataUrl + "locales/{{lng}}/{{ns}}.json"
       },
 
       react: {

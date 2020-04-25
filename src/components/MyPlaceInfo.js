@@ -5,8 +5,10 @@ import { translate } from "react-i18next";
 import SvgIcon from "@material-ui/core/SvgIcon";
 import IconButton from "@material-ui/core/IconButton";
 import { returnImage } from "../utils/displayUtils";
+import { shareableUrl } from "../middlewares/urlTinkerer"
 import AddToMyPlaces from "./AddToMyPlaces";
-import "./fonts/Caslon/ACaslonPro-Bold.otf";
+import copyToClipboardIcon from "../assets/copyToClipboard.svg";
+import "../assets/fonts/Caslon/ACaslonPro-Bold.otf";
 import "./PopupInfo.css";
 
 import {
@@ -435,6 +437,14 @@ class MyPlaceInfo extends Component {
             </div>
             <AddToMyPlaces info={this.props.infoPopup} />
             <RenderLastUpdate props={this.props} />
+            <div
+            onClick={() =>
+              navigator.clipboard.writeText(shareableUrl(window.location.href))
+            } // This won't work everywhere
+            className={styles.buttonIcon}
+          >
+            <img src={copyToClipboardIcon} alt="copy to clipboard" />
+          </div>
           </div>
         </div>
       );
