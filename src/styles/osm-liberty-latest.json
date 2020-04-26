@@ -5,10 +5,7 @@
     "maputnik:license": "https://github.com/maputnik/osm-liberty/blob/gh-pages/LICENSE.md",
     "maputnik:renderer": "mbgljs"
   },
-  "center": [0, 0],
-  "zoom": 1,
-  "bearing": 0,
-  "pitch": 0,
+  "sprite": "https://faconnes.de/sprite",
   "sources": {
     "openmaptiles": {
       "type": "vector",

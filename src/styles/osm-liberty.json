@@ -127,6 +127,7 @@
   "bearing": 0,
   "pitch": 0,
   "glyphs": "https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=pErAY63Zg9cVHhUnLbku",
+  "sprite": "https://faconnes.de/sprite",
   "layers": [
     {
       "id": "background",
@@ -1709,22 +1710,25 @@
       }
     },
     {
-      "id": "building-3d",
-      "type": "fill-extrusion",
+      "id": "building-top",
+      "type": "fill",
+      "metadata": {"mapbox:group": "1444849364238.8171"},
       "source": "openmaptiles",
       "source-layer": "building",
-      "minzoom": 14,
+      "layout": {"visibility": "visible"},
       "paint": {
-        "fill-extrusion-color": "hsl(35, 8%, 85%)",
-        "fill-extrusion-height": {
-          "property": "render_height",
-          "type": "identity"
-        },
-        "fill-extrusion-base": {
-          "property": "render_min_height",
-          "type": "identity"
-        },
-        "fill-extrusion-opacity": 0.8
+        "fill-color": "#f2eae2",
+        "fill-opacity": ["interpolate", ["linear"], ["zoom"], 13, 0, 16, 1],
+        "fill-outline-color": "#dfdbd7",
+        "fill-translate": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          14,
+          ["literal", [0, 0]],
+          16,
+          ["literal", [-2, -2]]
+        ]
       }
     },
     {

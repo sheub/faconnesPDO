@@ -42,7 +42,7 @@ const buildSW = () => {
         "./static/js/*.js",
         "./static/css/*.css",
         "./static/media/**",
-        "./locales/en-US/*.json",
+        "./locales/en/*.json",
         "./locales/fr/*.json",
         "./ico/*.png",
         // "./sprite.json",
