@@ -466,6 +466,19 @@ class MyPlaceInfo extends Component {
             <FacebookIcon size={32} round />
           </FacebookShareButton>
 
+          <div className="Demo__some-network">
+          <WhatsappShareButton
+            url={process.env.REACT_APP_HOME + window.location.pathname}
+            title={info.label}
+            separator=":: "
+            className="Demo__some-network__share-button"
+          >
+            <WhatsappIcon size={32} round />
+          </WhatsappShareButton>
+
+          <div className="Demo__some-network__share-count">&nbsp;</div>
+        </div>
+
           </div>
           </div>
         </div>
