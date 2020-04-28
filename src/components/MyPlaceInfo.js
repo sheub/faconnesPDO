@@ -8,6 +8,18 @@ import { returnImage } from "../utils/displayUtils";
 import { shareableUrl } from "../middlewares/urlTinkerer"
 import AddToMyPlaces from "./AddToMyPlaces";
 import copyToClipboardIcon from "../assets/copyToClipboard.svg";
+import {
+  EmailIcon,
+  FacebookIcon,
+  WhatsappIcon,
+} from "react-share";
+
+import {
+  EmailShareButton,
+  FacebookShareButton,
+  WhatsappShareButton,
+} from "react-share";
+
 import "../assets/fonts/Caslon/ACaslonPro-Bold.otf";
 import "./PopupInfo.css";
 
@@ -438,12 +450,22 @@ class MyPlaceInfo extends Component {
             <AddToMyPlaces info={this.props.infoPopup} />
             <RenderLastUpdate props={this.props} />
             <div
-            onClick={() =>
-              navigator.clipboard.writeText(shareableUrl(window.location.href))
-            } // This won't work everywhere
-            className={styles.buttonIcon}
-          >
+              onClick={() =>
+                navigator.clipboard.writeText(shareableUrl(window.location.href))
+              } // This won't work everywhere
+              className={styles.buttonIcon}
+            >
             <img src={copyToClipboardIcon} alt="copy to clipboard" />
+            {/* <FacebookShareButton style={{ cursor: "pointer" }} url={window.location.href} /> */}
+
+            <FacebookShareButton
+            url={process.env.REACT_APP_HOME + window.location.pathname}
+            quote={info.label}
+            className="Demo__some-network__share-button"
+          >
+            <FacebookIcon size={32} round />
+          </FacebookShareButton>
+
           </div>
           </div>
         </div>

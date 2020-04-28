@@ -26,9 +26,9 @@ class AddToMyPlaces extends Component {
     //   : this.props.mapScreenshot; // eslint-disable-line max-len
     var url = "http://localhost:8000/api/storeImage";
     if (process.env.NODE_ENV === "production") {
-      url = "https://faconnes.de/current/public/api/storeImage";
+      url = process.env.REACT_APP_API_ENTRYPOINT + "api/storeImage";
     } else {
-      url = process.env.REACT_APP_API_ENTRYPOINT + "/api/storeImage";
+      url = process.env.REACT_APP_API_ENTRYPOINT + "api/storeImage";
     }
 
     this.props.info.properties.thumbnail = await this.props.mapScreenshot;

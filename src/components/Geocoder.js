@@ -139,7 +139,7 @@ class Geocoder extends Component {
     } else {
       var url = "";
       if (process.env.NODE_ENV === "production") {
-        url = "https://faconnes.de/current/public/";
+        url = process.env.REACT_APP_API_ENTRYPOINT;
         // url = "process.env.PUBLIC_URL/";
       } else {
         url = process.env.REACT_APP_API_ENTRYPOINT + "/";
@@ -283,7 +283,7 @@ Geocoder.defaultProps = {
 
 const mapStateToProps = state => {
   return {
-    accessToken: state.app.mapboxAccessToken,
+    // accessToken: state.app.mapboxAccessToken,
     searchMode: state.app.mode,
     proximity:
       state.app.mapCoords[2] > 7

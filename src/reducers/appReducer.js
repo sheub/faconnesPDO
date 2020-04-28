@@ -1,7 +1,7 @@
 
 const defaultAppState = {
   // Mapbox Access Token
-  mapboxAccessToken: process.env.REACT_APP_MAPBOX_TOKEN,
+  // mapboxAccessToken: process.env.REACT_APP_MAPBOX_TOKEN,
   // drawer
   drawerOpen: false,
 

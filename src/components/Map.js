@@ -24,7 +24,7 @@ import style from "../styles/osm-liberty-latest.json";
 let spriteUrl;
 if (process.env.NODE_ENV === "production") {
   // spriteUrl = process.env.PUBLIC_URL + "/sprite";
-  spriteUrl = "https://faconnes.de/sprite";
+  spriteUrl = process.env.REACT_APP_HOME + "sprite";
 } else { // Dev server runs on port 3000
   spriteUrl = "http://localhost:3000/sprite";
   // spriteUrl = "https://faconnes.de" + "/sprite";
@@ -676,7 +676,7 @@ MapComponent.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    accessToken: state.app.mapboxAccessToken,
+    // accessToken: state.app.mapboxAccessToken,
     center: state.app.mapCoords.slice(0, 2),
     directionsFrom: state.app.directionsFrom,
     directionsTo: state.app.directionsTo,
