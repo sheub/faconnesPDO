@@ -24,13 +24,13 @@ const displayColors = {
   'Musique': "#A52C56",
   'Children': "#15178A",
   'Marches': "#4AA52C",
-  'VideGreniers': "#007CBF",
+  'VidesGreniers': "#007CBF",
 };
 
-const layersArray = ['VideGreniers', 'Marches', 'Musique', 'Exposition', 'Children'];
+const layersArray = ['VidesGreniers', 'Marches', 'Musique', 'Exposition', 'Children'];
 
 // const indexLayers = {
-//   VideGreniers: 0,
+//   VidesGreniers: 0,
 //   Marches: 1,
 //   Musique: 2,
 //   Exposition: 3,
