@@ -2737,12 +2737,6 @@
       "type": "symbol",
       "source": "marker",
       "layout": {"icon-image": "pin", "icon-offset": [0, -20]}
-    },
-    {
-      "id": "fromMarker",
-      "type": "symbol",
-      "source": "fromMarker",
-      "layout": {"icon-image": "fromLocation"}
     }
   ],
   "id": "osm-liberty"
