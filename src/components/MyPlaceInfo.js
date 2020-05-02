@@ -4,10 +4,15 @@ import { connect } from "react-redux";
 import { translate } from "react-i18next";
 import SvgIcon from "@material-ui/core/SvgIcon";
 import IconButton from "@material-ui/core/IconButton";
+import DirectionsIcon from "@material-ui/icons/Directions";
+import Tooltip from "@material-ui/core/Tooltip";
+
 import { returnImage } from "../utils/displayUtils";
 import { shareableUrl } from "../middlewares/urlTinkerer";
 import AddToMyPlaces from "./AddToMyPlaces";
 import copyToClipboardIcon from "../assets/copyToClipboard.svg";
+// import NavigationIcon from '@material-ui/icons/Navigation';
+
 import {
   RenderUrl,
   RenderAddress,
@@ -53,23 +58,12 @@ class MyPlaceInfo extends Component {
   render() {
     const { t, popupActive } = this.props;
 
-    //  let popupActive = this.props.popupActive;
     const layerId = this.props.infoPopup.layerId;
     const paintColor = this.props.infoPopup.paintColor;
-    // let listVueActive = this.props.infoPopup.listVueActive;
+
 
     // // move the popup on the left if the list is display
     let stylePop = { left: 0, zIndex: 0 };
-    // listVueActive
-    //   ? { left: "410px", zIndex: 0 }
-    //   : { left: 0, zIndex: 0 };
-
-    // if (listVueActive && window.innerWidth < 576) {
-    //   // let topPos = document.documentElement.clientHeight * 0.36 + 21;
-    //   let topPos = 42 + 6 + window.innerHeight * 0.33;
-    //   let heightWin = window.innerHeight - topPos - 42 - 48;
-    //   stylePop = { maxHeight: heightWin, left: 0, top: topPos, zIndex: 2 };
-    // }
 
     // use zIndex: -1 to hide the infowindow behind the map instead of norender
     // otherwize the infowindow invisible but is still there and catch all mouse actions
@@ -297,6 +291,11 @@ class MyPlaceInfo extends Component {
         "videsgreniers",
       ].includes(layerId)
     ) {
+      var geolink = "geo:" +
+      [
+        this.props.infoPopup.geometry.coordinates[1],
+        this.props.infoPopup.geometry.coordinates[0],
+      ];
       return (
         <div>
           <div className="mapboxgl-popupup popPupStyle" style={stylePop}>
@@ -340,39 +339,65 @@ class MyPlaceInfo extends Component {
               <AddToMyPlaces info={this.props.infoPopup} />
 
               <div className="socialMediaItem">
-                <div
-                  onClick={() =>
-                    navigator.clipboard.writeText(
-                      shareableUrl(window.location.href),
-                    )
-                  } // This won't work everywhere
-                  className={styles.buttonIcon}
+                <Tooltip
+                  title="Copy info to Clipboard"
+                  aria-label="Copy info to Clipboard"
                 >
-                  <img style={{ cursor: "pointer", width:"24px", height:"24px", marginTop:"6px"}}
-                    src={copyToClipboardIcon} alt="copy to clipboard" />
+                  <div
+                    onClick={() =>
+                      navigator.clipboard.writeText(
+                        shareableUrl(window.location.href),
+                      )
+                    } // This won't work everywhere
+                    className={styles.buttonIcon}
+                  >
+                    <img style={{ cursor: "pointer", width:"24px", height:"24px", marginTop:"6px"}}
+                      src={copyToClipboardIcon} alt="copy to clipboard" />
+                  </div>
+                </Tooltip>
+              </div>
+
+              <Tooltip
+                title="Send coordinates to navigation system"
+                aria-label="Send coordinates to navigation system"
+              >
+                <div className="socialMediaItem">
+                  <a target="_new" href={geolink} rel="noopener">
+                    <DirectionsIcon style={{ cursor: "pointer", width:"24px", height:"24px", marginTop:"6px"}}/>
+                  </a>
                 </div>
-              </div>
+              </Tooltip>
 
-              <div className="socialMediaItem">
-                <FacebookShareButton
-                  url={process.env.REACT_APP_HOME + window.location.pathname}
-                  quote={info.label}
-                  className="socialMedia__share-button"
-                >
-                  <FacebookIcon size={32} round />
-                </FacebookShareButton>
-              </div>
+              <Tooltip
+                title="Share with facebook"
+                aria-label="Share with facebook"
+              >
+                <div className="socialMediaItem">
+                  <FacebookShareButton
+                    url={process.env.REACT_APP_HOME + window.location.pathname}
+                    quote={info.label}
+                    className="socialMedia__share-button"
+                  >
+                    <FacebookIcon size={32} round />
+                  </FacebookShareButton>
+                </div>
+              </Tooltip>
 
-              <div className="socialMediaItem">
-                <WhatsappShareButton
-                  url={process.env.REACT_APP_HOME + window.location.pathname}
-                  title={info.label}
-                  separator=":: "
-                  className="socialMedia__share-button"
-                >
-                  <WhatsappIcon size={32} round />
-                </WhatsappShareButton>
-              </div>
+              <Tooltip
+                title="Share with Whatsapp"
+                aria-label="Share with Whatsapp"
+              >
+                <div className="socialMediaItem">
+                  <WhatsappShareButton
+                    url={process.env.REACT_APP_HOME + window.location.pathname}
+                    title={info.label}
+                    separator=":: "
+                    className="socialMedia__share-button"
+                  >
+                    <WhatsappIcon size={32} round />
+                  </WhatsappShareButton>
+                </div>
+              </Tooltip>
             </div>
 
             <RenderLastUpdate
