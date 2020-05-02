@@ -103,23 +103,23 @@ class MyPlaceInfo extends Component {
     ) {
       const lang = this.props.i18n.language;
       switch (lang) {
-        case "fr":
-          info.abstract = info.abstract_fr
-            ? info.abstract_fr
-            : info.abstract_en;
-          info.label = info.label_fr ? info.label_fr : info.label_en;
-          break;
-        case "en":
-          info.abstract = info.abstract_en
-            ? info.abstract_en
-            : info.abstract_fr;
-          info.label = info.label_en ? info.label_en : info.label_fr;
-          break;
-        default:
-          info.abstract = info.abstract_en
-            ? info.abstract_en
-            : info.abstract_fr;
-          info.label = info.label_en ? info.label_en : info.label_fr;
+      case "fr":
+        info.abstract = info.abstract_fr
+          ? info.abstract_fr
+          : info.abstract_en;
+        info.label = info.label_fr ? info.label_fr : info.label_en;
+        break;
+      case "en":
+        info.abstract = info.abstract_en
+          ? info.abstract_en
+          : info.abstract_fr;
+        info.label = info.label_en ? info.label_en : info.label_fr;
+        break;
+      default:
+        info.abstract = info.abstract_en
+          ? info.abstract_en
+          : info.abstract_fr;
+        info.label = info.label_en ? info.label_en : info.label_fr;
       }
     }
 
@@ -142,14 +142,14 @@ class MyPlaceInfo extends Component {
     ) {
       const lang = this.props.i18n.language;
       switch (lang) {
-        case "fr":
-          info.link = info.wikipedia_fr ? info.wikipedia_fr : info.wikipedia_en;
-          break;
-        case "en":
-          info.link = info.wikipedia_en ? info.wikipedia_en : info.wikipedia_fr;
-          break;
-        default:
-          info.link = info.wikipedia_en ? info.wikipedia_en : info.wikipedia_fr;
+      case "fr":
+        info.link = info.wikipedia_fr ? info.wikipedia_fr : info.wikipedia_en;
+        break;
+      case "en":
+        info.link = info.wikipedia_en ? info.wikipedia_en : info.wikipedia_fr;
+        break;
+      default:
+        info.link = info.wikipedia_en ? info.wikipedia_en : info.wikipedia_fr;
       }
 
       return (
@@ -222,12 +222,12 @@ class MyPlaceInfo extends Component {
                 ) : null}
                 {typeof info.opening_hours !== "undefined" &&
                 info.opening_hours !== "" ? (
-                  <p>
-                    {t("myplaceinfo.openingHours")}
-                    {": "}
-                    {info.opening_hours}
-                  </p>
-                ) : null}
+                    <p>
+                      {t("myplaceinfo.openingHours")}
+                      {": "}
+                      {info.opening_hours}
+                    </p>
+                  ) : null}
               </div>
             </div>
             <AddToMyPlaces info={this.props.infoPopup} />
@@ -337,30 +337,30 @@ class MyPlaceInfo extends Component {
               </div>
             </div>
             <div className="socialMedia">
-            <AddToMyPlaces info={this.props.infoPopup} />
+              <AddToMyPlaces info={this.props.infoPopup} />
 
-            <div className="socialMediaItem">
-              <div
-                onClick={() =>
-                  navigator.clipboard.writeText(
-                    shareableUrl(window.location.href),
-                  )
-                } // This won't work everywhere
-                className={styles.buttonIcon}
-              >
-                <img style={{ cursor: "pointer", width:"24px", height:"24px", marginTop:"6px"}}
-                 src={copyToClipboardIcon} alt="copy to clipboard" />
-              </div>
+              <div className="socialMediaItem">
+                <div
+                  onClick={() =>
+                    navigator.clipboard.writeText(
+                      shareableUrl(window.location.href),
+                    )
+                  } // This won't work everywhere
+                  className={styles.buttonIcon}
+                >
+                  <img style={{ cursor: "pointer", width:"24px", height:"24px", marginTop:"6px"}}
+                    src={copyToClipboardIcon} alt="copy to clipboard" />
+                </div>
               </div>
 
               <div className="socialMediaItem">
-              <FacebookShareButton
-                url={process.env.REACT_APP_HOME + window.location.pathname}
-                quote={info.label}
-                className="socialMedia__share-button"
-              >
-                <FacebookIcon size={32} round />
-              </FacebookShareButton>
+                <FacebookShareButton
+                  url={process.env.REACT_APP_HOME + window.location.pathname}
+                  quote={info.label}
+                  className="socialMedia__share-button"
+                >
+                  <FacebookIcon size={32} round />
+                </FacebookShareButton>
               </div>
 
               <div className="socialMediaItem">
