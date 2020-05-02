@@ -8,7 +8,12 @@ import { returnImage } from "../utils/displayUtils";
 import { shareableUrl } from "../middlewares/urlTinkerer";
 import AddToMyPlaces from "./AddToMyPlaces";
 import copyToClipboardIcon from "../assets/copyToClipboard.svg";
-import {RenderUrl, RenderAddress, RenderDateTime, RenderLastUpdate} from "../utils/displayUtils";
+import {
+  RenderUrl,
+  RenderAddress,
+  RenderDateTime,
+  RenderLastUpdate,
+} from "../utils/displayUtils";
 
 import {
   // EmailIcon,
@@ -25,10 +30,7 @@ import {
 import "../assets/fonts/Caslon/ACaslonPro-Bold.otf";
 import "./PopupInfo.css";
 
-import {
-  setStateValue,
-  resetStateKeys
-} from "../actions/index";
+import { setStateValue, resetStateKeys } from "../actions/index";
 
 function HomeIcon(props) {
   return (
@@ -44,7 +46,6 @@ function HomeIcon(props) {
 // }
 
 class MyPlaceInfo extends Component {
-
   hidePopup() {
     this.props.setStateValue("popupActive", false);
   }
@@ -55,19 +56,20 @@ class MyPlaceInfo extends Component {
     //  let popupActive = this.props.popupActive;
     const layerId = this.props.infoPopup.layerId;
     const paintColor = this.props.infoPopup.paintColor;
-    let listVueActive = this.props.infoPopup.listVueActive;
+    // let listVueActive = this.props.infoPopup.listVueActive;
 
-    // move the popup on the left if the list is display
-    let stylePop = listVueActive
-      ? { left: "410px", zIndex: 0 }
-      : { left: 0, zIndex: 0 };
+    // // move the popup on the left if the list is display
+    let stylePop = { left: 0, zIndex: 0 };
+    // listVueActive
+    //   ? { left: "410px", zIndex: 0 }
+    //   : { left: 0, zIndex: 0 };
 
-    if (listVueActive && window.innerWidth < 576) {
-      // let topPos = document.documentElement.clientHeight * 0.36 + 21;
-      let topPos = 42 + 6 + window.innerHeight * 0.33;
-      let heightWin = window.innerHeight - topPos - 42 - 48;
-      stylePop = { maxHeight: heightWin, left: 0, top: topPos, zIndex: 2 };
-    }
+    // if (listVueActive && window.innerWidth < 576) {
+    //   // let topPos = document.documentElement.clientHeight * 0.36 + 21;
+    //   let topPos = 42 + 6 + window.innerHeight * 0.33;
+    //   let heightWin = window.innerHeight - topPos - 42 - 48;
+    //   stylePop = { maxHeight: heightWin, left: 0, top: topPos, zIndex: 2 };
+    // }
 
     // use zIndex: -1 to hide the infowindow behind the map instead of norender
     // otherwize the infowindow invisible but is still there and catch all mouse actions
@@ -101,23 +103,23 @@ class MyPlaceInfo extends Component {
     ) {
       const lang = this.props.i18n.language;
       switch (lang) {
-      case "fr":
-        info.abstract = info.abstract_fr
-          ? info.abstract_fr
-          : info.abstract_en;
-        info.label = info.label_fr ? info.label_fr : info.label_en;
-        break;
-      case "en":
-        info.abstract = info.abstract_en
-          ? info.abstract_en
-          : info.abstract_fr;
-        info.label = info.label_en ? info.label_en : info.label_fr;
-        break;
-      default:
-        info.abstract = info.abstract_en
-          ? info.abstract_en
-          : info.abstract_fr;
-        info.label = info.label_en ? info.label_en : info.label_fr;
+        case "fr":
+          info.abstract = info.abstract_fr
+            ? info.abstract_fr
+            : info.abstract_en;
+          info.label = info.label_fr ? info.label_fr : info.label_en;
+          break;
+        case "en":
+          info.abstract = info.abstract_en
+            ? info.abstract_en
+            : info.abstract_fr;
+          info.label = info.label_en ? info.label_en : info.label_fr;
+          break;
+        default:
+          info.abstract = info.abstract_en
+            ? info.abstract_en
+            : info.abstract_fr;
+          info.label = info.label_en ? info.label_en : info.label_fr;
       }
     }
 
@@ -140,14 +142,14 @@ class MyPlaceInfo extends Component {
     ) {
       const lang = this.props.i18n.language;
       switch (lang) {
-      case "fr":
-        info.link = info.wikipedia_fr ? info.wikipedia_fr : info.wikipedia_en;
-        break;
-      case "en":
-        info.link = info.wikipedia_en ? info.wikipedia_en : info.wikipedia_fr;
-        break;
-      default:
-        info.link = info.wikipedia_en ? info.wikipedia_en : info.wikipedia_fr;
+        case "fr":
+          info.link = info.wikipedia_fr ? info.wikipedia_fr : info.wikipedia_en;
+          break;
+        case "en":
+          info.link = info.wikipedia_en ? info.wikipedia_en : info.wikipedia_fr;
+          break;
+        default:
+          info.link = info.wikipedia_en ? info.wikipedia_en : info.wikipedia_fr;
       }
 
       return (
@@ -207,7 +209,10 @@ class MyPlaceInfo extends Component {
                 <a target="_new" href={info.link} rel="noopener">
                   &rarr; Wikipedia
                 </a>
-                <RenderUrl infoPopup={this.props.infoPopup} props={this.props} />
+                <RenderUrl
+                  infoPopup={this.props.infoPopup}
+                  props={this.props}
+                />
                 {typeof info.fullPrice !== "undefined" ? (
                   <p>
                     {t("myplaceinfo.price")}
@@ -217,12 +222,12 @@ class MyPlaceInfo extends Component {
                 ) : null}
                 {typeof info.opening_hours !== "undefined" &&
                 info.opening_hours !== "" ? (
-                    <p>
-                      {t("myplaceinfo.openingHours")}
-                      {": "}
-                      {info.opening_hours}
-                    </p>
-                  ) : null}
+                  <p>
+                    {t("myplaceinfo.openingHours")}
+                    {": "}
+                    {info.opening_hours}
+                  </p>
+                ) : null}
               </div>
             </div>
             <AddToMyPlaces info={this.props.infoPopup} />
@@ -262,7 +267,10 @@ class MyPlaceInfo extends Component {
               </div>
               <div className="introtext">
                 <div className="abstractPopup">{info.abstract}</div>
-                <RenderUrl infoPopup={this.props.infoPopup} props={this.props} />
+                <RenderUrl
+                  infoPopup={this.props.infoPopup}
+                  props={this.props}
+                />
                 <RenderAddress infoPopup={info} />
                 {info.price !== 0 ? (
                   <p>
@@ -310,8 +318,14 @@ class MyPlaceInfo extends Component {
               </div>
               <div className="introtext">
                 <div className="abstractPopup">{info.abstract}</div>
-                <RenderDateTime infoPopup={this.props.infoPopup} props={this.props} />
-                <RenderUrl infoPopup={this.props.infoPopup} props={this.props} />
+                <RenderDateTime
+                  infoPopup={this.props.infoPopup}
+                  props={this.props}
+                />
+                <RenderUrl
+                  infoPopup={this.props.infoPopup}
+                  props={this.props}
+                />
                 <RenderAddress infoPopup={info} />
                 {info.price !== 0 ? (
                   <p>
@@ -322,39 +336,49 @@ class MyPlaceInfo extends Component {
                 ) : null}
               </div>
             </div>
+            <div className="socialMedia">
             <AddToMyPlaces info={this.props.infoPopup} />
-            <RenderLastUpdate infoPopup={this.props.infoPopup} props={this.props} />
-            <div
-              onClick={() =>
-                navigator.clipboard.writeText(shareableUrl(window.location.href))
-              } // This won't work everywhere
-              className={styles.buttonIcon}
-            >
-              <img src={copyToClipboardIcon} alt="copy to clipboard" />
-              {/* <FacebookShareButton style={{ cursor: "pointer" }} url={window.location.href} /> */}
 
+            <div className="socialMediaItem">
+              <div
+                onClick={() =>
+                  navigator.clipboard.writeText(
+                    shareableUrl(window.location.href),
+                  )
+                } // This won't work everywhere
+                className={styles.buttonIcon}
+              >
+                <img style={{ cursor: "pointer", width:"24px", height:"24px", marginTop:"6px"}}
+                 src={copyToClipboardIcon} alt="copy to clipboard" />
+              </div>
+              </div>
+
+              <div className="socialMediaItem">
               <FacebookShareButton
                 url={process.env.REACT_APP_HOME + window.location.pathname}
                 quote={info.label}
-                className="Demo__some-network__share-button"
+                className="socialMedia__share-button"
               >
                 <FacebookIcon size={32} round />
               </FacebookShareButton>
+              </div>
 
-              <div className="Demo__some-network">
+              <div className="socialMediaItem">
                 <WhatsappShareButton
                   url={process.env.REACT_APP_HOME + window.location.pathname}
                   title={info.label}
                   separator=":: "
-                  className="Demo__some-network__share-button"
+                  className="socialMedia__share-button"
                 >
                   <WhatsappIcon size={32} round />
                 </WhatsappShareButton>
-
-                <div className="Demo__some-network__share-count">&nbsp;</div>
               </div>
-
             </div>
+
+            <RenderLastUpdate
+              infoPopup={this.props.infoPopup}
+              props={this.props}
+            />
           </div>
         </div>
       );
@@ -436,7 +460,10 @@ class MyPlaceInfo extends Component {
               <div className="introtext">
                 <div className="abstractPopup">
                   {info.periode_ouverture}
-                  <RenderUrl infoPopup={this.props.infoPopup} props={this.props} />
+                  <RenderUrl
+                    infoPopup={this.props.infoPopup}
+                    props={this.props}
+                  />
                   <RenderAddress infoPopup={info} />
                   {info.price !== 0 ? (
                     <p>
@@ -563,10 +590,10 @@ MyPlaceInfo.propTypes = {
   popupActive: PropTypes.bool,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     infoPopup: state.app.infoPopup,
-    popupActive: state.app.popupActive
+    popupActive: state.app.popupActive,
   };
 };
 

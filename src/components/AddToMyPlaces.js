@@ -111,7 +111,7 @@ class AddToMyPlaces extends Component {
           aria-label="Add this location to my favorites"
         >
           <AddLocationIcon
-            style={{ cursor: "pointer" }}
+            style={{ cursor: "pointer", width:"32px", height:"32px"}}
             color="secondary"
             onClick={this.handleClickAddLocation.bind(this)}
           />
