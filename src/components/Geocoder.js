@@ -6,6 +6,9 @@ import MyPlaceName from "./MyPlaceName";
 import xhr from "xhr";
 import {displayColors, layersArray} from "../utils/displayUtils";
 
+import {
+  setStateValue,
+} from "../actions/index";
 /**
  * Geocoder component: connects to endpoint: 'https://api-adresse.data.gouv.fr
  * and provides an autocompleting interface for finding locations.
@@ -48,7 +51,7 @@ class Geocoder extends Component {
       search(
         this.state.endpoint,
         this.state.source,
-        this.props.accessToken,
+        // this.props.accessToken,
         this.props.proximity,
         this.props.bbox,
         this.props.types,
@@ -179,6 +182,8 @@ class Geocoder extends Component {
         aria-label="SearchInput"
       />
     );
+    // console.log(this.state.results);
+    this.props.setListVueItems(this.state.results);
 
     return (
       <div className="w-full">
@@ -187,7 +192,7 @@ class Geocoder extends Component {
           <ul className={this.props.resultsClass}>
             {this.state.results.map((result, i) => (
               <li
-                key={result.properties.id}
+                key={result.properties.feature_id}
                 className={
                   (i === this.state.focus
                     ? "bg-blue-faint"
@@ -205,7 +210,7 @@ class Geocoder extends Component {
                 </div>
                 <div
                   className="pl24 pr12 txt-truncate"
-                  key={result.properties.id}
+                  key={result.properties.feature_id}
                 >
                   <MyPlaceName location={result} />
                 </div>
@@ -222,7 +227,7 @@ class Geocoder extends Component {
 function search(
   endpoint,
   source,
-  accessToken,
+  // accessToken,
   proximity,
   bbox,
   types,
@@ -260,7 +265,7 @@ Geocoder.propTypes = {
   resultsClass: PropTypes.string,
   onSelect: PropTypes.func.isRequired,
   onSuggest: PropTypes.func,
-  accessToken: PropTypes.string.isRequired,
+  // accessToken: PropTypes.string.isRequired,
   proximity: PropTypes.string,
   bbox: PropTypes.string,
   focusOnMount: PropTypes.bool,
@@ -281,6 +286,12 @@ Geocoder.defaultProps = {
   searchMode: "search",
 };
 
+const mapDispatchToProps = dispatch => {
+  return {
+    setListVueItems: items => dispatch(setStateValue("listVueItems", items)),
+  };
+};
+
 const mapStateToProps = state => {
   return {
     // accessToken: state.app.mapboxAccessToken,
@@ -292,4 +303,6 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(Geocoder);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps)(Geocoder);

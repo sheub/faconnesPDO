@@ -57,15 +57,11 @@
       "type": "geojson",
       "data": {"type": "FeatureCollection", "features": []}
     },
-    "route": {
+    "searchResult": {
       "type": "geojson",
       "data": {"type": "FeatureCollection", "features": []}
     },
     "geolocation": {
-      "type": "geojson",
-      "data": {"type": "FeatureCollection", "features": []}
-    },
-    "fromMarker": {
       "type": "geojson",
       "data": {"type": "FeatureCollection", "features": []}
     },
@@ -2720,6 +2716,25 @@
           2.4,
           12,
           3.5,
+          22,
+          180
+        ],
+        "circle-color": "black"
+      }
+    },
+    {
+      "id": "searchResult",
+      "type": "circle",
+      "source": "searchResult",
+      "paint": {
+        "circle-radius": [
+          "interpolate",
+          ["exponential", 3],
+          ["zoom"],
+          5,
+          2.4,
+          12,
+          3.4,
           22,
           180
         ],

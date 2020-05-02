@@ -30,30 +30,10 @@ export const setDirectionsLocation = (kind, location) => ({
   location,
 });
 
-// export const getRoute = (
-//   directionsFrom,
-//   directionsTo,
-//   modality,
-//   accessToken,
-// ) => ({
-//   type: "GET_ROUTE",
-//   directionsFrom,
-//   directionsTo,
-//   modality,
-//   accessToken,
-// });
-
 export const getPlaceInfo = wikidataId => ({
   type: "GET_PLACE_INFO",
   id: wikidataId,
 });
-
-// export const getReverseGeocode = (key, coordinates, accessToken) => ({
-//   type: 'GET_REVERSE_GEOCODE',
-//   key,
-//   coordinates,
-//   accessToken
-// });
 
 export const setStateFromURL = () => ({
   type: "SET_STATE_FROM_URL",

@@ -1,4 +1,6 @@
 import React from "react";
+import "../assets/fonts/Caslon/ACaslonPro-Bold.otf";
+import "../components/PopupInfo.css";
 
 import Star15_961313 from "../assets/Star15_961313.svg"; // villages // plusBeauxVillagesDeFrance
 import Star15_14222D from "../assets/Star15_14222D.svg"; // unesco // patrimoinemondialenfrance
@@ -140,4 +142,141 @@ function returnImage(layerId) {
   return img;
 }
 
-export { returnImage, layerSelector, displayColors, layersArray };
+function RenderUrl(props) {
+  const { t } = props.props;
+  const info = props.infoPopup;
+
+  var link = null;
+  // layer museesFrance
+  if (info.properties.sitweb) {
+    // <a target="_blank" href={props.url} className="urlPopup" rel="noopener">{props.url}</a><br />
+    if (!info.properties.sitweb.includes(" ")) {
+      link = info.properties.sitweb.includes("http://")
+        ? info.properties.sitweb
+        : "http://" + info.properties.sitweb;
+    }
+  }
+  // other layers
+  else {
+    link = info.properties.url;
+  }
+
+  if (link) {
+    return (
+      <div className="urlPopup">
+        <a
+          target="_blank"
+          href={link}
+          className="urlPopup"
+          rel="noopener noreferrer"
+        >
+          {t("myplaceinfo.urlDisplay")}
+        </a>
+        <br />
+      </div>
+    );
+  }
+  return null;
+}
+
+function RenderAddress(props) {
+  let street_address,
+    postal_code,
+    address_locality = null;
+  if (props.infoPopup.street_address || props.infoPopup.postal_code) {
+    street_address = props.infoPopup.street_address;
+    postal_code = props.infoPopup.postal_code;
+    address_locality = props.infoPopup.address_locality;
+  } else if (props.infoPopup.adr || props.infoPopup.cp) {
+    street_address = props.infoPopup.adr;
+    postal_code = props.infoPopup.cp;
+    address_locality = props.infoPopup.ville;
+  }
+
+  return (
+    <div className="addressPopup">
+      {street_address}
+      <br />
+      {postal_code} {address_locality}
+    </div>
+  );
+}
+
+function RenderDateTime(props) {
+  const infoPopup = props.infoPopup;
+  const {t, i18n} = props.props;
+  const lng = i18n.language;
+  const info = infoPopup;
+
+  if (info.properties.valid_from) {
+    let eventStart = new Date(info.properties.valid_from);
+    let eventEnd = new Date(info.properties.valid_through);
+
+    let options = {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+
+    if (eventStart.getDate() === eventEnd.getDate())
+      return (
+        <div className="datePopup">
+          {t("myplaceinfo.le")} {eventStart.toLocaleDateString(lng, options)}
+          {info.properties.start_time !== 0 ? (
+            <p>
+              {t("myplaceinfo.startTime")} {info.properties.start_time},<br />{" "}
+              {t("myplaceinfo.endTime")} {info.properties.end_time}
+            </p>
+          ) : null}
+        </div>
+      );
+    else {
+      return (
+        <div className="datePopup">
+          {t("myplaceinfo.from")} {eventStart.toLocaleDateString(lng, options)}
+          <br />
+          {t("myplaceinfo.to")} {eventEnd.toLocaleDateString(lng, options)}
+          {info.properties.start_time !== 0 ? (
+            <p>
+              {t("myplaceinfo.startTime")} {info.properties.start_time} <br />{" "}
+              {t("myplaceinfo.endTime")} {info.properties.end_time}
+            </p>
+          ) : null}
+        </div>
+      );
+    }
+  }
+  return null;
+}
+
+function RenderLastUpdate(props) {
+  const infoPopup = props.infoPopup;
+  const {t, i18n} = props.props;
+  const lng = i18n.language;
+  const info = infoPopup;
+
+  // const { t, infoPopup } = props.props;
+  // const lng = props.i18n.language;
+  // const info = infoPopup;
+  if (info.properties.last_update) {
+    let lastUpdate = new Date(info.properties.last_update);
+
+    let options = {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+    return (
+      <div className="lastUpdatePopup">
+        {t("myplaceinfo.lastUpdate")}{" "}
+        {lastUpdate.toLocaleDateString(lng, options)}
+      </div>
+    );
+  }
+  return null;
+}
+
+
+export { returnImage, RenderUrl, RenderAddress, RenderDateTime, RenderLastUpdate, layerSelector, displayColors, layersArray };

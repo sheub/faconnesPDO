@@ -5,17 +5,19 @@ import { translate } from "react-i18next";
 import SvgIcon from "@material-ui/core/SvgIcon";
 import IconButton from "@material-ui/core/IconButton";
 import { returnImage } from "../utils/displayUtils";
-import { shareableUrl } from "../middlewares/urlTinkerer"
+import { shareableUrl } from "../middlewares/urlTinkerer";
 import AddToMyPlaces from "./AddToMyPlaces";
 import copyToClipboardIcon from "../assets/copyToClipboard.svg";
+import {RenderUrl, RenderAddress, RenderDateTime, RenderLastUpdate} from "../utils/displayUtils";
+
 import {
-  EmailIcon,
+  // EmailIcon,
   FacebookIcon,
   WhatsappIcon,
 } from "react-share";
 
 import {
-  EmailShareButton,
+  // EmailShareButton,
   FacebookShareButton,
   WhatsappShareButton,
 } from "react-share";
@@ -34,133 +36,6 @@ function HomeIcon(props) {
       <circle cx="10" cy="10" r="9" />
     </SvgIcon>
   );
-}
-
-function RenderUrl(props) {
-  const { t, infoPopup } = props.props;
-  const info = infoPopup;
-
-  var link = null;
-  // layer museesFrance
-  if (info.properties.sitweb) {
-    // <a target="_blank" href={props.url} className="urlPopup" rel="noopener">{props.url}</a><br />
-    if (!info.properties.sitweb.includes(" ")) {
-      link = info.properties.sitweb.includes("http://")
-        ? info.properties.sitweb
-        : "http://" + info.properties.sitweb;
-    }
-  }
-  // other layers
-  else {
-    link = info.properties.url;
-  }
-
-  if (link) {
-    return (
-      <div className="urlPopup">
-        <a
-          target="_blank"
-          href={link}
-          className="urlPopup"
-          rel="noopener noreferrer"
-        >
-          {t("myplaceinfo.urlDisplay")}
-        </a>
-        <br />
-      </div>
-    );
-  }
-  return null;
-}
-function RenderAddress(props) {
-  let street_address,
-    postal_code,
-    address_locality = null;
-  if (props.info.street_address || props.info.postal_code) {
-    street_address = props.info.street_address;
-    postal_code = props.info.postal_code;
-    address_locality = props.info.address_locality;
-  } else if (props.info.adr || props.info.cp) {
-    street_address = props.info.adr;
-    postal_code = props.info.cp;
-    address_locality = props.info.ville;
-  }
-
-  return (
-    <div className="addressPopup">
-      {street_address}
-      <br />
-      {postal_code} {address_locality}
-    </div>
-  );
-}
-function RenderDateTime(props) {
-  const { t, infoPopup } = props.props;
-  const lng = props.props.i18n.language;
-  const info = infoPopup;
-
-  if (info.properties.valid_from) {
-    let eventStart = new Date(info.properties.valid_from);
-    let eventEnd = new Date(info.properties.valid_through);
-
-    let options = {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    };
-
-    if (eventStart.getDate() === eventEnd.getDate())
-      return (
-        <div className="datePopup">
-          {t("myplaceinfo.le")} {eventStart.toLocaleDateString(lng, options)}
-          {info.properties.start_time !== 0 ? (
-            <p>
-              {t("myplaceinfo.startTime")} {info.properties.start_time},<br />{" "}
-              {t("myplaceinfo.endTime")} {info.properties.end_time}
-            </p>
-          ) : null}
-        </div>
-      );
-    else {
-      return (
-        <div className="datePopup">
-          {t("myplaceinfo.from")} {eventStart.toLocaleDateString(lng, options)}
-          <br />
-          {t("myplaceinfo.to")} {eventEnd.toLocaleDateString(lng, options)}
-          {info.properties.start_time !== 0 ? (
-            <p>
-              {t("myplaceinfo.startTime")} {info.properties.start_time} <br />{" "}
-              {t("myplaceinfo.endTime")} {info.properties.end_time}
-            </p>
-          ) : null}
-        </div>
-      );
-    }
-  }
-  return null;
-}
-function RenderLastUpdate(props) {
-  const { t, infoPopup } = props.props;
-  const lng = props.props.i18n.language;
-  const info = infoPopup;
-  if (info.properties.last_update) {
-    let lastUpdate = new Date(info.properties.last_update);
-
-    let options = {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    };
-    return (
-      <div className="lastUpdatePopup">
-        {t("myplaceinfo.lastUpdate")}{" "}
-        {lastUpdate.toLocaleDateString(lng, options)}
-      </div>
-    );
-  }
-  return null;
 }
 
 // function ExtractOtherTags(info) {
@@ -332,7 +207,7 @@ class MyPlaceInfo extends Component {
                 <a target="_new" href={info.link} rel="noopener">
                   &rarr; Wikipedia
                 </a>
-                <RenderUrl props={this.props} />
+                <RenderUrl infoPopup={this.props.infoPopup} props={this.props} />
                 {typeof info.fullPrice !== "undefined" ? (
                   <p>
                     {t("myplaceinfo.price")}
@@ -387,8 +262,8 @@ class MyPlaceInfo extends Component {
               </div>
               <div className="introtext">
                 <div className="abstractPopup">{info.abstract}</div>
-                <RenderUrl props={this.props} />
-                <RenderAddress info={info} />
+                <RenderUrl infoPopup={this.props.infoPopup} props={this.props} />
+                <RenderAddress infoPopup={info} />
                 {info.price !== 0 ? (
                   <p>
                     {t("myplaceinfo.price")}
@@ -435,9 +310,9 @@ class MyPlaceInfo extends Component {
               </div>
               <div className="introtext">
                 <div className="abstractPopup">{info.abstract}</div>
-                <RenderDateTime props={this.props} />
-                <RenderUrl props={this.props} />
-                <RenderAddress info={info} />
+                <RenderDateTime infoPopup={this.props.infoPopup} props={this.props} />
+                <RenderUrl infoPopup={this.props.infoPopup} props={this.props} />
+                <RenderAddress infoPopup={info} />
                 {info.price !== 0 ? (
                   <p>
                     {t("myplaceinfo.price")}
@@ -448,38 +323,38 @@ class MyPlaceInfo extends Component {
               </div>
             </div>
             <AddToMyPlaces info={this.props.infoPopup} />
-            <RenderLastUpdate props={this.props} />
+            <RenderLastUpdate infoPopup={this.props.infoPopup} props={this.props} />
             <div
               onClick={() =>
                 navigator.clipboard.writeText(shareableUrl(window.location.href))
               } // This won't work everywhere
               className={styles.buttonIcon}
             >
-            <img src={copyToClipboardIcon} alt="copy to clipboard" />
-            {/* <FacebookShareButton style={{ cursor: "pointer" }} url={window.location.href} /> */}
+              <img src={copyToClipboardIcon} alt="copy to clipboard" />
+              {/* <FacebookShareButton style={{ cursor: "pointer" }} url={window.location.href} /> */}
 
-            <FacebookShareButton
-            url={process.env.REACT_APP_HOME + window.location.pathname}
-            quote={info.label}
-            className="Demo__some-network__share-button"
-          >
-            <FacebookIcon size={32} round />
-          </FacebookShareButton>
+              <FacebookShareButton
+                url={process.env.REACT_APP_HOME + window.location.pathname}
+                quote={info.label}
+                className="Demo__some-network__share-button"
+              >
+                <FacebookIcon size={32} round />
+              </FacebookShareButton>
 
-          <div className="Demo__some-network">
-          <WhatsappShareButton
-            url={process.env.REACT_APP_HOME + window.location.pathname}
-            title={info.label}
-            separator=":: "
-            className="Demo__some-network__share-button"
-          >
-            <WhatsappIcon size={32} round />
-          </WhatsappShareButton>
+              <div className="Demo__some-network">
+                <WhatsappShareButton
+                  url={process.env.REACT_APP_HOME + window.location.pathname}
+                  title={info.label}
+                  separator=":: "
+                  className="Demo__some-network__share-button"
+                >
+                  <WhatsappIcon size={32} round />
+                </WhatsappShareButton>
 
-          <div className="Demo__some-network__share-count">&nbsp;</div>
-        </div>
+                <div className="Demo__some-network__share-count">&nbsp;</div>
+              </div>
 
-          </div>
+            </div>
           </div>
         </div>
       );
@@ -561,8 +436,8 @@ class MyPlaceInfo extends Component {
               <div className="introtext">
                 <div className="abstractPopup">
                   {info.periode_ouverture}
-                  <RenderUrl props={this.props} />
-                  <RenderAddress info={info} />
+                  <RenderUrl infoPopup={this.props.infoPopup} props={this.props} />
+                  <RenderAddress infoPopup={info} />
                   {info.price !== 0 ? (
                     <p>
                       {t("myplaceinfo.price")}
@@ -697,10 +572,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    // getRoute: (directionsFrom, directionsTo, modality, accessToken) => dispatch(getRoute(directionsFrom, directionsTo, modality, accessToken)),
     setStateValue: (key, value) => dispatch(setStateValue(key, value)),
-    // setUserLocation: (coordinates) => dispatch(setUserLocation(coordinates)),
-    // triggerMapUpdate: (repan) => dispatch(triggerMapUpdate(repan)),
     resetStateKeys: (keys) => dispatch(resetStateKeys(keys)),
   };
 };

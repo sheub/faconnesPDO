@@ -7,13 +7,18 @@ import turfDistance from "@turf/distance";
 
 import { withStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
+
 import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
+
 import ListSubheader from "@material-ui/core/ListSubheader";
 import IconButton from "@material-ui/core/IconButton";
-import {returnImage} from "../utils/displayUtils";
 
+import {returnImage} from "../utils/displayUtils";
+import MuiExpansionPanel from "@material-ui/core/ExpansionPanel";
+import MuiExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import MuiExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import Typography from "@material-ui/core/Typography";
+import {RenderUrl, RenderAddress, RenderDateTime, RenderLastUpdate} from "../utils/displayUtils";
 
 import "./PopupInfo.css";
 
@@ -51,23 +56,40 @@ const styles = theme => ({
     zIndex: 2,
   },
 
-  blockWithText: {
-    overflow: "hidden",
-    padding: 0,
-    letterSpacing: "-0.3px",
-  },
-
   listItemIconClass: {
-    marginRight: "3px",
+    marginRight: "-25px",
     marginLeft: "-16px",
-    verticalAlign: "top"
+    marginTop: "5px",
   },
 
-  ListItemStyle: {
-    paddingRight: "16px",
-    cursor: "default"
+  ExpansionPanelRoot: {
+    border: "1px solid rgba(0, 0, 0, .125)",
+    boxShadow: "none",
+    "&:not(:last-child)": {
+      borderBottom: 0,
+    },
+    "&:before": {
+      display: "none",
+    },
+    "&$expanded": {
+      margin: "auto",
+    },
   },
 
+  ExpansionPanelSummaryRoot: {
+    backgroundColor: "rgba(0, 0, 0, .03)",
+    borderBottom: "1px solid rgba(0, 0, 0, .125)",
+    marginBottom: -1,
+    minHeight: 56,
+    "&$expanded": {
+      minHeight: 56,
+    },
+  },
+
+  ExpansionPanelDetailsRoot: {
+    padding: theme.spacing(2),
+    display: "grid",
+  },
 });
 
 class ListVue extends React.Component {
@@ -85,7 +107,6 @@ class ListVue extends React.Component {
       infoItem.listVueActive = true;
       infoItem.paintColor = this.props.listVueItems[index].layer.paint["circle-color"];
       infoItem.place_name = this.props.listVueItems[index].properties.label_fr;
-      // infoItem.popupActive = true;
       infoItem.featureId = this.props.listVueItems[index].id;
 
       this.props.setStateValue("infoPopup", infoItem);
@@ -138,24 +159,32 @@ class ListVue extends React.Component {
 
       switch (lang) {
       case "fr":
-        if (typeof (item.properties.label_fr) !== "undefined")
+        if (typeof (item.properties.label_fr) !== "undefined"){
           info.label = item.properties.label_fr;
-        else
+          info.description = item.properties.abstract_fr;
+        }
+        else{
           info.label = item.properties.label_en;
+          info.description = item.properties.abstract_en;
+        }
         break;
 
       case "en":
         if (typeof (item.properties.label_en) !== "undefined" && item.properties.label_en)
-          info.label = item.properties.label_en;
+        {          info.label = item.properties.label_en;
+          info.description = item.properties.abstract_en;}
         else
-          info.label = item.properties.label_fr;
-        break;
+        {          info.label = item.properties.label_fr;
+          info.description = item.properties.abstract_fr;
+        }        break;
 
       default:
         if (typeof (item.properties.label_en) !== "undefined")
-          info.label = item.properties.label_en;
+        {info.label = item.properties.label_en;
+          info.description = item.properties.abstract_fr;}
         else
-          info.label = item.properties.label_fr;
+        {info.label = item.properties.label_fr;
+          info.description = item.properties.abstract_fr;}
         break;
       }
 
@@ -169,15 +198,29 @@ class ListVue extends React.Component {
       else {
         info.address = distance.concat(" kms");
       }
+      // const [expanded, setExpanded] = React.useState('panel1');
 
+      // const handleChange = (panel) => (event, newExpanded) => {
+      //   setExpanded(newExpanded ? panel : false);
+      // };
       return (
+        // expanded={expanded === 'panel' + index} onChange={handleChange('panel' + index)}
+        <MuiExpansionPanel square className={classes.ExpansionPanelRoot}>
+          <MuiExpansionPanelSummary className={classes.ExpansionPanelSummaryRoot} aria-controls={"panel " + index + "d-content"} id={"panel" + index + "d-header"}>
+            <ListItemIcon className={classes.listItemIconClass}>
+              {returnImage(item.layer.id)}
+            </ListItemIcon>
+            <Typography>{info.label}</Typography>
+          </MuiExpansionPanelSummary>
+          <MuiExpansionPanelDetails className={classes.ExpansionPanelDetailsRoot}>
+            <Typography>{info.description}</Typography>
+            <RenderDateTime infoPopup={item} props={this.props} />
+            <RenderUrl infoPopup={item} props={this.props} />
+            <RenderAddress infoPopup={item} />
+            <RenderLastUpdate infoPopup={item} props={this.props} />
+          </MuiExpansionPanelDetails>
+        </MuiExpansionPanel>
 
-        <ListItem button key={"listItem" + index} className={classes.ListItemStyle} onClick={this.handleClick.bind(this, index)} aria-label={info.label} >
-          <ListItemIcon className={classes.listItemIconClass}>
-            {returnImage(item.layer.id)}
-          </ListItemIcon>
-          <ListItemText className={classes.blockWithText} primary={info.label} secondary={info.address} />
-        </ListItem>
       );
     };
 
@@ -261,5 +304,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(translate("translations")(ListVue)));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(translate("translations")(ListVue)));

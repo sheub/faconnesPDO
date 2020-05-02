@@ -52,7 +52,7 @@ class MapComponent extends Component {
   }
 
   componentDidMount() {
-    mapboxgl.accessToken = this.props.accessToken;
+    // mapboxgl.accessToken = this.props.accessToken;
 
     const map = new mapboxgl.Map({
       container: "map",
@@ -101,6 +101,36 @@ class MapComponent extends Component {
         this.map.getSource("marker").setData(this.emptyData);
       }
     }
+    if (this.props.mode === "localAutocomplete") {
+      if (this.props.listVueItems) {
+        // if (this.props.searchLocation.geometry) {
+          let searchResultSource = this.map.getSource("searchResult");
+          if (typeof searchResultSource === "undefined") {
+            return;
+          }
+          // console.log(this.props.listVueItems);
+          var jsonFeatureCollection = {};
+          jsonFeatureCollection.FeatureCollection = this.props.listVueItems;
+          // jsonFeatureCollection.value = this.props.listVueItems;
+          jsonFeatureCollection = {
+            "type": "FeatureCollection",
+            "features": this.props.listVueItems
+          };
+          // console.log(jsonFeatureCollection);
+          // console.log(jsonArray);
+          // this.map
+          //   .getSource("searchResult")
+          //   .setData(jsonFeatureCollection);
+            this.map.getSource('searchResult').setData({
+              "type": "FeatureCollection",
+              "features": this.props.listVueItems
+            });
+      //   }
+      // } else {
+      //   this.map.getSource("searchResult").setData(this.emptyData);
+      // }
+    }
+  }
 
     if (this.props.needMapRepan) {
       // Search mode
@@ -297,7 +327,7 @@ class MapComponent extends Component {
           featureId: feature.id,
           paintColor: paintColor,
           // popupActive: true,
-          listVueActive: listVueActive,
+          // listVueActive: listVueActive,
         });
 
         this.props.triggerMapUpdate();
@@ -635,12 +665,13 @@ class MapComponent extends Component {
       "baignades",
       "toilets",
       "videsgreniers",
+      // "searchResult",
     ];
   }
 }
 
 MapComponent.propTypes = {
-  accessToken: PropTypes.string,
+  // accessToken: PropTypes.string,
   center: PropTypes.array,
   coorOnClick: PropTypes.array,
   dateFrom: PropTypes.number,
