@@ -7,18 +7,15 @@ import turfDistance from "@turf/distance";
 
 import { withStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
-
 import ListItemIcon from "@material-ui/core/ListItemIcon";
-
 import ListSubheader from "@material-ui/core/ListSubheader";
 import IconButton from "@material-ui/core/IconButton";
 
-import {returnImage} from "../utils/displayUtils";
 import MuiExpansionPanel from "@material-ui/core/ExpansionPanel";
 import MuiExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import MuiExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import Typography from "@material-ui/core/Typography";
-import {RenderUrl, RenderAddress, RenderDateTime, RenderLastUpdate} from "../utils/displayUtils";
+import {RenderUrl, RenderAddress, RenderDateTime, RenderLastUpdate, returnImage} from "../utils/displayUtils";
 
 import "./PopupInfo.css";
 
@@ -28,6 +25,7 @@ const styles = theme => ({
     display: "flex",
     flexDirection: "column",
     height: "33vh",
+    // height: "auto",
     marginTop: "7px",
     boxShadow: "0 0 10px 2px rgba(0, 0, 0, .25)",
   },
@@ -98,36 +96,6 @@ class ListVue extends React.Component {
       open: true,
       infoPopup: null,
     };
-
-    handleClick(index) {
-
-      let infoItem = this.props.listVueItems[index];
-      infoItem.geometry = this.props.listVueItems[index]._geometry;
-      infoItem.layerId = this.props.listVueItems[index].layer.id;
-      infoItem.listVueActive = true;
-      infoItem.paintColor = this.props.listVueItems[index].layer.paint["circle-color"];
-      infoItem.place_name = this.props.listVueItems[index].properties.label_fr;
-      infoItem.featureId = this.props.listVueItems[index].id;
-
-      this.props.setStateValue("infoPopup", infoItem);
-      this.props.setStateValue("popupActive", true);
-
-
-      // Update the searchLocation so that the marker is jumping from position to position
-      this.props.setStateValue("searchLocation", {
-        type: "Feature",
-        place_name: infoItem.place_name,
-        properties: infoItem.properties,
-        geometry: infoItem.geometry,
-        layerId: infoItem.layerId,
-        paintColor: infoItem.paintColor,
-        featureId: infoItem.featureId,
-        popupActive: true,
-        listVueActive: true
-      });
-      this.props.triggerMapUpdate();
-
-    }
 
     hideListVue() {
       this.props.setStateValue("listVueActive", false);
@@ -205,7 +173,7 @@ class ListVue extends React.Component {
       // };
       return (
         // expanded={expanded === 'panel' + index} onChange={handleChange('panel' + index)}
-        <MuiExpansionPanel square className={classes.ExpansionPanelRoot}>
+        <MuiExpansionPanel square key={"listItem" + index} className={classes.ExpansionPanelRoot}>
           <MuiExpansionPanelSummary className={classes.ExpansionPanelSummaryRoot} aria-controls={"panel " + index + "d-content"} id={"panel" + index + "d-header"}>
             <ListItemIcon className={classes.listItemIconClass}>
               {returnImage(item.layer.id)}

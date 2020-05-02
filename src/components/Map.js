@@ -249,8 +249,7 @@ class MapComponent extends Component {
 
     if(!features.length){
       return;
-    }
-    if (features.length) {
+    } else {
       // We have a selected feature
       var feature = features[0];
       this.props.resetStateKeys(["placeInfo"]);
@@ -290,11 +289,11 @@ class MapComponent extends Component {
         }
       }
 
-      let listVueActive = false;
+      // let listVueActive = false;
 
       // if more than one feature
       if (features.length > 1) {
-        listVueActive = true;
+        // listVueActive = true;
         // this.props.setStateValue("coorOnClick",
         //   [
         //     coords["lng"],
@@ -303,15 +302,16 @@ class MapComponent extends Component {
         this.props.setStateValue("coorOnClick", feature.geometry.coordinates);
         this.props.setStateValue("listVueActive", true);
         this.props.setStateValue("listVueItems", features);
+        this.props.setStateValue("popupActive", false);
       } else {
-        listVueActive = false;
+        // listVueActive = false;
         this.props.setStateValue("listVueActive", false);
+        this.props.setStateValue("popupActive", true);
       }
 
 
-      let infoItem = this.setInfoItem(place_name, feature, paintColor, listVueActive);
+      let infoItem = this.setInfoItem(place_name, feature, paintColor);
       this.props.setStateValue("infoPopup", infoItem);
-      this.props.setStateValue("popupActive", true);
 
       /**Call setStateValue
        * @todo: check if the popupActive: true, listVueActive: listVueActive
@@ -420,11 +420,12 @@ class MapComponent extends Component {
       let infoItem = this.setInfoItem(place_name, feature, paintColor, listVueActive);
       this.props.setStateValue("infoPopup", infoItem);
       this.props.setStateValue("searchLocation", infoItem);
-      this.props.setStateValue("popupActive", true);
+      // since Collapsible List Display no popupInfo required
+      this.props.setStateValue("popupActive", false);
     }
   }
 
-  setInfoItem(place_name, feature, paintColor, listVueActive) {
+  setInfoItem(place_name, feature, paintColor) {
     let infoItem = {};
     infoItem.place_name = place_name;
     infoItem.properties = feature.properties;
@@ -432,7 +433,7 @@ class MapComponent extends Component {
     infoItem.layerId = feature.layer.id;
     infoItem.featureId = feature.id;
     infoItem.paintColor = paintColor;
-    infoItem.listVueActive = listVueActive;
+    // infoItem.listVueActive = listVueActive;
     return infoItem;
   }
 
