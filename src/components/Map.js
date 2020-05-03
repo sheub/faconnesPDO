@@ -102,12 +102,12 @@ class MapComponent extends Component {
       }
     }
     if (this.props.mode === "localAutocomplete") {
-      if (this.props.listVueItems) {
+      if (this.props.listVueItems.length > 1) {
         // if (this.props.searchLocation.geometry) {
-          let searchResultSource = this.map.getSource("searchResult");
-          if (typeof searchResultSource === "undefined") {
-            return;
-          }
+          // let searchResultSource = this.map.getSource("searchResult");
+          // if (typeof searchResultSource === "undefined") {
+          //   return;
+          // }
           // console.log(this.props.listVueItems);
           var jsonFeatureCollection = {};
           jsonFeatureCollection.FeatureCollection = this.props.listVueItems;
@@ -141,7 +141,7 @@ class MapComponent extends Component {
         import("../utils/moveTo").then(moveTo => {
           moveTo.moveTo(this.map, this.props.searchLocation, 11);
         });
-        this.queryAndRenderFeatures(this.props.searchLocation);
+        // this.queryAndRenderFeatures(this.props.searchLocation);
       }
     }
 
@@ -710,8 +710,6 @@ const mapStateToProps = (state) => {
   return {
     // accessToken: state.app.mapboxAccessToken,
     center: state.app.mapCoords.slice(0, 2),
-    directionsFrom: state.app.directionsFrom,
-    directionsTo: state.app.directionsTo,
     toggleLayerVisibility: state.app.toggleLayerVisibility,
     dateFrom: state.app.dateFrom,
     dateTo: state.app.dateTo,

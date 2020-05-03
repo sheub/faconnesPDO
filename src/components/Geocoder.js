@@ -8,6 +8,7 @@ import {displayColors, layersArray} from "../utils/displayUtils";
 
 import {
   setStateValue,
+  triggerMapUpdate
 } from "../actions/index";
 /**
  * Geocoder component: connects to endpoint: 'https://api-adresse.data.gouv.fr
@@ -40,7 +41,7 @@ class Geocoder extends Component {
   onInput(e) {
     this.setState({ loading: true });
     var value = e.target.value;
-    if (value === "") {
+    if (value.length < 3) {
       this.setState({
         results: [],
         focus: null,
@@ -121,10 +122,9 @@ class Geocoder extends Component {
   }
 
   clickOption(place, listLocation) {
-    if(!this.state.geocode){
+    if (!this.state.geocode) {
       place.place_name = place.properties.label_fr;
-    }
-     else place.place_name = place.properties.name;
+    } else place.place_name = place.properties.name;
     this.props.onSelect(place);
     this.setState({ focus: listLocation });
     // focus on the input after click to maintain key traversal
@@ -145,7 +145,7 @@ class Geocoder extends Component {
         url = process.env.REACT_APP_API_ENTRYPOINT;
         // url = "process.env.PUBLIC_URL/";
       } else {
-        url = process.env.REACT_APP_API_ENTRYPOINT + "/";
+        url = "http://127.0.0.1:8000/";
       }
 
       this.setState({
@@ -158,18 +158,61 @@ class Geocoder extends Component {
 
   getColorLayer(property_id) {
     // get layerindex and return corresponding layerColor
-    if(typeof property_id === 'undefined')
-    {
+    if (typeof property_id === "undefined") {
       return "gray";
     }
     var layerIndex = parseInt(property_id.substring(2, 4));
     return displayColors[layersArray[layerIndex]];
   }
 
+  // backup just after {input} ~195
+  renderGeocoderResults() {
+    // {this.state.results.length > 0 && this.props.searchString !== "" &&
+    if(!this.state.results.length) {
+      return null;
+    } else {
+      return (
+        <ul className={this.props.resultsClass}>
+          {this.state.results.map((result, i) => (
+            <li
+              key={result.properties.id}
+              className={
+                (i === this.state.focus
+                  ? "bg-blue-faint"
+                  : "bg-gray-faint-on-hover") +
+              " h36 flex-parent flex-parent--center-cross pr12 cursor-pointer w-full"
+              }
+              onClick={this.clickOption.bind(this, result, i)}
+            >
+              {/* list display */}
+              <div className="absolute flex-parent flex-parent--center-cross flex-parent--center-main w24 h42">
+                {/* feature_id getColorLayer */}
+                <svg
+                  className="icon"
+                  style={{
+                    color: this.getColorLayer(result.properties.id),
+                  }}
+                >
+                  <use xlinkHref="#icon-marker"></use>
+                </svg>
+              </div>
+              <div
+                className="pl24 pr12 txt-truncate"
+                key={result.properties.id}
+              >
+                <MyPlaceName location={result} />
+              </div>
+            </li>
+          ))}
+        </ul>
+      );
+    }
+  }
+
   render() {
     var input = (
       <input
-        ref={input => {
+        ref={(input) => {
           this.input = input;
         }}
         className={this.props.inputClass}
@@ -182,42 +225,26 @@ class Geocoder extends Component {
         aria-label="SearchInput"
       />
     );
-    // console.log(this.state.results);
-    this.props.setListVueItems(this.state.results);
+    if (this.state.results.length > 0) {
+      if (this.props.searchMode === "search") {
+        // console.log(this.state.results);
+        this.resultsGeocoder = this.renderGeocoderResults();
+      } else {
+        // localAutocomplete
+        this.props.setListVueItems(this.state.results);
+        this.props.setListVueActive(true);
+        this.props.triggerMapUpdate();
+        this.resultsGeocoder = null;
+      }
+    } else {
+      this.props.setListVueActive(false);
+      this.resultsGeocoder = null;
+    }
 
     return (
       <div className="w-full">
         {input}
-        {this.state.results.length > 0 && this.props.searchString !== "" && (
-          <ul className={this.props.resultsClass}>
-            {this.state.results.map((result, i) => (
-              <li
-                key={result.properties.feature_id}
-                className={
-                  (i === this.state.focus
-                    ? "bg-blue-faint"
-                    : "bg-gray-faint-on-hover") +
-                  " h36 flex-parent flex-parent--center-cross pr12 cursor-pointer w-full"
-                }
-                onClick={this.clickOption.bind(this, result, i)}
-              >
-                {/* list display */}
-                <div className="absolute flex-parent flex-parent--center-cross flex-parent--center-main w24 h42">
-                {/* feature_id getColorLayer */}
-                  <svg className="icon"  style={{ color: this.getColorLayer(result.properties.feature_id)}}>
-                    <use xlinkHref="#icon-marker"></use>
-                  </svg>
-                </div>
-                <div
-                  className="pl24 pr12 txt-truncate"
-                  key={result.properties.feature_id}
-                >
-                  <MyPlaceName location={result} />
-                </div>
-              </li>
-            ))}
-          </ul>
-        )}
+        {this.resultsGeocoder}
         {this.props.inputPosition === "bottom" && input}
       </div>
     );
@@ -272,6 +299,8 @@ Geocoder.propTypes = {
   types: PropTypes.string,
   searchString: PropTypes.string,
   writeSearch: PropTypes.func,
+  triggerMapUpdate: PropTypes.func,
+
 };
 
 Geocoder.defaultProps = {
@@ -289,6 +318,8 @@ Geocoder.defaultProps = {
 const mapDispatchToProps = dispatch => {
   return {
     setListVueItems: items => dispatch(setStateValue("listVueItems", items)),
+    setListVueActive: value => dispatch(setStateValue("listVueActive", value)),
+    triggerMapUpdate: (v) => dispatch(triggerMapUpdate(v)),
   };
 };
 

@@ -55,7 +55,7 @@ class Search extends Component {
     this.state = {
       drawerOpen: true,
       checkedA: true,
-      modeString: "Geocoder",
+      modeString: "Event Search",
     };
   }
 
@@ -202,11 +202,11 @@ class Search extends Component {
   handleSwitchChange() {
     this.setState({ checkedA: !this.state.checkedA });
     if (this.state.checkedA) {
-      this.props.setMode("localAutocomplete");
-      this.setState({ modeString: "Local search" });
-    } else {
-      this.props.setMode("search");
+      this.props.setSearchMode("search");
       this.setState({ modeString: "Geocoder" });
+    } else {
+      this.props.setSearchMode("localAutocomplete");
+      this.setState({ modeString: "Event search" });
     }
   }
 
@@ -225,7 +225,7 @@ Search.propTypes = {
   resetStateKeys: PropTypes.func,
   searchLocation: PropTypes.object,
   searchString: PropTypes.string,
-  setMode: PropTypes.func,
+  setSearchMode: PropTypes.func,
   setPlaceInfo: PropTypes.func,
   setSearchLocation: PropTypes.func,
   setStateValues: PropTypes.func,
@@ -248,7 +248,7 @@ const mapDispatchToProps = dispatch => {
   return {
     getPlaceInfo: id => dispatch(getPlaceInfo(id)),
     resetStateKeys: keys => dispatch(resetStateKeys(keys)),
-    setMode: mode => dispatch(setStateValue("mode", mode)),
+    setSearchMode: mode => dispatch(setStateValue("mode", mode)),
     setPlaceInfo: info => dispatch(setStateValue("placeInfo", info)),
     setInfoPopup: info => dispatch(setStateValue("infoPopup", info)),
     setSearchLocation: location => dispatch(setStateValue("searchLocation", location)),

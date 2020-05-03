@@ -22,14 +22,15 @@ const MarchesColor = "#4AA52C";
 const VideGreniers = "#007CBF";
 
 const displayColors = {
-  'Exposition': "#E12E0E",
-  'Musique': "#A52C56",
-  'Children': "#15178A",
-  'Marches': "#4AA52C",
-  'VidesGreniers': "#007CBF",
+  Exposition: "#E12E0E",
+  Musique: "#A52C56",
+  Children: "#15178A",
+  Marches: "#4AA52C",
+  VidesGreniers: "#007CBF",
 };
 
-const layersArray = ['VidesGreniers', 'Marches', 'Musique', 'Exposition', 'Children'];
+const layersArray = ["VidesGreniers", "Marches", "Musique", "Exposition", "Children"];
+const layersIdsArray = ["videsgreniers", "marches", "musique", "exposition", "children"];
 
 // const indexLayers = {
 //   VidesGreniers: 0,
@@ -63,80 +64,89 @@ const layerSelector = {
   VidesGreniers: /videsgreniers/,
 };
 
+function returnLayerIDfromFeatureId(featureId) {
+  // get layerindex and return corresponding layerColor
+  if(typeof featureId === "undefined")
+  {
+    return 1;
+  }
+  return layersIdsArray[parseInt(featureId.substring(2, 4))];
+}
+
 function returnImage(layerId) {
   let img = null;
   switch (layerId) {
-    case "plusBeauxVillagesDeFrance":
-      img = <img src={Star15_961313} alt="" className="legend-key" />;
-      break;
-    case "patrimoinemondialenfrance":
-      img = <img src={Star15_14222D} alt="" className="legend-key" />;
-      break;
-    case "jardinremarquable":
-      img = <img src={Star15_4AA52C} alt="" className="legend-key" />;
-      break;
-    case "grandSiteDeFrance":
-      img = <img src={Star15_19766E} alt="" className="legend-key" />;
-      break;
-    case "monumentsnationaux":
-      img = <img src={Star15_1F08A6} alt="" className="legend-key" />;
-      break;
-    case "museesFrance":
-      img = <img src={Star15_33BAAB} alt="" className="legend-key" />;
-      break;
-    case "villeEtPaysArtHistoire":
-      img = <img src={Star15_961313} alt="" className="legend-key" />;
-      break;
-    case "parcsjardins":
-      img = <img src={Square15_4AA52C} alt="" className="legend-key" />;
-      break;
-    case "localproductshop":
-      img = <img src={Square15_E8EF1F} alt="" className="legend-key" />;
-      break;
-    case "craftmanshop":
-      img = <img src={Square15_EE8568} alt="" className="legend-key" />;
-      break;
-    case "WineCelar":
-      img = <img src={Square15_6B0D0D} alt="" className="legend-key" />;
-      break;
-    case "OTFrance":
-      img = <img src={Square15_318CE7} alt="" className="legend-key" />;
-      break;
-    case "AiresJeux":
-      img = <img src={Square15_318CE7} alt="" className="legend-key" />;
-      break;
-    case "marches":
-      img = (
-        <span className="dot" style={{ backgroundColor: MarchesColor }}></span>
-      );
-      break;
-    case "exposition":
-      img = (
-        <span
-          className="dot"
-          style={{ backgroundColor: ExpositionColor }}
-        ></span>
-      );
-      break;
-    case "musique":
-      img = (
-        <span className="dot" style={{ backgroundColor: MusiqueColor }}></span>
-      );
-      break;
-    case "children":
-      img = (
-        <span className="dot" style={{ backgroundColor: ChildrenColor }}></span>
-      );
-      break;
-    case "videsgreniers":
-      img = (
-        <span className="dot" style={{ backgroundColor: VideGreniers }}></span>
-      );
-      break;
+  case "plusBeauxVillagesDeFrance":
+    img = <img src={Star15_961313} alt="" className="legend-key" />;
+    break;
+  case "patrimoinemondialenfrance":
+    img = <img src={Star15_14222D} alt="" className="legend-key" />;
+    break;
+  case "jardinremarquable":
+    img = <img src={Star15_4AA52C} alt="" className="legend-key" />;
+    break;
+  case "grandSiteDeFrance":
+    img = <img src={Star15_19766E} alt="" className="legend-key" />;
+    break;
+  case "monumentsnationaux":
+    img = <img src={Star15_1F08A6} alt="" className="legend-key" />;
+    break;
+  case "museesFrance":
+    img = <img src={Star15_33BAAB} alt="" className="legend-key" />;
+    break;
+  case "villeEtPaysArtHistoire":
+    img = <img src={Star15_961313} alt="" className="legend-key" />;
+    break;
+  case "parcsjardins":
+    img = <img src={Square15_4AA52C} alt="" className="legend-key" />;
+    break;
+  case "localproductshop":
+    img = <img src={Square15_E8EF1F} alt="" className="legend-key" />;
+    break;
+  case "craftmanshop":
+    img = <img src={Square15_EE8568} alt="" className="legend-key" />;
+    break;
+  case "WineCelar":
+    img = <img src={Square15_6B0D0D} alt="" className="legend-key" />;
+    break;
+  case "OTFrance":
+    img = <img src={Square15_318CE7} alt="" className="legend-key" />;
+    break;
+  case "AiresJeux":
+    img = <img src={Square15_318CE7} alt="" className="legend-key" />;
+    break;
+  case "marches":
+    img = (
+      <span className="dot" style={{ backgroundColor: MarchesColor }}></span>
+    );
+    break;
+  case "exposition":
+    img = (
+      <span
+        className="dot"
+        style={{ backgroundColor: ExpositionColor }}
+      ></span>
+    );
+    break;
+  case "musique":
+    img = (
+      <span className="dot" style={{ backgroundColor: MusiqueColor }}></span>
+    );
+    break;
+  case "children":
+    img = (
+      <span className="dot" style={{ backgroundColor: ChildrenColor }}></span>
+    );
+    break;
+  case "videsgreniers":
+    img = (
+      <span className="dot" style={{ backgroundColor: VideGreniers }}></span>
+    );
+    break;
 
-    default:
-      img = null;
-      break;
+  default:
+    img = null;
+    break;
   }
 
   return img;
@@ -200,6 +210,16 @@ function RenderAddress(props) {
       {postal_code} {address_locality}
     </div>
   );
+}
+
+function getColorLayer(property_id) {
+  // get layerindex and return corresponding layerColor
+  if(typeof property_id === "undefined")
+  {
+    return "gray";
+  }
+  var layerIndex = parseInt(property_id.substring(2, 4));
+  return displayColors[layersArray[layerIndex]];
 }
 
 function RenderDateTime(props) {
@@ -279,4 +299,4 @@ function RenderLastUpdate(props) {
 }
 
 
-export { returnImage, RenderUrl, RenderAddress, RenderDateTime, RenderLastUpdate, layerSelector, displayColors, layersArray };
+export { getColorLayer, returnImage, returnLayerIDfromFeatureId, RenderUrl, RenderAddress, RenderDateTime, RenderLastUpdate, layerSelector, displayColors, layersArray };

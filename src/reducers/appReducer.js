@@ -15,7 +15,7 @@ const defaultAppState = {
   mapScreenshot: "",
 
   // Mode
-  mode: "search",
+  mode: "localAutocomplete",
   // Search
   searchString: "",
   searchLocation: null,
