@@ -2648,7 +2648,7 @@
       "source": "localEvents",
       "source-layer": "videsGreniers",
       "maxzoom": 20,
-      "layout": {"visibility": "visible"},
+      "layout": {"visibility": "none"},
       "paint": {
         "circle-radius": [
           "interpolate",
