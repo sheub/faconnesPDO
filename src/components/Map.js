@@ -666,7 +666,7 @@ class MapComponent extends Component {
       "baignades",
       "toilets",
       "videsgreniers",
-      // "searchResult",
+      "searchResult",
     ];
   }
 }
