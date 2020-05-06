@@ -26,6 +26,8 @@ import withMobileDialog from "@material-ui/core/withMobileDialog";
 
 import CssBaseline from "@material-ui/core/CssBaseline";
 
+import {RenderAddress, RenderDateTime} from "../utils/displayUtils.js";
+
 import "./Impressum.css";
 
 const styles = theme => ({
@@ -91,59 +93,59 @@ class ProfilePage extends Component {
     this.props.handleClose();
   };
 
-  RenderAddress(props, classes) {
-    let street_address,
-      postal_code,
-      address_locality = null;
-    if (props.street_address || props.postal_code) {
-      street_address = props.street_address;
-      postal_code = props.postal_code;
-      address_locality = props.address_locality;
-    } else if (props.adr || props.cp) {
-      street_address = props.adr;
-      postal_code = props.cp;
-      address_locality = props.ville;
-    }
+  // RenderAddress(props, classes) {
+  //   let street_address,
+  //     postal_code,
+  //     address_locality = null;
+  //   if (props.street_address || props.postal_code) {
+  //     street_address = props.street_address;
+  //     postal_code = props.postal_code;
+  //     address_locality = props.address_locality;
+  //   } else if (props.adr || props.cp) {
+  //     street_address = props.adr;
+  //     postal_code = props.cp;
+  //     address_locality = props.ville;
+  //   }
 
-    return (
-      <div className={classes.addressLayout}>
-        {street_address}
-        <br />
-        {postal_code} {address_locality}
-      </div>
-    );
-  }
+  //   return (
+  //     <div className={classes.addressLayout}>
+  //       {street_address}
+  //       <br />
+  //       {postal_code} {address_locality}
+  //     </div>
+  //   );
+  // }
 
-  RenderDateTime(t, lng, properties) {
-    if (properties.valid_from) {
-      let eventStart = new Date(properties.valid_from);
-      let eventEnd = new Date(properties.valid_through);
-      let options = {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric"
-      };
+  // RenderDateTime(t, lng, properties) {
+  //   if (properties.valid_from) {
+  //     let eventStart = new Date(properties.valid_from);
+  //     let eventEnd = new Date(properties.valid_through);
+  //     let options = {
+  //       weekday: "long",
+  //       year: "numeric",
+  //       month: "long",
+  //       day: "numeric"
+  //     };
 
-      if (eventStart.getDate() === eventEnd.getDate())
-        return (
-          <div className="datePopup">
-            {t("myplaceinfo.le")} {eventStart.toLocaleDateString(lng, options)}
-          </div>
-        );
-      else {
-        return (
-          <div className="datePopup">
-            {t("myplaceinfo.from")}{" "}
-            {eventStart.toLocaleDateString(lng, options)}
-            <br />
-            {t("myplaceinfo.to")} {eventEnd.toLocaleDateString(lng, options)}
-          </div>
-        );
-      }
-    }
-    return null;
-  }
+  //     if (eventStart.getDate() === eventEnd.getDate())
+  //       return (
+  //         <div className="datePopup">
+  //           {t("myplaceinfo.le")} {eventStart.toLocaleDateString(lng, options)}
+  //         </div>
+  //       );
+  //     else {
+  //       return (
+  //         <div className="datePopup">
+  //           {t("myplaceinfo.from")}{" "}
+  //           {eventStart.toLocaleDateString(lng, options)}
+  //           <br />
+  //           {t("myplaceinfo.to")} {eventEnd.toLocaleDateString(lng, options)}
+  //         </div>
+  //       );
+  //     }
+  //   }
+  //   return null;
+  // }
 
   handleClickRemoveLocation = infoPlace => {
     this.state.userFavoritePlaces.splice(
@@ -154,7 +156,7 @@ class ProfilePage extends Component {
 
   renderPlace(place, props, classes) {
     const lang = props.i18n.language;
-    const { t } = props;
+    // const { t } = props;
 
     var info = { abstract: "abstract", label: "label", property_id: place.properties.property_id };
     switch (lang) {
@@ -210,8 +212,9 @@ class ProfilePage extends Component {
               {info.label}
             </Typography>
             <Typography>{info.abstract}</Typography>
-            <div>{this.RenderDateTime(t, lang, place.properties, classes)}</div>
-            <div>{this.RenderAddress(place.properties, classes)}</div>
+            {/* <div>{this.RenderDateTime(t, lang, place.properties, classes)}</div> */}
+            <RenderDateTime infoPopup = {place} props = {props} />
+            <RenderAddress infoPopup = {place.properties} classes={classes} />
           </CardContent>
           <CardActions>
             <Button size="small" color="primary">

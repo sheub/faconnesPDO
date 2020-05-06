@@ -265,7 +265,7 @@ class MyPlaceInfo extends Component {
                   infoPopup={this.props.infoPopup}
                   props={this.props}
                 />
-                <RenderAddress infoPopup={info} />
+                <RenderAddress infoPopup={this.props.infoPopup} />
                 {info.price !== 0 ? (
                   <p>
                     {t("myplaceinfo.price")}
@@ -289,6 +289,7 @@ class MyPlaceInfo extends Component {
         "children",
         "marches",
         "videsgreniers",
+        "searchResult",
       ].includes(layerId)
     ) {
       var geolink = "geo:" +
@@ -325,7 +326,7 @@ class MyPlaceInfo extends Component {
                   infoPopup={this.props.infoPopup}
                   props={this.props}
                 />
-                <RenderAddress infoPopup={info} />
+                <RenderAddress infoPopup={this.props.infoPopup} />
                 {info.price !== 0 ? (
                   <p>
                     {t("myplaceinfo.price")}
@@ -489,7 +490,7 @@ class MyPlaceInfo extends Component {
                     infoPopup={this.props.infoPopup}
                     props={this.props}
                   />
-                  <RenderAddress infoPopup={info} />
+                  <RenderAddress infoPopup={this.props.infoPopup} />
                   {info.price !== 0 ? (
                     <p>
                       {t("myplaceinfo.price")}

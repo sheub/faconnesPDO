@@ -142,7 +142,7 @@ class Geocoder extends Component {
     } else {
       var url = "";
       if (process.env.NODE_ENV === "production") {
-        url = process.env.REACT_APP_API_ENTRYPOINT;
+        url = "https://faconnes.de/current/public/";//process.env.REACT_APP_API_ENTRYPOINT;
         // url = "process.env.PUBLIC_URL/";
       } else {
         url = "http://127.0.0.1:8000/";

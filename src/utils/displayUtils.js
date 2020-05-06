@@ -190,13 +190,22 @@ function RenderUrl(props) {
 }
 
 function RenderAddress(props) {
+  // const RenderAddress = ({props, classes}) => {
+    var cssClasses = "addressPopup"
+    if (typeof props.classes !== "undefined") {
+        cssClasses = props.classes
+    }
   let street_address,
     postal_code,
     address_locality = null;
-  if (props.infoPopup.street_address || props.infoPopup.postal_code) {
-    street_address = props.infoPopup.street_address;
-    postal_code = props.infoPopup.postal_code;
-    address_locality = props.infoPopup.address_locality;
+  // console.log(props);
+  if (typeof props.infoPopup.properties !== "undefined") {
+    var infoProperties = props.infoPopup.properties;
+    if (infoProperties.street_address || infoProperties.postal_code) {
+      street_address = infoProperties.street_address;
+      postal_code = infoProperties.postal_code;
+      address_locality = infoProperties.address_locality;
+    }
   } else if (props.infoPopup.adr || props.infoPopup.cp) {
     street_address = props.infoPopup.adr;
     postal_code = props.infoPopup.cp;
@@ -204,13 +213,14 @@ function RenderAddress(props) {
   }
 
   return (
-    <div className="addressPopup">
+    <div className={cssClasses}>
       {street_address}
       <br />
       {postal_code} {address_locality}
     </div>
   );
 }
+
 
 function getColorLayer(property_id) {
   // get layerindex and return corresponding layerColor
@@ -234,7 +244,36 @@ function RenderDateTime(props) {
 
     let options = {
       weekday: "long",
-      year: "numeric",
+      year: "numeric",  RenderDateTime(t, lng, properties) {
+        if (properties.valid_from) {
+          let eventStart = new Date(properties.valid_from);
+          let eventEnd = new Date(properties.valid_through);
+          let options = {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+          };
+
+          if (eventStart.getDate() === eventEnd.getDate())
+            return (
+              <div className="datePopup">
+                {t("myplaceinfo.le")} {eventStart.toLocaleDateString(lng, options)}
+              </div>
+            );
+          else {
+            return (
+              <div className="datePopup">
+                {t("myplaceinfo.from")}{" "}
+                {eventStart.toLocaleDateString(lng, options)}
+                <br />
+                {t("myplaceinfo.to")} {eventEnd.toLocaleDateString(lng, options)}
+              </div>
+            );
+          }
+        }
+        return null;
+      },
       month: "long",
       day: "numeric",
     };

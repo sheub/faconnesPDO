@@ -111,7 +111,7 @@ async function requestFeatureFromId(featureId) {
   if (process.env.NODE_ENV === "production") {
     url = "/current/public/api/getFeatureByPropertyID/" + featureId.toString().padStart(9, "0");
   } else {
-    url = process.env.REACT_APP_API_ENTRYPOINT + "/api/getFeatureByPropertyID/010300674";
+    url = process.env.REACT_APP_API_ENTRYPOINT + "/api/getFeatureByPropertyID/"+ featureId.toString().padStart(9, "0");
   }
 
   try {
