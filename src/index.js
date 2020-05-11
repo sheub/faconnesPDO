@@ -9,7 +9,7 @@ import { ConnectedRouter, routerMiddleware } from "connected-react-router";
 
 // import {merge, get, set } from "lodash";
 
-import apiCaller from "./middlewares/apiCaller";
+// import apiCaller from "./middlewares/apiCaller";
 import urlTinkerer from "./middlewares/urlTinkerer";
 import rootReducer from "./reducers/index";
 import { defaultState } from "./reducers/index";
@@ -55,7 +55,8 @@ function doTheRest(initialState, initialAuthState, localStorage)
     composeEnhancers(
       applyMiddleware(
         routerMiddleware(history), // for dispatching history actions
-        apiCaller, urlTinkerer, routerMid))
+        // apiCaller,
+         urlTinkerer, routerMid))
   );
 
   // console.log(store.getState());

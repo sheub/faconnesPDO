@@ -303,7 +303,7 @@ class MyPlaceInfo extends Component {
             <div className="baseText">
               <div className="titleText">
                 <HomeIcon style={styles} alt={layerId} title={layerId} />
-                {info.label}
+                <span dangerouslySetInnerHTML={{ __html: info.label }} />
               </div>
               <div className="btn-close" aria-label="Close">
                 <IconButton
@@ -317,7 +317,8 @@ class MyPlaceInfo extends Component {
                 </IconButton>
               </div>
               <div className="introtext">
-                <div className="abstractPopup">{info.abstract}</div>
+                <div className="abstractPopup">
+                <div dangerouslySetInnerHTML={{ __html: info.abstract }} /></div>
                 <RenderDateTime
                   infoPopup={this.props.infoPopup}
                   props={this.props}

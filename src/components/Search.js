@@ -12,6 +12,7 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import Tooltip from "@material-ui/core/Tooltip";
 import SearchIcon from "@material-ui/icons/Search";
+import {layersArray} from "../utils/displayUtils";
 
 import {
   triggerMapUpdate,
@@ -177,12 +178,23 @@ class Search extends Component {
     );
   }
 
+  getLayerId(property_id) {
+    // get layerindex and return corresponding layerColor
+    if (typeof property_id === "undefined") {
+      return "gray";
+    }
+    var layerIndex = parseInt(property_id.substring(2, 4));
+    return layersArray[layerIndex];
+  }
+
+
   onSelect(data) {
     if (typeof data.place_name == "undefined") {
       data.place_name = data.properties.city;
     }
     // If search mode is geocoder -> do zoom in to place
     if (this.state.checkedA) {
+
       this.props.writeSearch(data.place_name);
       this.props.setSearchLocation(data);
       this.props.setInfoPopup(data);
@@ -190,9 +202,11 @@ class Search extends Component {
 
       // otherwize search mode is local search set filterString to layers
     } else {
+      data.layerId = this.getLayerId(data.properties.featureId);
       this.props.setStateValues({
         filterString: data.place_name,
         needMapFilterString: true,
+
       });
 
       this.props.triggerMapUpdate();

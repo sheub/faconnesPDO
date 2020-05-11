@@ -112,7 +112,7 @@ class ListVue extends React.Component {
 
     let infoItem = this.props.listVueItems[index];
     infoItem.geometry = this.props.listVueItems[index]._geometry ? this.props.listVueItems[index]._geometry : this.props.listVueItems[index].geometry;
-    infoItem.layerId = this.props.listVueItems[index].layer.id;
+    infoItem.layerId = this.props.listVueItems[index].layerId;
     // infoItem.listVueActive = true;
     // infoItem.paintColor = this.props.listVueItems[index].layer.paint["circle-color"];
     infoItem.place_name = this.props.listVueItems[index].properties.label_fr;
@@ -145,7 +145,8 @@ class ListVue extends React.Component {
     // distance = distance.toFixed(2).toString();
     if(typeof item.layer === "undefined") {
       item.layer = {};
-      item.layer.id = returnLayerIDfromFeatureId(item.properties.feature_id);
+      // item.layer.id = returnLayerIDfromFeatureId(item.properties.feature_id);
+      item.layerId = returnLayerIDfromFeatureId(item.properties.feature_id);
     }
 
     let info = {};
@@ -163,7 +164,7 @@ class ListVue extends React.Component {
         "OTFrance",
         "AiresJeux",
         "WineCelar",
-      ].includes(item.layer.id)//item.layer.id)
+      ].includes(item.layerId)//item.layer.id)
     ) {
       info.address = item.properties.address_locality;
     }
@@ -232,12 +233,15 @@ class ListVue extends React.Component {
           onClick={this.handleClick.bind(this, index)}
         >
           <ListItemIcon className={classes.listItemIconClass}>
-            {returnImage(item.layer.id)}
+            {returnImage(item.layerId)}
           </ListItemIcon>
-          <Typography>{info.label}</Typography>
+          {/* <Typography>{info.label}</Typography> */}
+          <Typography dangerouslySetInnerHTML={{ __html: info.label }} />
+
         </MuiExpansionPanelSummary>
         <MuiExpansionPanelDetails className={classes.ExpansionPanelDetailsRoot}>
-          <Typography>{info.description}</Typography>
+          {/* <Typography>{info.description}</Typography> */}
+          <Typography><span dangerouslySetInnerHTML={{ __html: info.description }} /></Typography>
           <RenderDateTime infoPopup={item} props={this.props} />
           <RenderUrl infoPopup={item} props={this.props} />
           <RenderAddress infoPopup={item} />
