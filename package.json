@@ -2,7 +2,7 @@
   "name": "marvelous",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://faconnes.de/index.html",
+  "homepage": "https://faconnes.de/",
   "devDependencies": {
     "glob-all": "^3.1.0",
     "react-scripts": "^2.1.8",
