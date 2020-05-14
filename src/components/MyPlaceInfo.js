@@ -32,7 +32,7 @@ import {
   WhatsappShareButton,
 } from "react-share";
 
-import "../assets/fonts/Caslon/ACaslonPro-Bold.otf";
+import "./fonts/Caslon/ACaslonPro-Bold.otf";
 import "./PopupInfo.css";
 
 import { setStateValue, resetStateKeys } from "../actions/index";

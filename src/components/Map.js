@@ -299,6 +299,16 @@ class MapComponent extends Component {
         //     coords["lng"],
         //     coords["lat"],
         //   ]);
+        // debugger;
+        // features = features.map((member, index) => {
+        //   debugger;
+        //   if (["searchResult"].includes(member.layer.id)) {
+        //     debugger;
+        //     features.splice(index, 1);
+        //   }
+        //   return features;
+        // })
+
         this.props.setStateValue("coorOnClick", feature.geometry.coordinates);
         this.props.setStateValue("listVueActive", true);
         this.props.setStateValue("listVueItems", features);
@@ -324,7 +334,8 @@ class MapComponent extends Component {
           properties: feature.properties,
           geometry: feature.geometry,
           layerId: feature.layer.id,
-          featureId: feature.id,
+          featureId: feature.properties.feature_id,
+          // featureId: feature.id,
           paintColor: paintColor,
           // popupActive: true,
           // listVueActive: listVueActive,
@@ -410,6 +421,7 @@ class MapComponent extends Component {
           location.geometry.coordinates[0],
           location.geometry.coordinates[1],
         ]);
+
         this.props.setStateValue("listVueActive", true);
         this.props.setStateValue("listVueItems", features);
       } else {
@@ -431,7 +443,7 @@ class MapComponent extends Component {
     infoItem.properties = feature.properties;
     infoItem.geometry = feature.geometry;
     infoItem.layerId = feature.layer.id;
-    infoItem.featureId = feature.id;
+    // infoItem.featureId = feature.properties.feature_id;
     infoItem.paintColor = paintColor;
     // infoItem.listVueActive = listVueActive;
     return infoItem;
