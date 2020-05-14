@@ -119,7 +119,7 @@ class ListVue extends React.Component {
     infoItem.featureId = this.props.listVueItems[index].id ? this.props.listVueItems[index].id : this.props.listVueItems[index].properties.feature_id;
 
     this.props.setStateValue("infoPopup", infoItem);
-    this.props.setStateValue("popupActive", true);
+    this.props.setStateValue("popupActive", false);
 
 
     // Update the searchLocation so that the marker is jumping from position to position
@@ -147,6 +147,8 @@ class ListVue extends React.Component {
       item.layer = {};
       // item.layer.id = returnLayerIDfromFeatureId(item.properties.feature_id);
       item.layerId = returnLayerIDfromFeatureId(item.properties.feature_id);
+    } else {
+      item.layerId = item.layer.id;
     }
 
     let info = {};

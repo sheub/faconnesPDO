@@ -126,10 +126,10 @@ class MapComponent extends Component {
               "features": this.props.listVueItems
             });
       //   }
-      // } else {
+    }
+      //      else {
       //   this.map.getSource("searchResult").setData(this.emptyData);
       // }
-    }
   }
 
     if (this.props.needMapRepan) {
