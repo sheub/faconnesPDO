@@ -443,7 +443,7 @@ class MapComponent extends Component {
     infoItem.properties = feature.properties;
     infoItem.geometry = feature.geometry;
     infoItem.layerId = feature.layer.id;
-    // infoItem.featureId = feature.properties.feature_id;
+    infoItem.featureId = feature.properties.feature_id;
     infoItem.paintColor = paintColor;
     // infoItem.listVueActive = listVueActive;
     return infoItem;

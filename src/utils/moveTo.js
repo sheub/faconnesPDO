@@ -17,6 +17,7 @@ function moveTo(map, location, zoom) {
         }
     } else { // We just have a point
         map.easeTo({
+            duration: 7,
             center: location.geometry.coordinates,
             zoom: zoom || 16
         });
