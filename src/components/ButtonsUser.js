@@ -4,20 +4,21 @@ import { NavLink, withRouter } from "react-router-dom";
 import { translate } from "react-i18next";
 import { triggerMapUpdate, setStateValues } from "../actions/index";
 
-import classNames from "classnames";
 import AppBar from "@material-ui/core/AppBar";
 import IconButton from "@material-ui/core/IconButton";
-import Toolbar from "@material-ui/core/Toolbar";
 import { withStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
+
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import LanguageIcon from "@material-ui/icons/Language";
 import PropTypes from "prop-types";
 
-import "./App.css";
 import { logoutUser } from "../actions/auth";
+// import { Component } from "react";
+
+
 
 const SignIn = React.lazy(() => import("../pages/auth/SignIn"));
 const Register = React.lazy(() => import("../pages/auth/Register"));
@@ -34,38 +35,12 @@ export const DefaultTransition = React.forwardRef((props, ref) => (
 ));
 
 const styles = theme => ({
-  root: {
-    flexGrow: 1,
-  },
-
-  appBar: {
-    zIndex: theme.zIndex.drawer - 1,
-    opacity: 0.85,
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-
-  appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    minWidth: 320,
-    overflow: "hidden",
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
   menuButton: {
     marginLeft: 20,
     marginRight: 12,
   },
   menuButtonHidden: {
     display: "none",
-  },
-  titleClass: {
-    flexGrow: 1,
   },
 
   languageButtonClass: {
@@ -87,18 +62,17 @@ const styles = theme => ({
   },
 });
 
-const drawerWidth = 270;
+class ButtonsUser extends Component {
+    state = {
+      anchorEl: null,
+      mobileMoreAnchorEl: null,
+      anchorelanguage: null,
+      languageSet: "en",
+      SignInFormVisible: false,
+      RegisterFormVisible: false,
+      showProfilePage: false,
+    };
 
-class MyAppBar extends Component {
-  state = {
-    anchorEl: null,
-    mobileMoreAnchorEl: null,
-    anchorelanguage: null,
-    languageSet: "en",
-    SignInFormVisible: false,
-    RegisterFormVisible: false,
-    showProfilePage: false,
-  };
 
   handleMenuLanguage = event => {
     this.setState({
@@ -277,55 +251,51 @@ class MyAppBar extends Component {
       this.props.triggerMapUpdate();
     };
 
+
     return (
       <div className={classes.root}>
         <CssBaseline />
 
-        <AppBar
-          position="absolute"
-          className={classNames(classes.appBar, open && classes.appBarShift)}
-        >
-          <Toolbar disableGutters={!open}>
-            <div className={classes.languageButtonClass}>
-              <IconButton
-                aria-owns={isMenuOpen ? "material-appbar" : undefined}
-                aria-haspopup="true"
-                onClick={this.handleProfileMenuOpen}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
+        {/* <Toolbar disableGutters={!open}> */}
+        <div className={classes.languageButtonClass}>
+          <IconButton
+            aria-owns={isMenuOpen ? "material-appbar" : undefined}
+            aria-haspopup="true"
+            onClick={this.handleProfileMenuOpen}
+            color="inherit"
+          >
+            <AccountCircle />
+          </IconButton>
 
-              <IconButton
-                aria-owns={open ? "menu-appbar" : null}
-                aria-haspopup="true"
-                onClick={this.handleMenuLanguage}
-                color="inherit"
-                aria-label="Select Language"
-              >
-                <LanguageIcon />
-              </IconButton>
+          <IconButton
+            aria-owns={open ? "menu-appbar" : null}
+            aria-haspopup="true"
+            onClick={this.handleMenuLanguage}
+            color="inherit"
+            aria-label="Select Language"
+          >
+            <LanguageIcon />
+          </IconButton>
 
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorelanguage}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={openMenuLanguage}
-                onClose={this.handleCloseLanguage}
-              >
-                <MenuItem onClick={() => changeLanguage("en")}>en</MenuItem>
-                <MenuItem onClick={() => changeLanguage("fr")}>fr</MenuItem>
-              </Menu>
-            </div>
-          </Toolbar>
-        </AppBar>
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorelanguage}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            open={openMenuLanguage}
+            onClose={this.handleCloseLanguage}
+          >
+            <MenuItem onClick={() => changeLanguage("en")}>en</MenuItem>
+            <MenuItem onClick={() => changeLanguage("fr")}>fr</MenuItem>
+          </Menu>
+        </div>
+
         {renderMenu}
         {renderMobileMenu}
         {this.state.SignInFormVisible ? (
@@ -348,10 +318,10 @@ class MyAppBar extends Component {
   }
 }
 AppBar.propTypes = {
-  // Auth
-  // auth: PropTypes.object.isRequired,
-  // logoutUser: PropTypes.func.isRequired,
-  // history: PropTypes.object.isRequired,
+// Auth
+// auth: PropTypes.object.isRequired,
+// logoutUser: PropTypes.func.isRequired,
+// history: PropTypes.object.isRequired,
 
   // Others
   languageSet: PropTypes.string,
@@ -384,4 +354,4 @@ const mapStateToProps = state => {
 };
 export default connect(mapStateToProps, mapDispatchToProps, null, {
   pure: false,
-})(withRouter(withStyles(styles)(translate("translations")(MyAppBar))));
+})(withRouter(withStyles(styles)(translate("translations")(ButtonsUser))));

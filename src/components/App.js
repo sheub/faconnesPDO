@@ -25,8 +25,8 @@ class App extends Component {
 
     let styleSearch =
       window.innerWidth > 340
-        ? { margin: "12px", marginTop: "74px",  maxWidth: "408px" }
-        : { margin: 0, marginTop: "74px" }; //width: "100vw",
+        ? { margin: "12px",  maxWidth: "408px" }
+        : { margin: 0, marginTop: "8px" }; //width: "100vw",
     return (
       <Router>
         <div className="root">

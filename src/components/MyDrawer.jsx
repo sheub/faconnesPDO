@@ -23,12 +23,11 @@ import Typography from "@material-ui/core/Typography";
 
 import { returnImage, layerSelector } from "../utils/displayUtils";
 import MyDatePicker from "./MyDatePicker";
+import ButtonsUser from "./ButtonsUser";
 import Footer from "./Footer.js";
 
 import "./App.css";
-const ProfilePage = React.lazy(() => import("./ProfilePage.js"));
 
-// const drawerWidth = 270;
 const drawerWidth = (window.innerWidth > 340) ? 320 : window.innerWidth;
 
 const styles = theme => ({
@@ -120,25 +119,9 @@ class MyDrawer extends Component {
       checked: filtered,
       dateFrom: new Date(), //Today
       dateTo: new Date(), // Today plus one day
-      showProfilePage: false,
     };
 
-    this._onClickProfilePage = this._onClickProfilePage.bind(this);
   }
-
-  _onClickProfilePage() {
-    if (!this.state.showProfilePage) {
-      this.setState({ showProfilePage: true });
-    } else {
-      this.setState({ showProfilePage: false });
-    }
-  }
-
-  handleClose = () => {
-    this.setState({
-      showProfilePage: false
-    });
-  };
 
   handleDateChange = date => {
     let tempDate = this.state.dateTo;
@@ -498,17 +481,8 @@ class MyDrawer extends Component {
                   </Collapse>
                   <Divider />
 
-                  <div>
-                    <Typography onClick={() => this._onClickProfilePage()}>
-                      {" "}
-                      My Profile
-                    </Typography>
-                  </div>
-                  {this.state.showProfilePage ? (
-                    <React.Suspense fallback={<div> </div>}>
-                      <ProfilePage handleClose={this.handleClose} />
-                    </React.Suspense>
-                  ) : null}
+                  {/* Buttons/Menus user Login and Language Settings */}
+                  <ButtonsUser/>
 
                   <Footer />
                 </Drawer>
@@ -516,11 +490,11 @@ class MyDrawer extends Component {
             </React.Fragment>
           )}
         </I18n>
-        {this.state.ProfilePageFormVisible ? (
+        {/* {this.state.ProfilePageFormVisible ? (
           <React.Suspense fallback={<div> </div>}>
             <ProfilePage handleClose={this.handleClose} />
           </React.Suspense>
-        ) : null}
+        ) : null} */}
       </div>
     );
   }
