@@ -22,6 +22,7 @@ import {
   RenderAddress,
   RenderDateTime,
   RenderLastUpdate,
+  RenderThumbnail,
   returnImage,
   returnLayerIDfromFeatureId,
 } from "../utils/displayUtils";
@@ -115,7 +116,7 @@ class ListVue extends React.Component {
     infoItem.layerId = this.props.listVueItems[index].layerId;
     // infoItem.listVueActive = true;
     // infoItem.paintColor = this.props.listVueItems[index].layer.paint["circle-color"];
-    infoItem.place_name = this.props.listVueItems[index].properties.label_fr;
+    infoItem.place_name = this.props.listVueItems[index].properties.productName;
     // infoItem.featureId = this.props.listVueItems[index].id ? this.props.listVueItems[index].id : this.props.listVueItems[index].properties.feature_id;
     infoItem.featureId = this.props.listVueItems[index].properties.feature_id;
 
@@ -157,17 +158,7 @@ class ListVue extends React.Component {
     info.address = "";
     if (
       [
-        "parcsjardins",
-        "localproductshop",
-        "craftmanshop",
-        "exposition",
-        "musique",
-        "children",
-        "marches",
-        "videsgreniers",
-        "OTFrance",
-        "AiresJeux",
-        "WineCelar",
+        "PDO",
       ].includes(item.layerId)//item.layer.id)
     ) {
       info.address = item.properties.address_locality;
@@ -175,35 +166,36 @@ class ListVue extends React.Component {
 
     switch (lang) {
     case "fr":
-      if (typeof item.properties.label_fr !== "undefined") {
-        info.label = item.properties.label_fr;
-        info.description = item.properties.abstract_fr;
+      if (typeof item.properties.productName !== "undefined") {
+        info.label = item.properties.productName;
+        info.description = item.properties.productDescription ? item.properties.productDescription : item.properties.wiki_abstract_fr;
+
       } else {
-        info.label = item.properties.label_en;
-        info.description = item.properties.abstract_en;
+        info.label = item.properties.productName;
+        info.description = item.properties.productDescription ? item.properties.productDescription : item.properties.wiki_abstract_fr;
       }
       break;
 
     case "en":
       if (
-        typeof item.properties.label_en !== "undefined" &&
-          item.properties.label_en
+        typeof item.properties.productName !== "undefined" &&
+          item.properties.productName
       ) {
-        info.label = item.properties.label_en;
-        info.description = item.properties.abstract_en;
+        info.label = item.properties.productName;
+        info.description = item.properties.productDescription ? item.properties.productDescription : item.properties.wiki_abstract_fr;
       } else {
-        info.label = item.properties.label_fr;
-        info.description = item.properties.abstract_fr;
+        info.label = item.properties.productName;
+        info.description = item.properties.productDescription ? item.properties.productDescription : item.properties.wiki_abstract_fr;
       }
       break;
 
     default:
-      if (typeof item.properties.label_en !== "undefined") {
-        info.label = item.properties.label_en;
-        info.description = item.properties.abstract_fr;
+      if (typeof item.properties.productName !== "undefined") {
+        info.label = item.properties.productName;
+        info.description = item.properties.productDescription ? item.properties.productDescription : item.properties.wiki_abstract_fr;
       } else {
-        info.label = item.properties.label_fr;
-        info.description = item.properties.abstract_fr;
+        info.label = item.properties.productName;
+        info.description = item.properties.productDescription ? item.properties.productDescription : item.properties.wiki_abstract_fr;
       }
       break;
     }
@@ -245,6 +237,7 @@ class ListVue extends React.Component {
         </MuiExpansionPanelSummary>
         <MuiExpansionPanelDetails className={classes.ExpansionPanelDetailsRoot}>
           {/* <Typography>{info.description}</Typography> */}
+          <RenderThumbnail props={this.props.infoPopup.properties}/>
           <Typography><span dangerouslySetInnerHTML={{ __html: info.description }} /></Typography>
           <RenderDateTime infoPopup={item} props={this.props} />
           <RenderUrl infoPopup={item} props={this.props} />

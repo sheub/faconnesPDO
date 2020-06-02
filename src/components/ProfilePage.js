@@ -160,35 +160,36 @@ class ProfilePage extends Component {
 
     var info = { abstract: "abstract", label: "label", property_id: place.properties.property_id };
     switch (lang) {
+
     case "fr":
-      info.abstract = place.properties.abstract_fr
-        ? place.properties.abstract_fr
-        : place.properties.abstract_en;
-      info.label = place.properties.label_fr
-        ? place.properties.label_fr
-        : place.properties.label_en;
+      info.abstract = place.properties.productDescription
+       ? place.properties.productDescription
+       : place.properties.wiki_abstract_fr;
+      info.label = place.properties.productName
+        ? place.properties.productName
+        : place.properties.productName;
       info.link = place.properties.wikipedia_fr
         ? place.properties.wikipedia_fr
         : place.properties.wikipedia_en;
       break;
     case "en":
-      info.abstract = place.properties.abstract_en
-        ? place.properties.abstract_en
-        : place.properties.abstract_fr;
-      info.label = place.properties.label_en
-        ? place.properties.label_en
-        : place.properties.label_fr;
+      info.abstract = place.properties.productDescription
+       ? place.properties.productDescription
+       : place.properties.wiki_abstract_fr;
+      info.label = place.properties.productName
+        ? place.properties.productName
+        : place.properties.productName;
       info.link = place.properties.wikipedia_fr
         ? place.properties.wikipedia_fr
         : place.properties.wikipedia_en;
       break;
     default:
-      info.abstract = place.properties.abstract_en
-        ? place.properties.abstract_en
-        : place.properties.abstract_fr;
-      info.label = place.properties.label_en
-        ? place.properties.label_en
-        : place.properties.label_fr;
+      info.abstract = place.properties.productDescription
+       ? place.properties.productDescription
+       : place.properties.wiki_abstract_fr;
+      info.label = place.properties.productName
+        ? place.properties.productName
+        : place.properties.productName;
       info.link = place.properties.wikipedia_fr
         ? place.properties.wikipedia_fr
         : place.properties.wikipedia_en;
@@ -200,7 +201,7 @@ class ProfilePage extends Component {
 
 
     return (
-      <Grid item key={info.property_id} sm={6} md={4} lg={3}>
+      <Grid place key={info.property_id} sm={6} md={4} lg={3}>
         <Card className={classes.card}>
           <CardMedia
             className={classes.cardMedia}

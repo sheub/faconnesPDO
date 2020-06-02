@@ -22,7 +22,7 @@ import ListSubheader from "@material-ui/core/ListSubheader";
 import Typography from "@material-ui/core/Typography";
 
 import { returnImage, layerSelector } from "../utils/displayUtils";
-import MyDatePicker from "./MyDatePicker";
+// import MyDatePicker from "./MyDatePicker";
 import ButtonsUser from "./ButtonsUser";
 import Footer from "./Footer.js";
 
@@ -229,21 +229,8 @@ class MyDrawer extends Component {
                     </IconButton>
                   </div>
                   <Divider />
-                  <Typography variant="h6" className={classes.fontStyle}>
-                    {" "}
-                    {t("drawer.FilterByDate")}
-                  </Typography>
-                  <div className={classes.datePickerBackground}>
-                    <MyDatePicker
-                      t={t}
-                      i18n={i18n}
-                      state={this.state}
-                      dateChange={this.handleDateChange.bind(this)}
-                      dateToChange={this.handleDateToChange.bind(this)}
-                    />
-                  </div>
 
-                  <Typography variant="h6" className={classes.fontStyle}>
+                  {/* <Typography variant="h6" className={classes.fontStyle}>
                     {" "}
                     {t("drawer.SelectCategories")}
                   </Typography>
@@ -267,8 +254,8 @@ class MyDrawer extends Component {
                     ) : (
                       <ExpandMore className={classes.expandIcons} />
                     )}
-                  </ListItem>
-                  <Collapse
+                  </ListItem> */}
+                  {/* <Collapse
                     in={this.state.list1Open}
                     timeout="auto"
                     unmountOnExit
@@ -308,9 +295,9 @@ class MyDrawer extends Component {
                       ))}
                     </List>
                   </Collapse>
-                  <Divider light />
+                  <Divider light /> */}
 
-                  <ListItem
+                  {/* <ListItem
                     button
                     onClick={this.handleClickLoisirOpen}
                     aria-label="Open Loisirs et Artisanat"
@@ -367,7 +354,7 @@ class MyDrawer extends Component {
                       ))}
                     </List>
                   </Collapse>
-                  <Divider light />
+                  <Divider light /> */}
 
                   <ListItem
                     button
@@ -396,11 +383,7 @@ class MyDrawer extends Component {
                   >
                     <List>
                       {[
-                        "ParcsJardins",
-                        "AiresJeux",
-                        "Exposition",
-                        "Musique",
-                        "Children"
+                        "PDO"
                       ].map(value => (
                         <ListItem
                           key={value}
@@ -427,7 +410,7 @@ class MyDrawer extends Component {
                     </List>
                   </Collapse>
                   <Divider />
-
+{/*
                   <ListItem
                     button
                     onClick={this.handleClickListUsefullOpen}
@@ -446,8 +429,8 @@ class MyDrawer extends Component {
                     ) : (
                       <ExpandMore className={classes.expandIcons} />
                     )}
-                  </ListItem>
-                  <Collapse
+                  </ListItem> */}
+                  {/* <Collapse
                     in={this.state.listUsefullOpen}
                     timeout="auto"
                     unmountOnExit
@@ -478,7 +461,7 @@ class MyDrawer extends Component {
                         </ListItem>
                       ))}
                     </List>
-                  </Collapse>
+                  </Collapse> */}
                   <Divider />
 
                   {/* Buttons/Menus user Login and Language Settings */}

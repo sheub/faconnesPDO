@@ -5,23 +5,14 @@ class MyPlaceName extends Component {
     render() {
         var parts = null;
         if (this.props.location.properties) {
-            if (typeof (this.props.location.properties.label) !== "undefined") {
-                parts = this.props.location.properties.label.split(", ");
-            }
-            else if (typeof (this.props.location.properties.label_fr) !== "undefined") {
-                parts = this.props.location.properties.label_fr.split(", ");
-            }
-            else if (typeof (this.props.location.properties.nom_du_musee) !== "undefined") {
-                parts = this.props.location.properties.nom_du_musee.split(", ");
-            }
-
-            else if (typeof (this.props.location.properties.name) !== "undefined") 
-      { 
-                parts = this.props.location.properties.name; 
+            if (typeof (this.props.location.properties.productName) !== "undefined") {
+                parts = this.props.location.properties.productName.split(", ");
             }
         }
         else
       if (this.props.location.place_name) { parts = this.props.location.place_name.split(", "); }
+
+
 
         if (parts === null || parts.length < 1) return null;
 

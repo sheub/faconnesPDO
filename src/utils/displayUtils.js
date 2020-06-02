@@ -29,39 +29,12 @@ const displayColors = {
   VidesGreniers: "#007CBF",
 };
 
-const layersArray = ["VidesGreniers", "Marches", "Musique", "Exposition", "Children"];
-const layersIdsArray = ["videsgreniers", "marches", "musique", "exposition", "children"];
-
-// const indexLayers = {
-//   VidesGreniers: 0,
-//   Marches: 1,
-//   Musique: 2,
-//   Exposition: 3,
-//   Children: 4,
-// };
+const layersArray = ["PDO"];
+const layersIdsArray = ["PDO"];
 
 // Layer id patterns by category
 const layerSelector = {
-  Museum: /museesFrance/,
-  Villages: /plusBeauxVillagesDeFrance/,
-  Unesco: /patrimoinemondialenfrance/, // This is the Layer id
-  Jardins: /jardinremarquable/,
-  GSF: /grandSiteDeFrance/,
-  MN: /monumentsnationaux/,
-  VilleEtPaysArtHistoire: /villeEtPaysArtHistoire/,
-  ParcsJardins: /parcsjardins/,
-  AiresJeux: /AiresJeux/,
-  LocalProdShop: /localproductshop/,
-  CraftmanShop: /craftmanshop/,
-  WineCelar: /WineCelar/,
-  OTFrance: /OTFrance/,
-  Exposition: /exposition/,
-  Musique: /musique/,
-  Children: /children/,
-  Marches: /marches/,
-  Toilets: /toilets/,
-  Baignades: /baignades/,
-  VidesGreniers: /videsgreniers/,
+  PDO: /PDO/,
 };
 
 function returnLayerIDfromFeatureId(featureId) {
@@ -157,19 +130,7 @@ function RenderUrl(props) {
   const info = props.infoPopup;
 
   var link = null;
-  // layer museesFrance
-  if (info.properties.sitweb) {
-    // <a target="_blank" href={props.url} className="urlPopup" rel="noopener">{props.url}</a><br />
-    if (!info.properties.sitweb.includes(" ")) {
-      link = info.properties.sitweb.includes("http://")
-        ? info.properties.sitweb
-        : "http://" + info.properties.sitweb;
-    }
-  }
-  // other layers
-  else {
-    link = info.properties.url;
-  }
+  link = info.properties.url;
 
   if (link) {
     return (
@@ -191,10 +152,10 @@ function RenderUrl(props) {
 
 function RenderAddress(props) {
   // const RenderAddress = ({props, classes}) => {
-    var cssClasses = "addressPopup"
-    if (typeof props.classes !== "undefined") {
-        cssClasses = props.classes
-    }
+  var cssClasses = "addressPopup";
+  if (typeof props.classes !== "undefined") {
+    cssClasses = props.classes;
+  }
   let street_address,
     postal_code,
     address_locality = null;
@@ -315,9 +276,6 @@ function RenderLastUpdate(props) {
   const lng = i18n.language;
   const info = infoPopup;
 
-  // const { t, infoPopup } = props.props;
-  // const lng = props.i18n.language;
-  // const info = infoPopup;
   if (info.properties.last_update) {
     let lastUpdate = new Date(info.properties.last_update);
 
@@ -337,5 +295,34 @@ function RenderLastUpdate(props) {
   return null;
 }
 
+function RenderThumbnail(props) {
+  var info = props.props;
+  return (
+    <div className="hvrbox">
+      <img
+        src={info.wiki_thumbnail}
+        className="picturePoppup hvrbox-layer_bottom"
+        alt={info.wiki_label_fr}
+        title={info.wiki_label_fr}
+      />
+      <div className="hvrbox-layer_top hvrbox-layer_slideup">
+        <div className="hvrbox-text">
+      &copy; &nbsp;
+          <a target="_new" href={info.wikipedia_fr} rel="noopener">
+        Wikipedia contributors
+          </a>
+      &thinsp; &#8209; &thinsp;
+          <a
+            target="_new"
+            href="https://creativecommons.org/licenses/by-sa/3.0/"
+            rel="noopener"
+          >
+        CC BY-SA
+          </a>
+        </div>
+      </div>
+    </div>);
+}
 
-export { getColorLayer, returnImage, returnLayerIDfromFeatureId, RenderUrl, RenderAddress, RenderDateTime, RenderLastUpdate, layerSelector, displayColors, layersArray };
+
+export { getColorLayer, returnImage, returnLayerIDfromFeatureId, RenderUrl, RenderAddress, RenderDateTime, RenderLastUpdate, RenderThumbnail, layerSelector, displayColors, layersArray };

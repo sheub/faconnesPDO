@@ -123,7 +123,7 @@ class Geocoder extends Component {
 
   clickOption(place, listLocation) {
     if (!this.state.geocode) {
-      place.place_name = place.properties.label_fr;
+      place.place_name = place.properties.productName;
     } else place.place_name = place.properties.name;
     this.props.onSelect(place);
     this.setState({ focus: listLocation });

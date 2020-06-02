@@ -89,23 +89,7 @@
         "lastUpdate":"Last update:"
     },
     "maplayerids": {
-        "museesFrance": "Museums",
-        "plusBeauxVillagesDeFrance": "Villages",
-        "patrimoinemondialenfrance": "Unesco",
-        "jardinremarquable": "Gardens",
-        "grandSiteDeFrance": "Grands Sites",
-        "monumentsnationaux": "Monuments",
-        "villeEtPaysArtHistoire": "Ville d'art et histoire",
-        "parcsjardins": "Parcs & gardens",
-        "localproductshop": "Local product shop",
-        "craftmanshop": "Craftman shop",
-        "WineCelar":"Wine celar",
-        "OTFrance": "Tourist office",
-        "exposition": "Exhibition",
-        "musique": "Music & shows",
-        "children": "Children's Corner",
-        "marches": "Markets",
-        "videsgreniers": "Flea Markets"
+        "PDO": "PDO"
     },
 
     "search": "Search",

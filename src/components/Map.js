@@ -83,24 +83,24 @@ class MapComponent extends Component {
 
     await loadedPromise(this.map);
     // Search mode
-    if (
-      this.props.mode === "search" ||
-      this.props.mode === "localAutocomplete"
-    ) {
-      if (this.props.searchLocation) {
-        if (this.props.searchLocation.geometry) {
-          let markerSource = this.map.getSource("marker");
-          if (typeof markerSource === "undefined") {
-            return;
-          }
-          this.map
-            .getSource("marker")
-            .setData(this.props.searchLocation.geometry);
-        }
-      } else {
-        this.map.getSource("marker").setData(this.emptyData);
-      }
-    }
+    // if (
+    //   this.props.mode === "search" ||
+    //   this.props.mode === "localAutocomplete"
+    // ) {
+    //   if (this.props.searchLocation) {
+    //     if (this.props.searchLocation.geometry) {
+    //       let markerSource = this.map.getSource("marker");
+    //       if (typeof markerSource === "undefined") {
+    //         return;
+    //       }
+    //       this.map
+    //         .getSource("marker")
+    //         .setData(this.props.searchLocation.geometry);
+    //     }
+    //   } else {
+    //     this.map.getSource("marker").setData(this.emptyData);
+    //   }
+    // }
     if (this.props.mode === "localAutocomplete") {
       if (this.props.listVueItems.length > 1) {
         // if (this.props.searchLocation.geometry) {
@@ -273,20 +273,9 @@ class MapComponent extends Component {
       let place_name = null;
       let lng = this.props.languageSet;
       if (lng === "fr") {
-        place_name = feature.properties.label_fr;
+        place_name = feature.properties.productName;
       } else {
-        place_name = feature.properties.label_en
-          ? feature.properties.label_en
-          : feature.properties.label_fr;
-      }
-
-      if (typeof feature.layer !== "undefined") {
-        if (["baignades"].includes(feature.layer.id)) {
-          place_name = feature.properties.Adresse;
-        }
-        if (["toilets"].includes(feature.layer.id)) {
-          place_name = "Toilets";
-        }
+        place_name = feature.properties.productName;
       }
 
       // let listVueActive = false;
@@ -375,41 +364,18 @@ class MapComponent extends Component {
       }
 
       let place_name = null;
-      if (feature.properties.name) {
-        place_name = feature.properties.name;
-      } else if (feature.properties.label) {
-        place_name = feature.properties.label;
-      } else if (feature.properties.nom_du_musee) {
-        place_name = feature.properties.nom_du_musee;
-      }
 
       if (
         [
-          "parcsjardins",
-          "localproductshop",
-          "craftmanshop",
-          "WineCelar",
-          "OTFrance",
-          "AiresJeux",
-          "marches",
-          "exposition",
-          "musique",
-          "children",
-          "videsgreniers",
+          "PDO",
         ].includes(feature.layer.id)
       ) {
         let lng = this.props.languageSet;
         if (lng === "fr") {
-          place_name = feature.properties.label_fr;
+          place_name = feature.properties.productName;
         } else {
-          place_name = feature.properties.label_en;
+          place_name = feature.properties.productName;
         }
-      }
-      if (["baignades"].includes(feature.layer.id)) {
-        place_name = feature.properties.Adresse;
-      }
-      if (["toilets"].includes(feature.layer.id)) {
-        place_name = "Toilets";
       }
 
       let listVueActive = false;
@@ -467,22 +433,16 @@ class MapComponent extends Component {
       }
     };
 
-    // Create geolocation control
+    // Add geolocation control
     const geolocateControl = new mapboxgl.GeolocateControl();
     geolocateControl.on("geolocate", setGeolocation);
     this.map.addControl(geolocateControl, "bottom-left");
 
-    // Create scale and Navigation controls
+    // Add Navigation controls
     if (
       window.innerWidth > 320 &&
       !("ontouchstart" in window || navigator.msMaxTouchPoints > 0)
     ) {
-      // const scaleControl = new mapboxgl.ScaleControl({
-      //   maxWidth: 80,
-      //   unit: "metric"
-      // });
-
-      // this.map.addControl(scaleControl, "bottom-left");
       this.map.addControl(new mapboxgl.NavigationControl(), "bottom-left");
     }
 
@@ -563,64 +523,56 @@ class MapComponent extends Component {
     }
   }
 
-  filterByDate(dateFrom, dateTo) {
-    if (dateTo !== dateFrom) {
-      let filterTo = ["<=", dateFrom, ["number", ["get", "valid_through"]]];
-      let filterFrom = [">", dateTo, ["number", ["get", "valid_from"]]];
+  // filterByDate(dateFrom, dateTo) {
+  //   if (dateTo !== dateFrom) {
+  //     let filterTo = ["<=", dateFrom, ["number", ["get", "valid_through"]]];
+  //     let filterFrom = [">", dateTo, ["number", ["get", "valid_from"]]];
 
-      this.map.setFilter("musique", ["all", filterFrom, filterTo]);
-      this.map.setFilter("exposition", ["all", filterFrom, filterTo]);
-      this.map.setFilter("children", ["all", filterFrom, filterTo]);
-      this.map.setFilter("videsgreniers", ["all", filterFrom, filterTo]);
-      this.map.setFilter("marches", ["all", filterFrom, filterTo]);
-    } else {
-      this.map.setFilter("musique", [
-        "<=",
-        dateFrom,
-        ["number", ["get", "valid_from"]],
-      ]);
-      this.map.setFilter("exposition", [
-        "<=",
-        dateFrom,
-        ["number", ["get", "valid_from"]],
-      ]);
-      this.map.setFilter("children", [
-        "<=",
-        dateFrom,
-        ["number", ["get", "valid_from"]],
-      ]);
-      this.map.setFilter("videsgreniers", [
-        "<=",
-        dateFrom,
-        ["number", ["get", "valid_from"]],
-      ]);
-      this.map.setFilter("marches", [
-        "<=",
-        dateFrom,
-        ["number", ["get", "valid_from"]],
-      ]);
-    }
-  }
+  //     this.map.setFilter("musique", ["all", filterFrom, filterTo]);
+  //     this.map.setFilter("exposition", ["all", filterFrom, filterTo]);
+  //     this.map.setFilter("children", ["all", filterFrom, filterTo]);
+  //     this.map.setFilter("videsgreniers", ["all", filterFrom, filterTo]);
+  //     this.map.setFilter("marches", ["all", filterFrom, filterTo]);
+  //   } else {
+  //     this.map.setFilter("musique", [
+  //       "<=",
+  //       dateFrom,
+  //       ["number", ["get", "valid_from"]],
+  //     ]);
+  //     this.map.setFilter("exposition", [
+  //       "<=",
+  //       dateFrom,
+  //       ["number", ["get", "valid_from"]],
+  //     ]);
+  //     this.map.setFilter("children", [
+  //       "<=",
+  //       dateFrom,
+  //       ["number", ["get", "valid_from"]],
+  //     ]);
+  //     this.map.setFilter("videsgreniers", [
+  //       "<=",
+  //       dateFrom,
+  //       ["number", ["get", "valid_from"]],
+  //     ]);
+  //     this.map.setFilter("marches", [
+  //       "<=",
+  //       dateFrom,
+  //       ["number", ["get", "valid_from"]],
+  //     ]);
+  //   }
+  // }
 
   filterStringContain(stringInput) {
-    let filterString = ["in", stringInput, ["string", ["get", "label_fr"]]];
-
-    this.map.setFilter("musique", filterString, false);
-    this.map.setFilter("exposition", filterString, false);
-    this.map.setFilter("children", filterString, false);
-    this.map.setFilter("videsgreniers", filterString, false);
-    this.map.setFilter("marches", filterString, false);
+    let filterString = ["in", stringInput, ["string", ["get", "productName"]]];
+    this.map.setFilter("PDO", filterString, false);
   }
 
   unsetFilterStringContain() {
-    var undifined;
-    let filterString = ["in", undifined, ["string", ["get", "label_fr"]]];
+    var undef;
+    let filterString = ["in", undef, ["string", ["get", "productName"]]];
 
-    this.map.setFilter("musique", filterString, false);
-    this.map.setFilter("exposition", filterString, false);
-    this.map.setFilter("children", filterString, false);
-    this.map.setFilter("videsgreniers", filterString, false);
-    this.map.setFilter("marches", filterString, false);
+    this.map.setFilter("PDO", filterString, false);
+
   }
 
   layerToKey(layer) {
@@ -658,26 +610,26 @@ class MapComponent extends Component {
       // 'poi-scalerank4',
       // 'poi-parks-scalerank4',
       // "FranceWiki",
-      "museesFrance",
-      "plusBeauxVillagesDeFrance",
-      "patrimoinemondialenfrance",
-      "jardinremarquable",
-      "grandSiteDeFrance",
-      "monumentsnationaux",
-      "villeEtPaysArtHistoire",
-      "parcsjardins",
-      "localproductshop",
-      "craftmanshop",
-      "WineCelar",
-      "OTFrance",
-      "AiresJeux",
-      "exposition",
-      "musique",
-      "children",
-      "marches",
-      "baignades",
-      "toilets",
-      "videsgreniers",
+      "PDO",
+      // "plusBeauxVillagesDeFrance",
+      // "patrimoinemondialenfrance",
+      // "jardinremarquable",
+      // "grandSiteDeFrance",
+      // "monumentsnationaux",
+      // "villeEtPaysArtHistoire",
+      // "parcsjardins",
+      // "localproductshop",
+      // "craftmanshop",
+      // "WineCelar",
+      // "OTFrance",
+      // "AiresJeux",
+      // "exposition",
+      // "musique",
+      // "children",
+      // "marches",
+      // "baignades",
+      // "toilets",
+      // "videsgreniers",
       "searchResult",
     ];
   }

@@ -18,6 +18,7 @@ import {
   RenderAddress,
   RenderDateTime,
   RenderLastUpdate,
+  RenderThumbnail,
 } from "../utils/displayUtils";
 
 import {
@@ -45,11 +46,6 @@ function HomeIcon(props) {
   );
 }
 
-// function ExtractOtherTags(info) {
-//   var res = info.other_tags.split("=>");
-//   return res;
-// }
-
 class MyPlaceInfo extends Component {
   hidePopup() {
     this.props.setStateValue("popupActive", false);
@@ -76,44 +72,28 @@ class MyPlaceInfo extends Component {
 
     if (
       [
-        "plusBeauxVillagesDeFrance",
-        "patrimoinemondialenfrance",
-        "jardinremarquable",
-        "grandSiteDeFrance",
-        "monumentsnationaux",
-        "villeEtPaysArtHistoire",
-        "parcsjardins",
-        "localproductshop",
-        "craftmanshop",
-        "exposition",
-        "musique",
-        "children",
-        "marches",
-        "videsgreniers",
-        "OTFrance",
-        "AiresJeux",
-        "WineCelar",
+        "PDO",
       ].includes(layerId)
     ) {
       const lang = this.props.i18n.language;
       switch (lang) {
       case "fr":
-        info.abstract = info.abstract_fr
-          ? info.abstract_fr
-          : info.abstract_en;
-        info.label = info.label_fr ? info.label_fr : info.label_en;
+        info.abstract = info.productDescription
+          ? info.productDescription
+          : info.productDescription;
+        info.label = info.productName ? info.productName : info.productName;
         break;
       case "en":
-        info.abstract = info.abstract_en
-          ? info.abstract_en
-          : info.abstract_fr;
-        info.label = info.label_en ? info.label_en : info.label_fr;
+        info.abstract = info.productDescription
+          ? info.productDescription
+          : info.productDescription;
+        info.label = info.productName ? info.productName : info.productName;
         break;
       default:
-        info.abstract = info.abstract_en
-          ? info.abstract_en
-          : info.abstract_fr;
-        info.label = info.label_en ? info.label_en : info.label_fr;
+        info.abstract = info.productDescription
+          ? info.productDescription
+          : info.productDescription;
+        info.label = info.productName ? info.productName : info.productName;
       }
     }
 
@@ -126,24 +106,19 @@ class MyPlaceInfo extends Component {
 
     if (
       [
-        "plusBeauxVillagesDeFrance",
-        "patrimoinemondialenfrance",
-        "jardinremarquable",
-        "grandSiteDeFrance",
-        "monumentsnationaux",
-        "villeEtPaysArtHistoire",
+        "PDO",
       ].includes(layerId)
     ) {
       const lang = this.props.i18n.language;
       switch (lang) {
       case "fr":
-        info.link = info.wikipedia_fr ? info.wikipedia_fr : info.wikipedia_en;
+        info.link = info.wiki_productName ? info.wiki_productName : info.wiki_productName;
         break;
       case "en":
-        info.link = info.wikipedia_en ? info.wikipedia_en : info.wikipedia_fr;
+        info.link = info.wiki_productName ? info.wiki_productName : info.wikipedia_en;
         break;
       default:
-        info.link = info.wikipedia_en ? info.wikipedia_en : info.wikipedia_fr;
+        info.link = info.wiki_productName ? info.wiki_productName : info.wikipedia_en;
       }
 
       return (
@@ -172,7 +147,8 @@ class MyPlaceInfo extends Component {
                 </svg>
               </IconButton>
             </div>
-            <div className="hvrbox">
+            <RenderThumbnail props={info}/>
+            {/* <div className="hvrbox">
               <img
                 src={info.thumbnail}
                 className="picturePoppup hvrbox-layer_bottom"
@@ -182,7 +158,7 @@ class MyPlaceInfo extends Component {
               <div className="hvrbox-layer_top hvrbox-layer_slideup">
                 <div className="hvrbox-text">
                   &copy; &nbsp;
-                  <a target="_new" href={info.thumbnail} rel="noopener">
+                  <a target="_new" href={info.wiki_thumbnail} rel="noopener">
                     Wikipedia contributors
                   </a>
                   &thinsp; &#8209; &thinsp;
@@ -195,10 +171,11 @@ class MyPlaceInfo extends Component {
                   </a>
                 </div>
               </div>
-            </div>
+            </div> */}
             <div className="baseText">
               <div className="abstractPopup">
-                {info.abstract}
+              <span dangerouslySetInnerHTML={{ __html: info.abstract }} />
+
                 <br />
                 <a target="_new" href={info.link} rel="noopener">
                   &rarr; Wikipedia
@@ -232,63 +209,7 @@ class MyPlaceInfo extends Component {
 
     if (
       [
-        "parcsjardins",
-        "localproductshop",
-        "craftmanshop",
-        "WineCelar",
-        "OTFrance",
-        "AiresJeux",
-      ].includes(layerId)
-    ) {
-      return (
-        <div>
-          <div className="mapboxgl-popupup popPupStyle" style={stylePop}>
-            <div className="baseText">
-              <div className="titleText">
-                {returnImage(layerId)}
-                {info.label}
-              </div>
-              <div className="btn-close" aria-label="Close">
-                <IconButton
-                  aria-label="Close"
-                  data-dismiss="alert"
-                  onClick={() => this.hidePopup()}
-                >
-                  <svg className="btn-icon">
-                    <use xlinkHref="#icon-close"></use>
-                  </svg>
-                </IconButton>
-              </div>
-              <div className="introtext">
-                <div className="abstractPopup">{info.abstract}</div>
-                <RenderUrl
-                  infoPopup={this.props.infoPopup}
-                  props={this.props}
-                />
-                <RenderAddress infoPopup={this.props.infoPopup} />
-                {info.price !== 0 ? (
-                  <p>
-                    {t("myplaceinfo.price")}
-                    {": "}
-                    {info.price} €
-                  </p>
-                ) : null}
-                {/* {t("myplaceinfo.price")}{": "}{info.price} € */}
-              </div>
-            </div>
-          </div>
-          <AddToMyPlaces info={this.props.infoPopup} />
-        </div>
-      );
-    }
-
-    if (
-      [
-        "exposition",
-        "musique",
-        "children",
-        "marches",
-        "videsgreniers",
+        "PDO",
         "searchResult",
       ].includes(layerId)
     ) {
@@ -410,103 +331,6 @@ class MyPlaceInfo extends Component {
         </div>
       );
     }
-    if (["baignades"].includes(layerId)) {
-      return (
-        <div>
-          <div className="mapboxgl-popupup popPupStyle" style={stylePop}>
-            <div className="baseText">
-              <div className="titleText">
-                <HomeIcon style={styles} alt={layerId} title={layerId} />
-                {info.Adresse}
-              </div>
-              <div className="btn-close" aria-label="Close">
-                <IconButton
-                  aria-label="Close"
-                  data-dismiss="alert"
-                  onClick={() => this.hidePopup()}
-                >
-                  <svg className="btn-icon">
-                    <use xlinkHref="#icon-close"></use>
-                  </svg>
-                </IconButton>
-              </div>
-            </div>
-            <AddToMyPlaces info={this.props.infoPopup} />
-          </div>
-        </div>
-      );
-    }
-    if (["toilets"].includes(layerId)) {
-      return (
-        <div>
-          <div className="mapboxgl-popupup popPupStyle" style={stylePop}>
-            <div className="baseText">
-              <div className="titleText">
-                <HomeIcon style={styles} alt={layerId} title={layerId} />
-                {t("drawer.ToiletsTitle")}
-              </div>
-              {/* {ExtractOtherTags(info)} */}
-              <div className="btn-close" aria-label="Close">
-                <IconButton
-                  aria-label="Close"
-                  data-dismiss="alert"
-                  onClick={() => this.hidePopup()}
-                >
-                  <svg className="btn-icon">
-                    <use xlinkHref="#icon-close"></use>
-                  </svg>
-                </IconButton>
-              </div>
-            </div>
-            <AddToMyPlaces info={this.props.infoPopup} />
-          </div>
-        </div>
-      );
-    }
-
-    if ("museesFrance".includes(layerId)) {
-      return (
-        <div>
-          <div className="mapboxgl-popupup popPupStyle" style={stylePop}>
-            <div className="baseText">
-              <div className="titleText">
-                <HomeIcon style={styles} alt={layerId} title={layerId} />
-                {info.nom_du_musee}
-              </div>
-              <div className="btn-close" aria-label="Close">
-                <IconButton
-                  aria-label="Close"
-                  data-dismiss="alert"
-                  onClick={() => this.hidePopup()}
-                >
-                  <svg className="btn-icon">
-                    <use xlinkHref="#icon-close"></use>
-                  </svg>
-                </IconButton>
-              </div>
-              <div className="introtext">
-                <div className="abstractPopup">
-                  {info.periode_ouverture}
-                  <RenderUrl
-                    infoPopup={this.props.infoPopup}
-                    props={this.props}
-                  />
-                  <RenderAddress infoPopup={this.props.infoPopup} />
-                  {info.price !== 0 ? (
-                    <p>
-                      {t("myplaceinfo.price")}
-                      {": "}
-                      {info.price} €
-                    </p>
-                  ) : null}
-                </div>
-              </div>
-            </div>
-            <AddToMyPlaces />
-          </div>
-        </div>
-      );
-    }
 
     if ("FranceWiki".includes(layerId)) {
       var other_Tags = info.other_tags;
@@ -597,16 +421,8 @@ class MyPlaceInfo extends Component {
 
   get styles() {
     return {
-      // directionsIcon:
-      //   "bg-white hmin42 wmin42 hmin48-mm wmin48-mm hmax42 wmax42 hmax48-mm wmax48-mm m6 m12-mm round-full shadow-darken10 cursor-pointer flex-parent flex-parent--center-main flex-parent--center-cross",
       icon:
         "flex-parent flex-parent--center-cross flex-parent--center-main w42 h42",
-      // infoRow:
-      //   "h24 h36-mm py6 pr12 flex-parent flex-parent--row flex-parent--center-cross",
-      // mainInfo:
-      //   "p6 flex-child flex-child--grow flex-parent flex-parent--column flex-parent--center-main",
-      // placeInfo:
-      //   "place-info absolute top bg-white w-full w420-mm shadow-darken25 flex-parent flex-parent--column",
     };
   }
 }
