@@ -1,7 +1,6 @@
 
 const defaultAppState = {
-  // Mapbox Access Token
-  // mapboxAccessToken: process.env.REACT_APP_MAPBOX_TOKEN,
+
   // drawer
   drawerOpen: false,
 
@@ -27,7 +26,10 @@ const defaultAppState = {
   // Information
   toggleLayerVisibility: "",
   visibility: {
-    PDO: true,
+    // PDO: true,
+    filtered_siqo_IGP: false,
+    filtered_siqo_AOP: true,
+    filtered_siqo_IG: false,
   },
   dateFrom: 0,
   dateTo: 0,

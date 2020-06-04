@@ -5,6 +5,7 @@ import { translate } from "react-i18next";
 import {connect} from "react-redux";
 import {push} from "connected-react-router";
 import mapboxgl from "mapbox-gl/dist/mapbox-gl";
+import { layerSelector } from "../utils/displayUtils";
 // import turfBbox from "@turf/bbox";
 
 import {setLanguage} from "../utils/openmaptiles-language";
@@ -610,7 +611,7 @@ class MapComponent extends Component {
       // 'poi-scalerank4',
       // 'poi-parks-scalerank4',
       // "FranceWiki",
-      "PDO",
+      // "PDO",
       // "plusBeauxVillagesDeFrance",
       // "patrimoinemondialenfrance",
       // "jardinremarquable",
@@ -631,7 +632,7 @@ class MapComponent extends Component {
       // "toilets",
       // "videsgreniers",
       "searchResult",
-    ];
+    ].concat(Object.keys(layerSelector));
   }
 }
 

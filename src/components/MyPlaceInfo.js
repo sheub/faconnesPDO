@@ -11,6 +11,7 @@ import { returnImage } from "../utils/displayUtils";
 import { shareableUrl } from "../middlewares/urlTinkerer";
 import AddToMyPlaces from "./AddToMyPlaces";
 import copyToClipboardIcon from "../assets/copyToClipboard.svg";
+import { layerSelector } from "../utils/displayUtils";
 // import NavigationIcon from '@material-ui/icons/Navigation';
 
 import {
@@ -57,7 +58,6 @@ class MyPlaceInfo extends Component {
     const layerId = this.props.infoPopup.layerId;
     const paintColor = this.props.infoPopup.paintColor;
 
-
     // // move the popup on the left if the list is display
     let stylePop = { left: 0, zIndex: 0 };
 
@@ -70,11 +70,7 @@ class MyPlaceInfo extends Component {
 
     let info = this.props.infoPopup.properties;
 
-    if (
-      [
-        "PDO",
-      ].includes(layerId)
-    ) {
+    if (Object.keys(layerSelector).includes(layerId)) {
       const lang = this.props.i18n.language;
       switch (lang) {
       case "fr":
@@ -104,21 +100,23 @@ class MyPlaceInfo extends Component {
       color: paintColor,
     };
 
-    if (
-      [
-        "PDO",
-      ].includes(layerId)
-    ) {
+    if (Object.keys(layerSelector).includes(layerId)) {
       const lang = this.props.i18n.language;
       switch (lang) {
       case "fr":
-        info.link = info.wiki_productName ? info.wiki_productName : info.wiki_productName;
+        info.link = info.wiki_productName
+          ? info.wiki_productName
+          : info.wiki_productName;
         break;
       case "en":
-        info.link = info.wiki_productName ? info.wiki_productName : info.wikipedia_en;
+        info.link = info.wiki_productName
+          ? info.wiki_productName
+          : info.wikipedia_en;
         break;
       default:
-        info.link = info.wiki_productName ? info.wiki_productName : info.wikipedia_en;
+        info.link = info.wiki_productName
+          ? info.wiki_productName
+          : info.wikipedia_en;
       }
 
       return (
@@ -147,58 +145,36 @@ class MyPlaceInfo extends Component {
                 </svg>
               </IconButton>
             </div>
-            <RenderThumbnail props={info}/>
-            {/* <div className="hvrbox">
-              <img
-                src={info.thumbnail}
-                className="picturePoppup hvrbox-layer_bottom"
-                alt={info.label}
-                title={info.label}
-              />
-              <div className="hvrbox-layer_top hvrbox-layer_slideup">
-                <div className="hvrbox-text">
-                  &copy; &nbsp;
-                  <a target="_new" href={info.wiki_thumbnail} rel="noopener">
-                    Wikipedia contributors
-                  </a>
-                  &thinsp; &#8209; &thinsp;
-                  <a
-                    target="_new"
-                    href="https://creativecommons.org/licenses/by-sa/3.0/"
-                    rel="noopener"
-                  >
-                    CC BY-SA
-                  </a>
-                </div>
-              </div>
-            </div> */}
+            {/* thumbnail */}
+
+            <RenderThumbnail props={info} />
+
+            {/* abstract + link wikipedia */}
             <div className="baseText">
               <div className="abstractPopup">
-              <span dangerouslySetInnerHTML={{ __html: info.abstract }} />
+                <span dangerouslySetInnerHTML={{ __html: info.abstract }} />
 
                 <br />
-                <a target="_new" href={info.link} rel="noopener">
+                {typeof info.wikipedia_fr !== "undefined" ? (
+                  <a target="_new" href={info.wikipedia_fr} rel="noopener">
                   &rarr; Wikipedia
                 </a>
-                <RenderUrl
+                ) : null}
+
+
+                {/* <RenderUrl
                   infoPopup={this.props.infoPopup}
                   props={this.props}
-                />
-                {typeof info.fullPrice !== "undefined" ? (
-                  <p>
-                    {t("myplaceinfo.price")}
-                    {": "}
-                    {info.fullPrice} €
-                  </p>
-                ) : null}
-                {typeof info.opening_hours !== "undefined" &&
+                /> */}
+
+                {/* {typeof info.opening_hours !== "undefined" &&
                 info.opening_hours !== "" ? (
                     <p>
                       {t("myplaceinfo.openingHours")}
                       {": "}
                       {info.opening_hours}
                     </p>
-                  ) : null}
+                  ) : null} */}
               </div>
             </div>
             <AddToMyPlaces info={this.props.infoPopup} />
@@ -207,17 +183,13 @@ class MyPlaceInfo extends Component {
       );
     }
 
-    if (
-      [
-        "PDO",
-        "searchResult",
-      ].includes(layerId)
-    ) {
-      var geolink = "geo:" +
-      [
-        this.props.infoPopup.geometry.coordinates[1],
-        this.props.infoPopup.geometry.coordinates[0],
-      ];
+    if (["searchResult"].concat(Object.keys(layerSelector)).includes(layerId)) {
+      var geolink =
+        "geo:" +
+        [
+          this.props.infoPopup.geometry.coordinates[1],
+          this.props.infoPopup.geometry.coordinates[0],
+        ];
       return (
         <div>
           <div className="mapboxgl-popupup popPupStyle" style={stylePop}>
@@ -239,7 +211,8 @@ class MyPlaceInfo extends Component {
               </div>
               <div className="introtext">
                 <div className="abstractPopup">
-                <div dangerouslySetInnerHTML={{ __html: info.abstract }} /></div>
+                  <div dangerouslySetInnerHTML={{ __html: info.abstract }} />
+                </div>
                 <RenderDateTime
                   infoPopup={this.props.infoPopup}
                   props={this.props}
@@ -274,8 +247,16 @@ class MyPlaceInfo extends Component {
                     } // This won't work everywhere
                     className={styles.buttonIcon}
                   >
-                    <img style={{ cursor: "pointer", width:"24px", height:"24px", marginTop:"6px"}}
-                      src={copyToClipboardIcon} alt="copy to clipboard" />
+                    <img
+                      style={{
+                        cursor: "pointer",
+                        width: "24px",
+                        height: "24px",
+                        marginTop: "6px",
+                      }}
+                      src={copyToClipboardIcon}
+                      alt="copy to clipboard"
+                    />
                   </div>
                 </Tooltip>
               </div>
@@ -286,7 +267,14 @@ class MyPlaceInfo extends Component {
               >
                 <div className="socialMediaItem">
                   <a target="_new" href={geolink} rel="noopener">
-                    <DirectionsIcon style={{ cursor: "pointer", width:"24px", height:"24px", marginTop:"6px"}}/>
+                    <DirectionsIcon
+                      style={{
+                        cursor: "pointer",
+                        width: "24px",
+                        height: "24px",
+                        marginTop: "6px",
+                      }}
+                    />
                   </a>
                 </div>
               </Tooltip>

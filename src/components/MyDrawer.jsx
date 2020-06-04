@@ -19,7 +19,7 @@ import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import Collapse from "@material-ui/core/Collapse";
 import ListSubheader from "@material-ui/core/ListSubheader";
-import Typography from "@material-ui/core/Typography";
+// import Typography from "@material-ui/core/Typography";
 
 import { returnImage, layerSelector } from "../utils/displayUtils";
 // import MyDatePicker from "./MyDatePicker";
@@ -93,11 +93,6 @@ const styles = theme => ({
     marginTop: "8px",
     cursor: "default",
     display: "inline-block",
-  },
-
-  datePickerBackground: {
-    backgroundColor: "#E5E5E5",
-    marginBottom: "12px",
   },
 });
 
@@ -382,9 +377,7 @@ class MyDrawer extends Component {
                     className={classes.collapses}
                   >
                     <List>
-                      {[
-                        "PDO"
-                      ].map(value => (
+                      {Object.keys(layerSelector).map(value => (
                         <ListItem
                           key={value}
                           role={undefined}
@@ -403,7 +396,9 @@ class MyDrawer extends Component {
                           <ListItemSecondaryAction
                             className={classes.listItemStyle}
                           >
-                            {returnImage(layerSelector[value].source)}
+                            {
+                              returnImage(layerSelector[value].source)
+                            }
                           </ListItemSecondaryAction>
                         </ListItem>
                       ))}

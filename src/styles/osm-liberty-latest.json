@@ -2328,11 +2328,27 @@
       "paint": {"fill-color": "hsl(209, 0%, 0%)", "fill-opacity": 0.33}
     },
     {
-      "id": "PDO",
+      "id": "filtered_siqo_IGP",
       "type": "fill",
       "source": "PDO",
-      "source-layer": "PDO",
+      "source-layer": "filtered_siqo_IGP",
+      "layout": {"visibility": "none"},
+      "paint": {"fill-color": "hsl(209, 0%, 0%)", "fill-opacity": 0.33}
+    },
+    {
+      "id": "filtered_siqo_AOP",
+      "type": "fill",
+      "source": "PDO",
+      "source-layer": "filtered_siqo_AOP",
       "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "hsl(209, 0%, 0%)", "fill-opacity": 0.33}
+    },
+    {
+      "id": "filtered_siqo_IG",
+      "type": "fill",
+      "source": "PDO",
+      "source-layer": "filtered_siqo_IG",
+      "layout": {"visibility": "none"},
       "paint": {"fill-color": "hsl(209, 0%, 0%)", "fill-opacity": 0.33}
     },
     {

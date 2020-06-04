@@ -97,7 +97,11 @@ class Geocoder extends Component {
     case 13:
       if (this.state.results.length > 0 && this.state.focus === null) {
         this.clickOption(this.state.results[0], 0);
+      }  else {
+        this.props.setListVueActive(false);
+        this.resultsGeocoder = null;
       }
+
       this.acceptFocus();
       break;
 
@@ -227,7 +231,6 @@ class Geocoder extends Component {
     );
     if (this.state.results.length > 0) {
       if (this.props.searchMode === "search") {
-        // console.log(this.state.results);
         this.resultsGeocoder = this.renderGeocoderResults();
       } else {
         // localAutocomplete
@@ -237,7 +240,7 @@ class Geocoder extends Component {
         this.resultsGeocoder = null;
       }
     } else {
-      this.props.setListVueActive(false);
+      // this.props.setListVueActive(false);
       this.resultsGeocoder = null;
     }
 

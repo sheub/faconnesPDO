@@ -34,7 +34,10 @@ const layersIdsArray = ["PDO"];
 
 // Layer id patterns by category
 const layerSelector = {
-  PDO: /PDO/,
+  // PDO: /PDO/,
+  filtered_siqo_IGP: /filtered_siqo_IGP/,
+  filtered_siqo_AOP: /filtered_siqo_AOP/,
+  filtered_siqo_IG: /filtered_siqo_IG/,
 };
 
 function returnLayerIDfromFeatureId(featureId) {
@@ -182,7 +185,6 @@ function RenderAddress(props) {
   );
 }
 
-
 function getColorLayer(property_id) {
   // get layerindex and return corresponding layerColor
   if(typeof property_id === "undefined")
@@ -297,6 +299,10 @@ function RenderLastUpdate(props) {
 
 function RenderThumbnail(props) {
   var info = props.props;
+  if (info.wiki_thumbnail === "undefined") {
+    return null;
+  }
+
   return (
     <div className="hvrbox">
       <img
