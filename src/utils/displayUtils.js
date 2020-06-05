@@ -29,9 +29,6 @@ const displayColors = {
   VidesGreniers: "#007CBF",
 };
 
-const layersArray = ["PDO"];
-const layersIdsArray = ["PDO"];
-
 // Layer id patterns by category
 const layerSelector = {
   // PDO: /PDO/,
@@ -40,13 +37,17 @@ const layerSelector = {
   filtered_siqo_IG: /filtered_siqo_IG/,
 };
 
-function returnLayerIDfromFeatureId(featureId) {
+const layersArray = Object.keys(layerSelector);
+const layersIdsArray = ["IGP", "AOP", "IG"];
+
+
+function returnLayerIDfromFeatureId(featureCategory) {
   // get layerindex and return corresponding layerColor
-  if(typeof featureId === "undefined")
+  if(typeof featureCategory === "undefined")
   {
-    return 1;
+    return 0;
   }
-  return layersIdsArray[parseInt(featureId.substring(2, 4))];
+  return layersArray[layersIdsArray.indexOf(featureCategory)];// layersIdsArray[layersIdsArray.indexOf(featureCategory)];
 }
 
 function returnImage(layerId) {
@@ -299,7 +300,7 @@ function RenderLastUpdate(props) {
 
 function RenderThumbnail(props) {
   var info = props.props;
-  if (info.wiki_thumbnail === "undefined") {
+  if (typeof info.wiki_thumbnail === "undefined" || info.wiki_thumbnail === "" ) {
     return null;
   }
 

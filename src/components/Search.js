@@ -22,9 +22,9 @@ import {
   setStateValues,
 } from "../actions/index";
 
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Switch from "@material-ui/core/Switch";
+// import FormGroup from "@material-ui/core/FormGroup";
+// import FormControlLabel from "@material-ui/core/FormControlLabel";
+// import Switch from "@material-ui/core/Switch";
 
 const styles = theme => ({
   menuButton: {
@@ -162,7 +162,7 @@ class Search extends Component {
           ) : null}
         </div>
 
-        <FormGroup row className={classes.switchButton}>
+        {/* <FormGroup row className={classes.switchButton}>
           <FormControlLabel
             control={
               <Switch
@@ -173,7 +173,7 @@ class Search extends Component {
             }
             label={this.state.modeString}
           />
-        </FormGroup>
+        </FormGroup> */}
       </div>
     );
   }

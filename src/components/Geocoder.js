@@ -10,6 +10,7 @@ import {
   setStateValue,
   triggerMapUpdate
 } from "../actions/index";
+
 /**
  * Geocoder component: connects to endpoint: 'https://api-adresse.data.gouv.fr
  * and provides an autocompleting interface for finding locations.
@@ -240,7 +241,7 @@ class Geocoder extends Component {
         this.resultsGeocoder = null;
       }
     } else {
-      // this.props.setListVueActive(false);
+      this.props.setListVueActive(false);
       this.resultsGeocoder = null;
     }
 
@@ -271,7 +272,7 @@ function search(
   if (source === "api-adresse.data.gouv.fr") {
     uri = endpoint + "/search/?q=";
   } else {
-    uri = endpoint + "api/autocomplete/";
+    uri = endpoint + "api/autocompleteaop/";
   }
   uri = uri + encodeURIComponent(query);
   xhr(

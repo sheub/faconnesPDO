@@ -109,7 +109,7 @@ class MyDrawer extends Component {
       visibility: props.visibility,
       list1Open: false,
       listLoisirOpen: false,
-      listAgendaOpen: false,
+      listAgendaOpen: true,
       listUsefullOpen: false,
       checked: filtered,
       dateFrom: new Date(), //Today

@@ -149,20 +149,12 @@ class ListVue extends React.Component {
     if(typeof item.layer === "undefined") {
       item.layer = {};
       // item.layer.id = returnLayerIDfromFeatureId(item.properties.feature_id);
-      item.layerId = returnLayerIDfromFeatureId(item.properties.feature_id);
+      item.layerId = returnLayerIDfromFeatureId(item.properties.Signe_UE);
     } else {
       item.layerId = item.layer.id;
     }
 
     let info = {};
-    info.address = "";
-    if (
-      [
-        "PDO",
-      ].includes(item.layerId)//item.layer.id)
-    ) {
-      info.address = item.properties.address_locality;
-    }
 
     switch (lang) {
     case "fr":
@@ -237,7 +229,7 @@ class ListVue extends React.Component {
         </MuiExpansionPanelSummary>
         <MuiExpansionPanelDetails className={classes.ExpansionPanelDetailsRoot}>
           {/* <Typography>{info.description}</Typography> */}
-          <RenderThumbnail props={this.props.infoPopup.properties}/>
+          <RenderThumbnail props={item.properties}/>
           <Typography><span dangerouslySetInnerHTML={{ __html: info.description }} /></Typography>
           <RenderDateTime infoPopup={item} props={this.props} />
           <RenderUrl infoPopup={item} props={this.props} />
