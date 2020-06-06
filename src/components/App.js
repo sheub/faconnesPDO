@@ -3,20 +3,23 @@ import React, { Component } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { connect } from "react-redux";
 import Map from "./Map";
-import { setStateFromURL } from "../actions/index";
-import AppbarDrawer from "./AppbarDrawer";
+import { setStateFromURL, setStateValue } from "../actions/index";
 
 import "./myAssembly.css";
 
 const ListVue = React.lazy(() => import("./ListVue"));
 const Search = React.lazy(() => import("./Search"));
-// const Directions = React.lazy(() => import("./Directions"));
 const MyPlaceInfo = React.lazy(() => import("./MyPlaceInfo"));
+const MyDrawer = React.lazy(() => import("./MyDrawer"));
+
 
 class App extends Component {
   componentWillMount() {
     this.props.setStateFromURL();
   }
+  handleDrawerClose = () => {
+    this.props.setDrawerState(false);
+  };
 
   render() {
     var moveOnLoad = !this.props.url
@@ -30,22 +33,25 @@ class App extends Component {
     return (
       <Router>
         <div className="root">
-          <AppbarDrawer />
+          <React.Suspense fallback={<div> Loading Marvelous Drawer...</div>}>
+            <MyDrawer
+              // open={this.props.drawerOpen}
+              handleDrawerClose={this.handleDrawerClose}
+            />
+          </React.Suspense>
+
+
           <div id="mapCont">
             <Map moveOnLoad={moveOnLoad} />
             <div
               className="relative fl m12 flex-parent flex-parent--column w-full-xs"
               style={styleSearch}
             >
-              {/* {this.props.mode === "directions" ? (
-                <React.Suspense fallback={<div> Loading Directions...</div>}>
-                  <Directions />
-                </React.Suspense>
-              ) : ( */}
+
               <React.Suspense fallback={<div> Loading Search...</div>}>
                 <Search />
               </React.Suspense>
-              {/* )} */}
+
               {this.props.searchLocation &&
               this.props.searchLocation.properties ? (
                   <React.Suspense fallback={<div> </div>}>
@@ -76,10 +82,9 @@ App.propTypes = {
   listVueItems: PropTypes.array,
   coorOnClick: PropTypes.array,
   mode: PropTypes.string,
-  // route: PropTypes.object,
-  // routeStatus: PropTypes.string,
   setStateFromURL: PropTypes.func,
   url: PropTypes.string,
+  setDrawerState: PropTypes.func,
 };
 
 const mapStateToProps = state => {
@@ -88,8 +93,6 @@ const mapStateToProps = state => {
     listVueItems: state.app.listVueItems,
     coorOnClick: state.app.coorOnClick,
     mode: state.app.mode,
-    // route: state.app.route,
-    // routeStatus: state.app.routeStatus,
     searchLocation: state.app.searchLocation,
     url: state.router.location.pathname,
   };
@@ -98,8 +101,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     setStateFromURL: () => dispatch(setStateFromURL()),
+    setDrawerState: (drawerOpen) =>
+      dispatch(setStateValue("drawerOpen", drawerOpen)),
   };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
-// export default connect(mapStateToProps)(App);

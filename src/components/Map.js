@@ -150,10 +150,6 @@ class MapComponent extends Component {
       this.toggleLayerVisibility(this.props.toggleLayerVisibility);
     }
 
-    if (this.props.needMapFilterByDate) {
-      this.filterByDate(this.props.dateFrom, this.props.dateTo);
-    }
-
     if (this.props.needMapFilterString) {
       this.filterStringContain(this.props.filterString);
     }
@@ -164,12 +160,10 @@ class MapComponent extends Component {
       // in setLanguage, we use the original style of the map
       // -> It is necessary to switch and filter all visible layers again (quick hack, there is certainly a more efficient way)
       this.initLayerVisibility();
-      this.filterByDate(this.props.dateFrom, this.props.dateTo);
     }
 
     this.props.setStateValue("needMapUpdate", false);
     this.props.setStateValue("needMapToggleLayer", false);
-    this.props.setStateValue("needMapFilterByDate", false);
     this.props.setStateValue("needMapFilterString", false);
     this.props.setStateValue("needMapActualizeLanguage", false);
   }
@@ -653,7 +647,6 @@ MapComponent.propTypes = {
   moveOnLoad: PropTypes.bool,
   needMapRepan: PropTypes.bool,
   needMapToggleLayer: PropTypes.bool,
-  needMapFilterByDate: PropTypes.bool,
   needMapFilterString: PropTypes.bool,
   needMapActualizeLanguage: PropTypes.bool,
   needMapUpdate: PropTypes.bool,
@@ -688,7 +681,6 @@ const mapStateToProps = (state) => {
     needMapRepan: state.app.needMapRepan,
     needMapToggleLayer: state.app.needMapToggleLayer,
     needMapActualizeLanguage: state.app.needMapActualizeLanguage,
-    needMapFilterByDate: state.app.needMapFilterByDate,
     needMapFilterString: state.app.needMapFilterString,
     needMapString: state.app.needMapString,
     needMapUpdate: state.app.needMapUpdate,

@@ -64,9 +64,9 @@ class Search extends Component {
     this.props.setDrawerState(true);
   };
 
-  handleDrawerClose = () => {
-    this.props.setDrawerState(false);
-  };
+  // handleDrawerClose = () => {
+  //   this.props.setDrawerState(false);
+  // };
 
   render() {
     const { open, classes } = this.props;

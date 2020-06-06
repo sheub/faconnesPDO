@@ -19,10 +19,8 @@ import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import Collapse from "@material-ui/core/Collapse";
 import ListSubheader from "@material-ui/core/ListSubheader";
-// import Typography from "@material-ui/core/Typography";
 
 import { returnImage, layerSelector } from "../utils/displayUtils";
-// import MyDatePicker from "./MyDatePicker";
 import ButtonsUser from "./ButtonsUser";
 import Footer from "./Footer.js";
 
@@ -44,10 +42,10 @@ const styles = theme => ({
     ...theme.mixins.toolbar,
   },
 
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-  },
+  // drawerClass: {
+  //   width: drawerWidth,
+  //   flexShrink: 0,
+  // },
 
   drawerPaper: {
     height: "auto",
@@ -68,10 +66,7 @@ const styles = theme => ({
       display: "none",
     },
   },
-  drawerPaperClose: {
-    overflowX: "hidden",
-    width: 0,
-  },
+
   collapses: {
     // overflowY: "auto",
   },
@@ -108,67 +103,45 @@ class MyDrawer extends Component {
     this.state = {
       visibility: props.visibility,
       list1Open: false,
-      listLoisirOpen: false,
+      // listLoisirOpen: false,
       listAgendaOpen: true,
-      listUsefullOpen: false,
+      listCategoriesOpen: false,
       checked: filtered,
-      dateFrom: new Date(), //Today
-      dateTo: new Date(), // Today plus one day
+      leftState: false,
     };
 
   }
-
-  handleDateChange = date => {
-    let tempDate = this.state.dateTo;
-    if (this.state.dateTo < date) {
-      this.setState({
-        dateFrom: date,
-        dateTo: date
-      });
-      tempDate = date;
-    } else {
-      this.setState({ dateFrom: date });
-    }
-
-    this.props.setStateValues({
-      dateFrom: Date.parse(date),
-      dateTo: Date.parse(tempDate),
-      needMapFilterByDate: true
-    });
-
-    this.props.triggerMapUpdate();
-  };
-
-  handleDateToChange = date => {
-    this.setState({ dateTo: date });
-
-    this.props.setStateValues({
-      dateFrom: Date.parse(this.state.dateFrom),
-      dateTo: Date.parse(date),
-      needMapFilterByDate: true
-    });
-    this.props.triggerMapUpdate();
-  };
 
   handleDrawerClose = () => {
     this.props.open = false;
     this.props.setDrawerState(false);
   };
 
+  toggleDrawer = () => event => {
+    // if (
+    //   event.type === "keydown" &&
+    //   (event.key === "Tab" || event.key === "Shift")
+    // ) {
+    //   return;
+    // }
+    this.props.setDrawerState(false);
+    // this.setState({ ...this.state, [side]: open });
+  };
+
   handleClick = () => {
     this.setState(state => ({ list1Open: !state.list1Open }));
   };
 
-  handleClickLoisirOpen = () => {
-    this.setState(state => ({ listLoisirOpen: !state.listLoisirOpen }));
-  };
+  // handleClickLoisirOpen = () => {
+  //   this.setState(state => ({ listLoisirOpen: !state.listLoisirOpen }));
+  // };
 
   handleClickListAgendaOpen = () => {
     this.setState(state => ({ listAgendaOpen: !state.listAgendaOpen }));
   };
 
-  handleClickListUsefullOpen = () => {
-    this.setState(state => ({ listUsefullOpen: !state.listUsefullOpen }));
+  handleClickListCategoriesOpen = () => {
+    this.setState(state => ({ listCategoriesOpen: !state.listCategoriesOpen }));
   };
 
   handleToggle(value) {
@@ -197,7 +170,7 @@ class MyDrawer extends Component {
   }
 
   render() {
-    const { classes, i18n } = this.props;
+    const { classes } = this.props;
     return (
       <div>
         <I18n ns="translations">
@@ -205,15 +178,15 @@ class MyDrawer extends Component {
             <React.Fragment>
               <div className={classes.root}>
                 <Drawer
-                  variant="persistent"
                   anchor="left"
+                  transitionDuration={{ enter: 500, exit: 500 }}
                   classes={{
                     paper: classNames(
                       classes.drawerPaper,
-                      !this.props.drawerOpen && classes.drawerPaperClose
                     )
                   }}
                   open={this.props.drawerOpen}
+                  ModalProps={{ onBackdropClick: this.toggleDrawer("left", false) }}
                 >
                   <div className={classes.toolbarIcon}>
                     <IconButton
@@ -225,131 +198,6 @@ class MyDrawer extends Component {
                   </div>
                   <Divider />
 
-                  {/* <Typography variant="h6" className={classes.fontStyle}>
-                    {" "}
-                    {t("drawer.SelectCategories")}
-                  </Typography>
-                  <Divider />
-
-                  <ListItem
-                    button
-                    onClick={this.handleClick}
-                    aria-label="Open Culture et Patrimoine"
-                    id="ButtonCultureHeritage"
-                  >
-                    <ListSubheader
-                      style={{ color: "black", fontSize: "16px" }}
-                      title={t("drawer.main1Title")}
-                    >
-                      {" "}
-                      {t("drawer.main1")}{" "}
-                    </ListSubheader>
-                    {this.state.list1Open ? (
-                      <ExpandLess className={classes.expandIcons} />
-                    ) : (
-                      <ExpandMore className={classes.expandIcons} />
-                    )}
-                  </ListItem> */}
-                  {/* <Collapse
-                    in={this.state.list1Open}
-                    timeout="auto"
-                    unmountOnExit
-                    className={classes.collapses}
-                  >
-                    <List>
-                      {[
-                        "Villages",
-                        "Unesco",
-                        "Museum",
-                        "Jardins",
-                        "GSF",
-                        "MN",
-                        "VilleEtPaysArtHistoire"
-                      ].map((value, index) => (
-                        <ListItem
-                          key={value}
-                          role={undefined}
-                          dense
-                          button
-                          className={classes.listItemStyle}
-                          title={t("drawer." + value + "Title")}
-                          onClick={this.handleToggle.bind(this, value)}
-                        >
-                          <Checkbox
-                            checked={this.state.checked.indexOf(value) !== -1}
-                            tabIndex={-1}
-                            disableRipple
-                          />
-                          <ListItemText primary={t("drawer." + value)} />
-                          <ListItemSecondaryAction
-                            className={classes.listItemStyle}
-                          >
-                            {returnImage(layerSelector[value].source)}
-                          </ListItemSecondaryAction>
-                        </ListItem>
-                      ))}
-                    </List>
-                  </Collapse>
-                  <Divider light /> */}
-
-                  {/* <ListItem
-                    button
-                    onClick={this.handleClickLoisirOpen}
-                    aria-label="Open Loisirs et Artisanat"
-                    id="ButtonLoisir"
-                  >
-                    <ListSubheader
-                      title={t("drawer.main2")}
-                      style={{ color: "black", fontSize: "16px" }}
-                    >
-                      {t("drawer.main2")}
-                    </ListSubheader>
-                    {this.state.listLoisirOpen ? (
-                      <ExpandLess className={classes.expandIcons} />
-                    ) : (
-                      <ExpandMore className={classes.expandIcons} />
-                    )}
-                  </ListItem>
-                  <Collapse
-                    in={this.state.listLoisirOpen}
-                    timeout="auto"
-                    unmountOnExit
-                    className={classes.collapses}
-                  >
-                    <List>
-                      {[
-                        "LocalProdShop",
-                        "CraftmanShop",
-                        "WineCelar",
-                        "Marches",
-                        "VidesGreniers",
-                        "OTFrance"
-                      ].map(value => (
-                        <ListItem
-                          key={value}
-                          role={undefined}
-                          dense
-                          button
-                          className={classes.listItemStyle}
-                          title={t("drawer." + value + "Title")}
-                          onClick={this.handleToggle.bind(this, value)}
-                        >
-                          <Checkbox
-                            checked={this.state.checked.indexOf(value) !== -1}
-                            tabIndex={-1}
-                            disableRipple
-                          />
-                          <ListItemText primary={t("drawer." + value)} />
-                          <ListItemSecondaryAction
-                            className={classes.listItemStyle}
-                          >
-                            {returnImage(layerSelector[value].source)}
-                          </ListItemSecondaryAction>
-                        </ListItem>
-                      ))}
-                    </List>
-                  </Collapse>
-                  <Divider light /> */}
 
                   <ListItem
                     button
@@ -405,11 +253,11 @@ class MyDrawer extends Component {
                     </List>
                   </Collapse>
                   <Divider />
-{/*
+
                   <ListItem
                     button
-                    onClick={this.handleClickListUsefullOpen}
-                    aria-label="Open Usefull facts"
+                    onClick={this.handleClickListCategoriesOpen}
+                    aria-label="Open Categories"
                     id="Button"
                     style={{ backgroundColor: "white" }}
                   >
@@ -419,46 +267,13 @@ class MyDrawer extends Component {
                     >
                       {t("drawer.main4")}
                     </ListSubheader>
-                    {this.state.listUsefullOpen ? (
+                    {this.state.listCategoriesOpen ? (
                       <ExpandLess className={classes.expandIcons} />
                     ) : (
                       <ExpandMore className={classes.expandIcons} />
                     )}
-                  </ListItem> */}
-                  {/* <Collapse
-                    in={this.state.listUsefullOpen}
-                    timeout="auto"
-                    unmountOnExit
-                    className={classes.collapses}
-                  >
-                    <List>
-                      {["Toilets", "Baignades"].map(value => (
-                        <ListItem
-                          key={value}
-                          role={undefined}
-                          dense
-                          button
-                          className={classes.listItemStyle}
-                          title={t("drawer." + value + "Title")}
-                          onClick={this.handleToggle.bind(this, value)}
-                        >
-                          <Checkbox
-                            checked={this.state.checked.indexOf(value) !== -1}
-                            tabIndex={-1}
-                            disableRipple
-                          />
-                          <ListItemText primary={t("drawer." + value)} />
-                          <ListItemSecondaryAction
-                            className={classes.listItemStyle}
-                          >
-                            {returnImage(layerSelector[value].source)}
-                          </ListItemSecondaryAction>
-                        </ListItem>
-                      ))}
-                    </List>
-                  </Collapse> */}
+                  </ListItem>
                   <Divider />
-
                   {/* Buttons/Menus user Login and Language Settings */}
                   <ButtonsUser/>
 
@@ -468,11 +283,6 @@ class MyDrawer extends Component {
             </React.Fragment>
           )}
         </I18n>
-        {/* {this.state.ProfilePageFormVisible ? (
-          <React.Suspense fallback={<div> </div>}>
-            <ProfilePage handleClose={this.handleClose} />
-          </React.Suspense>
-        ) : null} */}
       </div>
     );
   }
