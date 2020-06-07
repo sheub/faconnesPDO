@@ -12,7 +12,6 @@ import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import Checkbox from "@material-ui/core/Checkbox";
 import IconButton from "@material-ui/core/IconButton";
 import ExpandLess from "@material-ui/icons/ExpandLess";
@@ -20,7 +19,7 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 import Collapse from "@material-ui/core/Collapse";
 import ListSubheader from "@material-ui/core/ListSubheader";
 
-import { returnImage, layerSelector } from "../utils/displayUtils";
+import { layerSelector, classEUSelector } from "../utils/displayUtils";
 import ButtonsUser from "./ButtonsUser";
 import Footer from "./Footer.js";
 
@@ -89,6 +88,11 @@ const styles = theme => ({
     cursor: "default",
     display: "inline-block",
   },
+
+  listSubHeader: {
+    color: "black",
+    fontSize: "16px",
+  }
 });
 
 class MyDrawer extends Component {
@@ -99,14 +103,20 @@ class MyDrawer extends Component {
     var filtered = Object.keys(props.visibility).filter(function(key) {
       return props.visibility[key];
     });
+    // Get all visible layers to set the checkboxes
+    var categoriesFiltered = Object.keys(props.categoriesVisibility).filter(function(key) {
+      return props.categoriesVisibility[key];
+    });
 
     this.state = {
       visibility: props.visibility,
+      categoriesVisibility: props.categoriesVisibility,
       list1Open: false,
       // listLoisirOpen: false,
-      listAgendaOpen: true,
+      listDesignationOpen: true,
       listCategoriesOpen: false,
       checked: filtered,
+      categoriesChecked: categoriesFiltered,
       leftState: false,
     };
 
@@ -136,8 +146,8 @@ class MyDrawer extends Component {
   //   this.setState(state => ({ listLoisirOpen: !state.listLoisirOpen }));
   // };
 
-  handleClickListAgendaOpen = () => {
-    this.setState(state => ({ listAgendaOpen: !state.listAgendaOpen }));
+  handleClickListDesignationOpen = () => {
+    this.setState(state => ({ listDesignationOpen: !state.listDesignationOpen }));
   };
 
   handleClickListCategoriesOpen = () => {
@@ -165,6 +175,40 @@ class MyDrawer extends Component {
       toggleLayerVisibility: layerSelector[value].source,
       visibility: visibilityTemp,
       needMapToggleLayer: true
+    });
+    this.props.triggerMapUpdate();
+  }
+
+  handleToggleClassEU(value) {
+    const { categoriesChecked } = this.state;
+    const currentIndex = categoriesChecked.indexOf(value);
+    const newChecked = [...categoriesChecked];
+
+    // let visibilityTemp = { ...this.props.visibility };
+    if (currentIndex === -1) {
+      newChecked.push(value);
+      // newCheckedCategories.push(classEUSelector[value].source);
+      // visibilityTemp = { ...this.props.visibility, [value]: true };
+    } else {
+      newChecked.splice(currentIndex, 1);
+      // newCheckedCategories.splice(currentIndex, 1);
+      // visibilityTemp = { ...this.props.visibility, [value]: false };
+    }
+    this.setState({
+      categoriesChecked: newChecked
+    });
+    const newCheckedCategoriesArray = [];
+
+    // loop over values
+    for (let value of Object.values(categoriesChecked)) {
+      // if(classEUSelector[value]) {
+        newCheckedCategoriesArray.push(classEUSelector[value].source);
+      // }
+    }
+
+    this.props.setStateValues({
+      checkedCategoriesArray: newCheckedCategoriesArray,
+      needMapFilterCategories: true
     });
     this.props.triggerMapUpdate();
   }
@@ -201,30 +245,28 @@ class MyDrawer extends Component {
 
                   <ListItem
                     button
-                    onClick={this.handleClickListAgendaOpen}
-                    aria-label="Open Agenda"
-                    id="ButtonAgenda"
+                    onClick={this.handleClickListDesignationOpen}
+                    aria-label={t("drawer.main3")}
+                    id="ButtonDesignation"
                     style={{ backgroundColor: "white" }}
                   >
-                    <ListSubheader
-                      title={t("drawer.main3")}
-                      style={{ color: "black", fontSize: "16px" }}
-                    >
+                    <ListSubheader title={t("drawer.main3")} className={classes.listSubHeader} >
                       {t("drawer.main3")}
                     </ListSubheader>
-                    {this.state.listAgendaOpen ? (
+
+                    {this.state.listDesignationOpen ? (
                       <ExpandLess className={classes.expandIcons} />
                     ) : (
                       <ExpandMore className={classes.expandIcons} />
                     )}
                   </ListItem>
                   <Collapse
-                    in={this.state.listAgendaOpen}
+                    in={this.state.listDesignationOpen}
                     timeout="auto"
                     unmountOnExit
                     className={classes.collapses}
                   >
-                    <List>
+                    <List dense={true}>
                       {Object.keys(layerSelector).map(value => (
                         <ListItem
                           key={value}
@@ -235,19 +277,11 @@ class MyDrawer extends Component {
                           title={t("drawer." + value + "Title")}
                           onClick={this.handleToggle.bind(this, value)}
                         >
-                          <Checkbox
-                            checked={this.state.checked.indexOf(value) !== -1}
-                            tabIndex={-1}
-                            disableRipple
-                          />
+                          <Checkbox checked={this.state.checked.indexOf(value) !== -1} tabIndex={-1} disableRipple />
                           <ListItemText primary={t("drawer." + value)} />
-                          <ListItemSecondaryAction
-                            className={classes.listItemStyle}
-                          >
-                            {
-                              returnImage(layerSelector[value].source)
-                            }
-                          </ListItemSecondaryAction>
+                          {/* <ListItemSecondaryAction className={classes.listItemStyle} >
+                            { returnImage(layerSelector[value].source) }
+                          </ListItemSecondaryAction> */}
                         </ListItem>
                       ))}
                     </List>
@@ -261,10 +295,7 @@ class MyDrawer extends Component {
                     id="Button"
                     style={{ backgroundColor: "white" }}
                   >
-                    <ListSubheader
-                      title={t("drawer.main4")}
-                      style={{ color: "black", fontSize: "16px" }}
-                    >
+                    <ListSubheader title={t("drawer.main4")} className={classes.listSubHeader} >
                       {t("drawer.main4")}
                     </ListSubheader>
                     {this.state.listCategoriesOpen ? (
@@ -273,6 +304,32 @@ class MyDrawer extends Component {
                       <ExpandMore className={classes.expandIcons} />
                     )}
                   </ListItem>
+                  <Collapse
+                    in={this.state.listCategoriesOpen}
+                    timeout="auto"
+                    unmountOnExit
+                    className={classes.collapses}
+                  >
+                    <List>
+                      {Object.keys(classEUSelector).map(value => (
+                        <ListItem
+                          key={value}
+                          role={undefined}
+                          dense
+                          button
+                          className={classes.listItemStyle}
+                          title={t("drawer." + value)}
+                          onClick={this.handleToggleClassEU.bind(this, value)}
+                        >
+                          <Checkbox categoriesChecked={this.state.categoriesChecked.indexOf(value) !== -1} tabIndex={-1} disableRipple />
+                          <ListItemText primary={t("drawer." + value)} />
+                          {/* <ListItemSecondaryAction className={classes.listItemStyle} >
+                            { returnImage(layerSelector[value].source) }
+                          </ListItemSecondaryAction> */}
+                        </ListItem>
+                      ))}
+                    </List>
+                  </Collapse>
                   <Divider />
                   {/* Buttons/Menus user Login and Language Settings */}
                   <ButtonsUser/>
@@ -294,6 +351,7 @@ MyDrawer.propTypes = {
   toggleLayerVisibility: PropTypes.string,
   triggerMapUpdate: PropTypes.func,
   visibility: PropTypes.object,
+  categoriesVisibility:  PropTypes.object,
   drawerOpen: PropTypes.bool,
   setDrawerState: PropTypes.func,
 };
@@ -302,6 +360,7 @@ const mapStateToProps = state => {
   return {
     toggleLayerVisibility: state.app.toggleLayerVisibility,
     visibility: state.app.visibility,
+    categoriesVisibility: state.app.categoriesVisibility,
     drawerOpen: state.app.drawerOpen
   };
 };

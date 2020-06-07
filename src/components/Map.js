@@ -105,33 +105,33 @@ class MapComponent extends Component {
     if (this.props.mode === "localAutocomplete") {
       if (this.props.listVueItems.length > 1) {
         // if (this.props.searchLocation.geometry) {
-          // let searchResultSource = this.map.getSource("searchResult");
-          // if (typeof searchResultSource === "undefined") {
-          //   return;
-          // }
-          // console.log(this.props.listVueItems);
-          var jsonFeatureCollection = {};
-          jsonFeatureCollection.FeatureCollection = this.props.listVueItems;
-          // jsonFeatureCollection.value = this.props.listVueItems;
-          jsonFeatureCollection = {
-            "type": "FeatureCollection",
-            "features": this.props.listVueItems
-          };
-          // console.log(jsonFeatureCollection);
-          // console.log(jsonArray);
-          // this.map
-          //   .getSource("searchResult")
-          //   .setData(jsonFeatureCollection);
-            this.map.getSource('searchResult').setData({
-              "type": "FeatureCollection",
-              "features": this.props.listVueItems
-            });
-      //   }
-    }
+        // let searchResultSource = this.map.getSource("searchResult");
+        // if (typeof searchResultSource === "undefined") {
+        //   return;
+        // }
+        // console.log(this.props.listVueItems);
+        var jsonFeatureCollection = {};
+        jsonFeatureCollection.FeatureCollection = this.props.listVueItems;
+        // jsonFeatureCollection.value = this.props.listVueItems;
+        jsonFeatureCollection = {
+          type: "FeatureCollection",
+          features: this.props.listVueItems,
+        };
+        // console.log(jsonFeatureCollection);
+        // console.log(jsonArray);
+        // this.map
+        //   .getSource("searchResult")
+        //   .setData(jsonFeatureCollection);
+        this.map.getSource("searchResult").setData({
+          type: "FeatureCollection",
+          features: this.props.listVueItems,
+        });
+        //   }
+      }
       //      else {
       //   this.map.getSource("searchResult").setData(this.emptyData);
       // }
-  }
+    }
 
     if (this.props.needMapRepan) {
       // Search mode
@@ -139,7 +139,7 @@ class MapComponent extends Component {
         this.props.mode === "search" ||
         this.props.mode === "localAutocomplete"
       ) {
-        import("../utils/moveTo").then(moveTo => {
+        import("../utils/moveTo").then((moveTo) => {
           moveTo.moveTo(this.map, this.props.searchLocation, 11);
         });
         // this.queryAndRenderFeatures(this.props.searchLocation);
@@ -152,6 +152,10 @@ class MapComponent extends Component {
 
     if (this.props.needMapFilterString) {
       this.filterStringContain(this.props.filterString);
+    }
+
+    if (this.props.needMapFilterCategories) {
+      this.filterClassEU(this.props.checkedCategoriesArray);
     }
 
     if (this.props.needMapActualizeLanguage) {
@@ -223,9 +227,8 @@ class MapComponent extends Component {
   }
 
   async onClick(e) {
-
     var filter = { layers: this.selectableLayers };
-    var coords = {lng:  e.lngLat["lng"], lat: e.lngLat["lat"]};
+    var coords = { lng: e.lngLat["lng"], lat: e.lngLat["lat"] };
 
     var point = this.map.project(coords);
 
@@ -235,14 +238,13 @@ class MapComponent extends Component {
     ];
 
     var features = this.map.queryRenderedFeatures(bbox, filter);
-    this.setInfoItemAndRenderPopup (features);
+    this.setInfoItemAndRenderPopup(features);
 
     // this.queryFeaturesAndRenderPopup(coords, filter);
-  };
+  }
 
-  setInfoItemAndRenderPopup (features) {
-
-    if(!features.length){
+  setInfoItemAndRenderPopup(features) {
+    if (!features.length) {
       return;
     } else {
       // We have a selected feature
@@ -259,8 +261,7 @@ class MapComponent extends Component {
             paintColor = feature.layer.paint["text-color"];
           }
         }
-      }
-      else {
+      } else {
         paintColor = feature.paintColor;
         feature.layer = feature.layerId;
       }
@@ -302,7 +303,6 @@ class MapComponent extends Component {
         this.props.setStateValue("listVueActive", false);
         this.props.setStateValue("popupActive", true);
       }
-
 
       let infoItem = this.setInfoItem(place_name, feature, paintColor);
       this.props.setStateValue("infoPopup", infoItem);
@@ -360,11 +360,7 @@ class MapComponent extends Component {
 
       let place_name = null;
 
-      if (
-        [
-          "PDO",
-        ].includes(feature.layer.id)
-      ) {
+      if (["PDO"].includes(feature.layer.id)) {
         let lng = this.props.languageSet;
         if (lng === "fr") {
           place_name = feature.properties.productName;
@@ -390,7 +386,12 @@ class MapComponent extends Component {
         this.props.setStateValue("listVueActive", false);
       }
 
-      let infoItem = this.setInfoItem(place_name, feature, paintColor, listVueActive);
+      let infoItem = this.setInfoItem(
+        place_name,
+        feature,
+        paintColor,
+        listVueActive,
+      );
       this.props.setStateValue("infoPopup", infoItem);
       this.props.setStateValue("searchLocation", infoItem);
       // since Collapsible List Display no popupInfo required
@@ -412,7 +413,7 @@ class MapComponent extends Component {
 
   onLoad() {
     // helper to set geolocation
-    const setGeolocation = data => {
+    const setGeolocation = (data) => {
       const geometry = {
         type: "Point",
         coordinates: [data.coords.longitude, data.coords.latitude],
@@ -422,7 +423,7 @@ class MapComponent extends Component {
 
       if (this.props.moveOnLoad) {
         import("../utils/moveTo") // moveTo function dynamic import
-          .then(moveTo => {
+          .then((moveTo) => {
             moveTo.moveTo(this.map, geometry, 6);
           });
       }
@@ -442,8 +443,8 @@ class MapComponent extends Component {
     }
 
     // Set event listeners
-    this.map.on("click", e => this.onClick(e));
-    this.map.on("mousemove", e => {
+    this.map.on("click", (e) => this.onClick(e));
+    this.map.on("mousemove", (e) => {
       var features = this.map.queryRenderedFeatures(e.point, {
         layers: this.selectableLayers,
       });
@@ -476,7 +477,7 @@ class MapComponent extends Component {
 
   initLayerVisibility() {
     import("../utils/displayUtils").then(({ layerSelector }) => {
-      Object.keys(this.props.visibility).forEach(key => {
+      Object.keys(this.props.visibility).forEach((key) => {
         if (this.props.visibility[key]) {
           this.map.setLayoutProperty(
             layerSelector[key].source,
@@ -516,46 +517,34 @@ class MapComponent extends Component {
         "visible",
       );
     }
+    // this.filterClassEU(["Vins", "Fromages"]);
   }
 
-  // filterByDate(dateFrom, dateTo) {
-  //   if (dateTo !== dateFrom) {
-  //     let filterTo = ["<=", dateFrom, ["number", ["get", "valid_through"]]];
-  //     let filterFrom = [">", dateTo, ["number", ["get", "valid_from"]]];
+  filterClassEU(classEU) {
+    this.map.setFilter("filtered_siqo_IGP", [
+      "match",
+      ["get", "Classe_UE"],
+      classEU,
+      true,
+      false,
+    ]);
 
-  //     this.map.setFilter("musique", ["all", filterFrom, filterTo]);
-  //     this.map.setFilter("exposition", ["all", filterFrom, filterTo]);
-  //     this.map.setFilter("children", ["all", filterFrom, filterTo]);
-  //     this.map.setFilter("videsgreniers", ["all", filterFrom, filterTo]);
-  //     this.map.setFilter("marches", ["all", filterFrom, filterTo]);
-  //   } else {
-  //     this.map.setFilter("musique", [
-  //       "<=",
-  //       dateFrom,
-  //       ["number", ["get", "valid_from"]],
-  //     ]);
-  //     this.map.setFilter("exposition", [
-  //       "<=",
-  //       dateFrom,
-  //       ["number", ["get", "valid_from"]],
-  //     ]);
-  //     this.map.setFilter("children", [
-  //       "<=",
-  //       dateFrom,
-  //       ["number", ["get", "valid_from"]],
-  //     ]);
-  //     this.map.setFilter("videsgreniers", [
-  //       "<=",
-  //       dateFrom,
-  //       ["number", ["get", "valid_from"]],
-  //     ]);
-  //     this.map.setFilter("marches", [
-  //       "<=",
-  //       dateFrom,
-  //       ["number", ["get", "valid_from"]],
-  //     ]);
-  //   }
-  // }
+    this.map.setFilter("filtered_siqo_AOP", [
+      "match",
+      ["get", "Classe_UE"],
+      classEU,
+      true,
+      false,
+    ]);
+    this.map.setFilter("filtered_siqo_IG", [
+      "match",
+      ["get", "Classe_UE"],
+      classEU,
+      true,
+      false,
+    ]);
+    // needMapFilterCategories: false
+  }
 
   filterStringContain(stringInput) {
     let filterString = ["in", stringInput, ["string", ["get", "productName"]]];
@@ -567,7 +556,6 @@ class MapComponent extends Component {
     let filterString = ["in", undef, ["string", ["get", "productName"]]];
 
     this.map.setFilter("PDO", filterString, false);
-
   }
 
   layerToKey(layer) {
@@ -577,14 +565,14 @@ class MapComponent extends Component {
   }
 
   takeScreenshot(map) {
-    return new Promise(function(resolve, reject) {
-      map.once("idle", function() {
+    return new Promise(function (resolve, reject) {
+      map.once("idle", function () {
         resolve(map.getCanvas().toDataURL());
       });
       /* trigger render */
       map.setBearing(map.getBearing());
     });
-  };
+  }
 
   get emptyData() {
     return {
@@ -634,9 +622,11 @@ MapComponent.propTypes = {
   // accessToken: PropTypes.string,
   center: PropTypes.array,
   coorOnClick: PropTypes.array,
-  dateFrom: PropTypes.number,
-  dateTo: PropTypes.number,
+  checkedCategoriesArray: PropTypes.array,
+  // dateFrom: PropTypes.number,
+  // dateTo: PropTypes.number,
   filterString: PropTypes.string,
+  filterClassEU: PropTypes.func,
   languageSet: PropTypes.string,
   legendItems: PropTypes.array,
   listVueItems: PropTypes.array,
@@ -669,18 +659,20 @@ const mapStateToProps = (state) => {
     // accessToken: state.app.mapboxAccessToken,
     center: state.app.mapCoords.slice(0, 2),
     toggleLayerVisibility: state.app.toggleLayerVisibility,
-    dateFrom: state.app.dateFrom,
-    dateTo: state.app.dateTo,
+    // dateFrom: state.app.dateFrom,
+    // dateTo: state.app.dateTo,
     filterString: state.app.filterString,
     languageSet: state.app.languageSet,
     listVueItems: state.app.listVueItems,
     listVueActive: state.app.listVueActive,
+    checkedCategoriesArray: state.app.checkedCategoriesArray,
     coorOnClick:  state.app.coorOnClick,
     modality: state.app.modality,
     mode: state.app.mode,
     needMapRepan: state.app.needMapRepan,
     needMapToggleLayer: state.app.needMapToggleLayer,
     needMapActualizeLanguage: state.app.needMapActualizeLanguage,
+    needMapFilterCategories: state.app.needMapFilterCategories,
     needMapFilterString: state.app.needMapFilterString,
     needMapString: state.app.needMapString,
     needMapUpdate: state.app.needMapUpdate,
